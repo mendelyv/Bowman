@@ -1,0 +1,12 @@
+{"file":"game_time_font.png","frames":{
+"m":{"x":110,"y":30,"w":15,"h":23,"offX":0,"offY":0,"sourceW":15,"sourceH":23},
+"0":{"x":1,"y":1,"w":21,"h":27,"offX":0,"offY":0,"sourceW":21,"sourceH":27},
+"1":{"x":93,"y":30,"w":15,"h":27,"offX":0,"offY":0,"sourceW":15,"sourceH":27},
+"2":{"x":1,"y":30,"w":21,"h":27,"offX":0,"offY":0,"sourceW":21,"sourceH":27},
+"3":{"x":24,"y":1,"w":21,"h":27,"offX":0,"offY":0,"sourceW":21,"sourceH":27},
+"4":{"x":24,"y":30,"w":21,"h":27,"offX":0,"offY":0,"sourceW":21,"sourceH":27},
+"5":{"x":47,"y":1,"w":21,"h":27,"offX":0,"offY":0,"sourceW":21,"sourceH":27},
+"6":{"x":47,"y":30,"w":21,"h":27,"offX":0,"offY":0,"sourceW":21,"sourceH":27},
+"7":{"x":70,"y":1,"w":21,"h":27,"offX":0,"offY":0,"sourceW":21,"sourceH":27},
+"8":{"x":70,"y":30,"w":21,"h":27,"offX":0,"offY":0,"sourceW":21,"sourceH":27},
+"9":{"x":93,"y":1,"w":21,"h":27,"offX":0,"offY":0,"sourceW":21,"sourceH":27}}}

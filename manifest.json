@@ -1,0 +1,37 @@
+{
+	"initial": [
+		"libs/modules/egret/egret.js",
+		"libs/modules/egret/egret.web.js",
+		"libs/modules/eui/eui.js",
+		"libs/modules/assetsmanager/assetsmanager.js",
+		"libs/modules/tween/tween.js",
+		"libs/modules/game/game.js",
+		"libs/modules/promise/promise.js"
+	],
+	"game": [
+		"bin-debug/utils/EffectUtils.js",
+		"bin-debug/AssetAdapter.js",
+		"bin-debug/LoadingUI.js",
+		"bin-debug/Main.js",
+		"bin-debug/Platform.js",
+		"bin-debug/ThemeAdapter.js",
+		"bin-debug/game/GameBg.js",
+		"bin-debug/game/GameView.js",
+		"bin-debug/game/joystick/Joystick.js",
+		"bin-debug/utils/CountdownManager.js",
+		"bin-debug/utils/DebugUtils.js",
+		"bin-debug/utils/DeviceUtils.js",
+		"bin-debug/GameConfig.js",
+		"bin-debug/utils/ETextField.js",
+		"bin-debug/utils/LocationProperty.js",
+		"bin-debug/utils/MessageCenter.js",
+		"bin-debug/utils/NumObj.js",
+		"bin-debug/utils/ObjectPool.js",
+		"bin-debug/utils/StageUtils.js",
+		"bin-debug/utils/StringUtil.js",
+		"bin-debug/utils/TimerManager.js",
+		"bin-debug/utils/Util.js",
+		"bin-debug/utils/UtilsClass/BitmapBlink.js",
+		"bin-debug/utils/UtilsClass/TipsUtils.js"
+	]
+}
