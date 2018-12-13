@@ -8,6 +8,9 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
+/**
+ * 游戏背景地图
+ */
 var GameBg = (function (_super) {
     __extends(GameBg, _super);
     function GameBg() {
@@ -16,4 +19,5 @@ var GameBg = (function (_super) {
     return GameBg;
 }(eui.Component));
 __reflect(GameBg.prototype, "GameBg");
+window["GameBg"] = GameBg;
 //# sourceMappingURL=GameBg.js.map

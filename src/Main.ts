@@ -28,10 +28,13 @@
 //////////////////////////////////////////////////////////////////////////////////////
 
 class Main extends eui.UILayer {
-   private static _instance: Main;//主类单例
+    private static _instance: Main;//主类单例
     public static get instance(): Main { return Main._instance; }
+    private static S_LOGIN: number = 0;//菜单-登录界面
+    private static S_GAMING: number = 1;//游戏
+    private _selIndex: number = -1;//当前选择的场景
 
-    private _gameView:GameView;
+    private _gameView: GameView;
     protected createChildren(): void {
         super.createChildren();
 
@@ -61,15 +64,17 @@ class Main extends eui.UILayer {
 
     private async runGame() {
         Main._instance = this;
+        this.stage.maxTouches = 2;//设置最多触摸点 只能有2个
         StageUtils.WIN_WIDTH = this.stage.stageWidth;
         StageUtils.WIN_HEIGHT = this.stage.stageHeight;
+        egret.log("stageW=", StageUtils.WIN_WIDTH, " stageH=", StageUtils.WIN_HEIGHT);
         await this.loadResource()
-        
-      
+
+
         await platform.login();
         const userInfo = await platform.getUserInfo();
         console.log(userInfo);
-        this.changeScene();
+        this.changeToGame();
     }
 
     private async loadResource() {
@@ -98,16 +103,72 @@ class Main extends eui.UILayer {
         })
     }
 
-    private changeScene():void{
-        this.createGameV();
+    //创建登录
+    private createLogin(): void {
+        // if(!this._gameView)
+        // {
+        //     this._gameView = new GameView();
+        //     this.addChild(this._gameView);
+        // }
     }
-
-    private createGameV():void{
-        if(!this._gameView)
-        {
+    //删除登录
+    public releaseLogin(): void {
+        // if (this._gameView) {
+        //     if(this._gameView.parent){
+        //         this._gameView.parent.removeChild(this._gameView);
+        //     }
+        //     this._gameView = null;
+        // }
+    }
+    //创建游戏
+    private createGameV(): void {
+        if (!this._gameView) {
             this._gameView = new GameView();
             this.addChild(this._gameView);
         }
     }
-   
+    //删除游戏
+    public releaseGame(): void {
+        if (this._gameView) {
+            if (this._gameView.parent) {
+                this._gameView.parent.removeChild(this._gameView);
+            }
+            this._gameView = null;
+        }
+    }
+    /** 切换到登录-菜单界面 */
+    public changeToLogin(): void {
+        this.changeScene(Main.S_LOGIN);
+    }
+    /**切换到游戏界面 */
+    public changeToGame(): void {
+        this.changeScene(Main.S_GAMING);
+    }
+    /**
+    * 释放所有场景
+    */
+    private releaseAll(): void {
+        this.releaseLogin();
+        this.releaseGame();
+    }
+
+    /**
+    * 改变场景
+    * @param index
+    */
+    private changeScene(index: number): void {
+        if (this._selIndex != index) {
+            this.releaseAll();
+            this._selIndex = index;
+            switch (this._selIndex) {
+                case Main.S_LOGIN:
+                    this.createLogin();
+                    break;
+                case Main.S_GAMING:
+                    this.createGameV();
+                    break;
+
+            }
+        }
+    }
 }

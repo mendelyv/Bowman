@@ -9,7 +9,7 @@
 		"libs/modules/promise/promise.js"
 	],
 	"game": [
-		"bin-debug/utils/EffectUtils.js",
+		"bin-debug/utils/DeviceUtils.js",
 		"bin-debug/AssetAdapter.js",
 		"bin-debug/LoadingUI.js",
 		"bin-debug/Main.js",
@@ -17,11 +17,12 @@
 		"bin-debug/ThemeAdapter.js",
 		"bin-debug/game/GameBg.js",
 		"bin-debug/game/GameView.js",
-		"bin-debug/game/joystick/Joystick.js",
+		"bin-debug/game/Joystick.js",
+		"bin-debug/game/Role.js",
 		"bin-debug/utils/CountdownManager.js",
 		"bin-debug/utils/DebugUtils.js",
-		"bin-debug/utils/DeviceUtils.js",
 		"bin-debug/GameConfig.js",
+		"bin-debug/utils/EffectUtils.js",
 		"bin-debug/utils/ETextField.js",
 		"bin-debug/utils/LocationProperty.js",
 		"bin-debug/utils/MessageCenter.js",

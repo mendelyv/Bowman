@@ -3,5 +3,6 @@
 	<ns1:GameBg skinName="GameBGSkin" x="-413" y="-345"/>
 	<ns1:Joystick id="joyL" skinName="JoystickSkin" anchorOffsetX="72.5" anchorOffsetY="72.5" x="152.5" y="597.5" alpha="0.3"/>
 	<ns1:Joystick id="joyR" skinName="JoystickSkin" anchorOffsetX="72.5" anchorOffsetY="72.5" alpha="0.3" x="1181.5" y="597.5"/>
+	<ns1:Role id="role" skinName="RoleSkin" y="250" x="542"/>
     
 </e:Skin>

@@ -4,3 +4,5 @@ declare class GameBGSkin extends eui.Skin{
 }
 declare class GameViewSkin extends eui.Skin{
 }
+declare class RoleSkin extends eui.Skin{
+}

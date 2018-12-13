@@ -74,7 +74,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this._selIndex = -1; //当前选择的场景
+        return _this;
     }
     Object.defineProperty(Main, "instance", {
         get: function () { return Main._instance; },
@@ -108,8 +110,10 @@ var Main = (function (_super) {
                 switch (_a.label) {
                     case 0:
                         Main._instance = this;
+                        this.stage.maxTouches = 2; //设置最多触摸点 只能有2个
                         StageUtils.WIN_WIDTH = this.stage.stageWidth;
                         StageUtils.WIN_HEIGHT = this.stage.stageHeight;
+                        egret.log("stageW=", StageUtils.WIN_WIDTH, " stageH=", StageUtils.WIN_HEIGHT);
                         return [4 /*yield*/, this.loadResource()];
                     case 1:
                         _a.sent();
@@ -120,7 +124,7 @@ var Main = (function (_super) {
                     case 3:
                         userInfo = _a.sent();
                         console.log(userInfo);
-                        this.changeScene();
+                        this.changeToGame();
                         return [2 /*return*/];
                 }
             });
@@ -166,15 +170,74 @@ var Main = (function (_super) {
             }, _this);
         });
     };
-    Main.prototype.changeScene = function () {
-        this.createGameV();
+    //创建登录
+    Main.prototype.createLogin = function () {
+        // if(!this._gameView)
+        // {
+        //     this._gameView = new GameView();
+        //     this.addChild(this._gameView);
+        // }
     };
+    //删除登录
+    Main.prototype.releaseLogin = function () {
+        // if (this._gameView) {
+        //     if(this._gameView.parent){
+        //         this._gameView.parent.removeChild(this._gameView);
+        //     }
+        //     this._gameView = null;
+        // }
+    };
+    //创建游戏
     Main.prototype.createGameV = function () {
         if (!this._gameView) {
             this._gameView = new GameView();
             this.addChild(this._gameView);
         }
     };
+    //删除游戏
+    Main.prototype.releaseGame = function () {
+        if (this._gameView) {
+            if (this._gameView.parent) {
+                this._gameView.parent.removeChild(this._gameView);
+            }
+            this._gameView = null;
+        }
+    };
+    /** 切换到登录-菜单界面 */
+    Main.prototype.changeToLogin = function () {
+        this.changeScene(Main.S_LOGIN);
+    };
+    /**切换到游戏界面 */
+    Main.prototype.changeToGame = function () {
+        this.changeScene(Main.S_GAMING);
+    };
+    /**
+    * 释放所有场景
+    */
+    Main.prototype.releaseAll = function () {
+        this.releaseLogin();
+        this.releaseGame();
+    };
+    /**
+    * 改变场景
+    * @param index
+    */
+    Main.prototype.changeScene = function (index) {
+        if (this._selIndex != index) {
+            this.releaseAll();
+            this._selIndex = index;
+            switch (this._selIndex) {
+                case Main.S_LOGIN:
+                    this.createLogin();
+                    break;
+                case Main.S_GAMING:
+                    this.createGameV();
+                    break;
+            }
+        }
+    };
+    Main.S_LOGIN = 0; //菜单-登录界面
+    Main.S_GAMING = 1; //游戏
     return Main;
 }(eui.UILayer));
 __reflect(Main.prototype, "Main");

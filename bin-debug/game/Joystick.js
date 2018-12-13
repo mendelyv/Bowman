@@ -85,7 +85,7 @@ var Joystick = (function (_super) {
         //计算数据
         this.offset = (distance / this.radius) > 1 ? 1 : (distance / this.radius); //[0,1]
         this.xAxis = (this.joystick.x - this.joyDefaultPoint.x) / this.radius; //[-1,1]
-        this.yAxis = (this.joystick.y - this.joyDefaultPoint.y) / this.radius; //[-1,1]
+        this.yAxis = -((this.joystick.y - this.joyDefaultPoint.y) / this.radius); //[-1,1]
         var sinTheta = (this.joystick.x - this.joyDefaultPoint.x) / this.radius;
         var theta = Math.abs(Math.asin(sinTheta) * (180 / Math.PI));
         this.angle = this.verifyAngleOfQuadrant(this.xAxis, this.yAxis, theta); //[0, 360)
@@ -112,6 +112,10 @@ var Joystick = (function (_super) {
         this.y = this.defaultPoint.y;
         this.joystick.x = this.joyDefaultPoint.x;
         this.joystick.y = this.joyDefaultPoint.y;
+        this.angle = 0;
+        this.xAxis = 0;
+        this.yAxis = 0;
+        this.offset = 0;
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onTouchOutside, this);
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);

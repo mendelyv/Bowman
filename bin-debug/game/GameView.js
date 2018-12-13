@@ -21,11 +21,21 @@ var GameView = (function (_super) {
         this.initEvents();
     };
     GameView.prototype.initEvents = function () {
+        this.stage.addEventListener(egret.Event.ENTER_FRAME, this.update, this);
         this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+        // this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
+    };
+    /**每帧循环处理 */
+    GameView.prototype.update = function () {
+        var angle = this.joyL.Angle;
+        var xAxis = this.joyL.XAxis;
+        var yAxis = this.joyL.YAxis;
+        var offset = this.joyL.Offset;
+        this.role.move(xAxis, yAxis, angle, offset);
     };
     GameView.prototype.onTouchBegin = function (event) {
         var touchPoint = new egret.Point(event.stageX, event.stageY);
-        if (touchPoint.x < StageUtils.WIN_WIDTH / 2) {
+        if (touchPoint.x < (StageUtils.WIN_WIDTH * 0.5)) {
             if (this.joyL.active)
                 return;
             console.log(" ===== onViewTouchBegin left ===== ");

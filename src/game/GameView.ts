@@ -4,6 +4,7 @@
 class GameView extends eui.Component {
     public joyL: Joystick;
     public joyR: Joystick;
+    public role:Role;
     public constructor() {
         super();
     }
@@ -14,12 +15,25 @@ class GameView extends eui.Component {
     }
 
     private initEvents(): void {
+        this.stage.addEventListener(egret.Event.ENTER_FRAME, this.update, this);
         this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+        // this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
     }
+    /**每帧循环处理 */
+    private update(): void {
+        let angle:number = this.joyL.Angle;
+        let xAxis:number = this.joyL.XAxis;
+        let yAxis:number = this.joyL.YAxis;
+        let offset:number = this.joyL.Offset;
+     
+        this.role.move(xAxis,yAxis,angle,offset);
 
+     
+    }
+    
     private onTouchBegin(event: egret.TouchEvent) {
         let touchPoint = new egret.Point(event.stageX, event.stageY);
-        if (touchPoint.x < (StageUtils.WIN_WIDTH *0.5)) {
+        if (touchPoint.x < (StageUtils.WIN_WIDTH * 0.5)) {
             if (this.joyL.active) return;
             console.log(" ===== onViewTouchBegin left ===== ");
             this.joyL.x = touchPoint.x;
@@ -38,4 +52,3 @@ class GameView extends eui.Component {
         this.touchEnabled = false;
     }
 }
-window["GameView"] = GameView;
