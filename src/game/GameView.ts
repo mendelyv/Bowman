@@ -30,14 +30,16 @@ class GameView extends eui.Component {
         let offset:number = this.joyL.Offset;
      
         this.role.move(xAxis,yAxis,angle,offset);
+        this.role.moveToByAngle((this.joyR.Angle - 90) * Math.PI / 180);
 
-        if(this.joyR.up)//检测到右手柄抬起信号
+        //检测到右手柄抬起信号
+        if(this.joyR.up)
         {
             console.log(" ===== shoot ===== ");
             let element = new ElementBase();
             element.x = this.role.x;
             element.y = this.role.y;
-            element.WWmoveFrom(this.role.x, this.role.y, this.role.angle, 900);
+            element.WWmoveFrom(this.role.x, this.role.y, this.role.angle, 2000);
             // element.rotation = this.joyR.Angle;
             this.elementGroup.addChild(element);
             // element.WWsetData();

@@ -106,17 +106,17 @@ class ElementBase extends egret.DisplayObjectContainer{
             // ElementManage.WWgetInstance().WWpush(self);
             //self.row = row;
             //self.col = col;
-            self.isCanColliseSelf = true;
-            if(self.x < 0){
-                self.x = 0;
-            }else if(self.x > this.mapWidth){
-                self.x = this.mapWidth;
-            }
-            if(self.y < 0){
-                self.y = 0;
-            }else if(self.y > this.mapHeight){
-                self.y = this.mapHeight;
-            }
+            // self.isCanColliseSelf = true;
+            // if(self.x < 0){
+            //     self.x = 0;
+            // }else if(self.x > this.mapWidth){
+            //     self.x = this.mapWidth;
+            // }
+            // if(self.y < 0){
+            //     self.y = 0;
+            // }else if(self.y > this.mapHeight){
+            //     self.y = this.mapHeight;
+            // }
         },this);
     }
 
