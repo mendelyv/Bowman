@@ -7,6 +7,11 @@ class GameView extends eui.Component {
     public role:Role;
     public uiGroup: eui.Group;
     public elementGroup: eui.Group;
+
+    private previousFrameTime: number = 0;
+    private shootTime: number = 0;
+    private shootDelay: number = 1000;
+
     public constructor() {
         super();
     }
@@ -24,6 +29,9 @@ class GameView extends eui.Component {
     }
     /**每帧循环处理 */
     private update(): void {
+        let deltaTime = egret.getTimer() - this.previousFrameTime;
+        this.shootTime += deltaTime;
+
         let angle:number = this.joyL.Angle;
         let xAxis:number = this.joyL.XAxis;
         let yAxis:number = this.joyL.YAxis;
@@ -33,21 +41,22 @@ class GameView extends eui.Component {
         this.role.moveToByAngle((this.joyR.Angle - 90) * Math.PI / 180);
         this.role.arrow.rotation = this.joyR.Angle - 90;
 
-        //检测到右手柄抬起信号
-        if(this.joyR.up)
+        if(this.joyR.active)
         {
-            console.log(" ===== shoot ===== ");
-            let element = new ElementBase();
-            element.x = this.role.x;
-            element.y = this.role.y;
-            element.scaleX = element.scaleY = 0.1;
-            element.WWmoveFrom(this.role.x, this.role.y, this.role.angle, 2000);
-            // element.rotation = this.joyR.Angle;
-            this.elementGroup.addChild(element);
-            // element.WWsetData();
-            this.joyR.up = false;
+            // console.log(" ===== shoot ===== ");
+            if(this.shootTime >= this.shootDelay)
+            {
+                let element = new ElementBase();
+                element.x = this.role.x;
+                element.y = this.role.y;
+                element.scaleX = element.scaleY = 0.1;
+                element.WWmoveFrom(this.role.x, this.role.y, this.role.angle, 2000);
+                this.elementGroup.addChild(element);
+                this.shootTime = 0;
+            }
         }
      
+        this.previousFrameTime = egret.getTimer();
     }
     
     private onTouchBegin(event: egret.TouchEvent) {
