@@ -48,7 +48,7 @@ class GameConfig {
     /**分裂时，分身移动时间*/
     public static fenlieTime:number = 1000;
     /*喷射时长*/
-    public static jetTime:number = 100;
+    public static jetTime:number = 10000;
 
     //获得随机头像
     // static WWgetRandomRole():number{

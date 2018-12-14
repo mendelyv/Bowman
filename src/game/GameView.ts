@@ -37,7 +37,7 @@ class GameView extends eui.Component {
             let element = new ElementBase();
             element.x = this.role.x;
             element.y = this.role.y;
-            element.WWmoveFrom(this.role.x, this.role.y, this.joyR.Angle, 900);
+            element.WWmoveFrom(this.role.x, this.role.y, this.role.angle, 900);
             // element.rotation = this.joyR.Angle;
             this.elementGroup.addChild(element);
             // element.WWsetData();
