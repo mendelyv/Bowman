@@ -31,6 +31,7 @@ class GameView extends eui.Component {
      
         this.role.move(xAxis,yAxis,angle,offset);
         this.role.moveToByAngle((this.joyR.Angle - 90) * Math.PI / 180);
+        this.role.arrow.rotation = this.joyR.Angle - 90;
 
         //检测到右手柄抬起信号
         if(this.joyR.up)
@@ -39,6 +40,7 @@ class GameView extends eui.Component {
             let element = new ElementBase();
             element.x = this.role.x;
             element.y = this.role.y;
+            element.scaleX = element.scaleY = 0.1;
             element.WWmoveFrom(this.role.x, this.role.y, this.role.angle, 2000);
             // element.rotation = this.joyR.Angle;
             this.elementGroup.addChild(element);

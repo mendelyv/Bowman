@@ -1,5 +1,6 @@
 /**角色类 */
 class Role extends eui.Component {
+	public arrow: eui.Image;
 	public role_img: eui.Image;
 	public bubble_img: eui.Image;
 	public speed: number = 5;

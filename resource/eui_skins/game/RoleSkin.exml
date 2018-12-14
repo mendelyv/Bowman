@@ -2,4 +2,5 @@
 <e:Skin class="RoleSkin" width="250" height="250" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="role_img" source="role_9_png" x="0" y="0"/>
 	<e:Image id="bubble_img" x="0" y="0" source="paopao_9_png"/>
+	<e:Image id="arrow" x="128.77" y="119" source="game_spore_dir_png" anchorOffsetX="-111.5" anchorOffsetY="28.9" rotation="0"/>
 </e:Skin>
