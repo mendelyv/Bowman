@@ -74,10 +74,12 @@ class Joystick extends eui.Component
         this.joyMovePoint.x = event.stageX;
         this.joyMovePoint.y = event.stageY;
         let distance = egret.Point.distance(this.joyStartPoint, this.joyMovePoint);
+        let sinTheta: number;
         if(distance <= this.radius)//在半径内
         {
             this.joystick.x = this.joyDefaultPoint.x + (this.joyMovePoint.x - this.joyStartPoint.x);
             this.joystick.y = this.joyDefaultPoint.y + (this.joyMovePoint.y - this.joyStartPoint.y);
+            sinTheta = (this.joystick.x - this.joyDefaultPoint.x) / distance;
         }
         else//在半径外
         {
@@ -85,13 +87,13 @@ class Joystick extends eui.Component
             let point = egret.Point.interpolate(this.joyMovePoint, this.joyStartPoint, this.radius / distance);
             this.joystick.x = this.joyDefaultPoint.x + (point.x - this.joyStartPoint.x);
             this.joystick.y = this.joyDefaultPoint.y + (point.y - this.joyStartPoint.y)
+            sinTheta = (this.joystick.x - this.joyDefaultPoint.x) / this.radius;
         }
 
         //计算数据
         this.offset = (distance / this.radius) > 1 ? 1 : (distance / this.radius);//[0,1]
         this.xAxis = (this.joystick.x - this.joyDefaultPoint.x) / this.radius;//[-1,1]
         this.yAxis = -((this.joystick.y - this.joyDefaultPoint.y) / this.radius);//[-1,1]
-        let sinTheta = (this.joystick.x - this.joyDefaultPoint.x) / this.radius;
         let theta = Math.abs(Math.asin(sinTheta) * (180 / Math.PI));
         this.angle = this.verifyAngleOfQuadrant(this.xAxis, this.yAxis, theta);//[0, 360)
         // console.log("joystick :: offset = " + this.offset + "  xAxis = " + this.xAxis + "  yAxis = " + this.yAxis + "  angle = " + this.angle);
@@ -173,7 +175,7 @@ class Joystick extends eui.Component
         {
             return 270;
         }
-        return 0;
+        return this.angle;
     }
 
 
