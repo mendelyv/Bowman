@@ -59,7 +59,7 @@ class ElementBase extends egret.DisplayObjectContainer{
         this.isCanColliseSelf = true;
 
 
-        this.img.texture = RES.getRes(Element.WWgetBitmapByID(elementID));
+        // this.img.texture = RES.getRes(Element.WWgetBitmapByID(elementID));
 
         //获得半径
         var radius:number = 200//attributeconfig.WWgetRadiusByWeight(weight);
@@ -103,7 +103,7 @@ class ElementBase extends egret.DisplayObjectContainer{
             //var height:number = sceneconfig.mapheight/sceneconfig.sceneheight;
             //var row:number = Math.floor(xPos/height);
             //var col:number = Math.floor(xPos/width);
-            ElementManage.WWgetInstance().WWpush(self);
+            // ElementManage.WWgetInstance().WWpush(self);
             //self.row = row;
             //self.col = col;
             self.isCanColliseSelf = true;
