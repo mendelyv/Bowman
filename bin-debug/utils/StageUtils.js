@@ -125,4 +125,3 @@ var StageUtils = (function () {
     return StageUtils;
 }());
 __reflect(StageUtils /*extends BaseClass */.prototype, "StageUtils");
-//# sourceMappingURL=StageUtils.js.map

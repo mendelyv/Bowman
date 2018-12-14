@@ -19,6 +19,7 @@ var GameView = (function (_super) {
     GameView.prototype.createChildren = function () {
         this.skinName = "GameViewSkin";
         this.initEvents();
+        this.joyL.resetON = true; //打开左手手柄重置数据的开关
     };
     GameView.prototype.initEvents = function () {
         this.stage.addEventListener(egret.Event.ENTER_FRAME, this.update, this);
@@ -32,13 +33,24 @@ var GameView = (function (_super) {
         var yAxis = this.joyL.YAxis;
         var offset = this.joyL.Offset;
         this.role.move(xAxis, yAxis, angle, offset);
+        if (this.joyR.up) {
+            console.log(" ===== shoot ===== ");
+            var element = new ElementBase();
+            element.x = this.role.x;
+            element.y = this.role.y;
+            element.WWmoveFrom(this.role.x, this.role.y, this.joyR.Angle, 900);
+            // element.rotation = this.joyR.Angle;
+            this.elementGroup.addChild(element);
+            // element.WWsetData();
+            this.joyR.up = false;
+        }
     };
     GameView.prototype.onTouchBegin = function (event) {
         var touchPoint = new egret.Point(event.stageX, event.stageY);
         if (touchPoint.x < (StageUtils.WIN_WIDTH * 0.5)) {
             if (this.joyL.active)
                 return;
-            console.log(" ===== onViewTouchBegin left ===== ");
+            // console.log(" ===== onViewTouchBegin left ===== ");
             this.joyL.x = touchPoint.x;
             this.joyL.y = touchPoint.y;
             this.joyL.alpha = 1;
@@ -47,7 +59,7 @@ var GameView = (function (_super) {
         else {
             if (this.joyR.active)
                 return;
-            console.log(" ===== onViewTouchBegin right ===== ");
+            // console.log(" ===== onViewTouchBegin right ===== ");
             this.joyR.x = touchPoint.x;
             this.joyR.y = touchPoint.y;
             this.joyR.alpha = 1;
@@ -58,4 +70,3 @@ var GameView = (function (_super) {
     return GameView;
 }(eui.Component));
 __reflect(GameView.prototype, "GameView");
-//# sourceMappingURL=GameView.js.map

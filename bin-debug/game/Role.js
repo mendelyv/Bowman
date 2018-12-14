@@ -41,6 +41,8 @@ var Role = (function (_super) {
         }
         this.angle = angle;
     };
+    Role.prototype.attack = function () {
+    };
     Role.prototype.move = function (xAxis, yAxis, angle, offset) {
         //获得速度
         // if(this.angle > Math.PI) {
@@ -57,8 +59,8 @@ var Role = (function (_super) {
         //         this.ySpeed -= this.frictionY;
         //     }
         // }
-        this.tempX = this.x + xAxis * this.speed * offset;
-        this.tempY = this.y + (-yAxis * this.speed * offset);
+        this.tempX = this.x + xAxis * this.speed;
+        this.tempY = this.y + (-yAxis * this.speed);
         // console.log(this.xSpeed);
         // console.log(this.ySpeed);
         //左右碰边判断
@@ -100,4 +102,3 @@ var Role = (function (_super) {
 }(eui.Component));
 __reflect(Role.prototype, "Role");
 window["Role"] = Role;
-//# sourceMappingURL=Role.js.map

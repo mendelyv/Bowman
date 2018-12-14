@@ -20,4 +20,3 @@ var GameBg = (function (_super) {
 }(eui.Component));
 __reflect(GameBg.prototype, "GameBg");
 window["GameBg"] = GameBg;
-//# sourceMappingURL=GameBg.js.map

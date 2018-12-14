@@ -12,8 +12,9 @@ class Joystick extends eui.Component
     public active: boolean = false;//是否激活
     public touchID: number;//触摸ID
     public radius: number;//摇杆可移动的极限半径
-    // public sensor: eui.Group;
-    // public joyGroup: eui.Group;
+    public resetON: boolean = false;//是否需要抬手时清空手柄输出的信号
+    public up: boolean = false;//向外输出一个手柄触摸抬起的信号
+
     private joystick: eui.Image;
     private joystickBg: eui.Image;
 
@@ -56,6 +57,7 @@ class Joystick extends eui.Component
         if(this.active) return;
 
         this.active = true;
+        this.up = false;
         this.touchID = event.touchPointID;
         this.joyStartPoint.x = event.stageX, this.joyStartPoint.y = event.stageY;
         
@@ -92,7 +94,7 @@ class Joystick extends eui.Component
         let sinTheta = (this.joystick.x - this.joyDefaultPoint.x) / this.radius;
         let theta = Math.abs(Math.asin(sinTheta) * (180 / Math.PI));
         this.angle = this.verifyAngleOfQuadrant(this.xAxis, this.yAxis, theta);//[0, 360)
-        console.log("joystick :: offset = " + this.offset + "  xAxis = " + this.xAxis + "  yAxis = " + this.yAxis + "  angle = " + this.angle);
+        // console.log("joystick :: offset = " + this.offset + "  xAxis = " + this.xAxis + "  yAxis = " + this.yAxis + "  angle = " + this.angle);
     }
 
     private onTouchOutside(event: egret.TouchEvent)
@@ -106,24 +108,30 @@ class Joystick extends eui.Component
     {
         if(event.touchPointID != this.touchID) return;
         // console.log(" ===== onJoystickTouchEnd ===== ");
+        this.up = true;//向外输出一个手柄触摸抬起的信号，使用后记得重置
         this.touchEnd();
     }
 
     /** 当触摸结束时的处理工作 */
     private touchEnd()
     {
+        //重置手柄的一些属性
         this.active = false;
         this.alpha = this.defaultAlpha;
         this.touchEnabled = false;
         this.x = this.defaultPoint.x;
         this.y = this.defaultPoint.y;
-
         this.joystick.x = this.joyDefaultPoint.x;
         this.joystick.y = this.joyDefaultPoint.y;
-        this.angle = 0;
-        this.xAxis = 0;
-        this.yAxis = 0;
-        this.offset = 0;
+
+        //重置向外输出的数据信息
+        if(this.resetON)
+        {
+            this.angle = 0;
+            this.xAxis = 0;
+            this.yAxis = 0;
+            this.offset = 0;
+        }
 
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onTouchOutside, this);

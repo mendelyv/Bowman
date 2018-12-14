@@ -5,6 +5,8 @@ class GameView extends eui.Component {
     public joyL: Joystick;
     public joyR: Joystick;
     public role:Role;
+    public uiGroup: eui.Group;
+    public elementGroup: eui.Group;
     public constructor() {
         super();
     }
@@ -12,6 +14,7 @@ class GameView extends eui.Component {
     protected createChildren() {
         this.skinName = "GameViewSkin";
         this.initEvents();
+        this.joyL.resetON = true;//打开左手手柄重置数据的开关
     }
 
     private initEvents(): void {
@@ -28,6 +31,18 @@ class GameView extends eui.Component {
      
         this.role.move(xAxis,yAxis,angle,offset);
 
+        if(this.joyR.up)//检测到右手柄抬起信号
+        {
+            console.log(" ===== shoot ===== ");
+            let element = new ElementBase();
+            element.x = this.role.x;
+            element.y = this.role.y;
+            element.WWmoveFrom(this.role.x, this.role.y, this.joyR.Angle, 900);
+            // element.rotation = this.joyR.Angle;
+            this.elementGroup.addChild(element);
+            // element.WWsetData();
+            this.joyR.up = false;
+        }
      
     }
     
@@ -35,7 +50,7 @@ class GameView extends eui.Component {
         let touchPoint = new egret.Point(event.stageX, event.stageY);
         if (touchPoint.x < (StageUtils.WIN_WIDTH * 0.5)) {
             if (this.joyL.active) return;
-            console.log(" ===== onViewTouchBegin left ===== ");
+            // console.log(" ===== onViewTouchBegin left ===== ");
             this.joyL.x = touchPoint.x;
             this.joyL.y = touchPoint.y;
             this.joyL.alpha = 1;
@@ -43,7 +58,7 @@ class GameView extends eui.Component {
         }
         else {
             if (this.joyR.active) return;
-            console.log(" ===== onViewTouchBegin right ===== ");
+            // console.log(" ===== onViewTouchBegin right ===== ");
             this.joyR.x = touchPoint.x;
             this.joyR.y = touchPoint.y;
             this.joyR.alpha = 1;

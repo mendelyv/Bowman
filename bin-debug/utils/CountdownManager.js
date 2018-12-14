@@ -43,4 +43,3 @@
 //         //  QMGameMainFrame.qmgmf.timerCompleteFunc(this.timertype);
 //     }
 // } 
-//# sourceMappingURL=CountdownManager.js.map

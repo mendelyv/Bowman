@@ -1197,4 +1197,3 @@ __reflect(Util.prototype, "Util");
 //this.effSpr.y = this.thiswh * 0.5 ;
 //var WW_CS:WWchecksystem = WWchecksystem.WWgetInstance();
 //var WWurldata = [];
-//# sourceMappingURL=Util.js.map
