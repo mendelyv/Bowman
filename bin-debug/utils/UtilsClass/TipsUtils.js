@@ -179,4 +179,3 @@ var TipsUtils;
     //        }, this, 1000);
     //    }
 })(TipsUtils || (TipsUtils = {}));
-//# sourceMappingURL=TipsUtils.js.map

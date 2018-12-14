@@ -115,4 +115,3 @@ var ShareData = (function () {
     return ShareData;
 }());
 __reflect(ShareData.prototype, "ShareData");
-//# sourceMappingURL=GameConfig.js.map

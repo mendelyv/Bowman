@@ -99,4 +99,3 @@
 //        return this.IsHtml5 && navigator.userAgent.indexOf("Opera") != -1;
 //    }
 //} 
-//# sourceMappingURL=DeviceUtils.js.map

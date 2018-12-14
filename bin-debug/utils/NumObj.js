@@ -47,4 +47,3 @@
 //        }
 //    }
 // } 
-//# sourceMappingURL=NumObj.js.map

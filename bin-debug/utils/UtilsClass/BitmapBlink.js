@@ -108,4 +108,3 @@ var BitmapBlink = (function () {
     return BitmapBlink;
 }());
 __reflect(BitmapBlink.prototype, "BitmapBlink");
-//# sourceMappingURL=BitmapBlink.js.map

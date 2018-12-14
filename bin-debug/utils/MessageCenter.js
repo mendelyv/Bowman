@@ -166,4 +166,3 @@
 //         this.param = null;
 //     }
 // } 
-//# sourceMappingURL=MessageCenter.js.map

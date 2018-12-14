@@ -19,6 +19,7 @@
 		"bin-debug/game/GameView.js",
 		"bin-debug/game/Joystick.js",
 		"bin-debug/game/Role.js",
+		"bin-debug/game/element/ElementBase.js",
 		"bin-debug/utils/CountdownManager.js",
 		"bin-debug/utils/DebugUtils.js",
 		"bin-debug/GameConfig.js",

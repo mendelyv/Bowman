@@ -128,4 +128,3 @@ var ELEMENT_ID;
     ELEMENT_ID[ELEMENT_ID["id_weight"] = 3] = "id_weight";
     ELEMENT_ID[ELEMENT_ID["id_penshe"] = 4] = "id_penshe"; //喷射物
 })(ELEMENT_ID || (ELEMENT_ID = {}));
-//# sourceMappingURL=ElementBase.js.map

@@ -19,7 +19,10 @@ var Joystick = (function (_super) {
     __extends(Joystick, _super);
     function Joystick() {
         var _this = _super.call(this) || this;
+        _this.ishEnd = false; //是否触发了end事件
         _this.active = false; //是否激活
+        _this.resetON = false; //是否需要抬手时清空手柄输出的信号
+        _this.up = false; //向外输出一个手柄触摸抬起的信号
         _this.xAxis = 0; //x轴的偏移 [-1 ,1]
         _this.yAxis = 0; //y轴的偏移 [-1, 1]
         _this.angle = 0; //摇杆头相对于中心点的角度 [0, 360)
@@ -89,7 +92,7 @@ var Joystick = (function (_super) {
         var sinTheta = (this.joystick.x - this.joyDefaultPoint.x) / this.radius;
         var theta = Math.abs(Math.asin(sinTheta) * (180 / Math.PI));
         this.angle = this.verifyAngleOfQuadrant(this.xAxis, this.yAxis, theta); //[0, 360)
-        console.log("joystick :: offset = " + this.offset + "  xAxis = " + this.xAxis + "  yAxis = " + this.yAxis + "  angle = " + this.angle);
+        // console.log("joystick :: offset = " + this.offset + "  xAxis = " + this.xAxis + "  yAxis = " + this.yAxis + "  angle = " + this.angle);
     };
     Joystick.prototype.onTouchOutside = function (event) {
         if (event.touchPointID != this.touchID)
@@ -101,10 +104,12 @@ var Joystick = (function (_super) {
         if (event.touchPointID != this.touchID)
             return;
         // console.log(" ===== onJoystickTouchEnd ===== ");
+        this.up = true; //向外输出一个手柄触摸抬起的信号，使用后记得重置
         this.touchEnd();
     };
     /** 当触摸结束时的处理工作 */
     Joystick.prototype.touchEnd = function () {
+        //重置手柄的一些属性
         this.active = false;
         this.alpha = this.defaultAlpha;
         this.touchEnabled = false;
@@ -112,10 +117,13 @@ var Joystick = (function (_super) {
         this.y = this.defaultPoint.y;
         this.joystick.x = this.joyDefaultPoint.x;
         this.joystick.y = this.joyDefaultPoint.y;
-        this.angle = 0;
-        this.xAxis = 0;
-        this.yAxis = 0;
-        this.offset = 0;
+        //重置向外输出的数据信息
+        if (this.resetON) {
+            this.angle = 0;
+            this.xAxis = 0;
+            this.yAxis = 0;
+            this.offset = 0;
+        }
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onTouchOutside, this);
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
@@ -151,4 +159,3 @@ var Joystick = (function (_super) {
 }(eui.Component));
 __reflect(Joystick.prototype, "Joystick");
 window["Joystick"] = Joystick;
-//# sourceMappingURL=Joystick.js.map

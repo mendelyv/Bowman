@@ -59,4 +59,3 @@
 //        return para.indexOf("&" + paraName + "=") != -1;
 //    }
 //}
-//# sourceMappingURL=LocationProperty.js.map
