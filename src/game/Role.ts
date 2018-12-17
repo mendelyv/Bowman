@@ -1,5 +1,8 @@
 /**角色类 */
 class Role extends eui.Component {
+	public movableX: boolean = false;
+	public movableY: boolean = false;
+
 	public arrow: eui.Image;
 	public role_img: eui.Image;
 	public bubble_img: eui.Image;
@@ -100,6 +103,15 @@ class Role extends eui.Component {
 		//         this.ySpeed = 0;
 		//     }
 		// }
+		this.verifyLimit();
+	}
+
+	private verifyLimit()
+	{
+		if(StageUtils.WIN_WIDTH / 2 - this.speed <= this.x && this.x <= StageUtils.WIN_WIDTH / 2 + this.speed)
+			this.movableX = false;
+		if(StageUtils.WIN_HEIGHT / 2 - this.speed <= this.y && this.y <= StageUtils.WIN_HEIGHT / 2 + this.speed)
+			this.movableY = false;
 	}
 }
 

@@ -5,8 +5,9 @@ class GameBg extends eui.Component{
 
 	public speed: number = 10;
 	public player: Role;
-	public movableX: boolean = true;
-	public movableY: boolean = true;	
+
+	public movableX: boolean = true;//X轴是否可移动
+	public movableY: boolean = true;//Y轴是否可移动
 
 	public constructor() {
 		super();
@@ -48,7 +49,7 @@ class GameBg extends eui.Component{
 	{
 		this.x -= xAxis * this.speed;
 		this.y += yAxis * this.speed;
-		this.movableX = this.movableY = true;
+		// this.movableX = this.movableY = true;
 
 		this.verifyLimit();
 	}

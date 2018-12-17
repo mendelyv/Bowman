@@ -39,10 +39,31 @@ class GameView extends eui.Component {
         let yAxis:number = this.joyL.YAxis;
         let offset:number = this.joyL.Offset;
         
-        //先让背景动
-        this.bg.move(xAxis, yAxis);
-        // if(this.bg.movableX)
-        // this.role.move(xAxis,yAxis,angle,offset);
+        // ===== 背景和主玩家的移动 start =====
+        if(!this.role.movableX)
+        {
+            this.bg.movableX = true;
+            this.bg.move(xAxis, 0);
+        }
+        if(!this.role.movableY) 
+        {
+            this.bg.movableY = true;
+            this.bg.move(0, yAxis);
+        }
+        if(!this.bg.movableX)
+        {
+            this.role.movableX = true;
+            this.role.move(xAxis,0,angle,offset);
+        }
+        if(!this.bg.movableY)
+        {
+            this.role.movableY = true;
+            this.role.move(0,yAxis,angle,offset);
+        }
+        // ===== 背景和主玩家的移动 end =====
+
+        this.limitRoleMove();
+        //玩家转向
         this.role.moveToByAngle((this.joyR.Angle - 90) * Math.PI / 180);
         this.role.arrow.rotation = this.joyR.Angle - 90;
 
@@ -84,4 +105,28 @@ class GameView extends eui.Component {
         }
         this.touchEnabled = false;
     }
+
+
+    private limitRoleMove()
+    {
+        if(this.role.x - this.role.anchorOffsetX <= 0)
+        {
+            this.role.x = this.role.anchorOffsetX;
+        }
+        if(this.role.y - this.role.anchorOffsetY <= 0)
+        {
+            this.role.y = this.role.anchorOffsetY;       
+        }
+        if(this.role.x + this.role.anchorOffsetX >= StageUtils.WIN_WIDTH)
+        {
+            this.role.x = StageUtils.WIN_WIDTH - this.role.anchorOffsetX;
+        }
+        if(this.role.y + this.role.anchorOffsetY >= StageUtils.WIN_HEIGHT)
+        {
+            this.role.y = StageUtils.WIN_HEIGHT - this.role.anchorOffsetY;
+        }
+    }
+
+
+//class end
 }
