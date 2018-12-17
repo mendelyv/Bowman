@@ -29,6 +29,7 @@ class GameView extends eui.Component {
         this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
         // this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
     }
+    
     /**每帧循环处理 */
     private update(): void {
         let deltaTime = egret.getTimer() - this.previousFrameTime;
@@ -107,6 +108,7 @@ class GameView extends eui.Component {
     }
 
 
+    /** 限制玩家移动，不允许出界 */
     private limitRoleMove()
     {
         if(this.role.x - this.role.anchorOffsetX <= 0)
