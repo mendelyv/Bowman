@@ -8,6 +8,8 @@ class GameView extends eui.Component {
     public uiGroup: eui.Group;
     public elementGroup: eui.Group;
 
+    private bg: GameBg;
+
     private previousFrameTime: number = 0;
     private shootTime: number = 0;
     private shootDelay: number = 1000;
@@ -36,8 +38,11 @@ class GameView extends eui.Component {
         let xAxis:number = this.joyL.XAxis;
         let yAxis:number = this.joyL.YAxis;
         let offset:number = this.joyL.Offset;
-     
-        this.role.move(xAxis,yAxis,angle,offset);
+        
+        //先让背景动
+        this.bg.move(xAxis, yAxis);
+        // if(this.bg.movableX)
+        // this.role.move(xAxis,yAxis,angle,offset);
         this.role.moveToByAngle((this.joyR.Angle - 90) * Math.PI / 180);
         this.role.arrow.rotation = this.joyR.Angle - 90;
 
