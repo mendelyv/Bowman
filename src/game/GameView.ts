@@ -9,6 +9,7 @@ class GameView extends eui.Component {
     public elementGroup: eui.Group;
 
     private bg: GameBg;
+    private closeBtn: eui.Image;
 
     private previousFrameTime: number = 0;
     private shootTime: number = 0;
@@ -27,7 +28,7 @@ class GameView extends eui.Component {
     private initEvents(): void {
         this.stage.addEventListener(egret.Event.ENTER_FRAME, this.update, this);
         this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-        // this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
+        this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, Main.instance.changeToMain, Main.instance);
     }
     
     /**每帧循环处理 */
@@ -129,6 +130,15 @@ class GameView extends eui.Component {
         }
     }
 
+
+    public destructor()
+    {
+        this.joyL.destructor();
+        this.joyR.destructor();
+        this.stage.removeEventListener(egret.Event.ENTER_FRAME, this.update, this);
+        this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+        this.closeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, Main.instance.changeToMain, Main.instance);
+    }
 
 //class end
 }

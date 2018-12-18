@@ -31,10 +31,12 @@ class Main extends eui.UILayer {
     private static _instance: Main;//主类单例
     public static get instance(): Main { return Main._instance; }
     private static S_LOGIN: number = 0;//菜单-登录界面
-    private static S_GAMING: number = 1;//游戏
+    private static S_GAMING: number = 2;//游戏
+    private static S_MAIN: number = 1;//主界面
     private _selIndex: number = -1;//当前选择的场景
 
     private _gameView: GameView;
+    private _mainView: MainView;
     protected createChildren(): void {
         super.createChildren();
 
@@ -74,7 +76,7 @@ class Main extends eui.UILayer {
         await platform.login();
         const userInfo = await platform.getUserInfo();
         console.log(userInfo);
-        this.changeToGame();
+        this.changeToMain();
     }
 
     private async loadResource() {
@@ -120,6 +122,23 @@ class Main extends eui.UILayer {
         //     this._gameView = null;
         // }
     }
+    //创建主界面
+    private createMain()
+    {
+        if(!this._mainView)
+            this._mainView = new MainView();
+        this.addChild(this._mainView);
+    }
+    //释放主界面
+    private releaseMain()
+    {
+        if (this._mainView) {
+            if (this._mainView.parent) {
+                this._mainView.parent.removeChild(this._mainView);
+            }
+            this._mainView = null;
+        }
+    }
     //创建游戏
     private createGameV(): void {
         if (!this._gameView) {
@@ -130,6 +149,7 @@ class Main extends eui.UILayer {
     //删除游戏
     public releaseGame(): void {
         if (this._gameView) {
+            this._gameView.destructor();
             if (this._gameView.parent) {
                 this._gameView.parent.removeChild(this._gameView);
             }
@@ -144,12 +164,17 @@ class Main extends eui.UILayer {
     public changeToGame(): void {
         this.changeScene(Main.S_GAMING);
     }
+    /**切换到主界面 */
+    public changeToMain(){
+        this.changeScene(Main.S_MAIN);
+    }
     /**
     * 释放所有场景
     */
     private releaseAll(): void {
         this.releaseLogin();
         this.releaseGame();
+        this.releaseMain();
     }
 
     /**
@@ -164,10 +189,12 @@ class Main extends eui.UILayer {
                 case Main.S_LOGIN:
                     this.createLogin();
                     break;
+                case Main.S_MAIN:
+                    this.createMain();
+                    break;
                 case Main.S_GAMING:
                     this.createGameV();
                     break;
-
             }
         }
     }

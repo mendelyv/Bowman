@@ -8,12 +8,12 @@
  */
 class Joystick extends eui.Component
 {
-    public ishEnd:boolean = false;//是否触发了end事件
+    // public ishEnd:boolean = false;//是否触发了end事件
     public active: boolean = false;//是否激活
     public touchID: number;//触摸ID
     public radius: number;//摇杆可移动的极限半径
     public resetON: boolean = false;//是否需要抬手时清空手柄输出的信号
-    public up: boolean = false;//向外输出一个手柄触摸抬起的信号
+    // public up: boolean = false;//向外输出一个手柄触摸抬起的信号
 
     private joystick: eui.Image;
     private joystickBg: eui.Image;
@@ -57,7 +57,7 @@ class Joystick extends eui.Component
         if(this.active) return;
 
         this.active = true;
-        this.up = false;
+        // this.up = false;
         this.touchID = event.touchPointID;
         this.joyStartPoint.x = event.stageX, this.joyStartPoint.y = event.stageY;
         
@@ -110,7 +110,7 @@ class Joystick extends eui.Component
     {
         if(event.touchPointID != this.touchID) return;
         // console.log(" ===== onJoystickTouchEnd ===== ");
-        this.up = true;//向外输出一个手柄触摸抬起的信号，使用后记得重置
+        // this.up = true;//向外输出一个手柄触摸抬起的信号，使用后记得重置
         this.touchEnd();
     }
 
@@ -176,6 +176,14 @@ class Joystick extends eui.Component
             return 270;
         }
         return this.angle;
+    }
+
+
+    public destructor()
+    {
+        this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
+        this.stage.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onTouchOutside, this);
+        this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
     }
 
 

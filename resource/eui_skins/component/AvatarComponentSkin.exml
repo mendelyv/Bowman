@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="AvatarComponentSkin" width="186" height="211" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bg" source="login_head_bg_png" left="0" right="0" top="0" bottom="0"/>
+	<e:Label id="nickName" text="我的名字真的是好长呀" horizontalCenter="0" fontFamily="Microsoft JhengHei" anchorOffsetX="0" width="122" anchorOffsetY="0" height="33" bold="true" top="84" textColor="0xfcf7bf" stroke="2"/>
+</e:Skin>

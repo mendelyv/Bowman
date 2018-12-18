@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MainViewSkin" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image source="loading_bg_jpg" left="0" right="0" top="0" bottom="0"/>
+	<e:Image id="startBtn" y="564" source="login_start_button_png" horizontalCenter="0"/>
+	<ns1:AvatarComponent x="36" y="34" skinName="AvatarComponentSkin"/>
+</e:Skin>
