@@ -58,10 +58,10 @@ class Main extends eui.UILayer {
         egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
 
-
         this.runGame().catch(e => {
             console.log(e);
         })
+
     }
 
     private async runGame() {
@@ -70,23 +70,27 @@ class Main extends eui.UILayer {
         StageUtils.WIN_WIDTH = this.stage.stageWidth;
         StageUtils.WIN_HEIGHT = this.stage.stageHeight;
         egret.log("stageW=", StageUtils.WIN_WIDTH, " stageH=", StageUtils.WIN_HEIGHT);
+       //资源加载完成
         await this.loadResource()
-
-
         await platform.login();
         const userInfo = await platform.getUserInfo();
         console.log(userInfo);
         this.changeToMain();
+
     }
+
+
 
     private async loadResource() {
         try {
             const loadingView = new LoadingUI();
             this.stage.addChild(loadingView);
             await RES.loadConfig("resource/default.res.json", "resource/");
+            
             await this.loadTheme();
             await RES.loadGroup("preload", 0, loadingView);
             this.stage.removeChild(loadingView);
+
         }
         catch (e) {
             console.error(e);
@@ -128,6 +132,7 @@ class Main extends eui.UILayer {
         if(!this._mainView)
             this._mainView = new MainView();
         this.addChild(this._mainView);
+        
     }
     //释放主界面
     private releaseMain()
@@ -144,6 +149,7 @@ class Main extends eui.UILayer {
         if (!this._gameView) {
             this._gameView = new GameView();
             this.addChild(this._gameView);
+       
         }
     }
     //删除游戏
@@ -162,6 +168,10 @@ class Main extends eui.UILayer {
     }
     /**切换到游戏界面 */
     public changeToGame(): void {
+        GameConfig.elementConfig = RES.getRes("element_json");
+        GameConfig.scenceConfig = RES.getRes("scence_json");
+        elementconfig.WWinit();
+        sceneconfig.WWinit();
         this.changeScene(Main.S_GAMING);
     }
     /**切换到主界面 */

@@ -51,7 +51,7 @@ class ElementBase extends egret.DisplayObjectContainer{
         return fn;
     }
 
-    //设置数据(事件=-1代表没事件发生)
+    /**设置数据(事件=-1代表没事件发生)*/
     public WWsetData(elementID:number,weight:number,eventType:number):void{
         this.elementID = elementID;
         this.weight = weight;
@@ -59,40 +59,35 @@ class ElementBase extends egret.DisplayObjectContainer{
         this.isCanColliseSelf = true;
 
 
-        // this.img.texture = RES.getRes(Element.WWgetBitmapByID(elementID));
+         this.img.texture = RES.getRes(ElementBase.WWgetBitmapByID(elementID));
 
         //获得半径
         var radius:number = 200//attributeconfig.WWgetRadiusByWeight(weight);
-        this.img.width = radius*2;
-        this.img.height = radius*2;
-        this.paopao.width = radius*2;
-        this.paopao.height = radius*2;
-        this.width = radius*2;
-        this.height = radius*2;
+        this.img.width = radius*0.3;
+        this.img.height = radius*0.3;
+        this.paopao.width = radius*0.3;
+        this.paopao.height = radius*0.3;
+        this.width = radius*0.3;
+        this.height = radius*0.3;
         // WWsetAnchor(this);
     }
 
-    //获得体重
-    public WWgetWeight():number{
-        return this.weight;
-    }
-
-    //获得事件编号
+    /**获得事件编号*/
     public WWgetEventID():number{
         return this.eventType;
     }
 
-    //获得类型id
+    /**获得类型id*/
     public WWgetTypeID():number{
         return this.elementID;
     }
 
-    //死亡
+    /**死亡*/
     public WWdie():void{
         this.WWhide();
     }
 
-    //喷射移动
+    /**喷射移动*/
     public WWmoveFrom(xPos:number, yPos:number, angle:number,Dis:number):void{
         this.isCanColliseSelf = false;
         xPos += Math.cos(angle)*Dis;
@@ -120,7 +115,7 @@ class ElementBase extends egret.DisplayObjectContainer{
         },this);
     }
 
-    //显示
+    /**显示*/
     public WWshow(parent:egret.DisplayObjectContainer):void{
         if(!this.parent)
         {
@@ -128,17 +123,9 @@ class ElementBase extends egret.DisplayObjectContainer{
         }
     }
 
-    //隐藏
+    /**隐藏*/
     public WWhide():void{
         this.parent && this.parent.removeChild(this);
     }
 }
 
-/*年货枚举*/
-enum ELEMENT_ID{
-    id_juzi,//橘子
-    id_guazi,//瓜子
-    id_common,//普通吞噬物
-    id_weight,//体重道具
-    id_penshe//喷射物
-}

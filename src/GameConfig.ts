@@ -10,6 +10,10 @@ class GameConfig {
     public static IS_DEBUG: boolean = false;//默认不显示 加速按钮
     public static CUR_VERNO: number = 3;//当前游戏版本
 
+    public static elementConfig;//道具配置表
+    public static scenceConfig;//场景配置表
+    
+
     // http通讯地址,请自行填入自己的服务器地址，若有跨域问题则点开开发工具详情，勾选不校验合法域名
     private static headUrl: string = 'https://gmkun.vmobs.net';//正式服服务器地址
     // private static headUrl: string = 'https://gmkun.taoke93.com';//测试服服务器地址
