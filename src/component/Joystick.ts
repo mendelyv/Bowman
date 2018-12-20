@@ -9,9 +9,13 @@
 class Joystick extends eui.Component
 {
     // public ishEnd:boolean = false;//是否触发了end事件
+    /**是否激活*/
     public active: boolean = false;//是否激活
+    /**触摸ID*/
     public touchID: number;//触摸ID
+    /*摇杆可移动的极限半径*/
     public radius: number;//摇杆可移动的极限半径
+    /**是否需要抬手时清空手柄输出的信号*/
     public resetON: boolean = false;//是否需要抬手时清空手柄输出的信号
     // public up: boolean = false;//向外输出一个手柄触摸抬起的信号
 
@@ -19,18 +23,26 @@ class Joystick extends eui.Component
     private joystickBg: eui.Image;
 
     private defaultAlpha: number;//整个摇杆默认透明度
+    /**整个摇杆默认位置*/
     private defaultPoint: egret.Point;//整个摇杆默认位置
 
+    /**摇杆头的初始位置*/
     private joyDefaultPoint: egret.Point;//摇杆头的初始位置
+    /**摇杆头开始触摸的位置*/
     private joyStartPoint: egret.Point;//摇杆头开始触摸的位置
+    /**摇杆头触摸移动时的位置*/
     private joyMovePoint: egret.Point;//摇杆头触摸移动时的位置
 
+    /**x轴的偏移*/
     private xAxis: number = 0;//x轴的偏移 [-1 ,1]
     public get XAxis(): number { return this.xAxis; }
+    /**y轴的偏移*/
     private yAxis: number = 0;//y轴的偏移 [-1, 1]
     public get YAxis(): number { return this.yAxis; }
+    /**摇杆头相对于中心点的角度*/
     private angle: number = 0;//摇杆头相对于中心点的角度 [0, 360)
     public get Angle(): number { return this.angle; }
+    /**力度偏移*/
     private offset: number = 0;//力度偏移 [0, 1]
     public get Offset(): number { return this.offset; }
 
@@ -94,7 +106,7 @@ class Joystick extends eui.Component
         this.offset = (distance / this.radius) > 1 ? 1 : (distance / this.radius);//[0,1]
         this.xAxis = (this.joystick.x - this.joyDefaultPoint.x) / this.radius;//[-1,1]
         this.yAxis = -((this.joystick.y - this.joyDefaultPoint.y) / this.radius);//[-1,1]
-        let theta = Math.abs(Math.asin(sinTheta) * (180 / Math.PI));
+        let theta = Math.abs(Math.asin(sinTheta) * (180 / Math.PI)); 
         this.angle = this.verifyAngleOfQuadrant(this.xAxis, this.yAxis, theta);//[0, 360)
         // console.log("joystick :: offset = " + this.offset + "  xAxis = " + this.xAxis + "  yAxis = " + this.yAxis + "  angle = " + this.angle);
     }
