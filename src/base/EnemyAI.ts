@@ -1,24 +1,18 @@
 // TypeScript file
 
-//AI v2.0
-//AI效果如下：
-
 //1.将怪物分为以下几种状态：
 //待机状态（该状态有两种行为：原地呼吸，和游走，可通过权重配置待机状态下的两种行为的发生的比例）
-//警戒状态（怪物向玩家发出警告，并盯着玩家）
 //追击状态（怪物跑向玩家）
 //返回状态（跑回出生位置，该状态下不再理会玩家）
 
 //2.可以为怪物配置各项状态的数值
 //游走半径，待机状态下，怪物游走时不会超过这个范围，根据出生点计算
-//警戒半径，当玩家与怪物之间距离小于警戒半径时进入警戒状态，根据怪物实时位置计算
 //自卫半径，当玩家与怪物之间距离小于自卫半径时进入追击状态
 //追击半径，怪物追击玩家时，自身不会超过这个范围，超出后跑回出生点，可以理解为最大活动范围
 //攻击距离，当玩家与怪物之间的距离小于攻击距离时攻击
 
 //3.各项数值设定的关系如下
-//比较合理的关系是：追击半径 > 警戒半径 > 自卫半径 > 攻击距离，游走半径只需要小于追击半径即可
-// 1）自卫半径不建议大于警戒半径，否则就无法触发警戒状态，直接开始追击了
+//比较合理的关系是：追击半径 > 自卫半径 > 攻击距离，游走半径只需要小于追击半径即可
 // 2）攻击距离不建议大于自卫半径，否则就无法触发追击状态，直接开始战斗了
 // 3）游走半径不建议大于追击半径，否则怪物可能刚刚开始追击就返回出生点
 
@@ -32,7 +26,6 @@ class EnemyAI
 {
     public state: EnemyState;//状态
     public wanderRadius;//游走半径，移动状态下，如果超出游走半径会返回出生位置
-    public alertRadius;//警戒半径，玩家进入后怪物会发出警告，并一直朝向玩家
     public defendRadius;//自卫半径，玩家进入后怪物会追击玩家，当距离<攻击距离则会发动攻击
     public chaseRadius;//追击半径，当怪物超出这个追击半径后放弃追击，返回初始位置
     public attackRadius;//攻击半径，当玩家进入这个半径后就发起攻击
@@ -46,6 +39,7 @@ class EnemyAI
     private isOn: boolean;//AI是否启动
     public get ON(): boolean { return this.isOn; }
     private initialPoint: egret.Point;//出生的位置
+    private actionWeight = [3000, 5000];//权重
 
     public constructor(obj: Role)
     {
@@ -84,9 +78,6 @@ class EnemyAI
         //根据状态做事情
         switch(this.state)
         {
-            case EnemyState.IDLE :
-            break;
-
             case EnemyState.IDLE:
                 // anim.SetInteger("State", animID["Idle"]);
                 // anim.SetBool("canAttack", false);
@@ -119,24 +110,6 @@ class EnemyAI
                 }
                 //该状态下的检测指令
                 this.walkCheck();
-            break;
-
-            //警戒状态，播放一次动画和声音，并持续朝向玩家位置
-            case EnemyState.WARN:
-                // if (!isWarned)
-                // {
-                //     //警戒状态下导航停止
-                //     nav.Stop();
-                //     anim.SetInteger("State", animID["Warn"]);
-                //     isWarned = true;
-                // }
-
-                // //持续朝向玩家位置
-                // playerRotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
-                // transform.rotation = Quaternion.Slerp(transform.rotation, playerRotation, turnSpeed);
-
-                //该状态下检测指令
-                this.warnCheck();
             break;
 
             //追击状态，朝着玩家跑去
@@ -199,7 +172,15 @@ class EnemyAI
     /** 随机切换指令，随机思考干什么 */
     private randomState()
     {
-
+        let random = Math.random() * 100000 % this.actionWeight[this.actionWeight.length - 1];
+        if(random < this.actionWeight[0])//如果在静止的权重区间
+        {
+            this.state = EnemyState.IDLE;
+        }
+        else//在行走的权重区间
+        {
+            this.state = EnemyState.WALK;
+        }
     }
 
     /** 停止，移除帧事件监听 */ 
@@ -228,11 +209,6 @@ class EnemyAI
         {
             this.state = EnemyState.CHASE;
         }
-        //如果进入警戒半径
-        else if(distancePlayer < this.alertRadius)
-        {
-            this.state = EnemyState.WARN;
-        }
     }
 
     private walkCheck()
@@ -250,30 +226,9 @@ class EnemyAI
         {
             this.state = EnemyState.CHASE;
         }
-        //如果进入警戒半径
-        else if(distancePlayer < this.alertRadius)
-        {
-            this.state = EnemyState.WARN;
-        }
         //如果超出活动半径
     }
 
-    private warnCheck()
-    {
-        if(!this.player) return;
-
-        let distancePlayer = egret.Point.distance(new egret.Point(this.obj.x, this.obj.y), new egret.Point(this.player.x, this.player.y));
-        //如果进入自卫半径，取消警戒状态，进入追击状态
-        if(distancePlayer < this.defendRadius)
-        {
-            this.state = EnemyState.CHASE;
-        }
-        //如果超出警戒半径，取消警戒状态，然后继续思考
-        if(distancePlayer > this.alertRadius)
-        {
-            this.randomState();
-        }
-    }
 
     private chaseCheck()
     {
@@ -284,8 +239,8 @@ class EnemyAI
         {
             //攻击
         }
-        //如果超出追击范围或者敌人的距离超出警戒距离就返回
-        if(distancePlayer > this.chaseRadius || distancePlayer > this.alertRadius)
+        //如果超出追击范围就返回
+        if(distancePlayer > this.chaseRadius)
         {
             this.state = EnemyState.RETURN;
         }
@@ -317,6 +272,7 @@ class EnemyAI
     {
         this.stop();
     }
+
 
 //class end
 }

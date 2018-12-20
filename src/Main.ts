@@ -70,7 +70,7 @@ class Main extends eui.UILayer {
         StageUtils.WIN_WIDTH = this.stage.stageWidth;
         StageUtils.WIN_HEIGHT = this.stage.stageHeight;
         egret.log("stageW=", StageUtils.WIN_WIDTH, " stageH=", StageUtils.WIN_HEIGHT);
-        await this.loadResource()
+        await this.loadResource();
 
 
         await platform.login();

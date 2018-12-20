@@ -6,7 +6,6 @@ enum EnemyState
 {
     IDLE,//待机
     WALK,//移动
-    WARN,//盯着玩家
     CHASE,//追击玩家
     ATTACK,//攻击玩家
     RETURN,//超出追击范围返回
