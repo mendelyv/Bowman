@@ -39,10 +39,17 @@ class Role extends eui.Component {
 			//this.ySpeed = 0;
 		}
 		this.angle = angle;
-
+		this.role_img.rotation = angle * 180 / Math.PI + 90;
+		this.arrow.rotation = angle * 180 / Math.PI + 90;
 	}
 	public attack():void{
-		
+		let element = new ElementBase();
+		let gameView = Main.instance.gameView;
+		element.x = this.x;
+		element.y = this.y;
+		element.scaleX = element.scaleY = 0.1;
+		element.WWmoveFrom(this.x, this.y, this.angle, 2000);
+		gameView.elementGroup.addChild(element);
 	}
 	public move(xAxis,yAxis,angle,offset): void {
 		//获得速度

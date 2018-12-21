@@ -89,7 +89,6 @@ class GameView extends eui.Component
         this.limitRoleMove();
         //玩家转向
         this.role.moveToByAngle((this.joyR.Angle - 90) * Math.PI / 180);
-        this.role.arrow.rotation = this.joyR.Angle - 90;
         //控制元素显示
         this.elementShowControl();
         if(this.joyR.active)
@@ -97,12 +96,7 @@ class GameView extends eui.Component
             // console.log(" ===== shoot ===== ");
             if(this.shootTime >= this.shootDelay)
             {
-                let element = new ElementBase();
-                element.x = this.role.x;
-                element.y = this.role.y;
-                element.scaleX = element.scaleY = 0.1;
-                element.WWmoveFrom(this.role.x, this.role.y, this.role.angle, 2000);
-                this.elementGroup.addChild(element);
+                this.role.attack();
                 this.shootTime = 0;
             }
         }

@@ -36,6 +36,7 @@ class Main extends eui.UILayer {
     private _selIndex: number = -1;//当前选择的场景
 
     private _gameView: GameView;
+    public get gameView(): GameView { return this._gameView; }
     private _mainView: MainView;
     protected createChildren(): void {
         super.createChildren();
