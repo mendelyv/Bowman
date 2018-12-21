@@ -35,13 +35,13 @@ class EnemyAI
     private actionTime: number;//动作计时
     private nextActionTime: number;//要发生动作的时间，当actionTime累加到 >= 这个值时就做动作
 
-    private obj: Role;//AI所挂对象
+    private obj: Enemy;//AI所挂对象
     private isOn: boolean;//AI是否启动
     public get ON(): boolean { return this.isOn; }
     private initialPoint: egret.Point;//出生的位置
     private actionWeight = [3000, 5000];//权重
 
-    public constructor(obj: Role)
+    public constructor(obj: Enemy)
     {
         this.obj = obj;
         this.isOn = false;
@@ -62,12 +62,11 @@ class EnemyAI
     private update()
     {
         if(!this.isOn) return;
-        //先看淘汰了没
-        // if(this.obj.isWeedOut) 
-        // {
-        //     this.stop();
-        //     return;
-        // }
+        // 先看有没有死
+        if(this.obj.die) 
+        {
+            return;
+        }
 
         //先更新动作计时
         this.actionTime += (egret.getTimer() - this.previousFramesTime);

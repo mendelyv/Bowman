@@ -1,5 +1,6 @@
 /**角色类 */
 class Role extends eui.Component {
+	public die: boolean = false;
 	public movableX: boolean = false;
 	public movableY: boolean = false;
 

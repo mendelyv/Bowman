@@ -3,7 +3,7 @@
  */
 class GameBg extends eui.Component{
 
-	public speed: number = 10;
+	public speed: number = 5;
 	public player: Role;
 
 	public movableX: boolean = true;//X轴是否可移动
