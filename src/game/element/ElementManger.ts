@@ -6,7 +6,7 @@ class ElementManger{
     /**年货道具数组*/
     private eleArray:Array<any>;
     // /**道具对象池*/
-     private elePool:ObjectPool;
+     //private elePool:ObjectPool;
     /**元素父节点*/
     public parent:egret.DisplayObjectContainer;
     static Em:ElementManger = null;
@@ -23,8 +23,9 @@ class ElementManger{
     private init(){
           this.eleArray = [];
        // let element: ElementBase;
-        //element = new ElementBase(); 
-      this.elePool = ObjectPool.getPool("ElementBase",-1);
+        //element = new ElementBase(); ObjectPool.getPool("ElementBase",5);
+        let eleBase = new ElementBase();
+      ObjectPool.instance.createObjectPool("ElementBase",eleBase);
 
        for(var i:number = 0;i<sceneconfig.sceneheight;i++){
            this.eleArray[i] = [];
@@ -41,7 +42,7 @@ class ElementManger{
             /**年货道具随机数*/
             var variety:number = this.randomNum(0,3);
             //道具类型
-            var elem:ElementBase = this.elePool.getObject();
+            var elem:ElementBase = ObjectPool.instance.getObj("ElementBase");
             var data:any = elementconfig.WWgetSpringCargoDataById(variety);
             elem.WWsetData(variety,data.weight,data.event);
             var R:number = elem.width/2;
@@ -62,7 +63,8 @@ class ElementManger{
     public againPlay():void{
         var end :number = this.parent.numChildren;
         for(var i:number = 0;i<end;i++){
-            this.elePool.returnObject(<ElementBase>this.parent.getChildAt(i));
+            //this.elePool.returnObject(<ElementBase>this.parent.getChildAt(i));
+            ObjectPool.instance.pushObj("ElementBase",<ElementBase>this.parent.getChildAt(i));
         }
         for(var i:number = 0;i<sceneconfig.sceneheight;i++){
             this.eleArray[i] = [] ;//清空道具数组
@@ -73,7 +75,9 @@ class ElementManger{
     }
     /**创建一个元素*/
     public createOneElement():ElementBase{
-        return this.elePool.getObject();
+        //return this.elePool.getObject();
+        var elem:ElementBase = ObjectPool.instance.getObj("ElementBase");
+        return elem;
     }
 
     /**元素碰撞事件处理回调*/
@@ -104,7 +108,8 @@ class ElementManger{
             if(this.eleArray[ele.row][ele.col] == ele)
             {
                 ele.WWdie();
-                this.elePool.returnObject(ele);
+                //this.elePool.returnObject(ele);
+                ObjectPool.instance.pushObj("ElementBase",ele);
                 this.eleArray[ele.row][ele.col].splice(i,1);
                 break;
             }

@@ -6,18 +6,19 @@
  * time : 2018.12.21
  * @author : 杨浩然
  */
-class Enemy extends eui.Component
-{
-    public speed: number = 5;
-    public angle: number;
-
+class Enemy extends Role
+{  
     public arrow: eui.Image;
 	public role_img: eui.Image;
 	public bubble_img: eui.Image;
 
+    private ai: EnemyAI;
+
     public constructor()
     {
         super();
+        this.speed = 5;
+        this.ai = new EnemyAI(this);
     }
 
     protected createChildren()
@@ -27,6 +28,7 @@ class Enemy extends eui.Component
         delete this.arrow;//删除箭头
     }
 
+    /** 转向 */
     public moveToByAngle(angle: number): void {
 		// if (angle <= Math.PI) {
 		// 	this.xSpeed = Math.cos(angle) * this.speed;
@@ -41,6 +43,12 @@ class Enemy extends eui.Component
 		this.role_img.rotation = angle * 180 / Math.PI + 90;
 	}
 
+    /** 移动
+     * @param xPos ：起点x
+     * @param yPos ：起点y
+     * @param angle ：移动的角度
+     * @param Dis ：移动的距离
+     */
     public move(xPos:number, yPos:number, angle:number,Dis:number)
     {
         egret.Tween.removeTweens(this);
@@ -51,6 +59,7 @@ class Enemy extends eui.Component
         egret.Tween.get(this).to({ x: xPos,y: yPos }, time);
     }
 
+    /** 攻击 */
     public attack()
     {
         let element = new ElementBase();

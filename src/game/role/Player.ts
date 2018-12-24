@@ -1,13 +1,16 @@
-/**角色类 */
-class Role extends eui.Component {
+// TypeScript file/**玩家类 */
+
+
+class Player extends Role 
+{
 	public movableX: boolean = false;
 	public movableY: boolean = false;
 
 	public arrow: eui.Image;
 	public role_img: eui.Image;
 	public bubble_img: eui.Image;
-	public speed: number = 5;
-	public angle: number = 0;        //如果等于-100代表停止
+	//public speed: number = 5;
+	//public angle: number = 0;        //如果等于-100代表停止
 	public xSpeed: number = 0;
 	public ySpeed: number = 0;
 	public radius: number = 0;      //半径
@@ -22,6 +25,8 @@ class Role extends eui.Component {
 
 	public constructor() {
 		super();
+        this.speed = 5;
+        this.angle = 0;
 	}
 	protected createChildren() {
 		this.skinName = "RoleSkin";
@@ -40,16 +45,16 @@ class Role extends eui.Component {
 		}
 		this.angle = angle;
 		this.role_img.rotation = angle * 180 / Math.PI + 90;
-		this.arrow.rotation = angle * 180 / Math.PI + 90;
+		this.arrow.rotation = this.role_img.rotation - 90;
 	}
 	public attack():void{
-		let element = new ElementBase();
-		let gameView = Main.instance.gameView;
-		element.x = this.x;
-		element.y = this.y;
-		element.scaleX = element.scaleY = 0.1;
-		element.WWmoveFrom(this.x, this.y, this.angle, 2000);
-		gameView.elementGroup.addChild(element);
+		// let element = new ElementBase();
+		// let gameView = Main.instance.gameView;
+		// element.x = this.x;
+		// element.y = this.y;
+		// element.scaleX = element.scaleY = 0.1;
+		// element.WWmoveFrom(this.x, this.y, this.angle, 2000);
+		// gameView.elementGroup.addChild(element);
 	}
 	public move(xAxis,yAxis,angle,offset): void {
 		//获得速度
@@ -122,4 +127,4 @@ class Role extends eui.Component {
 	}
 }
 
-window["Role"] = Role;
+window["Player"] = Player;
