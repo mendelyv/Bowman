@@ -24,7 +24,7 @@ class ElementManger{
           this.eleArray = [];
        // let element: ElementBase;
         //element = new ElementBase(); 
-      this.elePool = ObjectPool.getPool("ElementBase",5);
+      this.elePool = ObjectPool.getPool("ElementBase",-1);
 
        for(var i:number = 0;i<sceneconfig.sceneheight;i++){
            this.eleArray[i] = [];

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="GameBGSkin" width="2160" height="1440" xmlns:e="http://ns.egret.com/eui">
+<e:Skin class="GameBGSkin" width="2160" height="1440" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
     <e:Group>
         <e:Image source="game_bg_jpg" y="0" x="0" />
         <e:Image source="game_bg_jpg" y="0" x="0" />
@@ -24,4 +24,6 @@
             <e:HorizontalLayout gap="0"/>
         </e:layout>
     </e:Group>
+     <e:Group id="gp_obs" width="2160" height="1440">
+     </e:Group>
 </e:Skin>

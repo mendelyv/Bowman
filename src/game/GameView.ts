@@ -18,7 +18,7 @@ class GameView extends eui.Component
     /**元素层*/
     private elementlayer:egret.DisplayObjectContainer;
     private elementmanger: ElementManger;//元素管理类
-    
+    private gamebg:GameBg;//地图背景
     public constructor() {
         super();
         this.init();
@@ -34,6 +34,8 @@ class GameView extends eui.Component
         this.elementmanger = ElementManger.EmgetInstance();
         this.elementmanger.parent =this.elementlayer;
         this.createElement();
+        this.gamebg = GameBg.GbInstance();
+        // this.gamebg.createObs();
     }
     /**创建游戏元素*/
     public createElement():void{

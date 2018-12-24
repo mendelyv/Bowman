@@ -3,6 +3,7 @@
  * Created by Administrator on 2016/1/8.
  */
 class sceneconfig{
+    /**场景大小*/
     static mapwidth:number;
     static mapheight:number;
 

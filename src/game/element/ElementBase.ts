@@ -2,21 +2,21 @@
  * 元素基类（包括年货，道具）
  */
 class ElementBase extends egret.DisplayObjectContainer{
-    /*元素的id，用于获取纹理*/
+    /**元素的id，用于获取纹理*/
     private elementID:number;
-    /*体重*/
+    /**体重*/
     private weight:number;
-    /*事件类型*/
+    /**事件类型*/
     private eventType:number;
-    /*是否可以碰撞自己*/
+    /**是否可以碰撞自己*/
     public isCanColliseSelf:boolean;
-    /*行列*/
+    /**行列*/
     public row:number;
     public col:number;
 
-    /*纹理*/
+    /**纹理*/
     private img:egret.Bitmap;
-    /*泡泡*/
+    /**泡泡*/
     private paopao:egret.Bitmap;
 
     constructor(){
@@ -27,7 +27,7 @@ class ElementBase extends egret.DisplayObjectContainer{
         this.addChild(this.paopao);
     }
 
-    /*根据id获得纹理*/
+    /**根据id获得纹理*/
     static WWgetBitmapByID(id:number):string{
         var fn:string = null;
         switch (id){
@@ -56,20 +56,20 @@ class ElementBase extends egret.DisplayObjectContainer{
         this.elementID = elementID;
         this.weight = weight;
         this.eventType = eventType;
-        this.isCanColliseSelf = true;
+        this.isCanColliseSelf = false;
 
 
          this.img.texture = RES.getRes(ElementBase.WWgetBitmapByID(elementID));
 
         //获得半径
         var radius:number = 200//attributeconfig.WWgetRadiusByWeight(weight);
-        this.img.width = radius*0.3;
-        this.img.height = radius*0.3;
-        this.paopao.width = radius*0.3;
-        this.paopao.height = radius*0.3;
-        this.width = radius*0.3;
-        this.height = radius*0.3;
-        // WWsetAnchor(this);
+        this.img.width = radius*0.15;
+        this.img.height = radius*0.15;
+        this.paopao.width = radius*0.15;
+        this.paopao.height = radius*0.15;
+        this.width = radius*0.15;
+        this.height = radius*0.15;
+         //WWsetAnchor(this);
     }
 
     /**获得事件编号*/

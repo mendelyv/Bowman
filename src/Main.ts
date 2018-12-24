@@ -171,10 +171,12 @@ class Main extends eui.UILayer {
     }
     /**切换到游戏界面 */
     public changeToGame(): void {
-        GameConfig.elementConfig = RES.getRes("element_json");
         GameConfig.scenceConfig = RES.getRes("scence_json");
-        elementconfig.WWinit();
         sceneconfig.WWinit();
+        GameConfig.elementConfig = RES.getRes("element_json");
+        elementconfig.WWinit();
+        GameConfig.obstacalsConfig = RES.getRes("obstacals_json");
+        obstacalsconfig.WWinit();
         this.changeScene(Main.S_GAMING);
     }
     /**切换到主界面 */
