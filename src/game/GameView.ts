@@ -5,7 +5,7 @@ class GameView extends eui.Component
 {
     public joyL: Joystick;
     public joyR: Joystick;
-    public role:Role;
+    public player: Player;
     public uiGroup: eui.Group;
     public elementGroup: eui.Group;
 
@@ -64,31 +64,31 @@ class GameView extends eui.Component
         let offset:number = this.joyL.Offset;
         
         // ===== 背景和主玩家的移动 start =====
-        if(!this.role.movableX)
+        if(!this.player.movableX)
         {
             this.bg.movableX = true;
             this.bg.move(xAxis, 0);
         }
-        if(!this.role.movableY) 
+        if(!this.player.movableY) 
         {
             this.bg.movableY = true;
             this.bg.move(0, yAxis);
         }
         if(!this.bg.movableX)
         {
-            this.role.movableX = true;
-            this.role.move(xAxis,0,angle,offset);
+            this.player.movableX = true;
+            this.player.move(xAxis,0,angle,offset);
         }
         if(!this.bg.movableY)
         {
-            this.role.movableY = true;
-            this.role.move(0,yAxis,angle,offset);
+            this.player.movableY = true;
+            this.player.move(0,yAxis,angle,offset);
         }
         // ===== 背景和主玩家的移动 end =====
 
-        this.limitRoleMove();
+        this.limitplayerMove();
         //玩家转向
-        this.role.moveToByAngle((this.joyR.Angle - 90) * Math.PI / 180);
+        this.player.moveToByAngle((this.joyR.Angle - 90) * Math.PI / 180);
         //控制元素显示
         this.elementShowControl();
         if(this.joyR.active)
@@ -96,7 +96,7 @@ class GameView extends eui.Component
             // console.log(" ===== shoot ===== ");
             if(this.shootTime >= this.shootDelay)
             {
-                this.role.attack();
+                this.player.attack();
                 this.shootTime = 0;
             }
         }
@@ -127,23 +127,23 @@ class GameView extends eui.Component
 
 
     /** 限制玩家移动，不允许出界 */
-    private limitRoleMove()
+    private limitplayerMove()
     {
-        if(this.role.x - this.role.anchorOffsetX <= 0)
+        if(this.player.x - this.player.anchorOffsetX <= 0)
         {
-            this.role.x = this.role.anchorOffsetX;
+            this.player.x = this.player.anchorOffsetX;
         }
-        if(this.role.y - this.role.anchorOffsetY <= 0)
+        if(this.player.y - this.player.anchorOffsetY <= 0)
         {
-            this.role.y = this.role.anchorOffsetY;       
+            this.player.y = this.player.anchorOffsetY;       
         }
-        if(this.role.x + this.role.anchorOffsetX >= StageUtils.WIN_WIDTH)
+        if(this.player.x + this.player.anchorOffsetX >= StageUtils.WIN_WIDTH)
         {
-            this.role.x = StageUtils.WIN_WIDTH - this.role.anchorOffsetX;
+            this.player.x = StageUtils.WIN_WIDTH - this.player.anchorOffsetX;
         }
-        if(this.role.y + this.role.anchorOffsetY >= StageUtils.WIN_HEIGHT)
+        if(this.player.y + this.player.anchorOffsetY >= StageUtils.WIN_HEIGHT)
         {
-            this.role.y = StageUtils.WIN_HEIGHT - this.role.anchorOffsetY;
+            this.player.y = StageUtils.WIN_HEIGHT - this.player.anchorOffsetY;
         }
     }
 

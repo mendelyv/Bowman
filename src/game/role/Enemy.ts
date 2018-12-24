@@ -6,12 +6,8 @@
  * time : 2018.12.21
  * @author : 杨浩然
  */
-class Enemy extends eui.Component
-{
-    public die: boolean = false;
-    public speed: number = 5;
-    public angle: number;
-
+class Enemy extends Role
+{  
     public arrow: eui.Image;
 	public role_img: eui.Image;
 	public bubble_img: eui.Image;
@@ -21,6 +17,7 @@ class Enemy extends eui.Component
     public constructor()
     {
         super();
+        this.speed = 5;
         this.ai = new EnemyAI(this);
     }
 

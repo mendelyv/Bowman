@@ -1,49 +1,122 @@
-//对象池
+// TypeScript file
+
+/**
+ * class name : ObjectPool
+ * description : 对象池
+ * time : 2018.11.19
+ * @author : 杨浩然
+ */
 class ObjectPool {
-    /**存储对象池的Object*/
-    private static pool:Object = {};
-    /**存储对象的数组*/
-    private list:Array<any>;
-    /**对象类型*/
-    private className:string;
-
-    public constructor(className:string)
-    {
-        this.className = className;
-        this.list = [];
+    private static _instance: ObjectPool;
+    public static get instance(): ObjectPool {
+        if (ObjectPool._instance == null) ObjectPool._instance = new ObjectPool();
+        return ObjectPool._instance;
     }
-
-    /**获取对象*/
-    public getObject():any {
-        if (this.list.length > 0) {
-            return this.list.shift();
-        }
-        //根据字符串新建对象
-        var clazz:any = egret.getDefinitionByName(this.className);
-        return new clazz();
+    private static CACHE_COUNT: number = 1000;
+    private static MAX_PARAMS_LEN: number = 10;//构造函数参数个数最大值
+    private _poolDic: Object = {};
+    private _classObjDic: Object = {};
+    private _cacheCountDic: Object = {};
+    public constructor() {
     }
-
-    /**回收对象*/
-    public returnObject(value:any):void {
-        this.list.push(value);
-    }
-
-    /**
-     * 获取对象池，如果不存在则新建一个
-     * @param className 对象类名
-     * @param initNum 初始化对象池数量
-     */ 
-    public static getPool(className:string, initNum:number = 0):ObjectPool {
-        if (!ObjectPool.pool[className]) {
-            ObjectPool.pool[className] = new ObjectPool(className);
-            if(initNum != 0) { 
-                var clazz:any = egret.getDefinitionByName(className);
-                var pool:ObjectPool = ObjectPool.pool[className];
-                for(var i: number = 0;i < initNum;i++) { 
-                    pool.returnObject(new clazz());
-                }
+    public createObjectPool(poolName: string, classObj: any, cacheCount?: number): void {
+        if (!this._poolDic[poolName]) {
+            this._poolDic[poolName] = [];
+            this._classObjDic[poolName] = classObj;
+            if (cacheCount > 0) {
+                this._cacheCountDic[poolName] = cacheCount;
             }
         }
-        return ObjectPool.pool[className];
+    }
+    public cleanObjectPool(poolName: string): void {
+        if (this._poolDic[poolName]) {
+            var arr: Array<any> = this._poolDic[poolName];
+            var l: number = arr.length;
+            for (var i: number = 0; i < l; i++) {
+                this.destructObj(arr.pop());
+            }
+            arr.length = 0;
+            delete this._poolDic[poolName];
+            delete this._classObjDic[poolName];
+            delete this._cacheCountDic[poolName];
+        }
+    }
+    public pushObj(poolName: string, obj: any): void {
+        if (obj == null) return;
+        if (!this._poolDic[poolName]) {
+            this.destructObj(obj);
+            return;
+        }
+        var arr: Array<any> = this._poolDic[poolName];
+        var maxCount: number = this._cacheCountDic[poolName] ? this._cacheCountDic[poolName] : ObjectPool.CACHE_COUNT;
+        if (arr.length >= maxCount) {
+            this.destructObj(obj);
+            return;
+        }
+        if (obj.recycle) {
+            obj.recycle();
+        }
+        if (obj.parent)
+        {
+            obj.parent.removeChild(obj);
+            // console.log(" ===== 回收对象 ===== ");
+        } 
+        arr.push(obj);
+    }
+    public getObj(poolName: string, ...params: any[]): any {
+        if (!this._poolDic[poolName]) {
+            // Utils.showLog("没有创建对象池 " + poolName);
+            console.warn(" ----- 未创建 " + poolName + " 对象池 ----- ");
+            return;
+        }
+        var obj = null;
+        var arr: Array<any> = this._poolDic[poolName];
+        if (arr.length > 0) {
+            obj = arr.shift();
+            if (obj.reset) {
+                obj.reset();
+            }
+        } else {
+            let len = params.length;
+            if(len > ObjectPool.MAX_PARAMS_LEN)
+            {
+                console.error(" ***** 构造函数参数个数过多 ***** ");
+                return null;
+            }
+            switch(len)
+            {
+                case 0 : obj = new this._classObjDic[poolName].constructor(); break;
+                case 1 : obj = new this._classObjDic[poolName].constructor(params[0]); break;
+                case 2 : obj = new this._classObjDic[poolName].constructor(params[0], params[1]); break;
+                case 3 : obj = new this._classObjDic[poolName].constructor(params[0], params[1], params[2]); break;                    
+                case 4 : obj = new this._classObjDic[poolName].constructor(params[0], params[1], params[2], params[3]); break;
+                case 5 : obj = new this._classObjDic[poolName].constructor(params[0], params[1], params[2], params[3], params[4]); break;
+                case 6 : obj = new this._classObjDic[poolName].constructor(params[0], params[1], params[2], params[3], params[4], params[5]); break;
+                case 7 : obj = new this._classObjDic[poolName].constructor(params[0], params[1], params[2], params[3], params[4], params[5], params[6]); break;                    
+                case 8 : obj = new this._classObjDic[poolName].constructor(params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7]); break;                    
+                case 9 : obj = new this._classObjDic[poolName].constructor(params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7], params[8]); break;                    
+                case 10 : obj = new this._classObjDic[poolName].constructor(params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7], params[8], params[9]); break;                                     
+            }
+        }
+        return obj;
+    }
+    
+    private destructObj(obj: any): void {
+        if (obj == null) return;
+        if (obj.destructor) {
+            obj.destructor();
+        } else {
+            if (obj.stop) {
+                obj.stop();
+            }
+            if (obj.texture) {
+                obj.texture = null;
+            }
+        }
+    }
+    public printObjCount(poolName: string): void {
+        if (this._poolDic[poolName]) {
+            // Utils.showLog(poolName + " 对象池中包含对象数量 " + this._poolDic[poolName].length);
+        }
     }
 }
