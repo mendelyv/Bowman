@@ -32,6 +32,7 @@ class GameBg extends eui.Component {
 		super();
 	}
 	/** 检测是否到边缘 */
+	private verifyLimit()
 	{
 		// let x = Math.abs(this.x);
 		// let y = Math.abs(this.y);
