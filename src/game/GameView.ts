@@ -15,6 +15,8 @@ class GameView extends eui.Component {
     private shootTime: number = 0;
     private shootDelay: number = 1000;
     private gamebg: GameBg;//地图背景
+
+
     public constructor() {
         super();
         this.init();
@@ -28,8 +30,92 @@ class GameView extends eui.Component {
         this.skinName = "GameViewSkin";
         this.initEvents();
         this.joyL.resetON = true;//打开左手手柄重置数据的开关
-    }
 
+
+        // this.showDiff();
+    }
+    // /**
+    //  * 地图层
+    //  */
+    // private _mapLayer: egret.DisplayObjectContainer;
+    // /**
+    //  * 赛车层
+    //  */
+    // private _carLayer: egret.DisplayObjectContainer;
+    // /**
+    //  * 特效层
+    //  */
+    // private _effectLayer: egret.DisplayObjectContainer;
+    // /**
+    //  * 地图
+    //  */
+    // private _map: BaseMap;
+    // /**
+    //  * 渲染列表
+    //  */
+    // // private _renderList: Array<GameObject>;
+
+    // private _mycar: Car;
+
+
+    // private _camera: Camera;
+    // private showDiff(): void {
+    //     this._mapLayer = new egret.DisplayObjectContainer();
+    //     this._carLayer = new egret.DisplayObjectContainer();
+    //     this._effectLayer = new egret.DisplayObjectContainer();
+
+    //     this.addChild(this._mapLayer);
+    //     this.addChild(this._effectLayer);
+    //     this.addChild(this._carLayer);
+    //     // this._renderList = [];
+
+    //     this._mycar = new Car(this._map);
+    //     this._carLayer.addChild(this._mycar.monitor);
+    //     this._mycar.setPos(300, 300);
+    //     this._mycar.turnRoation = -90;
+    //     this._mycar.engineOn(20);
+    //     this._mycar.setSkin('car0_png');
+    //     // this._renderList.push(this._mycar);
+
+    //     this._map = new BaseMap();
+    //     this._map.setContainer(this._mapLayer);
+    //     this._map.createLoop(1, 'map_png', this.onMapReady, this);
+
+
+    // }
+    // private onController(angle: number = NaN, length: number = NaN, changeAngle: number = NaN): void {
+    //     if (isNaN(angle) && isNaN(length)) {
+    //         this._mycar.engineOff();
+    //         return;
+    //     }
+    //     this._mycar.turnRoation = Math.ceil(angle * 180 / Math.PI);
+    //     this._mycar.engineOn(20);
+    // }
+
+    // private onMapReady(): void {
+    //     this._camera = new Camera(this._map);
+    //     this._camera.focus = this._mycar;
+
+    //     this.addEventListener(egret.Event.ENTER_FRAME, this.render, this);
+
+    //     //this.x = (this.stage.stageWidth-this._map.width)>>1;
+    // }
+
+    // private render(e: egret.Event): void {
+    //     var t: number = egret.getTimer();
+
+    //     this._map.render();
+    //     this._mycar.run(t);
+    //     this._mycar.render(t);
+    //     // for (var i: number = this._renderList.length - 1; i >= 0; i--) {
+    //     //     this._renderList[i].run(t);
+    //     //     this._renderList[i].render(t);
+    //     // }
+
+    //     this._camera.update();
+
+    //     // this._particle.render(t);
+    // }
     private initEvents(): void {
         this.stage.addEventListener(egret.Event.ENTER_FRAME, this.update, this);
         this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
@@ -42,32 +128,29 @@ class GameView extends eui.Component {
         this.shootTime += deltaTime;
 
         this.playerMoveAttack();
-     
+
         this.previousFrameTime = egret.getTimer();
-         this.limitplayerMove();
+        this.limitplayerMove();
         //玩家转向
         this.player.moveToByAngle((this.joyR.Angle - 90) * Math.PI / 180);
 
-        if(this.joyR.active)
-        {
+        if (this.joyR.active) {
             // console.log(" ===== shoot ===== ");
-            if(this.shootTime >= this.shootDelay)
-            {
+            if (this.shootTime >= this.shootDelay) {
                 this.player.attack();
                 this.shootTime = 0;
             }
         }
-    
-    }
-    
 
-    private playerMoveAttack()
-    {
+    }
+
+
+    private playerMoveAttack() {
         // ===== 背景和主玩家的移动 start =====
-        let angle:number = this.joyL.Angle;
-        let xAxis:number = this.joyL.XAxis;
-        let yAxis:number = this.joyL.YAxis;
-        let offset:number = this.joyL.Offset;
+        let angle: number = this.joyL.Angle;
+        let xAxis: number = this.joyL.XAxis;
+        let yAxis: number = this.joyL.YAxis;
+        let offset: number = this.joyL.Offset;
 
         if (!this.player.movableX) {
             this.bg.movableX = true;
@@ -88,7 +171,7 @@ class GameView extends eui.Component {
         // ===== 背景和主玩家的移动 end =====
     }
 
-       
+
 
     private onTouchBegin(event: egret.TouchEvent) {
         let touchPoint = new egret.Point(event.stageX, event.stageY);
