@@ -73,12 +73,11 @@ class GameBg extends eui.Component {
 	}
 	protected createChildren() {
 		this.skinName = "GameBGSkin";
-		this.createObs();
+	//	this.createObs();
 	}
 	//创建障碍
 	public createObs(): void {
 		let json = GameConfig.obstacalsConfig;
-		console.log(json.zhangai.length);
 		for (let i: number = 0; i < json.zhangai.length; i++) {
 			let zhangai:Array<any> = json.zhangai;
 			let obj:any = zhangai[i];
