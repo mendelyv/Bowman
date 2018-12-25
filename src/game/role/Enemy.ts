@@ -62,13 +62,13 @@ class Enemy extends Role
     /** 攻击 */
     public attack()
     {
-        let element = new ElementBase();
-		let gameView = Main.instance.gameView;
-		element.x = this.x;
-		element.y = this.y;
-		element.scaleX = element.scaleY = 0.1;
-		element.WWmoveFrom(this.x, this.y, this.rotation, 2000);
-		gameView.elementGroup.addChild(element);
+        // let element = new ElementBase();
+		// let gameView = Main.instance.gameView;
+		// element.x = this.x;
+		// element.y = this.y;
+		// element.scaleX = element.scaleY = 0.1;
+		// element.WWmoveFrom(this.x, this.y, this.rotation, 2000);
+		// gameView.elementGroup.addChild(element);
     }
 
 //class end
