@@ -44,6 +44,20 @@ class GameView extends eui.Component {
         this.playerMoveAttack();
      
         this.previousFrameTime = egret.getTimer();
+         this.limitplayerMove();
+        //玩家转向
+        this.player.moveToByAngle((this.joyR.Angle - 90) * Math.PI / 180);
+
+        if(this.joyR.active)
+        {
+            // console.log(" ===== shoot ===== ");
+            if(this.shootTime >= this.shootDelay)
+            {
+                this.player.attack();
+                this.shootTime = 0;
+            }
+        }
+    
     }
     
 
@@ -74,20 +88,7 @@ class GameView extends eui.Component {
         // ===== 背景和主玩家的移动 end =====
     }
 
-        this.limitplayerMove();
-        //玩家转向
-        this.player.moveToByAngle((this.joyR.Angle - 90) * Math.PI / 180);
-
-        if(this.joyR.active)
-        {
-            // console.log(" ===== shoot ===== ");
-            if(this.shootTime >= this.shootDelay)
-            {
-                this.player.attack();
-                this.shootTime = 0;
-            }
-        }
-    }
+       
 
     private onTouchBegin(event: egret.TouchEvent) {
         let touchPoint = new egret.Point(event.stageX, event.stageY);
