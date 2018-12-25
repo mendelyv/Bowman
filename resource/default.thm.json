@@ -8,7 +8,8 @@
 		"resource/eui_skins/game/GameBGSkin.exml",
 		"resource/eui_skins/game/RoleSkin.exml",
 		"resource/eui_skins/game/GameViewSkin.exml",
-		"resource/eui_skins/game/MainViewSkin.exml"
+		"resource/eui_skins/game/MainViewSkin.exml",
+		"resource/eui_skins/game/MapBGSkin.exml"
 	],
 	"path": "resource/default.thm.json"
 }

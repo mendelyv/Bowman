@@ -33,7 +33,7 @@ class GameView extends eui.Component
         //初始化元素管理
         this.elementmanger = ElementManger.EmgetInstance();
         this.elementmanger.parent =this.elementlayer;
-        this.createElement();
+      //  this.createElement();
         this.gamebg = GameBg.GbInstance();
         // this.gamebg.createObs();
     }
