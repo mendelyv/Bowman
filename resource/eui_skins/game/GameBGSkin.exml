@@ -1,29 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="GameBGSkin" width="2160" height="1440" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-    <e:Group>
-        <e:Image source="game_bg_jpg" y="0" x="0" />
-        <e:Image source="game_bg_jpg" y="0" x="0" />
-        <e:Image source="game_bg_jpg" y="0" x="0" />
+<e:Skin class="GameBGSkin" width="3256" height="2560" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+    <e:Group width="3256" height="2560">
+        <e:Image y="0" x="0" width="3256" height="2560" source="game_bg_jpg"  visible="false"/>
+
+
         <e:layout>
-            <e:HorizontalLayout gap="0"/>
+            <e:HorizontalLayout gap="0" />
         </e:layout>
     </e:Group>
-    <e:Group verticalCenter="0">
-        <e:Image source="game_bg_jpg" y="0" x="0" />
-        <e:Image source="game_bg_jpg" y="0" x="0" />
-        <e:Image source="game_bg_jpg" y="0" x="0" />
-        <e:layout>
-            <e:HorizontalLayout gap="0"/>
-        </e:layout>
-    </e:Group>
-    <e:Group bottom="0">
-        <e:Image source="game_bg_jpg" y="0" x="0" />
-        <e:Image source="game_bg_jpg" y="0" x="0" />
-        <e:Image source="game_bg_jpg" y="0" x="0" />
-        <e:layout>
-            <e:HorizontalLayout gap="0"/>
-        </e:layout>
-    </e:Group>
-     <e:Group id="gp_obs" width="2160" height="1440">
-     </e:Group>
+	<e:Image id="mapBG" width="1920" height="1920" x="668" y="320" source="map_bg_png" scaleX="1" scaleY="1"/>
+    <e:Group id="gp_obs" width="3256" height="2560">
+
+</e:Group>
 </e:Skin>

@@ -4,7 +4,7 @@
 	[
 		{
 		"desc":"基础元素在单个区域内刷新的个数",
-		"sceneNumber":100
+		"sceneNumber":10
 		},
 		{
 		"desc":"基础元素重量",
@@ -22,14 +22,14 @@
 		"itemId":1,
 		"itemList":
 			[
-			{"item1":"柑子","weight":100,"time":30,"number":10,"event":1}
+			{"item1":"柑子","weight":100,"time":30,"number":1,"event":1}
 			]		
 		},
 		{
 		"itemId":2,
 		"itemList":
 			[
-			{"item2":"瓜子","weight":50,"time":25,"number":20,"event":2}
+			{"item2":"瓜子","weight":50,"time":25,"number":2,"event":2}
 			]		
 		}
 	],

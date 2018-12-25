@@ -10,5 +10,7 @@ declare class GameViewSkin extends eui.Skin{
 }
 declare class MainViewSkin extends eui.Skin{
 }
+declare class MapBGSkin extends eui.Skin{
+}
 declare class RoleSkin extends eui.Skin{
 }

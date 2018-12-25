@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MapBGSkin" xmlns:e="http://ns.egret.com/eui">
+	<e:Group x="0" y="0">
+		<e:Image width="1920" height="1920" x="0" y="0" source="map_bg_png"/>
+	</e:Group>
+</e:Skin>

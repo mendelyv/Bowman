@@ -3,33 +3,16 @@
  */
 class GameBg extends eui.Component {
 	public speed: number = 5;
-	public player: Role;
 
 	public movableX: boolean = true;//X轴是否可移动
 	public movableY: boolean = true;//Y轴是否可移动
-	/**生成障碍的X位置*/
-	private obstacalX: number;
-	/**生成障碍的Y位置*/
-	private obstacalY: number;
-	/**障碍的宽*/
-	private obstacalW: number;
-	/**障碍的高*/
-	private obstacalH: number;
 	/**障碍配置*/
 	private resourcesName: string;
-	/**障碍贴图*/
-	private obsBitmap: egret.Bitmap;
-	static gg: GameBg = null;
 	public gp_obs: eui.Group;
 
-	static GbInstance(): GameBg {
-		if (!this.gg) {
-			this.gg = new GameBg;
-		}
-		return this.gg;
-	}
 	public constructor() {
 		super();
+		this.resourcesName = "obs_block_png";
 	}
 	/** 检测是否到边缘 */
 	private verifyLimit()
@@ -73,29 +56,16 @@ class GameBg extends eui.Component {
 	}
 	protected createChildren() {
 		this.skinName = "GameBGSkin";
-		this.createObs();
 	}
 	//创建障碍
-	public createObs(): void {
-		let json = GameConfig.obstacalsConfig;
-		console.log(json.zhangai.length);
-		for (let i: number = 0; i < json.zhangai.length; i++) {
-			let zhangai:Array<any> = json.zhangai;
-			let obj:any = zhangai[i];
-			this.obstacalX = obj.x;
-			this.obstacalY = obj.y;
-			this.obstacalW = obj.W;
-			this.obstacalH = obj.H;
-			this.resourcesName = obj.resourcesName;
-
-			this.obsBitmap = Util.createBitmap(this.resourcesName);
-			this.obsBitmap.x = this.obstacalX;
-			this.obsBitmap.y = this.obstacalY;
-			this.obsBitmap.width = this.obstacalW;
-			this.obsBitmap.height = this.obstacalH;
-			console.log(this.obsBitmap.x + "  " + this.obsBitmap.y + "  " + this.obsBitmap.width);
-			this.gp_obs.addChild(this.obsBitmap);
-		}
+	public createObs(posX,posY)
+	{
+		let image = Util.createBitmap(this.resourcesName);
+		image.anchorOffsetX = image.width * 0.5;
+		image.anchorOffsetY = image.height * 0.5;
+		image.x = posX;
+		image.y = posY;
+		this.gp_obs.addChild(image);
 	}
 }
 

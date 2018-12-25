@@ -1,9 +1,9 @@
 /**
- * 场景配置
+ * 地图配置
  * Created by Administrator on 2016/1/8.
  */
 class sceneconfig{
-    /**场景大小*/
+    /**地图大小*/
     static mapwidth:number;
     static mapheight:number;
 

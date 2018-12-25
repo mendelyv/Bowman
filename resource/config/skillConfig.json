@@ -1,0 +1,53 @@
+{
+    "description": "技能配置表，根据不同的ID选择技能的效果和属性值",
+    "0":{
+        "description": "提高血量上限，并加血",
+        "addMaxHpValue": 50,
+        "addHpValue": 50,
+        "addPowerValue": 0,
+        "addRangeValue": 0,
+        "addArrowNum": 0,
+        "hemophagia": false,
+        "changeRes": 0
+    },
+    "1":{
+        "description": "提高攻击",
+        "addMaxHpValue": 0,
+        "addHpValue": 0,
+        "addPowerValue": 10,
+        "addRangeValue": 0,
+        "addArrowNum": 0,
+        "hemophagia": false,
+        "changeRes": 0
+    },
+    "2":{
+        "description": "增加子弹数量",
+        "addMaxHpValue": 0,
+        "addHpValue": 0,
+        "addPowerValue": 0,
+        "addRangeValue": 0,
+        "addArrowNum": 1,
+        "hemophagia": false,
+        "changeRes": 0
+    },
+    "3":{
+        "description": "子弹吸血",
+        "addMaxHpValue": 0,
+        "addHpValue": 0,
+        "addPowerValue": 0,
+        "addRangeValue": 0,
+        "addArrowNum": 0,
+        "hemophagia": true,
+        "changeRes": 0
+    },
+    "4":{
+        "description": "换子弹资源",
+        "addMaxHpValue": 0,
+        "addHpValue": 0,
+        "addPowerValue": 0,
+        "addRangeValue": 0,
+        "addArrowNum": 0,
+        "hemophagia": false,
+        "changeRes": 0        
+    }
+}

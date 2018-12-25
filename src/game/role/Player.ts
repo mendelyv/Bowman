@@ -9,8 +9,6 @@ class Player extends Role
 	public arrow: eui.Image;
 	public role_img: eui.Image;
 	public bubble_img: eui.Image;
-	//public speed: number = 5;
-	//public angle: number = 0;        //如果等于-100代表停止
 	public xSpeed: number = 0;
 	public ySpeed: number = 0;
 	public radius: number = 0;      //半径
@@ -118,13 +116,19 @@ class Player extends Role
 		this.verifyLimit();
 	}
 
+	/** 点击技能时增加的属性值 */
+	public addSkillProperty(skill: SkillComponent)
+	{
+		
+	}
+
 	private verifyLimit()
 	{
 		if(StageUtils.WIN_WIDTH / 2 - this.speed <= this.x && this.x <= StageUtils.WIN_WIDTH / 2 + this.speed)
 			this.movableX = false;
 		if(StageUtils.WIN_HEIGHT / 2 - this.speed <= this.y && this.y <= StageUtils.WIN_HEIGHT / 2 + this.speed)
 			this.movableY = false;
-	}
+	} 
 }
 
 window["Player"] = Player;

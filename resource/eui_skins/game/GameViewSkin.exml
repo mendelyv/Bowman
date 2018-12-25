@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="GameViewSkin" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
-	<ns1:GameBg id="bg" skinName="GameBGSkin" anchorOffsetX="0" anchorOffsetY="0" x="-595" y="-345"/>
+	<ns1:GameBg id="bg" skinName="GameBGSkin" anchorOffsetX="0" anchorOffsetY="0" x="0" y="0" width="3256" height="2560"/>
+
 
 
 
