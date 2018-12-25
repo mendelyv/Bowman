@@ -72,7 +72,7 @@ class GameView extends eui.Component {
             this.player.move(0, yAxis, angle, offset);
         }
         // ===== 背景和主玩家的移动 end =====
-    }
+    
 
         this.limitplayerMove();
         //玩家转向
