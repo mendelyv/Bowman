@@ -30,10 +30,7 @@
 class Main extends eui.UILayer {
     private static _instance: Main;//主类单例
     public static get instance(): Main { return Main._instance; }
-    private static S_LOGIN: number = 0;//菜单-登录界面
-    private static S_GAMING: number = 2;//游戏
-    private static S_MAIN: number = 1;//主界面
-    private _selIndex: number = -1;//当前选择的场景
+    private sceneState: SceneState = SceneState.LOGIN;//当前场景
 
     private _gameView: GameView;
     public get gameView(): GameView { return this._gameView; }
@@ -79,7 +76,6 @@ class Main extends eui.UILayer {
         const userInfo = await platform.getUserInfo();
         console.log(userInfo);
         this.changeToMain();
-
     }
 
 
@@ -93,11 +89,19 @@ class Main extends eui.UILayer {
             await this.loadTheme();
             await RES.loadGroup("preload", 0, loadingView);
             this.stage.removeChild(loadingView);
-
+            this.loadlocalConfig();
         }
         catch (e) {
             console.error(e);
         }
+    }
+
+    private loadlocalConfig()
+    {
+        GameConfig.scenceConfig = RES.getRes("scence_json");
+        sceneconfig.WWinit();
+        GameConfig.elementConfig = RES.getRes("element_json");
+        GameConfig.obstacalsConfig = RES.getRes("obstacals_json");
     }
 
     private loadTheme() {
@@ -113,7 +117,8 @@ class Main extends eui.UILayer {
     }
 
     //创建登录
-    private createLogin(): void {
+    private createLogin(): void 
+    {
         // if(!this._gameView)
         // {
         //     this._gameView = new GameView();
@@ -121,7 +126,8 @@ class Main extends eui.UILayer {
         // }
     }
     //删除登录
-    public releaseLogin(): void {
+    public releaseLogin(): void 
+    {
         // if (this._gameView) {
         //     if(this._gameView.parent){
         //         this._gameView.parent.removeChild(this._gameView);
@@ -148,7 +154,8 @@ class Main extends eui.UILayer {
         }
     }
     //创建游戏
-    private createGameV(): void {
+    private createGameV(): void 
+    {
         if (!this._gameView) {
             this._gameView = new GameView();
             this.addChild(this._gameView);
@@ -156,7 +163,8 @@ class Main extends eui.UILayer {
         }
     }
     //删除游戏
-    public releaseGame(): void {
+    public releaseGame(): void
+    {
         if (this._gameView) {
             this._gameView.destructor();
             if (this._gameView.parent) {
@@ -165,23 +173,34 @@ class Main extends eui.UILayer {
             this._gameView = null;
         }
     }
-    /** 切换到登录-菜单界面 */
-    public changeToLogin(): void {
-        this.changeScene(Main.S_LOGIN);
+    
+    private changeScene(targetState:SceneState): void  
+    {
+        if (this.sceneState != targetState) 
+        {
+            this.releaseAll();
+            this.sceneState = targetState;
+            switch (this.sceneState) {
+                case SceneState.LOGIN:
+                    this.createLogin();
+                    break;
+                case SceneState.MAIN :
+                    this.createMain();
+                    break;
+                case SceneState.GAMEING:
+                    this.createGameV();
+                    break;
+            }
+        }
     }
     /**切换到游戏界面 */
-    public changeToGame(): void {
-        GameConfig.scenceConfig = RES.getRes("scence_json");
-        sceneconfig.WWinit();
-        GameConfig.elementConfig = RES.getRes("element_json");
-        elementconfig.WWinit();
-        GameConfig.obstacalsConfig = RES.getRes("obstacals_json");
-        obstacalsconfig.WWinit();
-        this.changeScene(Main.S_GAMING);
+    public changeToGame(): void
+    {
+        this.changeScene(SceneState.GAMEING);
     }
     /**切换到主界面 */
     public changeToMain(){
-        this.changeScene(Main.S_MAIN);
+        this.changeScene(SceneState.MAIN);
     }
     /**
     * 释放所有场景
@@ -190,27 +209,5 @@ class Main extends eui.UILayer {
         this.releaseLogin();
         this.releaseGame();
         this.releaseMain();
-    }
-
-    /**
-    * 改变场景
-    * @param index
-    */
-    private changeScene(index: number): void {
-        if (this._selIndex != index) {
-            this.releaseAll();
-            this._selIndex = index;
-            switch (this._selIndex) {
-                case Main.S_LOGIN:
-                    this.createLogin();
-                    break;
-                case Main.S_MAIN:
-                    this.createMain();
-                    break;
-                case Main.S_GAMING:
-                    this.createGameV();
-                    break;
-            }
-        }
     }
 }
