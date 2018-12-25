@@ -9,9 +9,6 @@ class MapItem extends egret.DisplayObject
 	//id 标记该地图片上的实物类型,用于渲染地图上的实物
 	private id:number;
 	public get ID(){return this.id;}
-	
-	public hei:number = 48;
-	public wid:number = 48;
 	public constructor(row_:number,col_:number) 
 	{
 		super();

@@ -7,27 +7,38 @@ class GameView extends eui.Component {
     public player: Player;
     public uiGroup: eui.Group;
     public elementGroup: eui.Group;
-
-    private bg: GameBg;
+    public bg: GameBg;
+ 
     private closeBtn: eui.Image;
-
     private previousFrameTime: number = 0;
     private shootTime: number = 0;
     private shootDelay: number = 1000;
-    private gamebg: GameBg;//地图背景
+
+    private mapMgr:MapManager;
     public constructor() {
         super();
         this.init();
     }
     /**初始化*/
     public init() {
-        this.gamebg = GameBg.GbInstance();
+       
     }
+
+    private initMapMgr()
+    {
+        this.mapMgr = new MapManager();
+        let wid = this.bg.width;
+        let hei = this.bg.height;
+        this.mapMgr.init(wid,hei);
+        this.mapMgr.createMapObstacal();
+    }
+
 
     protected createChildren() {
         this.skinName = "GameViewSkin";
         this.initEvents();
         this.joyL.resetON = true;//打开左手手柄重置数据的开关
+        this.initMapMgr();
     }
 
     private initEvents(): void {
@@ -87,7 +98,7 @@ class GameView extends eui.Component {
         }
         // ===== 背景和主玩家的移动 end =====
     
-
+    }
        
 
     private onTouchBegin(event: egret.TouchEvent) {
@@ -127,7 +138,6 @@ class GameView extends eui.Component {
             this.player.y = StageUtils.WIN_HEIGHT - this.player.anchorOffsetY;
         }
     }
-
 
     public destructor() {
         this.joyL.destructor();
