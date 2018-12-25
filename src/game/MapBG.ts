@@ -6,5 +6,6 @@ class MapBG extends eui.Component {
 	protected createChildren() {
 		this.skinName = "GameBGSkin";
 	}
-	
+	//
+
 }
