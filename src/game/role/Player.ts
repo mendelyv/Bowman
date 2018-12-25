@@ -118,6 +118,12 @@ class Player extends Role
 		this.verifyLimit();
 	}
 
+	/** 点击技能时增加的属性值 */
+	public addSkillProperty(skill: SkillComponent)
+	{
+		
+	}
+
 	private verifyLimit()
 	{
 		if(StageUtils.WIN_WIDTH / 2 - this.speed <= this.x && this.x <= StageUtils.WIN_WIDTH / 2 + this.speed)
