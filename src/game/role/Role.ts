@@ -10,6 +10,11 @@ class Role extends eui.Component
 	private level:number;//当前等级
 	public get Level(){return this.level;}
 	private hpTube:HPTube;//角色的血量条
+	private shieldPower:number;//护甲值，用于计算伤害
+	private critRate:number//暴击率
+
+	private exp:number;//当前经验值
+
 
 	public speed:number;//移动速度
 	public angle:number;
@@ -62,4 +67,10 @@ class Role extends eui.Component
 			this.hpTube.destructor();
 		}
     }
+
+	private isHit()
+	{
+		//先将角色的坐标转化为地图上的二维数组的坐标
+		
+	}
 }
