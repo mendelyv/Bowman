@@ -9,7 +9,6 @@ class GameView extends eui.Component {
     private closeBtn: eui.Image;
 
     public gameBg: GameBg;
- 
    
     private previousFrameTime: number = 0;
     private shootTime: number = 0;

@@ -54,7 +54,7 @@ class Player extends Role
 		// element.scaleX = element.scaleY = 0.1;
 		// element.WWmoveFrom(this.x, this.y, this.angle, 2000);
 		// gameView.elementGroup.addChild(element);
-		let group = Main.instance.gameView.elementGroup;
+		let group = Main.instance.gameView.gameBg;
 		let arrow: Arrow = ObjectPool.instance.getObj("arrow");
 		arrow.texture = RES.getRes("game_title_rope_png");
 		group.addChild(arrow);
