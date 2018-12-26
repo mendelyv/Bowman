@@ -30,11 +30,15 @@
 class Main extends eui.UILayer {
     private static _instance: Main;//主类单例
     public static get instance(): Main { return Main._instance; }
+    public isLoadCom: boolean = false;//是否加载完资源
+    public isLoginCom: boolean = false;//是否登录成功
     private sceneState: SceneState = SceneState.LOGIN;//当前场景
 
     private _gameView: GameView;
     public get gameView(): GameView { return this._gameView; }
     private _mainView: MainView;
+    private _oldTime: number = 0;//记录离开小程序时间
+    private _userData: UserData;//玩家数据
     protected createChildren(): void {
         super.createChildren();
 
@@ -64,28 +68,204 @@ class Main extends eui.UILayer {
 
     private async runGame() {
         Main._instance = this;
+        this._userData = new UserData();
         this.stage.maxTouches = 2;//设置最多触摸点 只能有2个
         StageUtils.WIN_WIDTH = this.stage.stageWidth;
         StageUtils.WIN_HEIGHT = this.stage.stageHeight;
         egret.log("stageW=", StageUtils.WIN_WIDTH, " stageH=", StageUtils.WIN_HEIGHT);
 
 
-       //资源加载完成
+        //资源加载完成
         await this.loadResource()
         await platform.login();
-        const userInfo = await platform.getUserInfo();
-        console.log(userInfo);
-        this.changeToMain();
+        // const userInfo = await platform.getUserInfo();
+        // console.log(userInfo);
+        let login = await platform.login(); //微信小游戏登录
+        if (login) {
+            console.log("login=", login);
+            this._userData.setCode(login.code);
+            // this.reqServerLogin();
+        }
+        else {
+            let hint: string = Util.getWordBySign('networkError');
+            TipsUtils.showTipsDownToUp(hint, true, 30, 5000);
+        }
+        // this._userInfo = await platform.getUserInfo();
+        // if (this._userInfo) {
+        //     console.log("userInfo====", this._userInfo);
+
+        //     this._userData.setAvatar(this._userInfo.avatarUrl);
+        //     this._userData.setNickName(this._userInfo.nickName);
+        //     console.log("avater=", this._userData.getAvatar());
+        //     console.log("nickName=", this._userData.getNickeName());
+        // }
+        // else {
+        //     console.log("用户点击了授权按钮");
+        //     let authInfo = await platform.createUserInfoButton();//授权
+        //     console.log("authInfo=", authInfo);
+        //     if (authInfo) {
+        //         this._userInfo = authInfo.userInfo;
+        //         this._userData.setAvatar(this._userInfo.avatarUrl);
+        //         this._userData.setNickName(this._userInfo.nickName);
+        //     }
+        // }
+        if (GameConfig.VER_CONTROL == "test") {
+            this.changeToMain();
+        }
+        else {
+            if (Main.instance.isLoginCom) {
+                if (this.isLoadCom) {
+                    this.changeToMain();
+                }
+            }
+            else {
+                this.parseErrorNet();
+            }
+        }
+
     }
 
+    /**请求自己的服务器登录 */
+    private reqServerLogin(): void {
+        // this.changeToGame();//TODO:测试代码
+        NetMgr.instance.nomalEvent.addEventListener('login', this.parseLogin, this);
+        let code: string = this._userData.getCode();
+        console.log("发送code到服务器=", code);
+        NetMgr.instance.reqWeixinLogin(code, this.parseErrorNet);//*登录或者注册新的微信用户
+    }
+    /**解析登录成功返回 -- 进入游戏 */
+    private parseLogin(): void {
+        this.weixin();//微信处理
+        this.isLoginCom = true;
+        if (this.isLoadCom && this.isLoginCom) {
+            this.changeToGame();
+        }
+    }
+    /**登录失败继续登录 */
+    private async parseErrorNet() {
+        Main.instance.isLoginCom = false;
+        if (Main.instance.isLoadCom) {
+            let hint: string = Util.getWordBySign('networkError');
+            var SELF = Main.instance;
+            let login = await platform.login(); //微信小游戏登录
+            if (login) {
+                console.log("login=", login);
+                SELF.getUserData().setCode(login.code);
+                var code: string = SELF.getUserData().getCode();
+                // let popup: ComPopup = new ComPopup(hint,
+                //     function () {
+                //         NetMgr.instance.reqServerConfig();//请求版本信息
+                //         NetMgr.instance.reqWeixinLogin(code, SELF.parseErrorNet);
+                //     },
+                //     function () {
+                //         NetMgr.instance.reqServerConfig();//请求版本信息
+                //         NetMgr.instance.reqWeixinLogin(code, SELF.parseErrorNet);
+                //     });
+                // SELF.addChild(popup);
+            }
+        }
+    }
+    /**微信处理 */
+    private weixin(): void {
+        platform.sendShareData({ command: "load" });
+        this.setDefaultShare();//设置微信右上角默认分享
+        platform.setKeepScreenOn();//设置屏幕常亮
+        let sync = platform.getLaunchOptionsSync();
+        console.log("sync00=", sync);
+        if (sync) {
+            console.log("sync=", sync);
+            if (sync.query) {
+                if (sync.query.openId) {
+                    let openId: string = sync.query.openId;//邀请人ID
+                    console.log("获取启动参数openId=", openId);
+                    // NetMgr.instance.reqInvite(openId);
+                }
+            }
+        }
+        //微信监听小游戏隐藏到后台事件。锁屏、按 HOME 键退到桌面、显示在聊天顶部等操作会触发此事件。
+        platform.getOnHide(res => {
+            // Main.instance.stopAllSound();
+            console.log("进入后台res=", res);
+            this._oldTime = egret.getTimer();
+            console.log("进入后台this._oldTime=", this._oldTime);
+        });
+        //微信监听小游戏回到前台的事件
+        platform.getOnShow(res => {
+            console.log("进入前台了res=", res);
+            console.log("进入前台了时间=", egret.getTimer());
+            let subTime: number = (egret.getTimer() - this._oldTime);
+            console.log("进入前台了时间差值=", subTime);
+            // let gameUI: GamePanel = Main.instance.getGameUI();
+            // gameUI.playOrdSound();
+            console.log("进入前台了GameConfig.getShareType()=", GameConfig.getShareType());
+            // if (subTime > 3500)//大于3.5秒
+            // {
+            //     if (!GameConfig.IS_SHARE) {
+            //         GameConfig.IS_SHARE = true;
+            //         if (GameConfig.getShareType() == 2) {
+            //             gameUI.doAD2x();
+            //         }
+            //         else if (GameConfig.getShareType() == 3) {
+            //             Main.instance.addAward();
+            //         }
+            //         else if (GameConfig.getShareType() == 4) {
+            //             gameUI.dobleAward();
+            //         }
+            //         else if (GameConfig.getShareType() == 5) {
+            //             Main.instance.douSignA();
+            //         }
+            //         else if (GameConfig.getShareType() == 6) {//6分享得钻石
+            //             NetMgr.instance.reqViewad();
+            //         }
+            //     }
+            // }
+            GameConfig.setShareType(1);
+            // else {
+            // let shareHintStr: string = Util.getWordBySign("shareHint1");
+            // if (GameConfig.getShareType() == 2) {
+            //     shareHintStr = Util.getWordBySign("shareHint2");
+            // }
+            // TipsUtils.showTipsDownToUp(shareHintStr, false, 30, 5000);
+            // }
 
+            // if (res) {
+            //     console.log("res=", res);
+            //     if (res.query) {
+            //         if (res.query.openId) {
+            //             let openId: string = res.query.openId;//邀请人ID
+            //             NetMgr.instance.reqInvite(openId);
+            //             return;
+            //         } else {
 
+            //         }
+            //     }
+            // }
+        });
+    }
+     /**
+    * 设置转发 
+    */
+    public setDefaultShare() {
+        //主动点击了转发 
+        if (GameConfig.VER_CONTROL == "wechat") {
+            let shareData: ShareData = GameConfig.getShareData();
+            let title: string = shareData.title;
+            let imgurl: string = shareData.imgurl;
+            GameConfig.setShareType(1);
+            let type: number = GameConfig.getShareType();//主动分享到微信
+            platform.setDefaultShare(title, imgurl, `share=${type}`);
+        }
+    }
+      /**返回玩家数据 */
+    public getUserData(): UserData {
+        return this._userData;
+    }
     private async loadResource() {
         try {
             const loadingView = new LoadingUI();
             this.stage.addChild(loadingView);
             await RES.loadConfig("resource/default.res.json", "resource/");
-            
+
             await this.loadTheme();
             await RES.loadGroup("preload", 0, loadingView);
             this.stage.removeChild(loadingView);
@@ -96,8 +276,7 @@ class Main extends eui.UILayer {
         }
     }
 
-    private loadlocalConfig()
-    {
+    private loadlocalConfig() {
         GameConfig.scenceConfig = RES.getRes("scence_json");
         sceneconfig.WWinit();
         GameConfig.elementConfig = RES.getRes("element_json");
@@ -117,8 +296,7 @@ class Main extends eui.UILayer {
     }
 
     //创建登录
-    private createLogin(): void 
-    {
+    private createLogin(): void {
         // if(!this._gameView)
         // {
         //     this._gameView = new GameView();
@@ -126,8 +304,7 @@ class Main extends eui.UILayer {
         // }
     }
     //删除登录
-    public releaseLogin(): void 
-    {
+    public releaseLogin(): void {
         // if (this._gameView) {
         //     if(this._gameView.parent){
         //         this._gameView.parent.removeChild(this._gameView);
@@ -136,16 +313,14 @@ class Main extends eui.UILayer {
         // }
     }
     //创建主界面
-    private createMain()
-    {
-        if(!this._mainView)
+    private createMain() {
+        if (!this._mainView)
             this._mainView = new MainView();
         this.addChild(this._mainView);
-        
+
     }
     //释放主界面
-    private releaseMain()
-    {
+    private releaseMain() {
         if (this._mainView) {
             if (this._mainView.parent) {
                 this._mainView.parent.removeChild(this._mainView);
@@ -154,17 +329,15 @@ class Main extends eui.UILayer {
         }
     }
     //创建游戏
-    private createGameV(): void 
-    {
+    private createGameV(): void {
         if (!this._gameView) {
             this._gameView = new GameView();
             this.addChild(this._gameView);
-       
+
         }
     }
     //删除游戏
-    public releaseGame(): void
-    {
+    public releaseGame(): void {
         if (this._gameView) {
             this._gameView.destructor();
             if (this._gameView.parent) {
@@ -173,18 +346,16 @@ class Main extends eui.UILayer {
             this._gameView = null;
         }
     }
-    
-    private changeScene(targetState:SceneState): void  
-    {
-        if (this.sceneState != targetState) 
-        {
+
+    private changeScene(targetState: SceneState): void {
+        if (this.sceneState != targetState) {
             this.releaseAll();
             this.sceneState = targetState;
             switch (this.sceneState) {
                 case SceneState.LOGIN:
                     this.createLogin();
                     break;
-                case SceneState.MAIN :
+                case SceneState.MAIN:
                     this.createMain();
                     break;
                 case SceneState.GAMEING:
@@ -194,12 +365,11 @@ class Main extends eui.UILayer {
         }
     }
     /**切换到游戏界面 */
-    public changeToGame(): void
-    {
+    public changeToGame(): void {
         this.changeScene(SceneState.GAMEING);
     }
     /**切换到主界面 */
-    public changeToMain(){
+    public changeToMain() {
         this.changeScene(SceneState.MAIN);
     }
     /**

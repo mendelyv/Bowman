@@ -6,19 +6,107 @@
  */
 declare interface Platform {
 
+//开放数据域
+    openDataContext: any;
+    createUserInfoButton(): Promise<any>;
+    //获取用户数据
     getUserInfo(): Promise<any>;
+    //设置屏幕常亮
+    setKeepScreenOn(): void;
+    //登陆
+    login(): Promise<any>;
+    //分享重生
+    rebornGame(title: string, imgurl: string, query: string): Promise<any>;
+    //菜单显示分享
+    setDefaultShare(title: string, imgurl: string, query: string): void;
+    //分享
+    shareAppMessage(title: string, imgurl: string, query: string): Promise<any>;
 
-    login(): Promise<any>
+    updateShareMenu(withticket): Promise<any>;
+    //带标志发送
+    shareApp(title: string, imgurl: string, query: string): Promise<any>;
+
+    //显示广告
+    showAD(): void;
+
+    //存储排行数据
+    setUserCloudStorage(kvobj: any): void;
+
+    //向数据域发消息
+    sendShareData(kvobj: any): void;
+
+    //获取启动参数
+    getLaunchOptionsSync(): any;
+      //监听小游戏回到前台的事件
+    getOnShow(callback: any): void;
+    //监听小游戏隐藏到后台事件。锁屏、按 HOME 键退到桌面、显示在聊天顶部等操作会触发此事件。
+    getOnHide(callback:any): void;
+    //流量主视频广告调用方法
+    showA(ad_id:string, success_callback:any, err_callback:any):void;
+    //显示广告-banner
+    showBA(ad_id:string):void;
+    //隐藏广告
+    hideBA():void;
+    //摧毁广告
+    destroyBA():void;
+    //显示微信菊花转
+    showLoading():void;
+    //隐藏微信菊花转
+    hideLoading():void;
 
 }
 
 class DebugPlatform implements Platform {
+    openDataContext: any;
     async getUserInfo() {
         return { nickName: "username" }
+
     }
+    async createUserInfoButton() {
+
+    }
+    async setKeepScreenOn(){
+
+    };
     async login() {
 
     }
+    async setDefaultShare(title: string, imgurl: string, query: string) {
+    }
+    async showAD() {
+    }
+    //分享重生
+    async rebornGame(title: string, imgurl: string, query: string): Promise<any> {
+
+    }
+    async setUserCloudStorage(kvobj: any) {
+
+    }
+
+    async shareAppMessage(title: string, imgurl: string, query: string): Promise<any> { }
+
+    sendShareData(kvobj: any) { }
+
+    getLaunchOptionsSync(): any { }
+
+    async shareApp(title: string, imgurl: string, query: string): Promise<any> { }
+    //设置回到前台事件
+    getOnShow(callback: any) { }
+    //监听小游戏隐藏到后台事件。锁屏、按 HOME 键退到桌面、显示在聊天顶部等操作会触发此事件。
+    getOnHide(callback:any){};
+    async updateShareMenu(withticket): Promise<any> { }
+    //流量主视频广告调用方法
+    showA(ad_id:string, success_callback:any, err_callback:any) {}
+     //显示广告-banner
+    showBA(ad_id:string){}
+     //隐藏广告
+    hideBA() {}
+    //摧毁广告
+    destroyBA() {}
+    //显示微信菊花转
+    showLoading(){}
+    //隐藏微信菊花转
+    hideLoading(){}
 }
 
 
@@ -34,8 +122,3 @@ declare interface Window {
 
     platform: Platform
 }
-
-
-
-
-
