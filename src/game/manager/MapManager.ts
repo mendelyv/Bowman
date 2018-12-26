@@ -5,13 +5,11 @@ class MapManager {
 	static colMax:number = 40;
 	static cellPix:number = 48;
 
+	static offsetX = 0;
+	static offsetY = 0;
 	//地图所有小格子的数组，用来做显示，碰撞检测
 	//数组值的暂时定义：0，没有东西，1，障碍物 ,经验道具type = 2，血道具type = 3
-	static mapItems:Array<Array<number>>;
-
-	private anchorX:number;
-	private anchorY:number;
-
+	static mapItems:Array<Array<number>>; 
 	public constructor() {
 		this.init();
 	}
@@ -84,8 +82,8 @@ class MapManager {
 	{
 		if(row<0||col<0) return;
 		if(row>=MapManager.rowMax||col>=MapManager.colMax) return;
-		let y = row * MapManager.cellPix + MapManager.cellPix*0.5 ;
-		let x = col * MapManager.cellPix + MapManager.cellPix*0.5 ;
+		let y = row * MapManager.cellPix + MapManager.cellPix*0.5 + MapManager.offsetY;
+		let x = col * MapManager.cellPix + MapManager.cellPix*0.5 + MapManager.offsetX;
 		return new egret.Point(x,y);
 	}
 
