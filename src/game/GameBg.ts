@@ -8,8 +8,7 @@ class GameBg extends eui.Component {
 	public movableY: boolean = true;//Y轴是否可移动
 	/**障碍配置*/
 	private obsMapName: string = "obs_block_png";
-	private propertyName_0:string = "element_common_0_png";
-	private propertyName_1:string = "element_common_1_png";
+
 	private obstacalGroup: eui.Group;
 	private propertyGroup: eui.Group;
 
@@ -73,20 +72,11 @@ class GameBg extends eui.Component {
 	//创建道具
 	public addProperty(posX:number,posY:number,propType:number)
 	{
-		let image;
-		if(propType==2)//经验
-		{
-			image = Util.createBitmap(this.propertyName_0);
-		}
-		else// 血道具
-		{
-			image = Util.createBitmap(this.propertyName_1);
-		}
-		image.anchorOffsetX = image.width * 0.5;
-		image.anchorOffsetY = image.height * 0.5;
-		image.x = posX;
-		image.y = posY;
-		this.propertyGroup.addChild(image);
+		let property = ObjectPool.instance.getObj("property");
+		property.enable(propType);
+		property.x = posX;
+		property.y = posY;
+		this.propertyGroup.addChild(property);
 	}
 
 	public destructor()

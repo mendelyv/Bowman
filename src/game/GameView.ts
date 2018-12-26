@@ -22,12 +22,13 @@ class GameView extends eui.Component {
     }
     /**初始化*/
     public init() {
-       
+        this.initObjectPool();
     }
 
-    private initMapMgr()
+    private initObjectPool()
     {
-        this.mapMgr = new MapManager();
+        let property = new Property();
+        ObjectPool.instance.createObjectPool("property",property);
     }
 
 
@@ -38,7 +39,7 @@ class GameView extends eui.Component {
 
 
         // this.showDiff();
-        this.initMapMgr();
+        this.mapMgr = new MapManager();
     }
     // /**
     //  * 地图层
