@@ -41,6 +41,7 @@ class MapManager {
 		while(config[num.toString()])
 		{
 			let obstacal = config[num.toString()];
+			//let obstacal = config["11"]
 			let data = obstacal.data as Array<Array<number>>;
 			//x,y为障碍物数组在地图数组的起始位置
 			let x = obstacal["x"];
