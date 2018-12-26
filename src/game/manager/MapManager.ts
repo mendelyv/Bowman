@@ -32,7 +32,7 @@ class MapManager {
 	public createMapObstacal()
 	{
 		let config =  GameConfig.obstacalsConfig;
-		let obstacal = config["0"];
+		let obstacal = config["9"];
 		let data = obstacal.data as Array<Array<number>>;
 		//x,y为障碍物数组在地图数组的起始位置
 		let x = obstacal["x"];
