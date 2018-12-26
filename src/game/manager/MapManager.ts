@@ -1,18 +1,22 @@
 
-//控制地图的生成，
+//控制地图的生成，障碍物，道具等
 class MapManager {
 	static rowMax:number = 40;
 	static colMax:number = 40;
 	static cellPix:number = 48;
 
+	//地图所有小格子的数组，用来做显示，碰撞检测
+	//数组值的暂时定义：0，没有东西，1，障碍物 ,经验道具type = 2，血道具type = 3
 	static mapItems:Array<Array<number>>;
 
 	private anchorX:number;
 	private anchorY:number;
+
 	public constructor() {
+		this.init();
 	}
 
-	public init(wid,hei)
+	public init()
 	{
 		MapManager.mapItems = new Array<Array<number>>();
 		for(let i = 0;i<MapManager.rowMax;++i)
@@ -24,44 +28,56 @@ class MapManager {
 			}
 			MapManager.mapItems.push(tempArr);
 		}
+		this.createMapObstacal();
+		this.createProperty();
 
-		this.anchorX = wid*0.5;
-		this.anchorY = hei*0.5;
+		this.showMap();
 	}
 
 	public createMapObstacal()
 	{
 		let config =  GameConfig.obstacalsConfig;
-		let obstacal = config["0"];
-		let data = obstacal.data as Array<Array<number>>;
-		//x,y为障碍物数组在地图数组的起始位置
-		let x = obstacal["x"];
-		let y = obstacal["y"];
-		for(let i = 0;i < MapManager.mapItems.length; ++i)
+		let num = 0;
+		while(config[num.toString()])
 		{
-			if(i-x>=data.length)
+			let obstacal = config[num.toString()];
+			let data = obstacal.data as Array<Array<number>>;
+			//x,y为障碍物数组在地图数组的起始位置
+			let x = obstacal["x"];
+			let y = obstacal["y"];
+			for(let i = 0;i < MapManager.mapItems.length; ++i)
 			{
-				continue;
+				if(i-x>=data.length)
+				{
+					continue;
+				}
+				for(let j = 0 ;j<MapManager.mapItems[i].length; ++j)
+				{
+					if(i-x>=0&&i-x<data.length&&j-y>=0&&j-y<data[0].length)
+						MapManager.mapItems[i][j] = data[i-x][j-y];
+				}
 			}
-			for(let j = 0 ;j<MapManager.mapItems[i].length; ++j)
-			{
-				if(i-x>=0&&i-x<data.length&&i-y>=0&&j-y<data[i].length)
-					MapManager.mapItems[i][j] = data[i-x][j-y];
-			}
+			num++;
 		}
-		this.showMapObstacal();
+		
 	}
 
-	public showMapObstacal()
+	public showMap()
 	{
 		for(let i = 0;i < MapManager.mapItems.length; ++i)
 		{
 			for(let j = 0 ;j<MapManager.mapItems[i].length; ++j)
 			{
-				if(MapManager.mapItems[i][j]==1)
+				let point;
+				if(MapManager.mapItems[i][j] == 1)
 				{
-					let point = this.getMapItemPos(i,j);
-					Main.instance.gameView.bg.createObs(point.x,point.y);
+					point = this.getMapItemPos(i,j);
+					Main.instance.gameView.gameBg.addObstacal(point.x,point.y);
+				}
+				else if(MapManager.mapItems[i][j] == 2 ||MapManager.mapItems[i][j] == 3)
+				{
+					point = this.getMapItemPos(i,j);
+					Main.instance.gameView.gameBg.addProperty(point.x,point.y,MapManager.mapItems[i][j])
 				}
 			}
 		}
@@ -74,5 +90,39 @@ class MapManager {
 		let x = row * MapManager.cellPix + MapManager.cellPix*0.5 ;
 		let y = col * MapManager.cellPix + MapManager.cellPix*0.5 ;
 		return new egret.Point(x,y);
+	}
+
+	//第一次在全图随机刷新160个经验道具和40个血道具
+	//暂定经验道具type = 2，血道具type = 3
+	public createProperty()
+	{
+		//直接在地图里随机
+		for(let i = 0;i < 160;++i)
+		{
+			let vec = this.getEmptyItem();
+			MapManager.mapItems[vec.row][vec.col] = 2;
+		}
+		for(let i = 0;i<40;++i)
+		{
+			let vec = this.getEmptyItem();
+			MapManager.mapItems[vec.row][vec.col] = 3;
+		}
+	}
+
+
+	//随机一个空白的位置
+	public getEmptyItem()
+	{
+		let row,col;
+		while(true)
+		{
+			row = Util.getRandomRange(0,MapManager.rowMax-1);
+			col = Util.getRandomRange(0,MapManager.colMax-1);
+			if(MapManager.mapItems[row][col]==0)//找到一个空白的
+			{
+				break;
+			}
+		}
+		return {row:row,col:col};
 	}
 }
