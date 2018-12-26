@@ -7,12 +7,14 @@ class GameBg extends eui.Component {
 	public movableX: boolean = true;//X轴是否可移动
 	public movableY: boolean = true;//Y轴是否可移动
 	/**障碍配置*/
-	private resourcesName: string;
-	public gp_obs: eui.Group;
+	private obsMapName: string = "obs_block_png";
+	private propertyName_0:string = "element_common_0_png";
+	private propertyName_1:string = "element_common_1_png";
+	private obstacalGroup: eui.Group;
+	private propertyGroup: eui.Group;
 
 	public constructor() {
 		super();
-		this.resourcesName = "obs_block_png";
 	}
 	/** 检测是否到边缘 */
 	private verifyLimit()
@@ -58,15 +60,47 @@ class GameBg extends eui.Component {
 		this.skinName = "GameBGSkin";
 	}
 	//创建障碍
-	public createObs(posX,posY)
+	public addObstacal(posX:number,posY:number)
 	{
-		let image = Util.createBitmap(this.resourcesName);
+		let image = Util.createBitmap(this.obsMapName);
 		image.anchorOffsetX = image.width * 0.5;
 		image.anchorOffsetY = image.height * 0.5;
 		image.x = posX;
 		image.y = posY;
-		this.gp_obs.addChild(image);
+		this.obstacalGroup.addChild(image);
 	}
+
+	//创建道具
+	public addProperty(posX:number,posY:number,propType:number)
+	{
+		let image;
+		if(propType==2)//经验
+		{
+			image = Util.createBitmap(this.propertyName_0);
+		}
+		else// 血道具
+		{
+			image = Util.createBitmap(this.propertyName_1);
+		}
+		image.anchorOffsetX = image.width * 0.5;
+		image.anchorOffsetY = image.height * 0.5;
+		image.x = posX;
+		image.y = posY;
+		this.propertyGroup.addChild(image);
+	}
+
+	public destructor()
+	{
+		this.obstacalGroup.removeChildren();
+		if(this.obstacalGroup.parent)
+			this.obstacalGroup.parent.removeChild(this.obstacalGroup);
+		this.obstacalGroup = null;
+		this.propertyGroup.removeChildren();
+		if(this.propertyGroup.parent)
+			this.propertyGroup.parent.removeChild(this.propertyGroup);
+		this.propertyGroup = null;
+	}
+
 }
 
 window["GameBg"] = GameBg;

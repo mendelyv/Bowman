@@ -6,17 +6,16 @@ class GameView extends eui.Component {
     public joyR: Joystick;
     public player: Player;
     public uiGroup: eui.Group;
-    public elementGroup: eui.Group;
-    public bg: GameBg;
- 
     private closeBtn: eui.Image;
+
+    public gameBg: GameBg;
+ 
+   
     private previousFrameTime: number = 0;
     private shootTime: number = 0;
     private shootDelay: number = 1000;
 
     private mapMgr:MapManager;
-
-
     public constructor() {
         super();
         this.init();
@@ -31,10 +30,6 @@ class GameView extends eui.Component {
     private initMapMgr()
     {
         this.mapMgr = new MapManager();
-        let wid = this.bg.width;
-        let hei = this.bg.height;
-        this.mapMgr.init(wid,hei);
-        this.mapMgr.createMapObstacal();
     }
 
 
@@ -166,18 +161,18 @@ class GameView extends eui.Component {
         let offset: number = this.joyL.Offset;
 
         if (!this.player.movableX) {
-            this.bg.movableX = true;
-            this.bg.move(xAxis, 0);
+            this.gameBg.movableX = true;
+            this.gameBg.move(xAxis, 0);
         }
         if (!this.player.movableY) {
-            this.bg.movableY = true;
-            this.bg.move(0, yAxis);
+            this.gameBg.movableY = true;
+            this.gameBg.move(0, yAxis);
         }
-        if (!this.bg.movableX) {
+        if (!this.gameBg.movableX) {
             this.player.movableX = true;
             this.player.move(xAxis, 0, angle, offset);
         }
-        if (!this.bg.movableY) {
+        if (!this.gameBg.movableY) {
             this.player.movableY = true;
             this.player.move(0, yAxis, angle, offset);
         }
@@ -227,6 +222,7 @@ class GameView extends eui.Component {
     public destructor() {
         this.joyL.destructor();
         this.joyR.destructor();
+        this.gameBg.destructor();
         this.stage.removeEventListener(egret.Event.ENTER_FRAME, this.update, this);
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
         this.closeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, Main.instance.changeToMain, Main.instance);
