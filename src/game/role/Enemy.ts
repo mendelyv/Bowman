@@ -69,6 +69,8 @@ class Enemy extends Role
 		// element.scaleX = element.scaleY = 0.1;
 		// element.WWmoveFrom(this.x, this.y, this.rotation, 2000);
 		// gameView.elementGroup.addChild(element);
+
+        // let arrow = ObjectPool.instance.getObj("arrow");
     }
 
 //class end

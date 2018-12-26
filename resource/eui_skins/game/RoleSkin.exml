@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="RoleSkin" width="250" height="250" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="RoleSkin" width="100" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="role_img" source="role_9_png" anchorOffsetX="125" anchorOffsetY="125" horizontalCenter="0" verticalCenter="0" width="100" height="100"/>
-	<e:Image id="bubble_img" x="75" y="75" source="paopao_9_png" width="100" height="100"/>
-	<e:Image id="arrow" x="104.85" y="128.9" source="game_spore_dir_png" anchorOffsetX="-65.15" anchorOffsetY="28.9" rotation="0" width="14" height="50"/>
+	<e:Image id="bubble_img" source="paopao_9_png" width="100" height="100" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image id="arrow" source="game_spore_dir_png" anchorOffsetX="-45.6" rotation="0" width="14" height="50" x="50" y="48.7" anchorOffsetY="24.8"/>
 </e:Skin>
