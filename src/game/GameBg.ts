@@ -9,6 +9,7 @@ class GameBg extends eui.Component {
 	/**障碍配置*/
 	private obsMapName: string = "obs_block_png";
 
+	public 	arrowGroup:eui.Group;
 	private obstacalGroup: eui.Group;
 	private propertyGroup: eui.Group;
 
