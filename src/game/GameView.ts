@@ -22,7 +22,9 @@ class GameView extends eui.Component {
     }
     /**初始化*/
     public init() {
-       
+        //创建弓箭对象池
+        let arrow = new Arrow();
+        ObjectPool.instance.createObjectPool("arrow", arrow);
     }
 
     private initMapMgr()
