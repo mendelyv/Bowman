@@ -12,6 +12,7 @@ class Player extends Role
 	public xSpeed: number = 0;
 	public ySpeed: number = 0;
 	public radius: number = 0;      //半径
+	public range: number = 300;//射程
 
 	//循环
 	private tempX: number;
@@ -53,6 +54,14 @@ class Player extends Role
 		// element.scaleX = element.scaleY = 0.1;
 		// element.WWmoveFrom(this.x, this.y, this.angle, 2000);
 		// gameView.elementGroup.addChild(element);
+		let group = Main.instance.gameView.gameBg;
+		let arrow: Arrow = ObjectPool.instance.getObj("arrow");
+		arrow.texture = RES.getRes("game_title_rope_png");
+		group.addChild(arrow);
+		arrow.x = this.x;
+		arrow.y = this.y;
+		arrow.rotation = this.arrow.rotation + 90;
+		arrow.moveFrom(this.x, this.y, (arrow.rotation - 90) * Math.PI / 180, this.range);
 	}
 	public move(xAxis,yAxis,angle,offset): void {
 		//获得速度

@@ -29,6 +29,8 @@ class GameView extends eui.Component {
     {
         let property = new Property();
         ObjectPool.instance.createObjectPool("property",property);
+        let arrow = new Arrow();
+        ObjectPool.instance.createObjectPool("arrow", arrow);
     }
 
 
