@@ -54,14 +54,19 @@ class Player extends Role
 		// element.scaleX = element.scaleY = 0.1;
 		// element.WWmoveFrom(this.x, this.y, this.angle, 2000);
 		// gameView.elementGroup.addChild(element);
-		let group = Main.instance.gameView.gameBg;
+		let group = Main.instance.gameView.gameBg.arrowGroup;
 		let arrow: Arrow = ObjectPool.instance.getObj("arrow");
 		arrow.texture = RES.getRes("game_title_rope_png");
+
+		let point = new egret.Point();
+		this.parent.localToGlobal(this.x,this.y,point);
+		let targetPoint = new egret.Point();
+		group.parent.globalToLocal(point.x,point.y,targetPoint);
 		group.addChild(arrow);
-		arrow.x = this.x;
-		arrow.y = this.y;
+		arrow.x = targetPoint.x;
+		arrow.y = targetPoint.y;
 		arrow.rotation = this.arrow.rotation + 90;
-		arrow.moveFrom(this.x, this.y, (arrow.rotation - 90) * Math.PI / 180, this.range);
+		arrow.moveFrom(targetPoint.x, targetPoint.y, (arrow.rotation - 90) * Math.PI / 180, this.range);
 	}
 	public move(xAxis,yAxis,angle,offset): void {
 		//获得速度
