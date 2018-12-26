@@ -45,16 +45,12 @@ class MapManager {
 			//x,y为障碍物数组在地图数组的起始位置
 			let x = obstacal["x"];
 			let y = obstacal["y"];
-			for(let i = 0;i < MapManager.mapItems.length; ++i)
+			for(let i = 0; i<data.length;++i)
 			{
-				if(i-x>=data.length)
+				for(let j = 0;j<data[i].length;++j)
 				{
-					continue;
-				}
-				for(let j = 0 ;j<MapManager.mapItems[i].length; ++j)
-				{
-					if(i-x>=0&&i-x<data.length&&j-y>=0&&j-y<data[0].length)
-						MapManager.mapItems[i][j] = data[i-x][j-y];
+					if(i+x>=0&&i+x<MapManager.mapItems.length&&j+y>=0&&j+y<MapManager.mapItems[i+x].length)
+						MapManager.mapItems[i+x][j+y] = data[i][j];
 				}
 			}
 			num++;
@@ -87,8 +83,8 @@ class MapManager {
 	{
 		if(row<0||col<0) return;
 		if(row>=MapManager.rowMax||col>=MapManager.colMax) return;
-		let x = row * MapManager.cellPix + MapManager.cellPix*0.5 ;
-		let y = col * MapManager.cellPix + MapManager.cellPix*0.5 ;
+		let y = row * MapManager.cellPix + MapManager.cellPix*0.5 ;
+		let x = col * MapManager.cellPix + MapManager.cellPix*0.5 ;
 		return new egret.Point(x,y);
 	}
 
