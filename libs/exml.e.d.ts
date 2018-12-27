@@ -1,5 +1,7 @@
 declare class AvatarComponentSkin extends eui.Skin{
 }
+declare class HPTubeSkin extends eui.Skin{
+}
 declare class JoystickSkin extends eui.Skin{
 }
 declare class PopWindowSkin extends eui.Skin{
