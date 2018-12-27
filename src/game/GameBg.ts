@@ -7,7 +7,7 @@ class GameBg extends eui.Component {
 	public speed: number = 5;
 	public movableX: boolean = true;//X轴是否可移动
 	public movableY: boolean = true;//Y轴是否可移动
-	/**障碍配置*/
+	/**障碍图片名字*/
 	private obsMapName: string = "obs_block_png";
 
 	public 	arrowGroup:eui.Group;
@@ -60,7 +60,7 @@ class GameBg extends eui.Component {
 	protected createChildren() {
 		this.skinName = "GameBGSkin";
 	}
-	//创建障碍
+	/**创建障碍*/
 	public addObstacal(posX:number,posY:number)
 	{
 		let image = Util.createBitmap(this.obsMapName);
@@ -71,7 +71,7 @@ class GameBg extends eui.Component {
 		this.obstacalGroup.addChild(image);
 	}
 
-	//创建道具
+	/**创建道具*/
 	public addProperty(posX:number,posY:number,propType:number)
 	{
 		let property = ObjectPool.instance.getObj("property");

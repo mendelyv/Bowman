@@ -1,8 +1,11 @@
 
 //控制地图的生成，障碍物，道具等
 class MapManager {
+	/**格子行数*/
 	static rowMax:number = 40;
+	/**格子列数*/
 	static colMax:number = 40;
+	/**格子边长*/
 	static cellPix:number = 48;
 
 	static offsetX = 0;
@@ -77,7 +80,7 @@ class MapManager {
 			}
 		}
 	}
-
+	/**获取地图块的位置*/
 	public getMapItemPos(row:number,col:number)
 	{
 		if(row<0||col<0) return;
