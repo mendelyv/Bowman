@@ -818,12 +818,12 @@ class Util {
      * @param lineWidth
      * @returns {egret.Shape}
      */
-    // public static drawCircle(r: number, lineColor: number = 0xffffff, lineWidth: number = 2): egret.Shape {
-    //     var shp: egret.Shape = new egret.Shape();
-    //     shp.graphics.lineStyle(lineWidth, lineColor);
-    //     shp.graphics.drawCircle(0, 0, r);
-    //     return shp;
-    // }
+    public static drawCircle(r: number, lineColor: number = 0xffffff, lineWidth: number = 2): egret.Shape {
+        var shp: egret.Shape = new egret.Shape();
+        shp.graphics.lineStyle(lineWidth, lineColor);
+        shp.graphics.drawCircle(0, 0, r);
+        return shp;
+    }
 
     /**基于矩形的碰撞检测*/
     //public static hitTest(obj1:egret.DisplayObject,obj2:egret.DisplayObject):boolean
