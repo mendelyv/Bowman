@@ -68,32 +68,9 @@ class Role extends eui.Component
 		}
     }
 
-	protected  getPosInMap()
+	//与周围道具碰撞，吃道具
+	public getAroundProperty(property:Property)
 	{
-		//将角色的坐标转化为地图上的二维数组的坐标
-		let x = this.x - MapManager.offsetX;
-		let y = this.y - MapManager.offsetY;
-		if(x<0||y<0||x>MapManager.rowMax*MapManager.cellPix||y>MapManager.colMax*MapManager.cellPix)
-		{
-			return ;
-		}
-		let row = Math.floor(x/MapManager.cellPix);
-		let col = Math.floor(y/MapManager.cellPix);
-		let aroundItem = []; 
-		for(let i = -1;i<2;++i)
-		{
-			for(let j = -1;j<2;++j)
-			{
-				if(row+i>=0&&row+i<=MapManager.rowMax&&col+j>=0&&col+j<=MapManager.colMax)
-				{
-					if(!(i==0&&j==0))
-					{
-						let pos = {row:row+i,col:col+j};
-						aroundItem.push(pos);
-					}
-				}
-			}
-		}
-		return aroundItem;
+		
 	}
 }

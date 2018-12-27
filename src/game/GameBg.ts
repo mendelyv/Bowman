@@ -2,8 +2,9 @@
  * 游戏背景地图
  */
 class GameBg extends eui.Component {
-	public speed: number = 5;
 
+	public gameView:GameView;
+	public speed: number = 5;
 	public movableX: boolean = true;//X轴是否可移动
 	public movableY: boolean = true;//Y轴是否可移动
 	/**障碍配置*/
@@ -78,6 +79,7 @@ class GameBg extends eui.Component {
 		property.x = posX;
 		property.y = posY;
 		this.propertyGroup.addChild(property);
+		this.gameView.battleMgr.addProperty(property);
 	}
 
 	public destructor()
