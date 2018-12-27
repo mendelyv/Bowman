@@ -39,10 +39,11 @@ class BattleManager {
 			{
 				if(property.Row == row && property.Col == col)
 				{
-					return	this.propertys[i];
+					return	i;
 				}
 			}
 		}
+		return -1;
 	}
 
 	/**添加敌人*/
@@ -69,31 +70,57 @@ class BattleManager {
 			let enemy = this.enemys[i];
 			if(enemy && !enemy.die)
 			{
-				// if()碰撞了
-				// {
-					let row = 1;
-					let col = 1;
-					let property = this.getPropeyty(row,col);
-					enemy.getAroundProperty(property);
-					ObjectPool.instance.pushObj("property",property);
-					property = null;
-				// }
+				let hitPoint = MapManager.getHitItem(this.player,[2,3]);
+				if(hitPoint)
+				{
+					let row = hitPoint.x;
+					let col = hitPoint.y;
+					let index = this.getPropeyty(row,col)
+					if(index !=-1 )
+					{
+						continue;
+					}
+					let property = this.propertys[index];
+					//console.log("row:"+row +";col:"+col +"    "+ egret.getTimer());
+			 		if(Util.isCircleHit(enemy,property,true))
+					{
+				 		if(Util.isHit(enemy,property,true))
+				 		{
+							enemy.getAroundProperty(property);
+							MapManager.mapItems[row][col] = 0;
+							ObjectPool.instance.pushObj("property",property);
+							this.propertys[index] = null;
+						}
+					}
+				}
 			}
 		}
 
 		//玩家的碰撞检测，吃道具
 		if(this.player && !this.player.die)
 		{
-			// if()碰撞了
-			// {
-					let row = 1;
-					let col = 1;
-					let property = this.getPropeyty(row,col);
-					this.player.getAroundProperty(property);
-					ObjectPool.instance.pushObj("property",property);
-					property = null;
-			// }
-			
+			let hitPoint = MapManager.getHitItem(this.player,[2,3]);
+			if(hitPoint)
+			{
+				let row = hitPoint.x;
+				let col = hitPoint.y;
+				let index = this.getPropeyty(row,col)
+				if(index!=-1)
+				{
+					let property = this.propertys[index];
+					//console.log("row:"+row +";col:"+col +"    "+ egret.getTimer());
+					if(Util.isCircleHit(this.player,property,true))
+					{
+						if(Util.isHit(this.player,property,true))
+						{
+							this.player.getAroundProperty(property);
+							MapManager.mapItems[row][col] = 0;
+							ObjectPool.instance.pushObj("property",property);
+							this.propertys[index] = null;
+						}
+					}
+				}
+			}			
 		}
 
 		//敌人弓箭的碰撞检测，玩家扣血等
