@@ -23,10 +23,23 @@ class Enemy extends Role {
         super();
         this.speed = 2.5;
         this.ai = new EnemyAI(this);
-        if (MapManager.mapItems) {
+       
+    }
+
+    public initNav():void
+    {
+         if (MapManager.mapItems) {
             if (MapManager.mapItems.length != 0)
-                this.nav = new SilzAstar(MapManager.mapItems);
-            this.pathQueue = new Array<SilzAstarNode>();
+            {
+                if(!this.nav)
+                {
+                    this.nav = new SilzAstar(MapManager.mapItems);
+                }
+            }
+            if(!this.pathQueue)
+            {
+                this.pathQueue = new Array<SilzAstarNode>();
+            }
         }
     }
 
@@ -132,8 +145,8 @@ class Enemy extends Role {
             egret.Tween.removeTweens(this);
             this.moveTween = null;
         }
-
-
+      
+        this.initNav();
         let pathQueue = this.nav.find(start.y, start.x, end.y, end.x);
         if (!pathQueue) return;
 

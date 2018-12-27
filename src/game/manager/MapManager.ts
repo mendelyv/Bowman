@@ -152,6 +152,9 @@ class MapManager {
 		{
 			row = Util.getRandomRange(0,MapManager.rowMax-1);
 			col = Util.getRandomRange(0,MapManager.colMax-1);
+			if(!MapManager.mapItems){
+				break;
+			}
 			if(MapManager.mapItems[row][col]==0)//找到一个空白的
 			{
 				break;
