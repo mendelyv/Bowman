@@ -2,7 +2,7 @@
 //控制地图的生成，障碍物，道具等
 class MapManager {
 	/**格子行数*/
-	static rowMax:number = 40;
+	static rowMax:number = 30;
 	/**格子列数*/
 	static colMax:number = 40;
 	/**格子边长*/
@@ -30,7 +30,7 @@ class MapManager {
 			MapManager.mapItems.push(tempArr);
 		}
 		this.createMapObstacal();
-		this.createProperty();
+		// this.createProperty();
 
 		this.showMap();
 	}
@@ -69,25 +69,39 @@ class MapManager {
 				let point;
 				if(MapManager.mapItems[i][j] == 1)
 				{
-					point = this.getMapItemPos(i,j);
+					point = MapManager.getMapItemPos(i,j);
 					Main.instance.gameView.gameBg.addObstacal(point.x,point.y);
 				}
 				else if(MapManager.mapItems[i][j] == 2 ||MapManager.mapItems[i][j] == 3)
 				{
-					point = this.getMapItemPos(i,j);
+					point = MapManager.getMapItemPos(i,j);
 					Main.instance.gameView.gameBg.addProperty(point.x,point.y,MapManager.mapItems[i][j])
 				}
 			}
 		}
 	}
 	/**获取地图块的位置*/
-	public getMapItemPos(row:number,col:number)
+	public static getMapItemPos(row:number,col:number)
 	{
 		if(row<0||col<0) return;
 		if(row>=MapManager.rowMax||col>=MapManager.colMax) return;
 		let y = row * MapManager.cellPix + MapManager.cellPix*0.5 + MapManager.offsetY;
 		let x = col * MapManager.cellPix + MapManager.cellPix*0.5 + MapManager.offsetX;
 		return new egret.Point(x,y);
+	}
+
+	/** 根据坐标返回点所在地图格子的行列
+	 * @param point ：位置坐标
+	 * @param changeCoordinate ：是否需要转换坐标系
+	 */
+	public static getRowColOfMap(point: egret.Point, changeCoordinate: boolean = false): egret.Point
+	{
+		let bg = Main.instance.gameView.gameBg;
+		if(changeCoordinate)
+			point = bg.globalToLocal(point.x, point.y);
+		let col = Math.floor(point.x / MapManager.cellPix);
+		let row = Math.floor(point.y / MapManager.cellPix);
+		return new egret.Point(row, col);
 	}
 
 	//第一次在全图随机刷新160个经验道具和40个血道具
@@ -123,4 +137,5 @@ class MapManager {
 		}
 		return {row:row,col:col};
 	}
+
 }

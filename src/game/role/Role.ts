@@ -3,17 +3,17 @@
 class Role extends eui.Component 
 {
 	public die: boolean = false;
-	private hp:number;//当前血量
+	protected hp:number;//当前血量
 	public get HP(){return this.hp;}
-	private maxHp:number;//最大血量
+	protected maxHp:number;//最大血量
 	public get MaxHP(){return this.maxHp;}
-	private level:number;//当前等级
+	protected level:number;//当前等级
 	public get Level(){return this.level;}
-	private hpTube:HPTube;//角色的血量条
-	private shieldPower:number;//护甲值，用于计算伤害
-	private critRate:number//暴击率
+	protected hpTube:HPTube;//角色的血量条
+	protected shieldPower:number;//护甲值，用于计算伤害
+	protected critRate:number//暴击率
 
-	private exp:number;//当前经验值
+	protected exp:number;//当前经验值
 
 
 	public speed:number;//移动速度
@@ -68,32 +68,9 @@ class Role extends eui.Component
 		}
     }
 
-	protected  getPosInMap()
+	//与周围道具碰撞，吃道具
+	public getAroundProperty(property:Property)
 	{
-		//将角色的坐标转化为地图上的二维数组的坐标
-		let x = this.x - MapManager.offsetX;
-		let y = this.y - MapManager.offsetY;
-		if(x<0||y<0||x>MapManager.rowMax*MapManager.cellPix||y>MapManager.colMax*MapManager.cellPix)
-		{
-			return ;
-		}
-		let row = Math.floor(x/MapManager.cellPix);
-		let col = Math.floor(y/MapManager.cellPix);
-		let aroundItem = []; 
-		for(let i = -1;i<2;++i)
-		{
-			for(let j = -1;j<2;++j)
-			{
-				if(row+i>=0&&row+i<=MapManager.rowMax&&col+j>=0&&col+j<=MapManager.colMax)
-				{
-					if(!(i==0&&j==0))
-					{
-						let pos = {row:row+i,col:col+j};
-						aroundItem.push(pos);
-					}
-				}
-			}
-		}
-		return aroundItem;
+		
 	}
 }

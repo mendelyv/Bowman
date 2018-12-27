@@ -11,34 +11,38 @@ class Enemy extends Role
     public arrow: eui.Image;
 	public role_img: eui.Image;
 	public bubble_img: eui.Image;
+    public target: Role;//追寻的目标
 
     private ai: EnemyAI;
+    private nav: SilzAstar;//a*导航
+    private pathQueue: Array<SilzAstarNode>;//导航的路径
+    private pathIndex: number = 0;
+    private followTween: egret.Tween;
+    private endTarget: egret.Point;
 
     public constructor()
     {
         super();
         this.speed = 5;
         this.ai = new EnemyAI(this);
+
+        if(MapManager.mapItems.length != 0)
+            this.nav = new SilzAstar(MapManager.mapItems);
+        this.pathQueue = new Array<SilzAstarNode>();
     }
 
     protected createChildren()
     {
         this.skinName = "RoleSkin";
+        this.anchorOffsetX = this.width / 2;
+        this.anchorOffsetY = this.height / 2;
         this.removeChild(this.arrow);
         delete this.arrow;//删除箭头
     }
 
+
     /** 转向 */
     public moveToByAngle(angle: number): void {
-		// if (angle <= Math.PI) {
-		// 	this.xSpeed = Math.cos(angle) * this.speed;
-		// 	this.ySpeed = Math.sin(angle) * this.speed;
-		// } else if (this.angle <= Math.PI) {
-		// 	this.frictionX = Math.cos(this.angle) * this.friction;
-		// 	this.frictionY = Math.sin(this.angle) * this.friction;
-		// 	//this.xSpeed = 0;
-		// 	//this.ySpeed = 0;
-		// }
 		this.angle = angle;
 		this.role_img.rotation = angle * 180 / Math.PI + 90;
 	}
@@ -59,6 +63,30 @@ class Enemy extends Role
         egret.Tween.get(this).to({ x: xPos,y: yPos }, time);
     }
 
+    public moveOfPath()
+    {
+        if(this.pathQueue.length <= 0) return;
+        let point = this.pathQueue[this.pathIndex];
+        if(!point)
+        {
+            this.pathQueue = [];
+            this.pathIndex = 1;//从1开始，忽略掉起点
+            this.followTween.pause();
+            egret.Tween.removeTweens(this);
+            egret.Tween.removeTweens(this.followTween);
+            this.followTween = null;            
+            return;
+        }
+        let target = MapManager.getMapItemPos(point.y, point.x);
+        let dis = egret.Point.distance(new egret.Point(this.x, this.y), target);
+        let time = (dis / this.speed) * 1000 * 0.02;
+        this.followTween = egret.Tween.get(this).to({x: target.x, y: target.y}, time)
+                            .call(function(){
+                                this.pathIndex++;
+                                this.moveOfPath();
+                            }, this);
+    }
+
     /** 攻击 */
     public attack()
     {
@@ -71,6 +99,36 @@ class Enemy extends Role
 		// gameView.elementGroup.addChild(element);
 
         // let arrow = ObjectPool.instance.getObj("arrow");
+    }
+
+    /** 追寻 */
+    public follow()
+    {
+        if(!this.target) return;
+        let start = MapManager.getRowColOfMap(new egret.Point(this.x, this.y));
+        let end = MapManager.getRowColOfMap(new egret.Point(this.target.x, this.target.y), true);
+
+        if(this.endTarget)
+            if(end == this.endTarget)
+                return;
+        this.endTarget = end;
+
+        if(this.followTween)//如果有tween代表正在追寻，所以需要
+        {
+            this.pathQueue = [];
+            this.pathIndex = 1;//从1开始，忽略掉起点
+            this.followTween.pause();
+            egret.Tween.removeTweens(this);
+            egret.Tween.removeTweens(this.followTween);
+            this.followTween = null;
+        }
+
+        
+        let pathQueue = this.nav.find(start.y, start.x, end.y, end.x);
+        if(!pathQueue) return;
+
+        this.pathQueue = pathQueue;
+        this.moveOfPath();
     }
 
 //class end
