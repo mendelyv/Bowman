@@ -111,19 +111,19 @@ class MapManager {
 		//直接在地图里随机
 		for(let i = 0;i < 160;++i)
 		{
-			let vec = this.getEmptyItem();
+			let vec = MapManager.getEmptyItem();
 			MapManager.mapItems[vec.row][vec.col] = 2;
 		}
 		for(let i = 0;i<40;++i)
 		{
-			let vec = this.getEmptyItem();
+			let vec = MapManager.getEmptyItem();
 			MapManager.mapItems[vec.row][vec.col] = 3;
 		}
 	}
 
 
 	//随机一个空白的位置
-	public getEmptyItem()
+	public static getEmptyItem()
 	{
 		let row,col;
 		while(true)

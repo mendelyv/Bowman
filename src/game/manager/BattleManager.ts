@@ -45,7 +45,7 @@ class BattleManager {
 		}
 	}
 
-
+	/**添加敌人*/
 	public addEnemy(enemy:Enemy)
 	{
 		for(let i = 0; i<this.enemys.length;++i)

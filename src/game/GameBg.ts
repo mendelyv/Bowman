@@ -13,7 +13,7 @@ class GameBg extends eui.Component {
 	public 	arrowGroup:eui.Group;
 	private obstacalGroup: eui.Group;
 	private propertyGroup: eui.Group;
-
+	private enemyGroup: eui.Group;
 	public constructor() {
 		super();
 	}
@@ -80,6 +80,14 @@ class GameBg extends eui.Component {
 		property.y = posY;
 		this.propertyGroup.addChild(property);
 		this.gameView.battleMgr.addProperty(property);
+	}
+
+	/**生成敌人*/
+	public addEnemy(enemy:Array<Enemy>){
+		for(let i:number = 0;i<enemy.length;i++	){
+			this.enemyGroup.addChild(enemy[i]);
+			this.gameView.battleMgr.addEnemy(enemy[i]);
+		}	
 	}
 
 	public destructor()

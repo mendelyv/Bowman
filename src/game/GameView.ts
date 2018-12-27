@@ -15,6 +15,7 @@ class GameView extends eui.Component {
     private shootDelay: number = 1000;
 
     private mapMgr:MapManager;
+    private enemyMgr:EnemyManager;
     public battleMgr:BattleManager;
     public constructor() {
         super();
@@ -31,6 +32,8 @@ class GameView extends eui.Component {
         ObjectPool.instance.createObjectPool("property",property);
         let arrow = new Arrow();
         ObjectPool.instance.createObjectPool("arrow", arrow);
+        let enemy = new Enemy();
+        ObjectPool.instance.createObjectPool("enemy",enemy);
     }
 
 
@@ -44,6 +47,7 @@ class GameView extends eui.Component {
         this.mapMgr = new MapManager();
         this.battleMgr = new BattleManager();
         this.gameBg.gameView = this;
+        this.enemyMgr = new EnemyManager();
     }
 
     // /**
