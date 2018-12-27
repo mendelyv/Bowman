@@ -2,7 +2,7 @@
 //控制地图的生成，障碍物，道具等
 class MapManager {
 	/**格子行数*/
-	static rowMax:number = 30;
+	static rowMax:number = 40;
 	/**格子列数*/
 	static colMax:number = 40;
 	/**格子边长*/
@@ -30,7 +30,7 @@ class MapManager {
 			MapManager.mapItems.push(tempArr);
 		}
 		this.createMapObstacal();
-		// this.createProperty();
+		this.createProperty();
 
 		this.showMap();
 	}
@@ -121,29 +121,28 @@ class MapManager {
 		return new egret.Point(row, col);
 	}
 
-	//第一次在全图随机刷新160个经验道具和40个血道具
-	//暂定经验道具type = 2，血道具type = 3
-	public createProperty()
-	{
-		let point = new egret.Point(obj.x,obj.y);
-		if(obj.parent)
-		{
-			obj.parent.localToGlobal(obj.x,obj.y,point);
-		}
-		let posX = point.x - MapManager.offsetX;
-		let posY = point.y - MapManager.offsetY;
-		if(posX < 0 || posY < 0)
-		{
-			return null;
-		}
-		let row = Math.floor(posY / MapManager.cellPix);
-		let col = Math.floor(posX / MapManager.cellPix);
-		if(row > MapManager.rowMax || col > MapManager.colMax)
-		{
-			return null;
-		}
-		return new egret.Point(row,col);
-	}
+
+	// public static getMapItemRowCol(obj:egret.DisplayObject)
+	// {
+	// 	let point = new egret.Point(obj.x,obj.y);
+	// 	if(obj.parent)
+	// 	{
+	// 		obj.parent.localToGlobal(obj.x,obj.y,point);
+	// 	}
+	// 	let posX = point.x - MapManager.offsetX;
+	// 	let posY = point.y - MapManager.offsetY;
+	// 	if(posX < 0 || posY < 0)
+	// 	{
+	// 		return null;
+	// 	}
+	// 	let row = Math.floor(posY / MapManager.cellPix);
+	// 	let col = Math.floor(posX / MapManager.cellPix);
+	// 	if(row > MapManager.rowMax || col > MapManager.colMax)
+	// 	{
+	// 		return null;
+	// 	}
+	// 	return new egret.Point(row,col);
+	// }
 
 	//随机一个空白的位置
 	public static getEmptyItem()
@@ -173,12 +172,14 @@ class MapManager {
 		{
 			obj.parent.localToGlobal(obj.x,obj.y,objPoint);
 		}
-		let mapItem = MapManager.getMapItemRowCol(obj);
+		let mapItem = MapManager.getRowColOfMap(objPoint,true);
 		if(!mapItem)
 		{
 			return null;
 		}
+		//console.log("x:"+mapItem.x + "   y:"+mapItem.y);
 		let count = Math.ceil(radius/MapManager.cellPix + 0.5);
+		count = 1;
 		let beginX = Math.min(Math.max(0,mapItem.x - count),MapManager.rowMax);
 		let beginY = Math.min(Math.max(0,mapItem.y - count),MapManager.colMax);
 		let endX = Math.min(Math.max(0,mapItem.x + count),MapManager.rowMax);
@@ -191,17 +192,21 @@ class MapManager {
 			for(let j = beginY;j <= endY; ++j)
 			{
 				let mapItem = MapManager.mapItems[i][j];
-				if(mapItem!= 0 && mapItem!=1)
+				if(mapItem)
 				{
-					let targetPoint = MapManager.getMapItemPos(i,j);
-					let distance = egret.Point.distance(objPoint,targetPoint);
-					if(!minDistance) minDistance = distance;
-					if(distance < minDistance)
+					if(mapItem!= 0 && mapItem!=1)
 					{
-						minDistance = distance;
-						target = new egret.Point(i,j);
+						let targetPoint = MapManager.getMapItemPos(i,j);
+						let distance = egret.Point.distance(objPoint,targetPoint);
+						if(!minDistance) minDistance = distance;
+						if(distance <= minDistance)
+						{
+							minDistance = distance;
+							target = new egret.Point(i,j);
+						}
 					}
 				}
+				
 			}
 		}
 		return target;

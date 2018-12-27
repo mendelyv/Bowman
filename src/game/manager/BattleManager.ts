@@ -70,15 +70,25 @@ class BattleManager {
 			let enemy = this.enemys[i];
 			if(enemy && !enemy.die)
 			{
-				// if()碰撞了
-				// {
-					// let row = 1;
-					// let col = 1;
-					// let property = this.getPropeyty(row,col);
-					// enemy.getAroundProperty(property);
-					// ObjectPool.instance.pushObj("property",property);
-					// property = null;
-				// }
+				let hitPoint = MapManager.getHitItem(this.player);
+				if(hitPoint)
+				{
+					let row = hitPoint.x;
+					let col = hitPoint.y;
+					let index = this.getPropeyty(row,col)
+					let property = this.propertys[index];
+					//console.log("row:"+row +";col:"+col +"    "+ egret.getTimer());
+			 		if(Util.isCircleHit(enemy,property,true))
+					{
+				 		if(Util.isHit(enemy,property,true))
+				 		{
+							enemy.getAroundProperty(property);
+							MapManager.mapItems[row][col] = 0;
+							ObjectPool.instance.pushObj("property",property);
+							this.propertys[index] = null;
+						}
+					}
+				}
 			}
 		}
 
@@ -88,16 +98,22 @@ class BattleManager {
 			let hitPoint = MapManager.getHitItem(this.player);
 			if(hitPoint)
 			{
-				
 				let row = hitPoint.x;
 				let col = hitPoint.y;
 				let index = this.getPropeyty(row,col)
-				console.log("row:"+row +";col:"+col +"    "+ egret.getTimer());
 				let property = this.propertys[index];
-				//this.player.getAroundProperty(property);
-				MapManager.mapItems[row][col] = 0;
-				ObjectPool.instance.pushObj("property",property);
-				this.propertys[index] = null;
+				//console.log("row:"+row +";col:"+col +"    "+ egret.getTimer());
+			 	if(Util.isCircleHit(this.player,property,true))
+				{
+				 	if(Util.isHit(this.player,property,true))
+				 	{
+						this.player.getAroundProperty(property);
+						MapManager.mapItems[row][col] = 0;
+						ObjectPool.instance.pushObj("property",property);
+						this.propertys[index] = null;
+					}
+				}
+
 			}			
 		}
 

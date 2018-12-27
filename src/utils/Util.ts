@@ -683,25 +683,64 @@ class Util {
     //    var len = Math.pow((dx*dx+dy*dy),0.5);
     //    return len;
     //}
-    //判断是否碰撞
-    public static isHit(aimrect, hitrect, aimSeffX: number = 0, hitSeffX: number = 0): boolean {
-        var aim_cx = aimrect.x + aimSeffX + aimrect.width * 0.5;
-        var aim_cy = aimrect.y + aimrect.height * 0.5;
-        var hit_cx = hitrect.x + hitSeffX + hitrect.width * 0.5;
-        var hit_cy = hitrect.y + hitrect.height * 0.5;
+    public static isHit(aimrect:egret.DisplayObject, hitrect:egret.DisplayObject,needTrans:boolean = false ,aimSeffX: number = 0, hitSeffX: number = 0): boolean//判断是否碰撞
+    {
+        let aimrectPoint = new egret.Point(aimrect.x,aimrect.y);
+        let hitrectPoint = new egret.Point(hitrect.x,hitrect.y);
+        if(needTrans)
+        {
+            if(aimrect.parent)
+            {
+                aimrect.parent.localToGlobal(aimrect.x,aimrect.y,aimrectPoint);
+            }
+            if(hitrect.parent)
+            {
+                hitrect.parent.localToGlobal(hitrect.x,hitrect.y,hitrectPoint);
+            }
+        }
+
+        var aim_cx = aimrectPoint.x - aimrect.anchorOffsetX + aimSeffX + aimrect.width * 0.5;
+        var aim_cy = aimrectPoint.y - aimrect.anchorOffsetY + aimrect.height * 0.5;
+        var hit_cx = hitrectPoint.x - hitrect.anchorOffsetX + hitSeffX + hitrect.width * 0.5;
+        var hit_cy = hitrectPoint.y - hitrect.anchorOffsetX + hitrect.height * 0.5;
 
         var dx = Math.abs(aim_cx - hit_cx);
         var dy = Math.abs(aim_cy - hit_cy);
         if (dx <= Math.abs(hitrect.width * 0.5 + aimrect.width * 0.5) && dy <= Math.abs(hitrect.height * 0.5 + aimrect.height * 0.5)) {
-            // console.log(aim_cx, aim_cy, hit_cx, hit_cy, hitrect.width * 0.5 + aimrect.width * 0.5, hitrect.height * 0.5 + aimrect.height * 0.5)
-            //    var shp = Util.drawRectangle(aimrect.x+aimSeffX,aimrect.y,aimrect.width,aimrect.height);
-            //    Main.getInstance().getGameUI().addChild(shp);
-            //    var shp2 = Util.drawRectangle(hitrect.x+hitSeffX,hitrect.y,hitrect.width,hitrect.height);
-            //    Main.getInstance().getGameUI().addChild(shp2);
+                    //    console.log(aim_cx,aim_cy,hit_cx,hit_cy,hitrect.width*0.5+aimrect.width*0.5,hitrect.height*0.5+aimrect.height*0.5)
+                    //    var shp = Util.drawLineRectangle(aimrect.x+aimSeffX,aimrect.y,aimrect.width,aimrect.height);
+                    //    aimrect.addChild(shp);
+                    //    var shp2 = Util.drawLineRectangle(hitrect.x+hitSeffX,hitrect.y,hitrect.width,hitrect.height);
+                    //    hitrect.addChild(shp2);
             return true;
         }
         return false;
     }
+
+        /** 圆碰撞 */
+    public static isCircleHit(obj1:egret.DisplayObject, obj2:egret.DisplayObject,needTrans:boolean =  false )
+    {
+        let obj1R = Math.sqrt(obj1.width * obj1.width + obj1.height * obj1.height);
+        let obj2R = Math.sqrt(obj2.width * obj2.width + obj2.height * obj2.height);
+        let obj1Point = new egret.Point(obj1.x,obj1.y);
+        let obj2Point = new egret.Point(obj2.x,obj2.y);
+        if(needTrans)
+        {
+            if(obj1.parent)
+            {
+                obj1.parent.localToGlobal(obj1.x,obj1.y,obj1Point);
+            }
+            if(obj2.parent)
+            {
+                obj2.parent.localToGlobal(obj2.x,obj2.y,obj2Point);
+            }
+        }
+        let distance = egret.Point.distance(new egret.Point(obj1Point.x, obj1Point.y), new egret.Point(obj2Point.x, obj2Point.y));
+        if(obj1R + obj2R > distance)
+            return true;
+        return false;
+    }
+
     public static drawRectangle(x: number, y: number, width: number, height: number): egret.Shape {
         var shp: egret.Shape = new egret.Shape();
         //shp.graphics.beginFill( 0x00ff00 );
