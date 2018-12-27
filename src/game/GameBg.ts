@@ -72,12 +72,13 @@ class GameBg extends eui.Component {
 	}
 
 	/**创建道具*/
-	public addProperty(posX:number,posY:number,propType:number)
+	public addProperty(row:number,col:number,propType:number)
 	{
-		let property = ObjectPool.instance.getObj("property");
-		property.enable(propType);
-		property.x = posX;
-		property.y = posY;
+		let property:Property = ObjectPool.instance.getObj("property");
+		property.enable(propType,row,col);
+		let point = MapManager.getMapItemPos(row,col);
+		property.x = point.x;
+		property.y = point.y;
 		this.propertyGroup.addChild(property);
 		this.gameView.battleMgr.addProperty(property);
 	}

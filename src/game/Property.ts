@@ -12,7 +12,7 @@ class Property extends MapItem
 		super();
 	}
 
-	public enable(id,row,col)
+	public enable(id:number,row:number,col:number)
 	{
 		this.id = id;
 		if(this.id == 2)

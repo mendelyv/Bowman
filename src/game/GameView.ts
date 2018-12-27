@@ -41,9 +41,10 @@ class GameView extends eui.Component {
 
 
         // this.showDiff();
-        this.mapMgr = new MapManager();
         this.battleMgr = new BattleManager();
+        this.battleMgr.player = this.player;
         this.gameBg.gameView = this;
+        this.mapMgr = new MapManager();
     }
 
     // /**
@@ -153,7 +154,7 @@ class GameView extends eui.Component {
                 this.shootTime = 0;
             }
         }
-
+        this.battleMgr.update();
     }
 
 

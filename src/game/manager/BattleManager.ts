@@ -39,7 +39,8 @@ class BattleManager {
 			{
 				if(property.Row == row && property.Col == col)
 				{
-					return	this.propertys[i];
+
+					return	i;
 				}
 			}
 		}
@@ -71,12 +72,12 @@ class BattleManager {
 			{
 				// if()碰撞了
 				// {
-					let row = 1;
-					let col = 1;
-					let property = this.getPropeyty(row,col);
-					enemy.getAroundProperty(property);
-					ObjectPool.instance.pushObj("property",property);
-					property = null;
+					// let row = 1;
+					// let col = 1;
+					// let property = this.getPropeyty(row,col);
+					// enemy.getAroundProperty(property);
+					// ObjectPool.instance.pushObj("property",property);
+					// property = null;
 				// }
 			}
 		}
@@ -84,16 +85,20 @@ class BattleManager {
 		//玩家的碰撞检测，吃道具
 		if(this.player && !this.player.die)
 		{
-			// if()碰撞了
-			// {
-					let row = 1;
-					let col = 1;
-					let property = this.getPropeyty(row,col);
-					this.player.getAroundProperty(property);
-					ObjectPool.instance.pushObj("property",property);
-					property = null;
-			// }
-			
+			let hitPoint = MapManager.getHitItem(this.player);
+			if(hitPoint)
+			{
+				
+				let row = hitPoint.x;
+				let col = hitPoint.y;
+				let index = this.getPropeyty(row,col)
+				console.log("row:"+row +";col:"+col +"    "+ egret.getTimer());
+				let property = this.propertys[index];
+				//this.player.getAroundProperty(property);
+				MapManager.mapItems[row][col] = 0;
+				ObjectPool.instance.pushObj("property",property);
+				this.propertys[index] = null;
+			}			
 		}
 
 		//敌人弓箭的碰撞检测，玩家扣血等
