@@ -17,13 +17,13 @@ class Enemy extends Role
     private nav: SilzAstar;//a*导航
     private pathQueue: Array<SilzAstarNode>;//导航的路径
     private pathIndex: number = 0;
-    private followTween: egret.Tween;
+    private moveTween: egret.Tween;
     private endTarget: egret.Point;
 
     public constructor()
     {
         super();
-        this.speed = 5;
+        this.speed = 2.5;
         this.ai = new EnemyAI(this);
 
         if(MapManager.mapItems.length != 0)
@@ -38,6 +38,7 @@ class Enemy extends Role
         this.anchorOffsetY = this.height / 2;
         this.removeChild(this.arrow);
         delete this.arrow;//删除箭头
+        this.ai.startAI();
     }
 
 
@@ -71,20 +72,39 @@ class Enemy extends Role
         {
             this.pathQueue = [];
             this.pathIndex = 1;//从1开始，忽略掉起点
-            this.followTween.pause();
+            if(this.moveTween) 
+            {
+                this.moveTween.pause();
+                egret.Tween.removeTweens(this.moveTween);
+            }
             egret.Tween.removeTweens(this);
-            egret.Tween.removeTweens(this.followTween);
-            this.followTween = null;            
+            this.moveTween = null;            
             return;
         }
         let target = MapManager.getMapItemPos(point.y, point.x);
         let dis = egret.Point.distance(new egret.Point(this.x, this.y), target);
         let time = (dis / this.speed) * 1000 * 0.02;
-        this.followTween = egret.Tween.get(this).to({x: target.x, y: target.y}, time)
+        this.moveTween = egret.Tween.get(this).to({x: target.x, y: target.y}, time)
                             .call(function(){
                                 this.pathIndex++;
                                 this.moveOfPath();
                             }, this);
+    }
+
+    /** 停止移动并清空路径队列，置空目标 */
+    public stopMove()
+    {
+        if(!this.moveTween) return;
+        this.pathQueue = [];
+        this.pathIndex = 1;//从1开始，忽略掉起点
+        if(this.moveTween) 
+        {
+            this.moveTween.pause();
+            egret.Tween.removeTweens(this.moveTween);
+        }
+        egret.Tween.removeTweens(this);
+        this.moveTween = null;
+        this.target = null;
     }
 
     /** 攻击 */
@@ -113,14 +133,17 @@ class Enemy extends Role
                 return;
         this.endTarget = end;
 
-        if(this.followTween)//如果有tween代表正在追寻，所以需要
+        if(this.moveTween)//如果有tween代表正在追寻，所以需要
         {
             this.pathQueue = [];
             this.pathIndex = 1;//从1开始，忽略掉起点
-            this.followTween.pause();
+            if(this.moveTween) 
+            {
+                this.moveTween.pause();
+                egret.Tween.removeTweens(this.moveTween);
+            }
             egret.Tween.removeTweens(this);
-            egret.Tween.removeTweens(this.followTween);
-            this.followTween = null;
+            this.moveTween = null;
         }
 
         
