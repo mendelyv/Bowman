@@ -161,7 +161,7 @@ class MapManager {
 	}
 
 	//碰撞检测,找到最近的有物体的地图单元
-	public static getHitItem(obj:egret.DisplayObject)
+	public static getHitItem(obj:egret.DisplayObject ,targetTpye:Array<number>)
 	{
 		let hei = obj.height;
 		let wid = obj.width;
@@ -194,17 +194,21 @@ class MapManager {
 				let mapItem = MapManager.mapItems[i][j];
 				if(mapItem)
 				{
-					if(mapItem!= 0 && mapItem!=1)
+					for(let m = 0; m<targetTpye.length;++m)
 					{
-						let targetPoint = MapManager.getMapItemPos(i,j);
-						let distance = egret.Point.distance(objPoint,targetPoint);
-						if(!minDistance) minDistance = distance;
-						if(distance <= minDistance)
+						if(mapItem == targetTpye[m])
 						{
-							minDistance = distance;
-							target = new egret.Point(i,j);
+							let targetPoint = MapManager.getMapItemPos(i,j);
+							let distance = egret.Point.distance(objPoint,targetPoint);
+							if(!minDistance) minDistance = distance;
+							if(distance <= minDistance)
+							{
+								minDistance = distance;
+								target = new egret.Point(i,j);
+							}
 						}
 					}
+
 				}
 				
 			}

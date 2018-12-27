@@ -165,6 +165,42 @@ class GameView extends eui.Component {
         let yAxis: number = this.joyL.YAxis;
         let offset: number = this.joyL.Offset;
 
+        //障碍区限制移动start
+        let hitPoint = MapManager.getHitItem(this.player,[1]);
+		if(hitPoint)
+		{
+			let row = hitPoint.x;
+			let col = hitPoint.y;
+            let point_ = new egret.Point(this.player.x,this.player.y);
+            if(this.player.parent)
+                this.player.parent.localToGlobal(this.player.x,this.player.y,point_);
+			let point = MapManager.getRowColOfMap(new egret.Point(point_.x,point_.y),true)
+			if(Math.abs(row - point.x)<=2)
+			{
+                if(row < point.x  && yAxis > 0 )
+                {
+                    yAxis = 0;
+                }
+                else if(row > point.x && yAxis < 0)
+                {
+                    yAxis = 0;
+                }
+			}
+            if(Math.abs(col-point.y)<=2)
+            {
+                
+                if(col > point.y  && xAxis > 0 )
+                {
+                    xAxis = 0;
+                }
+                else if(col < point.y && xAxis < 0)
+                {
+                    xAxis = 0;
+                }
+            }
+		}	
+        //end
+
         if (!this.player.movableX) {
             this.gameBg.movableX = true;
             this.gameBg.move(xAxis, 0);
@@ -223,6 +259,8 @@ class GameView extends eui.Component {
             this.player.y = StageUtils.WIN_HEIGHT - this.player.anchorOffsetY;
         }
     }
+
+    
 
     public destructor() {
         this.joyL.destructor();

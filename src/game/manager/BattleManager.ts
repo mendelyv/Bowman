@@ -39,11 +39,11 @@ class BattleManager {
 			{
 				if(property.Row == row && property.Col == col)
 				{
-
 					return	i;
 				}
 			}
 		}
+		return -1;
 	}
 
 
@@ -70,12 +70,16 @@ class BattleManager {
 			let enemy = this.enemys[i];
 			if(enemy && !enemy.die)
 			{
-				let hitPoint = MapManager.getHitItem(this.player);
+				let hitPoint = MapManager.getHitItem(this.player,[2,3]);
 				if(hitPoint)
 				{
 					let row = hitPoint.x;
 					let col = hitPoint.y;
 					let index = this.getPropeyty(row,col)
+					if(index !=-1 )
+					{
+						continue;
+					}
 					let property = this.propertys[index];
 					//console.log("row:"+row +";col:"+col +"    "+ egret.getTimer());
 			 		if(Util.isCircleHit(enemy,property,true))
@@ -95,25 +99,27 @@ class BattleManager {
 		//玩家的碰撞检测，吃道具
 		if(this.player && !this.player.die)
 		{
-			let hitPoint = MapManager.getHitItem(this.player);
+			let hitPoint = MapManager.getHitItem(this.player,[2,3]);
 			if(hitPoint)
 			{
 				let row = hitPoint.x;
 				let col = hitPoint.y;
 				let index = this.getPropeyty(row,col)
-				let property = this.propertys[index];
-				//console.log("row:"+row +";col:"+col +"    "+ egret.getTimer());
-			 	if(Util.isCircleHit(this.player,property,true))
+				if(index!=-1)
 				{
-				 	if(Util.isHit(this.player,property,true))
-				 	{
-						this.player.getAroundProperty(property);
-						MapManager.mapItems[row][col] = 0;
-						ObjectPool.instance.pushObj("property",property);
-						this.propertys[index] = null;
+					let property = this.propertys[index];
+					//console.log("row:"+row +";col:"+col +"    "+ egret.getTimer());
+					if(Util.isCircleHit(this.player,property,true))
+					{
+						if(Util.isHit(this.player,property,true))
+						{
+							this.player.getAroundProperty(property);
+							MapManager.mapItems[row][col] = 0;
+							ObjectPool.instance.pushObj("property",property);
+							this.propertys[index] = null;
+						}
 					}
 				}
-
 			}			
 		}
 
