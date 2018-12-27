@@ -3,17 +3,17 @@
 class Role extends eui.Component 
 {
 	public die: boolean = false;
-	private hp:number;//当前血量
+	protected hp:number;//当前血量
 	public get HP(){return this.hp;}
-	private maxHp:number;//最大血量
+	protected maxHp:number;//最大血量
 	public get MaxHP(){return this.maxHp;}
-	private level:number;//当前等级
+	protected level:number;//当前等级
 	public get Level(){return this.level;}
-	private hpTube:HPTube;//角色的血量条
-	private shieldPower:number;//护甲值，用于计算伤害
-	private critRate:number//暴击率
+	protected hpTube:HPTube;//角色的血量条
+	protected shieldPower:number;//护甲值，用于计算伤害
+	protected critRate:number//暴击率
 
-	private exp:number;//当前经验值
+	protected exp:number;//当前经验值
 
 
 	public speed:number;//移动速度

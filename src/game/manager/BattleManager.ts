@@ -62,17 +62,12 @@ class BattleManager {
 
 	public update()
 	{
-		//敌人弓箭的碰撞检测，玩家扣血等
-		for(let i = 0 ;i<this.arrowsEnemy.length;++i)
-		{
-
-		}
-
+		
 		//敌人的碰撞检测，吃道具等
 		for(let i = 0;i<this.enemys.length;++i)
 		{
 			let enemy = this.enemys[i];
-			if(enemy)
+			if(enemy && !enemy.die)
 			{
 				// if()碰撞了
 				// {
@@ -81,17 +76,36 @@ class BattleManager {
 					let property = this.getPropeyty(row,col);
 					enemy.getAroundProperty(property);
 					ObjectPool.instance.pushObj("property",property);
+					property = null;
 				// }
 			}
 		}
 
 		//玩家的碰撞检测，吃道具
+		if(this.player && !this.player.die)
+		{
+			// if()碰撞了
+			// {
+					let row = 1;
+					let col = 1;
+					let property = this.getPropeyty(row,col);
+					this.player.getAroundProperty(property);
+					ObjectPool.instance.pushObj("property",property);
+					property = null;
+			// }
+			
+		}
 
+		//敌人弓箭的碰撞检测，玩家扣血等
+		for(let i = 0 ;i<this.arrowsEnemy.length;++i)
+		{
+			
+		}
 
 		//玩家弓箭的碰撞检测，敌人扣血等
 		for(let i = 0;i<this.arrowsPlayer.length;++i)
 		{
-
+			
 		}
 		
 	}
