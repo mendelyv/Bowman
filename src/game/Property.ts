@@ -36,6 +36,6 @@ class Property extends MapItem
 	public destroy()
 	{
 		//this.bitMap = null;
-		ObjectPool.instance.pushObj("property",this);
+		//ObjectPool.instance.pushObj("property",this);
 	}
 }
