@@ -1,5 +1,9 @@
 {
   "global": {
-    "globalAutoLayerMarkEnable": false
+    "globalAutoLayerMarkEnable": false,
+    "globalBindingDataTestObj": []
+  },
+  "167edad9338": {
+    "bindingDataTestObj": []
   }
 }

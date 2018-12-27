@@ -3,6 +3,7 @@
 	"autoGenerateExmlsList": true,
 	"exmls": [
 		"resource/eui_skins/component/AvatarComponentSkin.exml",
+		"resource/eui_skins/component/HPTubeSkin.exml",
 		"resource/eui_skins/component/JoystickSkin.exml",
 		"resource/eui_skins/component/PopWindowSkin.exml",
 		"resource/eui_skins/game/GameBGSkin.exml",

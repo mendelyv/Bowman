@@ -2,7 +2,7 @@
 //控制地图的生成，障碍物，道具等
 class MapManager {
 	/**格子行数*/
-	static rowMax:number = 40;
+	static rowMax:number = 30;
 	/**格子列数*/
 	static colMax:number = 40;
 	/**格子边长*/
@@ -30,7 +30,7 @@ class MapManager {
 			MapManager.mapItems.push(tempArr);
 		}
 		this.createMapObstacal();
-		this.createProperty();
+		// this.createProperty();
 
 		this.showMap();
 	}
@@ -107,8 +107,23 @@ class MapManager {
 		return new egret.Point(x,y);
 	}
 
-	//获取在地图上的行列
-	public static getMapItemRowCol(obj:egret.DisplayObject)
+	/** 根据坐标返回点所在地图格子的行列
+	 * @param point ：位置坐标
+	 * @param changeCoordinate ：是否需要转换坐标系
+	 */
+	public static getRowColOfMap(point: egret.Point, changeCoordinate: boolean = false): egret.Point
+	{
+		let bg = Main.instance.gameView.gameBg;
+		if(changeCoordinate)
+			point = bg.globalToLocal(point.x, point.y);
+		let col = Math.floor(point.x / MapManager.cellPix);
+		let row = Math.floor(point.y / MapManager.cellPix);
+		return new egret.Point(row, col);
+	}
+
+	//第一次在全图随机刷新160个经验道具和40个血道具
+	//暂定经验道具type = 2，血道具type = 3
+	public createProperty()
 	{
 		let point = new egret.Point(obj.x,obj.y);
 		if(obj.parent)
@@ -191,7 +206,6 @@ class MapManager {
 		}
 		return target;
 	}
-
 	// public static getAroundItems(point:egret.Point)
 	// {
 	// 	let row = point.x;
