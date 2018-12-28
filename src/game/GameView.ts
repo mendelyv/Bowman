@@ -7,16 +7,17 @@ class GameView extends eui.Component {
     public player: Player;
     public uiGroup: eui.Group;
     private closeBtn: eui.Image;
-
+  
     public gameBg: GameBg;
-   
+
     private previousFrameTime: number = 0;
     private shootTime: number = 0;
     private shootDelay: number = 1000;
 
-    private mapMgr:MapManager;
-    private enemyMgr:EnemyManager;
-    public battleMgr:BattleManager;
+    private mapMgr: MapManager;
+    private enemyMgr: EnemyManager;
+    public battleMgr: BattleManager;
+    private _broadcast: Broadcast;//广播
     public constructor() {
         super();
         this.init();
@@ -24,16 +25,17 @@ class GameView extends eui.Component {
     /**初始化*/
     public init() {
         this.initObjectPool();
-    }
 
-    private initObjectPool()
-    {
+
+    }
+  
+    private initObjectPool() {
         let property = new Property();
-        ObjectPool.instance.createObjectPool("property",property);
+        ObjectPool.instance.createObjectPool("property", property);
         let arrow = new Arrow();
         ObjectPool.instance.createObjectPool("arrow", arrow);
         let enemy = new Enemy();
-        ObjectPool.instance.createObjectPool("enemy",enemy);
+        ObjectPool.instance.createObjectPool("enemy", enemy);
     }
 
 
@@ -49,9 +51,21 @@ class GameView extends eui.Component {
         this.gameBg.gameView = this;
         this.mapMgr = new MapManager();
         this.enemyMgr = new EnemyManager();
-        
+        this.initBroadcast();
     }
-
+    /**初始化广播 */
+    private initBroadcast():void{
+          if (!this._broadcast) {
+            this._broadcast = new Broadcast();
+            this._broadcast.x = StageUtils.WIN_WIDTH *0.5;
+            this.uiGroup.addChild(this._broadcast);
+        }
+    } 
+      public addMsg(msg: string): void {
+        if (this._broadcast) {
+            this._broadcast.addMsg(msg);
+        }
+    }
     // /**
     //  * 地图层
     //  */
@@ -171,50 +185,40 @@ class GameView extends eui.Component {
         let offset: number = this.joyL.Offset;
 
         //障碍区限制移动start
-        let hitPoints = MapManager.getHitItem(this.player,[MapItemType.OBSTACAL],false);
-		if(hitPoints)
-		{
-            for(let i = 0 ; i<hitPoints.length;++i)
-            {
+        let hitPoints = MapManager.getHitItem(this.player, [MapItemType.OBSTACAL], false);
+        if (hitPoints) {
+            for (let i = 0; i < hitPoints.length; ++i) {
                 let hitPoint = hitPoints[i];
                 let row = hitPoint.x;
                 let col = hitPoint.y;
-                let point_ = new egret.Point(this.player.x,this.player.y);
-                if(this.player.parent)
-                    this.player.parent.localToGlobal(this.player.x,this.player.y,point_);
-                let point = MapManager.getRowColOfMap(new egret.Point(point_.x,point_.y),true)
-                if(Math.abs(row - point.x)<=1)
-                {
-                    if(col == point.y)
-                    {
-                        if(row < point.x  && yAxis > 0 )
-                        {
+                let point_ = new egret.Point(this.player.x, this.player.y);
+                if (this.player.parent)
+                    this.player.parent.localToGlobal(this.player.x, this.player.y, point_);
+                let point = MapManager.getRowColOfMap(new egret.Point(point_.x, point_.y), true)
+                if (Math.abs(row - point.x) <= 1) {
+                    if (col == point.y) {
+                        if (row < point.x && yAxis > 0) {
                             yAxis = 0;
                         }
-                        else if(row > point.x && yAxis < 0)
-                        {
+                        else if (row > point.x && yAxis < 0) {
                             yAxis = 0;
                         }
                     }
 
                 }
-                if(Math.abs(col-point.y)<=1)
-                {
-                    if(row == point.x)
-                    {
-                        if(col > point.y  && xAxis > 0 )
-                        {
+                if (Math.abs(col - point.y) <= 1) {
+                    if (row == point.x) {
+                        if (col > point.y && xAxis > 0) {
                             xAxis = 0;
                         }
-                        else if(col < point.y && xAxis < 0)
-                        {
+                        else if (col < point.y && xAxis < 0) {
                             xAxis = 0;
                         }
                     }
 
                 }
-            }	
-            
+            }
+
         }
         //障碍区限制移动end
 
@@ -235,7 +239,7 @@ class GameView extends eui.Component {
             this.player.move(0, yAxis, angle, offset);
         }
         // ===== 背景和主玩家的移动 end =====
-    
+
     }
 
 
@@ -277,7 +281,7 @@ class GameView extends eui.Component {
         }
     }
 
-    
+
 
     public destructor() {
         this.joyL.destructor();

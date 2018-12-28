@@ -39,6 +39,7 @@ class Role extends eui.Component
 		}
 		if(this.hp == 0)
 		{
+			Main.instance.gameView.addMsg("'谁干死了谁");
 			this.destroy();
 			if(type==1){
 			ObjectPool.instance.pushObj("enemy",this);
