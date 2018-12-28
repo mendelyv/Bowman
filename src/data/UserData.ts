@@ -3,6 +3,11 @@
  */
 class UserData {
 
+	public static goldRate:number = 1;//获得的金币倍数
+	public static expRate:number = 1;//获得的经验倍数
+	public static glod:number = 1;//玩家金币
+
+
 	public isGoldH: boolean = false;//是否开启了金币狂欢按钮
 	public goldHMaxLv: number = 0;//开启了金币狂欢后 记录的终止关卡
 	public dropPer: number = 30;//掉落金币的概率 金币掉落添加概率，为30%。

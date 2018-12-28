@@ -32,7 +32,7 @@ class EnemyAI
     // public player: Role;//主玩家对象
     
     private previousFramesTime: number;//上一帧的时间
-    private actionTime: number;//动作计时
+    private actionTime: number = 0;//动作计时
     private nextActionTime: number = 2000;//要发生动作的时间，当actionTime累加到 >= 这个值时就做动作
 
     private obj: Enemy;//AI所挂对象
@@ -75,9 +75,6 @@ class EnemyAI
         switch(this.state)
         {
             case EnemyState.IDLE:
-                // anim.SetInteger("State", animID["Idle"]);
-                // anim.SetBool("canAttack", false);
-
                 //站立状态下要清除移动和目标
                 this.obj.stopMove();
 
@@ -92,13 +89,6 @@ class EnemyAI
 
             //游走状态，根据状态随机时生成的目标位置修改朝向，并向前移动
             case EnemyState.WALK:
-                // anim.SetInteger("State", animID["Walk"]);
-
-                // //要行走开启导航
-                // if (nav.isStopped)
-                //     nav.isStopped = false;
-                // nav.speed = walkSpeed;
-
                 if (this.actionTime > this.nextActionTime)//时间到再一次思考
                 {
                     this.actionTime = 0;//更新计时器时间
@@ -110,20 +100,6 @@ class EnemyAI
 
             //追击状态，朝着玩家跑去
             case EnemyState.CHASE:
-                // if (!isRunning)
-                // {
-                //     anim.SetInteger("State", animID["Run"]);
-                //     anim.SetBool("canAttack", false);
-                //     isRunning = true;
-                // }
-                // if (nav.isStopped)
-                //     nav.isStopped = false;
-                // nav.speed = runSpeed;
-                // nav.SetDestination(player.transform.position);
-
-                // //持续朝向玩家位置
-                // playerRotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
-                // transform.rotation = Quaternion.Slerp(transform.rotation, playerRotation, turnSpeed);
                 this.obj.follow();
                 //该状态下的检测指令
                 this.chaseCheck();
@@ -133,21 +109,6 @@ class EnemyAI
                 this.obj.stopMove(false);
                 this.obj.attack();
                 this.attackCheck();
-            break;
-
-            //返回状态，超出追击范围后返回出生位置
-            case EnemyState.RETURN:
-                // //朝向初始位置移动
-                // if (nav.isStopped)
-                //     nav.isStopped = false;
-                // nav.speed = walkSpeed;
-                // nav.SetDestination(initialPosition);
-
-                // //播放步行动画
-                // anim.SetInteger("State", animID["Walk"]);
-
-                //该状态下的检测指令
-                this.returnCheck();
             break;
         
             default : console.warn(" ----- 未找到对应的 EnemyState ----- "); break;
@@ -186,7 +147,12 @@ class EnemyAI
         }
         else//在行走的权重区间
         {
+            //Ran TODO ：随机一个点位移
             this.state = EnemyState.WALK;
+            let x = Math.random() * 10000 % 1920;
+            let y = Math.random() * 10000 % 1920;
+            let point = new egret.Point(x, y);
+            this.obj.gotoPoint(point);
         }
     }
 
@@ -237,7 +203,6 @@ class EnemyAI
         {
             this.state = EnemyState.CHASE;
         }
-        //如果超出活动半径
     }
 
 
@@ -254,7 +219,8 @@ class EnemyAI
         //如果超出追击范围就返回
         if(distancePlayer > this.chaseRadius)
         {
-            this.state = EnemyState.RETURN;
+            this.state = EnemyState.IDLE;
+            this.obj.target = null;
         }
     }
 
@@ -266,18 +232,8 @@ class EnemyAI
         {
             this.state = EnemyState.CHASE;
         }
-        
     }
 
-    private returnCheck()
-    {
-        let player = Main.instance.gameView.player;
-        let distancePlayer = this.getTargetDistance();
-        if(distancePlayer < this.chaseRadius)
-        {
-            this.state = EnemyState.CHASE;
-        }
-    }
     // ===== 对应状态的检查函数 end =====
 
     // ===== Test Code start =====
