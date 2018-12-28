@@ -280,7 +280,7 @@ class Main extends eui.UILayer {
         GameConfig.scenceConfig = RES.getRes("scence_json");
         sceneconfig.WWinit();
         GameConfig.elementConfig = RES.getRes("element_json");
-        GameConfig.obstacalsConfig = RES.getRes("obstacals_json");
+        GameConfig.obstacalsConfig = RES.getRes("obstacals1_json");
     }
 
     private loadTheme() {
