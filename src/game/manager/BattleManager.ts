@@ -81,7 +81,7 @@ class BattleManager {
 			let enemy = this.enemys[i];
 			if(enemy && !enemy.die)
 			{
-				let hitPoint = MapManager.getHitItem(this.player,[MapItemType.PROP_BLOOD,MapItemType.PROP_EXP]);
+				let hitPoint = MapManager.getHitItem(enemy,[MapItemType.PROP_BLOOD,MapItemType.PROP_EXP]);
 				if(hitPoint)
 				{
 					let row = hitPoint.x;
@@ -89,20 +89,20 @@ class BattleManager {
 					let index = this.getPropeyty(row,col)
 					if(index !=-1 )
 					{
-						continue;
-					}
-					let property = this.propertys[index];
-					//console.log("row:"+row +";col:"+col +"    "+ egret.getTimer());
-			 		if(Util.isCircleHit(enemy,property,true))
-					{
-				 		if(Util.isHit(enemy,property,true))
-				 		{
-							enemy.getAroundProperty(property);
-							MapManager.mapItems[row][col] = MapItemType.NONE;
-							ObjectPool.instance.pushObj("property",property);
-							this.propertys[index] = null;
+						let property = this.propertys[index];
+						//console.log("row:"+row +";col:"+col +"    "+ egret.getTimer());
+						if(Util.isCircleHit(enemy,property,true))
+						{
+							if(Util.isHit(enemy,property,true))
+							{
+								enemy.getAroundProperty(property);
+								MapManager.mapItems[row][col] = MapItemType.NONE;
+								ObjectPool.instance.pushObj("property",property);
+								this.propertys[index] = null;
+							}
 						}
 					}
+					
 				}
 			}
 		}
@@ -150,7 +150,8 @@ class BattleManager {
 			{
 				if(Util.isHit(this.player,arrow,true))
 				{
-					this.player.doDamage(10);
+					//扣血类型，0是玩家，1是敌人
+					this.player.doDamage(10,0);
 					ObjectPool.instance.pushObj("arrow",arrow);
 					this.arrowsEnemy[i] = null;
 				}
@@ -171,7 +172,8 @@ class BattleManager {
 				}
 				if(Util.isCircleHit(this.enemys[j],arrow,true)){
 					if(Util.isHit(this.enemys[j],arrow,true)){
-					this.enemys[j].doDamage(10);
+					//扣血类型，0是玩家，1是敌人
+					this.enemys[j].doDamage(10,1);
 					ObjectPool.instance.pushObj("arrow",arrow);
 					this.arrowsPlayer[i] = null;
 					}		

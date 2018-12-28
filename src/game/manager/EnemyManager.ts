@@ -18,7 +18,7 @@ class EnemyManager {
 		this.initCount = Util.getRandomRange(5,9);
 		this.createEnemys();
 	}
-
+	//生成初始敌人数量
 	public createEnemys()
 	{
 		let count = 0;
@@ -43,7 +43,19 @@ class EnemyManager {
 		}
 		
 	}
-
+	
+	/**添加一个敌人*/
+	public createOneEnemy(){
+		let vec = MapManager.getEmptyItem();
+		let points = new egret.Point(vec.row,vec.col);
+		if(!this.hasSameBornPoint(points)){
+			let enemy = ObjectPool.instance.getObj("enemy");
+			enemy.x = points.x;
+			enemy.y	= points.y;
+			Main.instance.gameView.gameBg.addEnemy(enemy); 
+		}
+		
+	}
 	public hasSameBornPoint(point:egret.Point)
 	{
 		let b = false;

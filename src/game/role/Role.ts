@@ -28,8 +28,8 @@ class Role extends eui.Component
 	{
 		super.createChildren();
 	}
-
-	public doDamage(damage:number)
+	////扣血类型，0是玩家，1是敌人
+	public doDamage(damage:number,type:number)
 	{
 		this.hp -= damage;
 		this.hp = this.hp > 0 ? this.hp : 0;
@@ -40,13 +40,18 @@ class Role extends eui.Component
 		if(this.hp == 0)
 		{
 			this.destroy();
+			if(type==1){
+			ObjectPool.instance.pushObj("enemy",this);
+			}
+		
 		}
 	}
 
 	public destroy()
 	{
 		this.die = true;
-		//
+		//20秒之后添加一个敌人
+
 	}
 
 	public resumeBlood(resumeValue:number)//回血
