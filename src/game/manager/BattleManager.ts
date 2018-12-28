@@ -49,16 +49,7 @@ class BattleManager {
 	/**添加敌人*/
 	public addEnemy(enemy:Enemy)
 	{
-		for(let i = 0; i<this.enemys.length;++i)
-		{
-			let enemy = this.enemys[i];
-			if(!enemy)
-			{
-				this.enemys[i] = enemy;
-				return;
-			}
-		}
-		this.enemys.push(enemy);
+		Util.push(this.enemys,enemy);
 	}
 
 	/** 添加弓箭
@@ -70,11 +61,11 @@ class BattleManager {
 		switch(whos)
 		{
 			case 0 : 
-				this.arrowsPlayer.push(arrow);
+				Util.push(this.arrowsPlayer,arrow);
 				return this.arrowsPlayer.indexOf(arrow); 
 
 			case 1 : 
-				this.arrowsEnemy.push(arrow); 
+				Util.push(this.arrowsEnemy,arrow);
 				return this.arrowsEnemy.indexOf(arrow);
 
 			default: console.error(" ***** error ***** ");
@@ -146,7 +137,25 @@ class BattleManager {
 		//敌人弓箭的碰撞检测，玩家扣血等
 		for(let i = 0 ;i<this.arrowsEnemy.length;++i)
 		{
-			
+			let arrow = this.arrowsEnemy[i];
+			if(!arrow)
+			{
+				continue;
+			}
+			if(!this.player || this.player.die)
+			{
+				break;
+			}
+			if(Util.isCircleHit(this.player,arrow,true))
+			{
+				if(Util.isHit(this.player,arrow,true))
+				{
+					this.player.doDamage(10);
+					ObjectPool.instance.pushObj("arrow",arrow);
+					this.arrowsEnemy[i] = null;
+				}
+			}
+
 		}
 
 		//玩家弓箭的碰撞检测，敌人扣血等
@@ -156,5 +165,6 @@ class BattleManager {
 		}
 		
 	}
+
 
 }
