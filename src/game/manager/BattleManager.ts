@@ -81,7 +81,7 @@ class BattleManager {
 			let enemy = this.enemys[i];
 			if(enemy && !enemy.die)
 			{
-				let hitPoint = MapManager.getHitItem(this.player,[MapItemType.PROP_BLOOD,MapItemType.PROP_EXP]);
+				let hitPoint = MapManager.getHitItem(enemy,[MapItemType.PROP_BLOOD,MapItemType.PROP_EXP]);
 				if(hitPoint)
 				{
 					let row = hitPoint.x;
@@ -89,20 +89,20 @@ class BattleManager {
 					let index = this.getPropeyty(row,col)
 					if(index !=-1 )
 					{
-						continue;
-					}
-					let property = this.propertys[index];
-					//console.log("row:"+row +";col:"+col +"    "+ egret.getTimer());
-			 		if(Util.isCircleHit(enemy,property,true))
-					{
-				 		if(Util.isHit(enemy,property,true))
-				 		{
-							enemy.getAroundProperty(property);
-							MapManager.mapItems[row][col] = MapItemType.NONE;
-							ObjectPool.instance.pushObj("property",property);
-							this.propertys[index] = null;
+						let property = this.propertys[index];
+						//console.log("row:"+row +";col:"+col +"    "+ egret.getTimer());
+						if(Util.isCircleHit(enemy,property,true))
+						{
+							if(Util.isHit(enemy,property,true))
+							{
+								enemy.getAroundProperty(property);
+								MapManager.mapItems[row][col] = MapItemType.NONE;
+								ObjectPool.instance.pushObj("property",property);
+								this.propertys[index] = null;
+							}
 						}
 					}
+					
 				}
 			}
 		}

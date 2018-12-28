@@ -195,7 +195,7 @@ class MapManager {
 			for(let j = beginY;j <= endY; ++j)
 			{
 				let mapItem = MapManager.mapItems[i][j];
-				if(mapItem)
+				if(mapItem!=null)
 				{
 					for(let m = 0; m<targetTpye.length;++m)
 					{
