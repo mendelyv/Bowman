@@ -167,7 +167,7 @@ class BattleManager {
 			}
 			for(let j:number = 0; j < this.enemys.length; j++){
 				if(!this.enemys[j] || this.enemys[j].die){
-					break;
+					continue;
 				}
 				if(Util.isCircleHit(this.enemys[j],arrow,true)){
 					if(Util.isHit(this.enemys[j],arrow,true)){
