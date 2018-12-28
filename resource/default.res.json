@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "element_common_png,element_common_0_png,element_common_1_png,element_common_2_png,element_common_3_png,element_guazi_png,element_juzi_png,element_penshe_png,element_weight_png,end_button_continue_png,end_button_share_png,end_eat_font_png,end_nianhuo_icon_png,end_num_icon_png,end_rank_font_png,end_rank_icon_png,end_time_font_png,end_weight_font_png,end_lose_bg_png,end_lose_button_close_png,end_lose_font_icon_png,end_lose_tips_0_png,end_lose_tips_1_png,end_win_bg_png,end_win_button_close_png,end_win_font_icon_png,end_win_tips_png,game_broadcast_bg_png,game_button_jet_png,game_button_split_png,game_exploits_icon_png,game_exploits_text_png,game_handle_circle_png,game_handle_circleFrame_png,game_rank_bg_png,game_rank_button_png,game_rank_icon_png,game_spore_dir_png,game_title_bg_png,game_title_rope_png,game_weight_text_png,loading_bar_png,loading_bar_bg_png,loading_bg_jpg,loading_line_png,loading_logo_png,login_head_bg_png,login_random_head_button_png,login_random_name_button_png,login_start_button_png,login_text_bar_png,paopao_0_png,paopao_1_png,paopao_10_png,paopao_11_png,paopao_2_png,paopao_3_png,paopao_4_png,paopao_5_png,paopao_6_png,paopao_7_png,paopao_8_png,paopao_9_png,role_0_png,role_1_png,role_10_png,role_11_png,role_2_png,role_3_png,role_4_png,role_5_png,role_6_png,role_7_png,role_8_png,role_9_png,element_json,scence_json,map_block_png,obs_block_png,map_bg_png,skillConfig_json,map_png,car0_png,enemyBloodBg_png,enemyBlood_png,hptube_line_png,obstacals2_json,obstacals1_json",
+			"keys": "element_common_png,element_common_0_png,element_common_1_png,element_common_2_png,element_common_3_png,element_guazi_png,element_juzi_png,element_penshe_png,element_weight_png,end_button_continue_png,end_button_share_png,end_eat_font_png,end_nianhuo_icon_png,end_num_icon_png,end_rank_font_png,end_rank_icon_png,end_time_font_png,end_weight_font_png,end_lose_bg_png,end_lose_button_close_png,end_lose_font_icon_png,end_lose_tips_0_png,end_lose_tips_1_png,end_win_bg_png,end_win_button_close_png,end_win_font_icon_png,end_win_tips_png,game_broadcast_bg_png,game_button_jet_png,game_button_split_png,game_exploits_icon_png,game_exploits_text_png,game_handle_circle_png,game_handle_circleFrame_png,game_rank_bg_png,game_rank_button_png,game_rank_icon_png,game_spore_dir_png,game_title_bg_png,game_title_rope_png,game_weight_text_png,loading_bar_png,loading_bar_bg_png,loading_bg_jpg,loading_line_png,loading_logo_png,login_head_bg_png,login_random_head_button_png,login_random_name_button_png,login_start_button_png,login_text_bar_png,paopao_0_png,paopao_1_png,paopao_10_png,paopao_11_png,paopao_2_png,paopao_3_png,paopao_4_png,paopao_5_png,paopao_6_png,paopao_7_png,paopao_8_png,paopao_9_png,role_0_png,role_1_png,role_10_png,role_11_png,role_2_png,role_3_png,role_4_png,role_5_png,role_6_png,role_7_png,role_8_png,role_9_png,scence_json,map_block_png,obs_block_png,map_bg_png,skillConfig_json,map_png,car0_png,enemyBloodBg_png,enemyBlood_png,hptube_line_png,obstacals2_json,obstacals1_json",
 			"name": "preload"
 		}
 	],
@@ -382,69 +382,64 @@
 			"name": "role_9_png"
 		},
 		{
-			"name": "element_json",
+			"url": "config/scence.json",
 			"type": "json",
-			"url": "config/element.json"
+			"name": "scence_json"
 		},
 		{
-			"name": "scence_json",
+			"url": "assets/obstacles/map_block.png",
+			"type": "image",
+			"name": "map_block_png"
+		},
+		{
+			"url": "assets/obstacles/obs_block.png",
+			"type": "image",
+			"name": "obs_block_png"
+		},
+		{
+			"url": "assets/game/map_bg.png",
+			"type": "image",
+			"name": "map_bg_png"
+		},
+		{
+			"url": "config/skillConfig.json",
 			"type": "json",
-			"url": "config/scence.json"
+			"name": "skillConfig_json"
 		},
 		{
-			"name": "map_block_png",
+			"url": "assets/map/map.png",
 			"type": "image",
-			"url": "assets/obstacles/map_block.png"
+			"name": "map_png"
 		},
 		{
-			"name": "obs_block_png",
+			"url": "assets/map/car0.png",
 			"type": "image",
-			"url": "assets/obstacles/obs_block.png"
+			"name": "car0_png"
 		},
 		{
-			"name": "map_bg_png",
+			"url": "assets/playerHP/enemyBloodBg.png",
 			"type": "image",
-			"url": "assets/game/map_bg.png"
+			"name": "enemyBloodBg_png"
 		},
 		{
-			"name": "skillConfig_json",
+			"url": "assets/playerHP/enemyBlood.png",
+			"type": "image",
+			"name": "enemyBlood_png"
+		},
+		{
+			"url": "assets/playerHP/hptube_line.png",
+			"type": "image",
+			"name": "hptube_line_png"
+		},
+		{
+			"url": "config/obstacals2.json",
 			"type": "json",
-			"url": "config/skillConfig.json"
+			"name": "obstacals2_json"
 		},
 		{
-			"name": "map_png",
-			"type": "image",
-			"url": "assets/map/map.png"
-		},
-		{
-			"name": "car0_png",
-			"type": "image",
-			"url": "assets/map/car0.png"
-		},
-		{
-			"name": "enemyBloodBg_png",
-			"type": "image",
-			"url": "assets/playerHP/enemyBloodBg.png"
-		},
-		{
-			"name": "enemyBlood_png",
-			"type": "image",
-			"url": "assets/playerHP/enemyBlood.png"
-		},
-		{
-			"name": "hptube_line_png",
-			"type": "image",
-			"url": "assets/playerHP/hptube_line.png"
-		},
-		{
-			"name": "obstacals2_json",
+			"url": "config/obstacals1.json",
 			"type": "json",
-			"url": "config/obstacals2.json"
-		},
-		{
-			"name": "obstacals1_json",
-			"type": "json",
-			"url": "config/obstacals1.json"
+			"name": "obstacals1_json"
 		}
 	]
 }
