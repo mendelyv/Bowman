@@ -15,8 +15,8 @@ class GameView extends eui.Component {
     private shootDelay: number = 1000;
 
     private mapMgr:MapManager;
-    public battleMgr:BattleManager;
     private enemyMgr:EnemyManager;
+    public battleMgr:BattleManager;
     public constructor() {
         super();
         this.init();
@@ -43,13 +43,13 @@ class GameView extends eui.Component {
         this.joyL.resetON = true;//打开左手手柄重置数据的开关
 
 
-        // this.showDiff();
- 
+        // this.showDiff();'
         this.battleMgr = new BattleManager();
         this.battleMgr.player = this.player;
         this.gameBg.gameView = this;
         this.mapMgr = new MapManager();
         this.enemyMgr = new EnemyManager();
+        
     }
 
     // /**
