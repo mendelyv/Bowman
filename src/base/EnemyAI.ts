@@ -130,8 +130,8 @@ class EnemyAI
             break;
 
             case EnemyState.ATTACK:
-
-                // this.obj.attack();
+                this.obj.stopMove(false);
+                this.obj.attack();
                 this.attackCheck();
             break;
 
@@ -196,8 +196,8 @@ class EnemyAI
         if(!this.isOn) return;
         
         this.isOn = false;
-        // this.removeEventListener(egret.Event.ENTER_FRAME, this.updateAI, this);
-        // console.log(" ===== 停止" + this.player.nickName + "AI ===== ");
+        this.obj.removeEventListener(egret.Event.ENTER_FRAME, this.update, this);
+        console.log(" ===== 停止AI ===== ");
     }
 
 
@@ -210,6 +210,8 @@ class EnemyAI
         if(distancePlayer <= this.attackRadius)
         {
             //攻击
+            this.state = EnemyState.ATTACK;
+            this.obj.target = player;
         }
         //如果进入自卫半径
         else if(distancePlayer < this.defendRadius)
@@ -227,6 +229,8 @@ class EnemyAI
         if(distancePlayer <= this.attackRadius)
         {
             //攻击
+            this.state = EnemyState.ATTACK;
+            this.obj.target = player;
         }
         //如果进入自卫半径
         else if(distancePlayer < this.defendRadius)
@@ -244,6 +248,8 @@ class EnemyAI
         if(distancePlayer < this.attackRadius)
         {
             //攻击
+            this.state = EnemyState.ATTACK;
+            this.obj.target = player;
         }
         //如果超出追击范围就返回
         if(distancePlayer > this.chaseRadius)
