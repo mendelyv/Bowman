@@ -314,8 +314,12 @@ class Main extends eui.UILayer {
     //创建主界面
     private createMain() {
         if (!this._mainView)
+        {
             this._mainView = new MainView();
-        this.addChild(this._mainView);
+            this.addChild(this._mainView);
+            this._mainView.width = StageUtils.WIN_WIDTH;
+            this._mainView.height = StageUtils.WIN_HEIGHT;
+        }
 
     }
     //释放主界面
@@ -332,7 +336,8 @@ class Main extends eui.UILayer {
         if (!this._gameView) {
             this._gameView = new GameView();
             this.addChild(this._gameView);
-
+            this._gameView.width = StageUtils.WIN_WIDTH;
+            this._gameView.height = StageUtils.WIN_HEIGHT;
         }
     }
     //删除游戏
