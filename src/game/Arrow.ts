@@ -8,6 +8,8 @@
  */
 class Arrow extends egret.Bitmap
 {
+    public whos: WhosArrow = WhosArrow.NONE;//谁的弓箭
+    public index: number = -1;//在数组的下标
     public speed: number = 24;
 
     public constructor()
@@ -43,6 +45,23 @@ class Arrow extends egret.Bitmap
     {
         if(this.parent)
             this.parent.removeChild(this);
+        if(this.whos != WhosArrow.NONE)
+        {
+            switch(this.whos)
+            {
+                case WhosArrow.PLAYER:
+                {
+                    let arr = Main.instance.gameView.battleMgr.arrowsPlayer;
+                    arr[this.index] = null;
+                }break;
+
+                case WhosArrow.ENEMY:
+                {
+                    let arr = Main.instance.gameView.battleMgr.arrowsEnemy;
+                    arr[this.index] = null;
+                }break;
+            }
+        }
     }
 
 //class end

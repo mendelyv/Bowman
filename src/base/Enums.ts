@@ -25,3 +25,10 @@ enum MapItemType
     PROP_EXP,//经验道具
     PROP_BLOOD,//血道具
 }
+
+enum WhosArrow
+{
+    NONE,
+    PLAYER,
+    ENEMY
+}

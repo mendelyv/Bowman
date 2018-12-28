@@ -124,7 +124,7 @@ class Enemy extends Role {
         let deltaTime = egret.getTimer() - this.previousFrameTime;
         this.shootTime += deltaTime;
 
-        let group, arrow;
+        let group, arrow: Arrow;
 
         if (this.shootTime >= this.shootDelay) 
         {
@@ -132,6 +132,7 @@ class Enemy extends Role {
             //先实例化一支弓箭
             group = Main.instance.gameView.gameBg.arrowGroup;
             arrow = ObjectPool.instance.getObj("arrow") as Arrow;
+            arrow.whos = WhosArrow.ENEMY;
             arrow.texture = RES.getRes("game_title_rope_png");
         }
 
@@ -162,7 +163,9 @@ class Enemy extends Role {
         //添加显示，设置位置和角度，增加tween
         if(group && arrow)
         {
-            group.addChild(arrow);
+            // group.addChild(arrow);
+            let bg = Main.instance.gameView.gameBg;
+            arrow.index = bg.addArrow(arrow, 1);
             arrow.x = this.x;
             arrow.y = this.y;
             arrow.rotation = this.role_img.rotation;

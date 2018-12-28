@@ -70,15 +70,18 @@ class Player extends Role
 		// element.scaleX = element.scaleY = 0.1;
 		// element.WWmoveFrom(this.x, this.y, this.angle, 2000);
 		// gameView.elementGroup.addChild(element);
-		let group = Main.instance.gameView.gameBg.arrowGroup;
+		let bg = Main.instance.gameView.gameBg;
+		let group = bg.arrowGroup;
 		let arrow: Arrow = ObjectPool.instance.getObj("arrow");
+		arrow.whos = WhosArrow.PLAYER;
 		arrow.texture = RES.getRes("game_title_rope_png");
 
 		let point = new egret.Point();
 		this.parent.localToGlobal(this.x,this.y,point);
 		let targetPoint = new egret.Point();
 		group.parent.globalToLocal(point.x,point.y,targetPoint);
-		group.addChild(arrow);
+		// group.addChild(arrow);
+		arrow.index = bg.addArrow(arrow, 0);
 		arrow.x = targetPoint.x;
 		arrow.y = targetPoint.y;
 		arrow.rotation = this.arrow.rotation + 90;
