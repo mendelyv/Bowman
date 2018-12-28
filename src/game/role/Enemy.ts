@@ -56,6 +56,22 @@ class Enemy extends Role {
         this.removeChild(this.arrow);
         delete this.arrow;//删除箭头
         this.ai.startAI();
+        //给敌人添加血条
+        if(!this.hpTube){
+			this.hpTube = new HPTube(this,"HPTubeSkin");
+		}
+		this.maxHp = 80;
+		this.hp = 80;
+		this.hpTube.anchorOffsetX = this.hpTube.width*0.5 ;
+		this.hpTube.anchorOffsetY = this.hpTube.height*0.5;
+		this.anchorOffsetX = this.width * 0.5;
+		this.anchorOffsetY = this.height * 0.5;
+		this.hpTube.x = this.anchorOffsetX;
+		this.hpTube.y = -17;
+		this.addChild(this.hpTube);
+		this.hpTube.showHp();
+		this.hpTube.showHpLine();
+		this.hpTube.visible = true;
     }
     /** 转向 */
     public moveToByAngle(angle: number): void {

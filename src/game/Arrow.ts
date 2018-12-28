@@ -10,7 +10,7 @@ class Arrow extends egret.Bitmap
 {
     public whos: WhosArrow = WhosArrow.NONE;//谁的弓箭
     public index: number = -1;//在数组的下标
-    public speed: number = 24;
+    public speed: number = 50;
 
     public constructor()
     {

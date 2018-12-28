@@ -15,8 +15,8 @@ class GameView extends eui.Component {
     private shootDelay: number = 1000;
 
     private mapMgr:MapManager;
-    private enemyMgr:EnemyManager;
     public battleMgr:BattleManager;
+    private enemyMgr:EnemyManager;
     public constructor() {
         super();
         this.init();
@@ -44,11 +44,12 @@ class GameView extends eui.Component {
 
 
         // this.showDiff();
+ 
         this.battleMgr = new BattleManager();
         this.battleMgr.player = this.player;
         this.gameBg.gameView = this;
-        this.enemyMgr = new EnemyManager();
         this.mapMgr = new MapManager();
+        this.enemyMgr = new EnemyManager();
     }
 
     // /**

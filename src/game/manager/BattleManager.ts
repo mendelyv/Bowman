@@ -161,7 +161,22 @@ class BattleManager {
 		//玩家弓箭的碰撞检测，敌人扣血等
 		for(let i = 0;i<this.arrowsPlayer.length;++i)
 		{
-			
+			let arrow = this.arrowsPlayer[i];
+			if(!arrow){
+				continue;
+			}
+			for(let j:number = 0; j < this.enemys.length; j++){
+				if(!this.enemys[j] || this.enemys[j].die){
+					break;
+				}
+				if(Util.isCircleHit(this.enemys[j],arrow,true)){
+					if(Util.isHit(this.enemys[j],arrow,true)){
+					this.enemys[j].doDamage(10);
+					ObjectPool.instance.pushObj("arrow",arrow);
+					this.arrowsPlayer[i] = null;
+					}		
+				}
+			}
 		}
 		
 	}
