@@ -17,3 +17,11 @@ enum SceneState
     MAIN,//主界面
     GAMEING,//游戏界面
 }
+
+enum MapItemType
+{
+    NONE,//空
+    OBSTACAL,//障碍物
+    PROP_EXP,//经验道具
+    PROP_BLOOD,//血道具
+}
