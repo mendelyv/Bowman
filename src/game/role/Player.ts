@@ -35,8 +35,8 @@ class Player extends Role
 		if(!this.hpTube){
 			this.hpTube = new HPTube(this,"HPTubeSkin");
 		}
-		this.maxHp = 50;
-		this.hp = 50;
+		this.maxHp = 70;
+		this.hp = 70;
 		this.hpTube.anchorOffsetX = this.hpTube.width*0.5 ;
 		this.hpTube.anchorOffsetY = this.hpTube.height*0.5;
 		this.anchorOffsetX = this.width * 0.5;
@@ -45,6 +45,7 @@ class Player extends Role
 		this.hpTube.y = -37;
 		this.addChild(this.hpTube);
 		this.hpTube.showHp();
+		this.hpTube.showHpLine();
 		this.hpTube.visible = true;
 	}
 	//根据角度设置x~y轴的速率
