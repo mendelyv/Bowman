@@ -3,8 +3,8 @@
 class Property extends MapItem
 {
 	//
-	private propertyName_0:string = "element_common_0_png";
-	private propertyName_1:string = "element_common_1_png";
+	private propertyExp:string = "element_common_0_png";
+	private propertyBlood:string = "element_common_1_png";
 	private bitMap:egret.Bitmap;
 
 	public constructor() 
@@ -15,10 +15,10 @@ class Property extends MapItem
 	public enable(id:number,row:number,col:number)
 	{
 		this.id = id;
-		if(this.id == 2)
-			this.bitMap = Util.createBitmap(this.propertyName_0);
-		else if (this.id == 3)
-			this.bitMap = Util.createBitmap(this.propertyName_1);
+		if(this.id == MapItemType.PROP_EXP)
+			this.bitMap = Util.createBitmap(this.propertyExp);
+		else if (this.id == MapItemType.PROP_BLOOD)
+			this.bitMap = Util.createBitmap(this.propertyBlood);
 		this.row = row;
 		this.col = col;
 		this.width = this.bitMap.width;
@@ -30,6 +30,7 @@ class Property extends MapItem
 
 	public recycle()
 	{
+		this.removeChild(this.bitMap);
 		this.bitMap = null;
 	}
 

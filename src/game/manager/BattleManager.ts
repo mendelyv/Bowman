@@ -70,7 +70,7 @@ class BattleManager {
 			let enemy = this.enemys[i];
 			if(enemy && !enemy.die)
 			{
-				let hitPoint = MapManager.getHitItem(this.player,[2,3]);
+				let hitPoint = MapManager.getHitItem(this.player,[MapItemType.PROP_BLOOD,MapItemType.PROP_EXP]);
 				if(hitPoint)
 				{
 					let row = hitPoint.x;
@@ -87,7 +87,7 @@ class BattleManager {
 				 		if(Util.isHit(enemy,property,true))
 				 		{
 							enemy.getAroundProperty(property);
-							MapManager.mapItems[row][col] = 0;
+							MapManager.mapItems[row][col] = MapItemType.NONE;
 							ObjectPool.instance.pushObj("property",property);
 							this.propertys[index] = null;
 						}
@@ -99,7 +99,7 @@ class BattleManager {
 		//玩家的碰撞检测，吃道具
 		if(this.player && !this.player.die)
 		{
-			let hitPoint = MapManager.getHitItem(this.player,[2,3]);
+			let hitPoint = MapManager.getHitItem(this.player,[MapItemType.PROP_BLOOD,MapItemType.PROP_EXP]);
 			if(hitPoint)
 			{
 				let row = hitPoint.x;
@@ -114,7 +114,7 @@ class BattleManager {
 						if(Util.isHit(this.player,property,true))
 						{
 							this.player.getAroundProperty(property);
-							MapManager.mapItems[row][col] = 0;
+							MapManager.mapItems[row][col] = MapItemType.NONE;
 							ObjectPool.instance.pushObj("property",property);
 							this.propertys[index] = null;
 						}
