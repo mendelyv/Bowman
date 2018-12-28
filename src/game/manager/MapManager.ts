@@ -183,10 +183,10 @@ class MapManager {
 		//console.log("x:"+mapItem.x + "   y:"+mapItem.y);
 		let count = Math.ceil(radius/MapManager.cellPix + 0.5);
 		count = 1;
-		let beginX = Math.min(Math.max(0,mapItem.x - count),MapManager.rowMax);
-		let beginY = Math.min(Math.max(0,mapItem.y - count),MapManager.colMax);
-		let endX = Math.min(Math.max(0,mapItem.x + count),MapManager.rowMax);
-		let endY = Math.min(Math.max(0,mapItem.y + count),MapManager.colMax);
+		let beginX = Math.min(Math.max(0,mapItem.x - count),MapManager.rowMax-1);
+		let beginY = Math.min(Math.max(0,mapItem.y - count),MapManager.colMax-1);
+		let endX = Math.min(Math.max(0,mapItem.x + count),MapManager.rowMax-1);
+		let endY = Math.min(Math.max(0,mapItem.y + count),MapManager.colMax-1);
 
 		let minDistance:number;
 		let target;
@@ -194,12 +194,10 @@ class MapManager {
 		{
 			for(let j = beginY;j <= endY; ++j)
 			{
-				let mapItem = MapManager.mapItems[i][j];
-				if(mapItem!=null)
-				{
-					for(let m = 0; m<targetTpye.length;++m)
+				let mapItemType = MapManager.mapItems[i][j];
+				for(let m = 0; m<targetTpye.length;++m)
 					{
-						if(mapItem == targetTpye[m])
+						if(mapItemType == targetTpye[m])
 						{
 							let targetPoint = MapManager.getMapItemPos(i,j);
 							if(!isSingle)
@@ -222,9 +220,9 @@ class MapManager {
 								}
 							}
 						}
-					}
+					}	
 
-				}
+				
 				
 			}
 		}
