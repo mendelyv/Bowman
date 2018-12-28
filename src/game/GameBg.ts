@@ -91,6 +91,16 @@ class GameBg extends eui.Component {
 		}	
 	}
 
+	/** 添加弓箭
+	 * @param arrow ：弓箭对象
+	 * @param whos ：谁的弓箭  0玩家的，1敌人的
+	 */
+	public addArrow(arrow: Arrow, whos: number): number
+	{
+		this.arrowGroup.addChild(arrow);
+		return this.gameView.battleMgr.addArrow(arrow, whos);
+	}
+
 	public destructor()
 	{
 		this.obstacalGroup.removeChildren();
