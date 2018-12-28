@@ -14,6 +14,7 @@ class Enemy extends Role {
     public range: number = 300;//射程
 
     private ai: EnemyAI;
+    public get AI(): EnemyAI { return this.ai; }
     private nav: SilzAstar;//a*导航
     private pathQueue: Array<SilzAstarNode>;//导航的路径
     private pathIndex: number = 0;//导航点队列的下标

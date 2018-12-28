@@ -23,6 +23,9 @@ class EnemyManager {
 			enemy.y = point.y;
 			enemyArr.push(enemy);
 		}
+		// enemyArr.forEach((element: Enemy)=>{
+		// 	element.AI.drawCircle();
+		// })
 		Main.instance.gameView.gameBg.addEnemy(enemyArr);	
 	}
 

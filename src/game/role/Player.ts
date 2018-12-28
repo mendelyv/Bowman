@@ -26,22 +26,26 @@ class Player extends Role
 		super();
         this.speed = 5;
         this.angle = 0;
+	
+	}
+	
+	protected createChildren() {
+		this.skinName = "RoleSkin";
+		this.radius = this.width;
 		if(!this.hpTube){
 			this.hpTube = new HPTube(this,"HPTubeSkin");
 		}
 		this.maxHp = 50;
 		this.hp = 50;
-	//	this.hpTube.anchorOffsetX = this.hpTube.width*0.5 + this.x;
-	//	this.hpTube.anchorOffsetY = this.hpTube.height*0.5 + this.y;
-		this.hpTube.x = this.x + this.width*0.5;
-		this.hpTube.y = this.height - this.y - 37;
+		this.hpTube.anchorOffsetX = this.hpTube.width*0.5 ;
+		this.hpTube.anchorOffsetY = this.hpTube.height*0.5;
+		this.anchorOffsetX = this.width * 0.5;
+		this.anchorOffsetY = this.height * 0.5;
+		this.hpTube.x = this.anchorOffsetX;
+		this.hpTube.y = -37;
 		this.addChild(this.hpTube);
 		this.hpTube.showHp();
 		this.hpTube.visible = true;
-	}
-	protected createChildren() {
-		this.skinName = "RoleSkin";
-		this.radius = this.width;
 	}
 	//根据角度设置x~y轴的速率
 	public moveToByAngle(angle: number): void {
