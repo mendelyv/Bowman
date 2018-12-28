@@ -26,22 +26,21 @@ class HPTube extends eui.Component
     {
         let rate = this.obj.HP / this.obj.MaxHP;
         this.hpMask.width = this.hpTempWid * rate;
-
-        //添加血条分割线
-        let start_x:number = this.hpFlow.x;
-        let start_y:number = this.hpFlow.y;
-        let lat_w:number = this.hpFlow.width/(this.obj.MaxHP/10);//一格宽度
+    }
+    /**添加血条分割线*/
+    public showHpLine(){
+        let start_x:number = this.hpFlow.x + 6 ;
+        let start_y:number = this.hpFlow.y + 7;
+        let lat_w:number = (this.hpFlow.width-(this.obj.MaxHP/10 - 1)*2)/(this.obj.MaxHP/10);//一格宽度
         for(let i:number = 0;i<this.obj.MaxHP/10 - 1;i++){
-            var line: egret.Bitmap = Util.createBitmap("hptube_line_png");
-            line.width = 1;
-            line.height = this.hpFlow.height;
-            this.addChild(line);
-            line.x = start_x + (i + 1)*lat_w;
-            line.y = start_y;
+             var line: egret.Bitmap = Util.createBitmap("hptube_line_png");
+             line.width = 2;
+             line.height = this.hpFlow.height;
+             this.addChild(line);
+             line.x = start_x + (i + 1)*(lat_w + line.width) - line.width;
+             line.y = start_y;
         }
     }
-  
-
     public destructor()
     {
         if(this.parent) this.parent.removeChild(this);

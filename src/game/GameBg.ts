@@ -85,8 +85,12 @@ class GameBg extends eui.Component {
 
 	/**生成敌人*/
 	public addEnemy(enemy:Enemy){
-		this.enemyGroup.addChild(enemy);
-		this.gameView.battleMgr.addEnemy(enemy);
+			this.enemyGroup.addChild(enemy);
+			// ===== Test Code start =====
+			enemy.AI.drawCircle();
+			// ===== Test Code end =====
+			this.gameView.battleMgr.addEnemy(enemy);
+		
 	}
 
 	/** 添加弓箭
