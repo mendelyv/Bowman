@@ -150,7 +150,8 @@ class BattleManager {
 			{
 				if(Util.isHit(this.player,arrow,true))
 				{
-					this.player.doDamage(10);
+					//扣血类型，0是玩家，1是敌人
+					this.player.doDamage(10,0);
 					ObjectPool.instance.pushObj("arrow",arrow);
 					this.arrowsEnemy[i] = null;
 				}
@@ -171,7 +172,8 @@ class BattleManager {
 				}
 				if(Util.isCircleHit(this.enemys[j],arrow,true)){
 					if(Util.isHit(this.enemys[j],arrow,true)){
-					this.enemys[j].doDamage(10);
+					//扣血类型，0是玩家，1是敌人
+					this.enemys[j].doDamage(10,1);
 					ObjectPool.instance.pushObj("arrow",arrow);
 					this.arrowsPlayer[i] = null;
 					}		
