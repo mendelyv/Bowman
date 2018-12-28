@@ -61,6 +61,26 @@ class BattleManager {
 		this.enemys.push(enemy);
 	}
 
+	/** 添加弓箭
+	 * @param arrow ：弓箭对象
+	 * @param whos ：谁的弓箭  0玩家的，1敌人的
+	 */
+	public addArrow(arrow: Arrow, whos: number): number
+	{
+		switch(whos)
+		{
+			case 0 : 
+				this.arrowsPlayer.push(arrow);
+				return this.arrowsPlayer.indexOf(arrow); 
+
+			case 1 : 
+				this.arrowsEnemy.push(arrow); 
+				return this.arrowsEnemy.indexOf(arrow);
+
+			default: console.error(" ***** error ***** ");
+		}
+	}
+
 	public update()
 	{
 		

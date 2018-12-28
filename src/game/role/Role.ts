@@ -12,7 +12,6 @@ class Role extends eui.Component
 	protected hpTube:HPTube;//角色的血量条
 	protected shieldPower:number;//护甲值，用于计算伤害
 	protected critRate:number//暴击率
-
 	protected exp:number;//当前经验值
 	protected expMax:number;//当前最大经验（升级所需经验）
 

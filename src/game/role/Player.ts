@@ -26,6 +26,18 @@ class Player extends Role
 		super();
         this.speed = 5;
         this.angle = 0;
+		if(!this.hpTube){
+			this.hpTube = new HPTube(this,"HPTubeSkin");
+		}
+		this.maxHp = 50;
+		this.hp = 50;
+	//	this.hpTube.anchorOffsetX = this.hpTube.width*0.5 + this.x;
+	//	this.hpTube.anchorOffsetY = this.hpTube.height*0.5 + this.y;
+		this.hpTube.x = this.x + this.width*0.5;
+		this.hpTube.y = this.height - this.y - 37;
+		this.addChild(this.hpTube);
+		this.hpTube.showHp();
+		this.hpTube.visible = true;
 	}
 	protected createChildren() {
 		this.skinName = "RoleSkin";
@@ -54,15 +66,18 @@ class Player extends Role
 		// element.scaleX = element.scaleY = 0.1;
 		// element.WWmoveFrom(this.x, this.y, this.angle, 2000);
 		// gameView.elementGroup.addChild(element);
-		let group = Main.instance.gameView.gameBg.arrowGroup;
+		let bg = Main.instance.gameView.gameBg;
+		let group = bg.arrowGroup;
 		let arrow: Arrow = ObjectPool.instance.getObj("arrow");
+		arrow.whos = WhosArrow.PLAYER;
 		arrow.texture = RES.getRes("game_title_rope_png");
 
 		let point = new egret.Point();
 		this.parent.localToGlobal(this.x,this.y,point);
 		let targetPoint = new egret.Point();
 		group.parent.globalToLocal(point.x,point.y,targetPoint);
-		group.addChild(arrow);
+		// group.addChild(arrow);
+		arrow.index = bg.addArrow(arrow, 0);
 		arrow.x = targetPoint.x;
 		arrow.y = targetPoint.y;
 		arrow.rotation = this.arrow.rotation + 90;
