@@ -170,40 +170,52 @@ class GameView extends eui.Component {
         let offset: number = this.joyL.Offset;
 
         //障碍区限制移动start
-        let hitPoint = MapManager.getHitItem(this.player,[1]);
-		if(hitPoint)
+        let hitPoints = MapManager.getHitItem(this.player,[MapItemType.OBSTACAL],false);
+		if(hitPoints)
 		{
-			let row = hitPoint.x;
-			let col = hitPoint.y;
-            let point_ = new egret.Point(this.player.x,this.player.y);
-            if(this.player.parent)
-                this.player.parent.localToGlobal(this.player.x,this.player.y,point_);
-			let point = MapManager.getRowColOfMap(new egret.Point(point_.x,point_.y),true)
-			if(Math.abs(row - point.x)<=2)
-			{
-                if(row < point.x  && yAxis > 0 )
-                {
-                    yAxis = 0;
-                }
-                else if(row > point.x && yAxis < 0)
-                {
-                    yAxis = 0;
-                }
-			}
-            if(Math.abs(col-point.y)<=2)
+            for(let i = 0 ; i<hitPoints.length;++i)
             {
-                
-                if(col > point.y  && xAxis > 0 )
+                let hitPoint = hitPoints[i];
+                let row = hitPoint.x;
+                let col = hitPoint.y;
+                let point_ = new egret.Point(this.player.x,this.player.y);
+                if(this.player.parent)
+                    this.player.parent.localToGlobal(this.player.x,this.player.y,point_);
+                let point = MapManager.getRowColOfMap(new egret.Point(point_.x,point_.y),true)
+                if(Math.abs(row - point.x)<=1)
                 {
-                    xAxis = 0;
+                    if(col == point.y)
+                    {
+                        if(row < point.x  && yAxis > 0 )
+                        {
+                            yAxis = 0;
+                        }
+                        else if(row > point.x && yAxis < 0)
+                        {
+                            yAxis = 0;
+                        }
+                    }
+
                 }
-                else if(col < point.y && xAxis < 0)
+                if(Math.abs(col-point.y)<=1)
                 {
-                    xAxis = 0;
+                    if(row == point.x)
+                    {
+                        if(col > point.y  && xAxis > 0 )
+                        {
+                            xAxis = 0;
+                        }
+                        else if(col < point.y && xAxis < 0)
+                        {
+                            xAxis = 0;
+                        }
+                    }
+
                 }
-            }
-		}	
-        //end
+            }	
+            
+        }
+        //障碍区限制移动end
 
         if (!this.player.movableX) {
             this.gameBg.movableX = true;

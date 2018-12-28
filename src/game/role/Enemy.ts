@@ -11,19 +11,24 @@ class Enemy extends Role {
     public role_img: eui.Image;
     public bubble_img: eui.Image;
     public target: Role;//追寻的目标
+    public range: number = 300;//射程
 
     private ai: EnemyAI;
     private nav: SilzAstar;//a*导航
     private pathQueue: Array<SilzAstarNode>;//导航的路径
-    private pathIndex: number = 0;
-    private moveTween: egret.Tween;
-    private endTarget: egret.Point;
+    private pathIndex: number = 0;//导航点队列的下标
+    private moveTween: egret.Tween;//移动的tween动作
+    private endTarget: egret.Point;//终点，这里存放一个主要是为了看下次导航的点是否相同
+
+    //攻击控制
+    private previousFrameTime: number = 0;
+    private shootTime: number = 0;
+    private shootDelay: number = 1000;
 
     public constructor() {
         super();
         this.speed = 2.5;
         this.ai = new EnemyAI(this);
-       
     }
 
     public initNav():void
@@ -96,8 +101,10 @@ class Enemy extends Role {
             }, this);
     }
 
-    /** 停止移动并清空路径队列，置空目标 */
-    public stopMove() {
+    /** 停止移动并清空路径队列，置空目标
+     * @param needSetTargetNull ：是否需要置空目标
+     */
+    public stopMove(needSetTargetNull: boolean = true) {
         if (!this.moveTween) return;
         this.pathQueue = [];
         this.pathIndex = 1;//从1开始，忽略掉起点
@@ -107,20 +114,59 @@ class Enemy extends Role {
         }
         egret.Tween.removeTweens(this);
         this.moveTween = null;
-        this.target = null;
+        if(needSetTargetNull)
+            this.target = null;
     }
 
     /** 攻击 */
     public attack() {
-        // let element = new ElementBase();
-        // let gameView = Main.instance.gameView;
-        // element.x = this.x;
-        // element.y = this.y;
-        // element.scaleX = element.scaleY = 0.1;
-        // element.WWmoveFrom(this.x, this.y, this.rotation, 2000);
-        // gameView.elementGroup.addChild(element);
+        let deltaTime = egret.getTimer() - this.previousFrameTime;
+        this.shootTime += deltaTime;
 
-        // let arrow = ObjectPool.instance.getObj("arrow");
+        let group, arrow;
+
+        if (this.shootTime >= this.shootDelay) 
+        {
+            this.shootTime = 0;
+            //先实例化一支弓箭
+            group = Main.instance.gameView.gameBg.arrowGroup;
+            arrow = ObjectPool.instance.getObj("arrow") as Arrow;
+            arrow.texture = RES.getRes("game_title_rope_png");
+        }
+
+        this.previousFrameTime = egret.getTimer();
+
+        //旋转人物
+        if(this.target)
+        {
+            let targetPoint = new egret.Point(this.target.x, this.target.y);
+            this.parent.globalToLocal(targetPoint.x, targetPoint.y, targetPoint);
+            //两个直角三角形直角边
+            let x = targetPoint.x - this.x;
+            let y = -(targetPoint.y - this.y);
+            //斜边
+            let l = egret.Point.distance(new egret.Point(this.x, this.y), new egret.Point(targetPoint.x, targetPoint.y));
+            let sinTheta = x / l;
+            let theta = Math.asin(sinTheta) * 180 / Math.PI;
+            //判断在哪个象限，即为判断转动角是否是补角
+            if(y < 0)
+            {
+                if(theta < 0) theta = -180 - theta;
+                else theta = 180 - theta;
+            }
+            this.moveToByAngle(0);//首先回正人物图像
+            this.moveToByAngle((theta - 90) * Math.PI / 180);
+        }
+
+        //添加显示，设置位置和角度，增加tween
+        if(group && arrow)
+        {
+            group.addChild(arrow);
+            arrow.x = this.x;
+            arrow.y = this.y;
+            arrow.rotation = this.role_img.rotation;
+            arrow.moveFrom(this.x, this.y, (arrow.rotation - 90) * Math.PI / 180, this.range);
+        }
     }
 
     /** 追寻 */

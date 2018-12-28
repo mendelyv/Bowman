@@ -25,7 +25,7 @@ class MapManager {
 			let tempArr = new Array<number>();
 			for(let j =0 ;j < MapManager.colMax;++j)
 			{
-				tempArr.push(0);
+				tempArr.push(MapItemType.NONE);
 			}
 			MapManager.mapItems.push(tempArr);
 		}
@@ -68,12 +68,12 @@ class MapManager {
 		for(let i = 0;i < 160;++i)
 		{
 			let vec = MapManager.getEmptyItem();
-			MapManager.mapItems[vec.row][vec.col] = 2;
+			MapManager.mapItems[vec.row][vec.col] = MapItemType.PROP_EXP;
 		}
 		for(let i = 0;i<40;++i)
 		{
 			let vec = MapManager.getEmptyItem();
-			MapManager.mapItems[vec.row][vec.col] = 3;
+			MapManager.mapItems[vec.row][vec.col] = MapItemType.PROP_BLOOD;
 		}
 	}
 
@@ -84,13 +84,13 @@ class MapManager {
 			for(let j = 0 ;j<MapManager.mapItems[i].length; ++j)
 			{
 				let point;
-				if(MapManager.mapItems[i][j] == 1)
+				if(MapManager.mapItems[i][j] == MapItemType.OBSTACAL)
 				{
 					point = MapManager.getMapItemPos(i,j);
 					Main.instance.gameView.gameBg.addObstacal(point.x,point.y);
 
 				}
-				else if(MapManager.mapItems[i][j] == 2 ||MapManager.mapItems[i][j] == 3)
+				else if(MapManager.mapItems[i][j] == MapItemType.PROP_BLOOD ||MapManager.mapItems[i][j] == MapItemType.PROP_EXP)
 				{
 					Main.instance.gameView.gameBg.addProperty(i,j,MapManager.mapItems[i][j])
 				}
@@ -120,7 +120,6 @@ class MapManager {
 		let row = Math.floor(point.y / MapManager.cellPix);
 		return new egret.Point(row, col);
 	}
-
 
 	// public static getMapItemRowCol(obj:egret.DisplayObject)
 	// {
@@ -155,7 +154,7 @@ class MapManager {
 			if(!MapManager.mapItems){
 				break;
 			}
-			if(MapManager.mapItems[row][col]==0)//找到一个空白的
+			if(MapManager.mapItems[row][col]==MapItemType.NONE)//找到一个空白的
 			{
 				break;
 			}
@@ -164,7 +163,9 @@ class MapManager {
 	}
 
 	//碰撞检测,找到最近的有物体的地图单元
-	public static getHitItem(obj:egret.DisplayObject ,targetTpye:Array<number>)
+	//targetTpye,目标类型的数组
+	//isSingle:返回最近的一个元素位置，否则返回所有元素的位置
+	public static getHitItem(obj:egret.DisplayObject ,targetTpye:Array<number>,isSingle:boolean = true)
 	{
 		let hei = obj.height;
 		let wid = obj.width;
@@ -202,12 +203,24 @@ class MapManager {
 						if(mapItem == targetTpye[m])
 						{
 							let targetPoint = MapManager.getMapItemPos(i,j);
-							let distance = egret.Point.distance(objPoint,targetPoint);
-							if(!minDistance) minDistance = distance;
-							if(distance <= minDistance)
+							if(!isSingle)
 							{
-								minDistance = distance;
-								target = new egret.Point(i,j);
+								if(!target)
+								{
+									target = new Array<egret.Point>();
+								}
+								let targetPoint = new egret.Point(i,j);
+								target.push(targetPoint);
+							}
+							else
+							{
+								let distance = egret.Point.distance(objPoint,targetPoint);
+								if(!minDistance) minDistance = distance;
+								if(distance <= minDistance)
+								{
+									minDistance = distance;
+									target = new egret.Point(i,j);
+								}
 							}
 						}
 					}
@@ -218,36 +231,4 @@ class MapManager {
 		}
 		return target;
 	}
-	// public static getAroundItems(point:egret.Point)
-	// {
-	// 	let row = point.x;
-	// 	let col = point.y;
-	// 	if(row>=0&&row<MapManager.rowMax&&col>=0&&col<MapManager.colMax)
-	// 	{
-	// 		//do nothing
-	// 	}
-	// 	else
-	// 	{
-	// 		return null;
-	// 	}
-	// 	let arr:Array<egret.Point>;
-	// 	for(let i = -1;i < 2; ++i)
-	// 	{
-	// 		for(let j = -1;j < 2; ++j)
-	// 		{
-	// 			let x = row + i;
-	// 			let y = col + j;
-	// 			if(x>=0&&x<MapManager.rowMax&&y>=0&&y<MapManager.colMax)
-	// 			{
-	// 				let point = new egret.Point(x,y);
-	// 				if(!arr)
-	// 				{
-	// 					arr = new Array<egret.Point>();
-	// 				}
-	// 				arr.push(point);
-	// 			}
-	// 		}
-	// 	}
-	// 	return arr;
-	// }
 }
