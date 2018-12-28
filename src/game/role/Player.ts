@@ -26,6 +26,18 @@ class Player extends Role
 		super();
         this.speed = 5;
         this.angle = 0;
+		if(!this.hpTube){
+			this.hpTube = new HPTube(this,"HPTubeSkin");
+		}
+		this.maxHp = 50;
+		this.hp = 50;
+	//	this.hpTube.anchorOffsetX = this.hpTube.width*0.5 + this.x;
+	//	this.hpTube.anchorOffsetY = this.hpTube.height*0.5 + this.y;
+		this.hpTube.x = this.x + this.width*0.5;
+		this.hpTube.y = this.height - this.y - 37;
+		this.addChild(this.hpTube);
+		this.hpTube.showHp();
+		this.hpTube.visible = true;
 	}
 	protected createChildren() {
 		this.skinName = "RoleSkin";
