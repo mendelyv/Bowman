@@ -242,24 +242,20 @@ class EnemyAI
     {
         let shape = Util.drawCircle(this.defendRadius, Util.s_colors.yellow);
         this.obj.addChild(shape);
-        shape.x = this.obj.anchorOffsetX;
-        shape.y = this.obj.anchorOffsetY;
-
+        shape.x = this.obj.width / 2;
+        shape.y = this.obj.height / 2;
         shape = Util.drawCircle(this.chaseRadius, Util.s_colors.blue);
         this.obj.addChild(shape);
-        shape.x = this.obj.anchorOffsetX;
-        shape.y = this.obj.anchorOffsetY;
-
+        shape.x = this.obj.width / 2;
+        shape.y = this.obj.height / 2;
         shape = Util.drawCircle(this.attackRadius, Util.s_colors.red);
         this.obj.addChild(shape);
-        shape.x = this.obj.anchorOffsetX;
-        shape.y = this.obj.anchorOffsetY;
-
+        shape.x = this.obj.width / 2;
+        shape.y = this.obj.height / 2;
         shape = Util.drawCircle(this.wanderRadius, Util.s_colors.green);
         this.obj.addChild(shape);
-        shape.x = this.obj.anchorOffsetX;
-        shape.y = this.obj.anchorOffsetY;
-    }
+        shape.x = this.obj.width / 2;
+        shape.y = this.obj.height / 2;    }
 
     public removeCircle()
     {

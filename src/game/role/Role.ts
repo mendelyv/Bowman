@@ -53,6 +53,10 @@ class Role extends eui.Component
 	{
 		this.hp += resumeValue;
 		this.hp = this.hp < this.maxHp ? this.hp : this.maxHp;
+		if(this.hpTube)
+		{
+			this.hpTube.showHp();
+		}
 	}
 
 	public attack()//攻击
@@ -76,7 +80,7 @@ class Role extends eui.Component
 		switch(propertyType)
 		{
 			case MapItemType.PROP_BLOOD:
-				this.resumeBlood(1);
+				this.resumeBlood(10);
 				break;
 			case MapItemType.PROP_EXP:
 				this.addExp(1);

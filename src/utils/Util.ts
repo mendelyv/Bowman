@@ -1097,7 +1097,24 @@ class Util {
         }
         return mc;
     }
-
+    
+    /** 
+     * 数组push
+     * @param arr:数组
+     * @param ele:元素
+    */
+    public static push(arr:Array<any>,ele)
+	{
+		for(let i = 0; i<arr.length;++i)
+		{
+			if(arr[i] == null)
+			{
+				arr[i] = ele;
+				return;
+			}
+		}
+		arr.push(ele);
+	}
     /**
      * 保存数据到本地浏览器
      * @param key

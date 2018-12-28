@@ -88,11 +88,10 @@ class MapManager {
 				{
 					point = MapManager.getMapItemPos(i,j);
 					Main.instance.gameView.gameBg.addObstacal(point.x,point.y);
-
 				}
 				else if(MapManager.mapItems[i][j] == MapItemType.PROP_BLOOD ||MapManager.mapItems[i][j] == MapItemType.PROP_EXP)
 				{
-					Main.instance.gameView.gameBg.addProperty(i,j,MapManager.mapItems[i][j])
+					Main.instance.gameView.gameBg.addProperty(i,j,MapManager.mapItems[i][j]);
 				}
 			}
 		}

@@ -10,7 +10,6 @@ class GameConfig {
     public static IS_DEBUG: boolean = false;//默认不显示 加速按钮
     public static CUR_VERNO: number = 3;//当前游戏版本
 
-    public static elementConfig;//道具配置表
     public static scenceConfig;//场景配置表
     public static obstacalsConfig;//障碍配置表
 
