@@ -14,7 +14,7 @@ class Role extends eui.Component
 	protected critRate:number//暴击率
 
 	protected exp:number;//当前经验值
-
+	protected expMax:number;//当前最大经验（升级所需经验）
 
 	public speed:number;//移动速度
 	public angle:number;
@@ -22,6 +22,8 @@ class Role extends eui.Component
 	public constructor()
 	{
 		super();
+		this.exp = 0;
+		this.expMax = 5;
 	}
 	protected createChildren()
 	{
@@ -71,6 +73,33 @@ class Role extends eui.Component
 	//与周围道具碰撞，吃道具
 	public getAroundProperty(property:Property)
 	{
+		let propertyType = property.propertyType;
+		switch(propertyType)
+		{
+			case MapItemType.PROP_BLOOD:
+				this.resumeBlood(1);
+				break;
+			case MapItemType.PROP_EXP:
+				this.addExp(1);
+				break;
+		}
+	}
+
+	//加经验
+	public addExp(expValue:number)
+	{
+		this.exp += expValue;
+		if(this.exp>=this.expMax)
+		{
+			this.exp == 0;
+			this.expMax +=  5;
+			this.levelUp();
+		}
+	}
+	//升级
+	public levelUp()
+	{
+		this.level++;
 		
 	}
 }

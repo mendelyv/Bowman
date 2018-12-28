@@ -7,6 +7,7 @@ class Property extends MapItem
 	private propertyBlood:string = "element_common_1_png";
 	private bitMap:egret.Bitmap;
 
+	public get propertyType(){return this.id;};
 	public constructor() 
 	{
 		super();
