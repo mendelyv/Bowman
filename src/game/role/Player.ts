@@ -59,13 +59,6 @@ class Player extends Role
 		this.arrow.rotation = this.role_img.rotation - 90;
 	}
 	public attack():void{
-		// let element = new ElementBase();
-		// let gameView = Main.instance.gameView;
-		// element.x = this.x;
-		// element.y = this.y;
-		// element.scaleX = element.scaleY = 0.1;
-		// element.WWmoveFrom(this.x, this.y, this.angle, 2000);
-		// gameView.elementGroup.addChild(element);
 		let bg = Main.instance.gameView.gameBg;
 		let group = bg.arrowGroup;
 		let arrow: Arrow = ObjectPool.instance.getObj("arrow");

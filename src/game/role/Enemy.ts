@@ -7,6 +7,8 @@
  * @author : 杨浩然
  */
 class Enemy extends Role {
+
+    // public birthPoint: egret.Point;
     public arrow: eui.Image;
     public role_img: eui.Image;
     public bubble_img: eui.Image;
@@ -55,6 +57,10 @@ class Enemy extends Role {
         this.removeChild(this.arrow);
         delete this.arrow;//删除箭头
         this.ai.startAI();
+        // if(!this.birthPoint) this.birthPoint = new egret.Point();
+        // //存一下出生点
+        // this.birthPoint.x = this.x;
+        // this.birthPoint.y = this.y;
     }
     /** 转向 */
     public moveToByAngle(angle: number): void {
@@ -178,6 +184,7 @@ class Enemy extends Role {
         let start = MapManager.getRowColOfMap(new egret.Point(this.x, this.y));
         let end = MapManager.getRowColOfMap(new egret.Point(this.target.x, this.target.y), true);
 
+        //判断这次导航的目的地是否跟上次一样，如果一样就跳出
         if (this.endTarget)
             if (end == this.endTarget)
                 return;
@@ -195,6 +202,27 @@ class Enemy extends Role {
             this.moveTween = null;
         }
       
+        this.initNav();
+        let pathQueue = this.nav.find(start.y, start.x, end.y, end.x);
+        if (!pathQueue) return;
+
+        this.pathQueue = pathQueue;
+        this.moveOfPath();
+    }
+
+    /** 去一个点 */
+    public gotoPoint(target: egret.Point)
+    {
+        let start = MapManager.getRowColOfMap(new egret.Point(this.x, this.y));
+        let end = MapManager.getRowColOfMap(new egret.Point(target.x, target.y), true);  
+
+        //判断这次导航的目的地是否跟上次一样，如果一样就跳出
+        if (this.endTarget)
+            if (end == this.endTarget)
+                return;
+        this.endTarget = end;    
+
+        this.stopMove();
         this.initNav();
         let pathQueue = this.nav.find(start.y, start.x, end.y, end.x);
         if (!pathQueue) return;
