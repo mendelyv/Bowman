@@ -28,12 +28,12 @@ class Arrow extends egret.Bitmap
         // this.isCanColliseSelf = false;
         xPos += Math.cos(angle)*Dis;
         yPos += Math.sin(angle)*Dis;
-        console.log("xPos=",xPos);
-        console.log("yPos===",yPos);
+        // console.log("xPos=",xPos);
+        // console.log("yPos===",yPos);
         var self = this;
-        console.log("Dis===",Dis);
+        // console.log("Dis===",Dis);
         let time = Math.abs(Dis) / this.speed * 100;
-        console.log("time===",time);
+        // console.log("time===",time);
         egret.Tween.get(this).to({ x: xPos,y: yPos }, time).call(function():void{
             egret.Tween.removeTweens(this);
             ObjectPool.instance.pushObj("arrow", this);
