@@ -606,8 +606,8 @@ class Util {
 
     /**
      * 获取最小值到最大值区间的随机数
-     * @param min  最小值
-     * @param max  最大值
+     * @param min  最小值包含
+     * @param max  最大值包含
      * @returns {number}
      */
     public static getRandomRange(min: number, max: number): number {

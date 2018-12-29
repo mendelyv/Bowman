@@ -279,7 +279,7 @@ class Main extends eui.UILayer {
     private loadlocalConfig() {
         GameConfig.scenceConfig = RES.getRes("scence_json");
         sceneconfig.WWinit();
-        let index = Util.getRandomRange(1,3);
+        let index = Util.getRandomRange(1,2);
         GameConfig.obstacalsConfig = RES.getRes("obstacals"+index+"_json");
     }
 
