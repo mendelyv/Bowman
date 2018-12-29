@@ -1,6 +1,10 @@
 
 /**角色类基类 */
-class Role extends eui.Component {
+
+class Role extends eui.Component 
+{
+	public id: number;//人物编号，使用这个来区分人物
+
 	public die: boolean = false;
 	protected hp: number;//当前血量
 	public get HP() { return this.hp; }
@@ -14,18 +18,22 @@ class Role extends eui.Component {
 	protected exp: number;//当前经验值
 	protected expMax: number;//当前最大经验（升级所需经验）
 
-	public speed: number;//移动速度
-	public angle: number;
+	public speed:number;//移动速度
+	public angle:number
+
+	public ability: Ability;
+
 
 	public constructor() {
 		super();
 		this.exp = 0;
 		this.expMax = 5;
+		this.ability = new Ability(this);
 	}
 	protected createChildren() {
 		super.createChildren();
 	}
-	////扣血类型，0是玩家，1是敌人
+	//扣血类型，
 	public doDamage(damage: number) {
 		this.hp -= damage;
 		this.hp = this.hp > 0 ? this.hp : 0;
@@ -36,6 +44,7 @@ class Role extends eui.Component {
 
 	public destroy() {
 		this.die = true;
+		// ObjectPool.instance.pushObj("enemy", this);
 		//20秒之后添加一个敌人
 
 	}
@@ -47,6 +56,13 @@ class Role extends eui.Component {
 		if (this.hpTube) {
 			this.hpTube.showHp();
 		}
+	}
+
+	/** 增加血量上限并回血 */
+	public addHPMaxAndResumeBlood(maxHpValue: number, hpValue: number)
+	{
+		this.maxHp += maxHpValue;
+		this.hp += hpValue;
 	}
 
 	public attack()//攻击
@@ -86,6 +102,11 @@ class Role extends eui.Component {
 	//升级
 	public levelUp() {
 		this.level++;
+	}
 
+	/** 点击技能时增加的属性值 */
+	public addSkillProperty(skill: SkillComponent)
+	{
+		this.ability.enable(skill);
 	}
 }

@@ -41,15 +41,18 @@ class MapManager {
 		this.previousFrameTime = egret.getTimer();
 		this.gameTimer = 0;
 	}
+
 	//将敌人类型和时间push进数组
 	public pushEnemyToArr(time:number){
 		MapManager.enemyTimesArr.push(time);
 	}
+
 	//将道具的类型和死亡时间push进数组
 	public pushPropToArr(type:number,time:number){
 		let tempArr = [type,time];
 		MapManager.propretyTimesArr.push(tempArr);
 	}
+
 	//帧事件
 	public Update(){
 		let nowTimer:number = egret.getTimer();
@@ -60,7 +63,7 @@ class MapManager {
 				}
 				Main.instance.gameView.enemyMgr.createOneEnemy();
 				//移除数组的第一个元素
-
+				MapManager.enemyTimesArr.shift();
 			}
 		}
 		if(MapManager.propretyTimesArr.length > 0){
@@ -70,7 +73,8 @@ class MapManager {
 					break;
 				}
 				let vec = MapManager.getEmptyItem();
-				switch(tempArr[0]){
+				switch(tempArr[0])
+				{
 					case 2: //道具2
 					MapManager.mapItems[vec.row][vec.col] = MapItemType.PROP_EXP;
 					Main.instance.gameView.gameBg.addProperty(vec.row,vec.col,MapManager.mapItems[vec.row][vec.col]);
@@ -81,6 +85,7 @@ class MapManager {
 					break;
 				}
 				//移除数组的第一个元素
+				MapManager.propretyTimesArr.splice(i,1);
 			}
 		}
 	}
