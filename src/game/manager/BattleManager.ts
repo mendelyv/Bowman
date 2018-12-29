@@ -151,11 +151,27 @@ class BattleManager {
 			{
 				break;
 			}
+			for(let i =0;i<this.enemys.length;++i)
+			{
+				let enemy = this.enemys[i];
+				if(enemy&&!enemy.die)
+				{
+					if(Util.isCircleHit(enemy,arrow,true))
+					{
+						if(Util.isHit(enemy,arrow,true))
+						{
+							enemy.doDamage(arrow.damage);
+							ObjectPool.instance.pushObj("arrow",arrow);
+							continue;
+						}
+					}
+				}
+			}
+
 			if(Util.isCircleHit(this.player,arrow,true))
 			{
 				if(Util.isHit(this.player,arrow,true))
 				{
-					//扣血类型，0是玩家，1是敌人
 					this.player.doDamage(arrow.damage);
 					ObjectPool.instance.pushObj("arrow",arrow);
 					// this.arrowsEnemy[arrow.index] = null;
