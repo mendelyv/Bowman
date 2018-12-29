@@ -167,7 +167,8 @@ class BattleManager {
 							enemy.doDamage(arrow.damage);
 							if(enemy.die)
 							{
-								this.getRoleOfID(arrow.id).addExp(1);
+								let role = this.getRoleOfID(arrow.id);
+								if(role) role.addExp(1);
 							}
 							ObjectPool.instance.pushObj("arrow",arrow);
 							break;
