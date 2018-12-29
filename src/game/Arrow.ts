@@ -47,6 +47,7 @@ class Arrow extends egret.Bitmap
     {
         if(this.parent)
             this.parent.removeChild(this);
+        egret.Tween.removeTweens(this);
         if(this.whos != WhosArrow.NONE)
         {
             switch(this.whos)
