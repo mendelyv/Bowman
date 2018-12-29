@@ -15,6 +15,8 @@ class BattleManager {
 		this.enemys = new Array<Enemy>();
 		this.arrowsEnemy = new Array<Arrow>();
 		this.arrowsPlayer = new Array<Arrow>();
+
+		// this.allRole = [this.enemys, this.player];
 	}
 
 	public addProperty(property:Property)
@@ -49,6 +51,7 @@ class BattleManager {
 	/**添加敌人*/
 	public addEnemy(enemy:Enemy)
 	{
+		enemy.enemys = this.enemys;
 		Util.push(this.enemys,enemy);
 	}
 
@@ -152,7 +155,8 @@ class BattleManager {
 			{
 				if(Util.isHit(this.player,arrow,true))
 				{
-					this.player.doDamage(10);
+					//扣血类型，0是玩家，1是敌人
+					this.player.doDamage(arrow.damage);
 					ObjectPool.instance.pushObj("arrow",arrow);
 					this.arrowsEnemy[i] = null;
 				}
@@ -173,7 +177,8 @@ class BattleManager {
 				}
 				if(Util.isCircleHit(this.enemys[j],arrow,true)){
 					if(Util.isHit(this.enemys[j],arrow,true)){
-					this.enemys[j].doDamage(50);
+					//扣血类型，0是玩家，1是敌人
+					this.enemys[j].doDamage(arrow.damage);
 					ObjectPool.instance.pushObj("arrow",arrow);
 					this.arrowsPlayer[i] = null;
 					}		
@@ -183,5 +188,21 @@ class BattleManager {
 		
 	}
 
+	/** 根据ID返回角色 */
+	public getRoleOfID(id: number)
+	{
+		if(id == 0)
+			return this.player;
+		
+		for(let i = 0; i < this.enemys.length; i++)
+		{
+			let enemy = this.enemys[i];
+			if(!enemy) continue;
+			if(enemy.die) continue;
+			if(enemy.id == id)
+				return enemy;
+		}
+		return null;
+	}
 
 }

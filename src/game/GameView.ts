@@ -7,17 +7,16 @@ class GameView extends eui.Component {
     public player: Player;
     public uiGroup: eui.Group;
     private closeBtn: eui.Image;
-  
+    private skillComponents: eui.Group;
     public gameBg: GameBg;
 
     private previousFrameTime: number = 0;
     private shootTime: number = 0;
     private shootDelay: number = 1000;
-
-    public mapMgr: MapManager;
-    public enemyMgr: EnemyManager;
-    public battleMgr: BattleManager;
     private _broadcast: Broadcast;//广播
+    private mapMgr:MapManager;
+    private enemyMgr:EnemyManager;
+    public battleMgr:BattleManager;
     public constructor() {
         super();
         this.init();
@@ -261,6 +260,19 @@ class GameView extends eui.Component {
             this.joyR.enable(event);
         }
         this.touchEnabled = false;
+    }
+
+
+    public showSkills()
+    {
+        this.skillComponents.visible = true;
+
+        //先清一下，省的技能图标累加
+        this.skillComponents.removeChildren();
+
+        let skill = new SkillComponent();
+        this.skillComponents.addChild(skill);
+        skill.init(2);
     }
 
 

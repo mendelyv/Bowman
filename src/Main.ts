@@ -74,7 +74,8 @@ class Main extends eui.UILayer {
         StageUtils.WIN_HEIGHT = this.stage.stageHeight;
         egret.log("stageW=", StageUtils.WIN_WIDTH, " stageH=", StageUtils.WIN_HEIGHT);
         //资源加载完成
-        await this.loadResource()
+        await this.loadResource();
+        GameConfig.skillConfig = RES.getRes("skillConfig_json");        
         await platform.login();
         // const userInfo = await platform.getUserInfo();
         // console.log(userInfo);

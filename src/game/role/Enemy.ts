@@ -9,11 +9,12 @@
 class Enemy extends Role {
 
     // public birthPoint: egret.Point;
+    public enemys: Array<Enemy>;//可以攻击的目标
     public arrow: eui.Image;
     public role_img: eui.Image;
     public bubble_img: eui.Image;
     public target: Role;//追寻的目标
-    public range: number = 300;//射程
+    // public range: number = 300;//射程
 
     private ai: EnemyAI;
     public get AI(): EnemyAI { return this.ai; }
@@ -53,7 +54,7 @@ class Enemy extends Role {
         this.anchorOffsetY = this.height / 2;
         this.removeChild(this.arrow);
         delete this.arrow;//删除箭头
-        this.ai.startAI();
+        this.ai.start();
 
         //给敌人添加血条
         if (!this.hpTube) {
@@ -72,6 +73,9 @@ class Enemy extends Role {
         this.hpTube.showHpLine();
         this.hpTube.visible = true;
 
+        //知道自己的敌人是谁
+        this.enemys = Main.instance.gameView.battleMgr.enemys;
+        // this.enemys.push(Main.instance.gameView.player);
     }
     /** 转向 */
     public moveToByAngle(angle: number): void {
@@ -142,21 +146,11 @@ class Enemy extends Role {
 
         let group, arrow: Arrow;
 
-        if (this.shootTime >= this.shootDelay) {
-            this.shootTime = 0;
-            //先实例化一支弓箭
-            group = Main.instance.gameView.gameBg.arrowGroup;
-            arrow = ObjectPool.instance.getObj("arrow") as Arrow;
-            arrow.whos = WhosArrow.ENEMY;
-            arrow.texture = RES.getRes("game_title_rope_png");
-        }
-
-        this.previousFrameTime = egret.getTimer();
-
         //旋转人物
         if (this.target) {
             let targetPoint = new egret.Point(this.target.x, this.target.y);
-            this.parent.globalToLocal(targetPoint.x, targetPoint.y, targetPoint);
+            if(this.target.parent != this.parent)
+                this.parent.globalToLocal(targetPoint.x, targetPoint.y, targetPoint);
             //两个直角三角形直角边
             let x = targetPoint.x - this.x;
             let y = -(targetPoint.y - this.y);
@@ -173,16 +167,46 @@ class Enemy extends Role {
             this.moveToByAngle((theta - 90) * Math.PI / 180);
         }
 
-        //添加显示，设置位置和角度，增加tween
-        if (group && arrow) {
-            // group.addChild(arrow);
-            let bg = Main.instance.gameView.gameBg;
-            arrow.index = bg.addArrow(arrow, 1);
-            arrow.x = this.x;
-            arrow.y = this.y;
-            arrow.rotation = this.role_img.rotation;
-            arrow.moveFrom(this.x, this.y, (arrow.rotation - 90) * Math.PI / 180, this.range);
+        if (this.shootTime >= this.shootDelay) 
+        {
+            this.shootTime = 0;
+            let rotations = new Array<number>();
+            let tmpRot: number = this.role_img.rotation;
+            let mid = Math.floor(this.ability.arrowNum / 2);//找中间的弓箭的位置
+            for(let i = 0; i < this.ability.arrowNum; i++)
+            {
+                let times = Math.abs(mid - i);
+                if(i < mid) rotations.push(tmpRot - 15 * times);
+                else if(i > mid) rotations.push(tmpRot + 15 * times);
+                else rotations.push(tmpRot);
+            }
+            if(mid % 2 == 0)//如果是偶数再偏一次
+            {
+                for(let i = 0; i < rotations.length; i++)
+                {
+                    rotations[i] += 15 / 2;
+                }
+            }
+
+            //先实例化一支弓箭
+            group = Main.instance.gameView.gameBg.arrowGroup;
+            for(let i = 0; i < rotations.length; i++)
+            {
+                arrow = ObjectPool.instance.getObj("arrow") as Arrow;
+                arrow.id = this.id;
+                arrow.damage = this.ability.power;
+                arrow.whos = WhosArrow.ENEMY;
+                arrow.texture = RES.getRes(this.ability.res);
+                //添加显示，设置位置和角度，增加tween
+                let bg = Main.instance.gameView.gameBg;
+                arrow.index = bg.addArrow(arrow, 1);
+                arrow.x = this.x;
+                arrow.y = this.y;
+                arrow.rotation = rotations[i];
+                arrow.moveFrom(this.x, this.y, (arrow.rotation - 90) * Math.PI / 180, this.ability.range);
+            }
         }
+        this.previousFrameTime = egret.getTimer();
     }
 
     /** 追寻 */
@@ -236,6 +260,7 @@ class Enemy extends Role {
         this.pathQueue = pathQueue;
         this.moveOfPath();
     }
+
     ////扣血类型，0是玩家，1是敌人
     public doDamage(damage: number) {
         super.doDamage(damage);
@@ -249,5 +274,18 @@ class Enemy extends Role {
         ObjectPool.instance.pushObj("enemy", this);
         Main.instance.gameView.mapMgr.pushEnemyToArr(egret.getTimer());
     }
+
+
+
+    public recycle()
+    {
+        this.ai.stop();
+    }
+
+    public reset()
+    {
+        this.ai.start();
+    }
+
     //class end
 }
