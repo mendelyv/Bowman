@@ -285,6 +285,7 @@ class Enemy extends Role {
     public reset()
     {
         this.ai.start();
+        this.hp = 80
     }
 
     //class end

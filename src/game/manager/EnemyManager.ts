@@ -55,6 +55,7 @@ class EnemyManager {
 			enemy.id = egret.getTimer();
 			enemy.x = points.x;
 			enemy.y	= points.y;
+			
 			Main.instance.gameView.gameBg.addEnemy(enemy); 
 		}
 		
