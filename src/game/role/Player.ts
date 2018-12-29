@@ -26,7 +26,7 @@ class Player extends Role
 		super();
         this.speed = 5;
         this.angle = 0;
-	
+		this.id = 0;
 	}
 	
 	protected createChildren() {
@@ -67,6 +67,7 @@ class Player extends Role
 		let bg = Main.instance.gameView.gameBg;
 		let group = bg.arrowGroup;
 		let arrow: Arrow = ObjectPool.instance.getObj("arrow");
+		arrow.id = this.id;
 		arrow.whos = WhosArrow.PLAYER;
 		arrow.texture = RES.getRes("game_title_rope_png");
 

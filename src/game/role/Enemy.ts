@@ -156,6 +156,7 @@ class Enemy extends Role {
             //先实例化一支弓箭
             group = Main.instance.gameView.gameBg.arrowGroup;
             arrow = ObjectPool.instance.getObj("arrow") as Arrow;
+            arrow.id = this.id;
             arrow.whos = WhosArrow.ENEMY;
             arrow.texture = RES.getRes("game_title_rope_png");
         }

@@ -37,6 +37,7 @@ class EnemyManager {
 		{
 			let vec = this.bornPiont[i];
 			let enemy = ObjectPool.instance.getObj("enemy") as Enemy;
+			enemy.id = egret.getTimer();
 			let point = MapManager.getMapItemPos(vec.x,vec.y);
 			enemy.x = point.x;
 			enemy.y = point.y;
@@ -50,7 +51,8 @@ class EnemyManager {
 		let vec = MapManager.getEmptyItem();
 		let points = new egret.Point(vec.row,vec.col);
 		if(!this.hasSameBornPoint(points)){
-			let enemy = ObjectPool.instance.getObj("enemy");
+			let enemy = ObjectPool.instance.getObj("enemy") as Enemy;
+			enemy.id = egret.getTimer();
 			enemy.x = points.x;
 			enemy.y	= points.y;
 			Main.instance.gameView.gameBg.addEnemy(enemy); 

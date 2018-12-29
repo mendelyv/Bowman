@@ -2,6 +2,7 @@
 /**角色类基类 */
 class Role extends eui.Component 
 {
+	public id: number;//人物编号，使用这个来区分人物
 	public die: boolean = false;
 	protected hp:number;//当前血量
 	public get HP(){return this.hp;}

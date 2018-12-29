@@ -8,6 +8,7 @@
  */
 class Arrow extends egret.Bitmap
 {
+    public id: number;//弓箭ID，使用这个变量知道这是谁发射的
     public whos: WhosArrow = WhosArrow.NONE;//谁的弓箭
     public index: number = -1;//在数组的下标
     public speed: number = 50;

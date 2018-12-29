@@ -186,5 +186,21 @@ class BattleManager {
 		
 	}
 
+	/** 根据ID返回角色 */
+	public getRoleOfID(id: number)
+	{
+		if(id == 0)
+			return this.player;
+		
+		for(let i = 0; i < this.enemys.length; i++)
+		{
+			let enemy = this.enemys[i];
+			if(!enemy) continue;
+			if(enemy.die) continue;
+			if(enemy.id == id)
+				return enemy;
+		}
+		return null;
+	}
 
 }
