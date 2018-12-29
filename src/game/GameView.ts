@@ -66,7 +66,7 @@ class GameView extends eui.Component {
             this._broadcast.addMsg(msg);
         }
     }
-    // /**
+// /**
     //  * 地图层
     //  */
     // private _mapLayer: egret.DisplayObjectContainer;
@@ -147,7 +147,7 @@ class GameView extends eui.Component {
     //     this._camera.update();
 
     //     // this._particle.render(t);
-    // }
+// }
     private initEvents(): void {
         this.stage.addEventListener(egret.Event.ENTER_FRAME, this.update, this);
         this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
