@@ -59,15 +59,15 @@ class BattleManager {
 	 * @param arrow ：弓箭对象
 	 * @param whos ：谁的弓箭  0玩家的，1敌人的
 	 */
-	public addArrow(arrow: Arrow, whos: number): number
+	public addArrow(arrow: Arrow, whos: WhosArrow): number
 	{
 		switch(whos)
 		{
-			case 0 : 
+			case WhosArrow.PLAYER : 
 				Util.push(this.arrowsPlayer,arrow);
 				return this.arrowsPlayer.indexOf(arrow); 
 
-			case 1 : 
+			case WhosArrow.ENEMY : 
 				Util.push(this.arrowsEnemy,arrow);
 				return this.arrowsEnemy.indexOf(arrow);
 
@@ -156,13 +156,21 @@ class BattleManager {
 				let enemy = this.enemys[i];
 				if(enemy&&!enemy.die)
 				{
+					if(arrow.id == enemy.id)
+					{
+						continue;
+					}
 					if(Util.isCircleHit(enemy,arrow,true))
 					{
 						if(Util.isHit(enemy,arrow,true))
 						{
 							enemy.doDamage(arrow.damage);
+							if(enemy.die)
+							{
+								this.getRoleOfID(arrow.id).addExp(1);
+							}
 							ObjectPool.instance.pushObj("arrow",arrow);
-							continue;
+							break;
 						}
 					}
 				}
@@ -195,6 +203,10 @@ class BattleManager {
 					if(Util.isHit(this.enemys[j],arrow,true)){
 					//扣血类型，0是玩家，1是敌人
 					this.enemys[j].doDamage(arrow.damage);
+					if(this.enemys[j].die)
+					{
+						this.player.addExp(1);
+					}
 					ObjectPool.instance.pushObj("arrow",arrow);
 					// this.arrowsPlayer[arrow.index] = null;
 					}		

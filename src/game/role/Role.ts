@@ -94,7 +94,7 @@ class Role extends eui.Component
 	public addExp(expValue: number) {
 		this.exp += expValue;
 		if (this.exp >= this.expMax) {
-			this.exp == 0;
+			this.exp = 0;
 			this.expMax += 5;
 			this.levelUp();
 		}

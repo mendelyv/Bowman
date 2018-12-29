@@ -94,7 +94,7 @@ class Player extends Role {
 			let targetPoint = new egret.Point();
 			group.parent.globalToLocal(point.x, point.y, targetPoint);
 			// group.addChild(arrow);
-			arrow.index = bg.addArrow(arrow, 0);
+			arrow.index = bg.addArrow(arrow, WhosArrow.PLAYER);
 			arrow.x = targetPoint.x;
 			arrow.y = targetPoint.y;
 			arrow.rotation = rotations[i];

@@ -199,7 +199,7 @@ class Enemy extends Role {
                 arrow.texture = RES.getRes(this.ability.res);
                 //添加显示，设置位置和角度，增加tween
                 let bg = Main.instance.gameView.gameBg;
-                arrow.index = bg.addArrow(arrow, 1);
+                arrow.index = bg.addArrow(arrow, WhosArrow.ENEMY);
                 arrow.x = this.x;
                 arrow.y = this.y;
                 arrow.rotation = rotations[i];
