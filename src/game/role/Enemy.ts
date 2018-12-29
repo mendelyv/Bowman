@@ -50,6 +50,8 @@ class Enemy extends Role {
 
     protected createChildren() {
         this.skinName = "RoleSkin";
+        this.role_img.source = "role_"+Util.getRandomRange(0,8)+"_png"
+		console.log(this.role_img.source);
         this.anchorOffsetX = this.width / 2;
         this.anchorOffsetY = this.height / 2;
         this.removeChild(this.arrow);
@@ -285,7 +287,10 @@ class Enemy extends Role {
     public reset()
     {
         this.ai.start();
-        this.hp = 80
+        this.hp = 80;
+        this.maxHp = 80;
+        this.hpTube.showHp();
+        this.die = false;
     }
 
     //class end
