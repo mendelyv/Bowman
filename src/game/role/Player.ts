@@ -1,8 +1,7 @@
 // TypeScript file/**玩家类 */
 
 
-class Player extends Role 
-{
+class Player extends Role {
 	public movableX: boolean = false;
 	public movableY: boolean = false;
 
@@ -24,21 +23,21 @@ class Player extends Role
 
 	public constructor() {
 		super();
-        this.speed = 5;
-        this.angle = 0;
-	
+		this.speed = 5;
+		this.angle = 0;
+
 	}
-	
+
 	protected createChildren() {
 		this.skinName = "RoleSkin";
 		this.radius = this.width;
-		if(!this.hpTube){
-			this.hpTube = new HPTube(this,"HPTubeSkin");
+		if (!this.hpTube) {
+			this.hpTube = new HPTube(this, "HPTubeSkin");
 		}
 		this.maxHp = 70;
 		this.hp = 70;
-		this.hpTube.anchorOffsetX = this.hpTube.width*0.5 ;
-		this.hpTube.anchorOffsetY = this.hpTube.height*0.5;
+		this.hpTube.anchorOffsetX = this.hpTube.width * 0.5;
+		this.hpTube.anchorOffsetY = this.hpTube.height * 0.5;
 		this.anchorOffsetX = this.width * 0.5;
 		this.anchorOffsetY = this.height * 0.5;
 		this.hpTube.x = this.anchorOffsetX;
@@ -63,7 +62,7 @@ class Player extends Role
 		this.role_img.rotation = angle * 180 / Math.PI + 90;
 		this.arrow.rotation = this.role_img.rotation - 90;
 	}
-	public attack():void{
+	public attack(): void {
 		let bg = Main.instance.gameView.gameBg;
 		let group = bg.arrowGroup;
 		let arrow: Arrow = ObjectPool.instance.getObj("arrow");
@@ -71,9 +70,9 @@ class Player extends Role
 		arrow.texture = RES.getRes("game_title_rope_png");
 
 		let point = new egret.Point();
-		this.parent.localToGlobal(this.x,this.y,point);
+		this.parent.localToGlobal(this.x, this.y, point);
 		let targetPoint = new egret.Point();
-		group.parent.globalToLocal(point.x,point.y,targetPoint);
+		group.parent.globalToLocal(point.x, point.y, targetPoint);
 		// group.addChild(arrow);
 		arrow.index = bg.addArrow(arrow, 0);
 		arrow.x = targetPoint.x;
@@ -81,7 +80,7 @@ class Player extends Role
 		arrow.rotation = this.arrow.rotation + 90;
 		arrow.moveFrom(targetPoint.x, targetPoint.y, (arrow.rotation - 90) * Math.PI / 180, this.range);
 	}
-	public move(xAxis,yAxis,angle,offset): void {
+	public move(xAxis, yAxis, angle, offset): void {
 		//获得速度
 		// if(this.angle > Math.PI) {
 		//     if(this.xSpeed == 0) {
@@ -100,8 +99,8 @@ class Player extends Role
 		//     }
 		// }
 
-		this.tempX = this.x + xAxis*this.speed;
-		this.tempY = this.y + (-yAxis*this.speed);
+		this.tempX = this.x + xAxis * this.speed;
+		this.tempY = this.y + (-yAxis * this.speed);
 
 		// console.log(this.xSpeed);
 		// console.log(this.ySpeed);
@@ -144,18 +143,28 @@ class Player extends Role
 	}
 
 	/** 点击技能时增加的属性值 */
-	public addSkillProperty(skill: SkillComponent)
-	{
-		
+	public addSkillProperty(skill: SkillComponent) {
+
 	}
 
-	private verifyLimit()
-	{
-		if(StageUtils.WIN_WIDTH / 2 - this.speed <= this.x && this.x <= StageUtils.WIN_WIDTH / 2 + this.speed)
+	private verifyLimit() {
+		if (StageUtils.WIN_WIDTH / 2 - this.speed <= this.x && this.x <= StageUtils.WIN_WIDTH / 2 + this.speed)
 			this.movableX = false;
-		if(StageUtils.WIN_HEIGHT / 2 - this.speed <= this.y && this.y <= StageUtils.WIN_HEIGHT / 2 + this.speed)
+		if (StageUtils.WIN_HEIGHT / 2 - this.speed <= this.y && this.y <= StageUtils.WIN_HEIGHT / 2 + this.speed)
 			this.movableY = false;
-	} 
+	}
+
+	public doDamage(damage: number) {
+		super.doDamage(damage);
+		if (this.hp == 0) {
+			Main.instance.gameView.addMsg("'你被别人干死了");
+			let reliveHint: string = Util.getWordBySign('reliveHint');
+			let reliveWord: string = Util.getWordBySign('reliveWord');
+			let freeRelive: string = Util.getWordBySign('freeRelive');
+			Main.instance.crePop(reliveHint, function () { }, function () { }, reliveWord, freeRelive);
+			this.destroy();
+		}
+	}
 }
 
 window["Player"] = Player;

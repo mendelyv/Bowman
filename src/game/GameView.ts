@@ -43,9 +43,7 @@ class GameView extends eui.Component {
         this.skinName = "GameViewSkin";
         this.initEvents();
         this.joyL.resetON = true;//打开左手手柄重置数据的开关
-
-
-        // this.showDiff();'
+        // this.showDiff();
         this.battleMgr = new BattleManager();
         this.battleMgr.player = this.player;
         this.gameBg.gameView = this;

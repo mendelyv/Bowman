@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="PopWindowSkin" width="424" height="445" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="bg" source="end_win_bg_png" left="0" right="0" top="0" bottom="0"/>
-	<e:Label id="message" text="这里放提示文本" x="107" y="155" fontFamily="Microsoft YaHei"/>
-	<e:Group id="btnGroup" width="289" height="81" y="307" anchorOffsetY="0" anchorOffsetX="0" horizontalCenter="0.5">
+	<e:Group id="gpContent" width="289" height="180" anchorOffsetY="0" anchorOffsetX="0" horizontalCenter="0.5" verticalCenter="-16">
+		<e:Label id="message" text="这里放提示文本这里放提示文本这里放提示文本" y="70" anchorOffsetX="0" anchorOffsetY="0" height="108" left="0" right="0" wordWrap="true" textAlign="center"/>
+	</e:Group>
+	<e:Group id="gpBtn" width="289" height="81" y="307" anchorOffsetY="0" anchorOffsetX="0" horizontalCenter="0.5">
 		<e:Label id="confirmBtn" text="确定" x="39" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" verticalCenter="0"/>
 		<e:Label id="cancelBtn" text="取消" x="189" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" verticalCenter="0"/>
 		<e:layout>

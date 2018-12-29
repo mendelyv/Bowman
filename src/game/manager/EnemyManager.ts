@@ -44,7 +44,7 @@ class EnemyManager {
 		
 	}
 	
-	/**添加一个敌人*/
+	/**随机一个位置添加一个敌人到地图*/
 	public createOneEnemy(){
 		let vec = MapManager.getEmptyItem();
 		let points = MapManager.getMapItemPos(vec.row,vec.col);

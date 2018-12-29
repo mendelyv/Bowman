@@ -4,7 +4,7 @@
  * 
  */
 class GameConfig {
-    public static WORD_CONFIG_DATA = [];
+    public static WORD_CONFIG_DATA = [];//多语言配置数据
     public static VER_CONTROL = "test";//控制版本模式 test 测试登录 wechat 微信登录
     public static BUY_BEI: number = 1.07;//每次购买后价格提升1.07倍并显示，取整。
     public static IS_DEBUG: boolean = false;//默认不显示 加速按钮
@@ -49,9 +49,9 @@ class GameConfig {
     /**达到重量才能使用分裂技能*/
     //public static fenlieLimit: number = 20;
     /**分裂时，分身移动时间*/
-    public static fenlieTime:number = 1000;
+    // public static fenlieTime:number = 1000;
     /*喷射时长*/
-    public static jetTime:number = 3000;
+    // public static jetTime:number = 3000;
 
     //获得随机头像
     // static WWgetRandomRole():number{

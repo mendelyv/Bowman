@@ -98,8 +98,8 @@ class BattleManager {
 								enemy.getAroundProperty(property);
 								MapManager.mapItems[row][col] = MapItemType.NONE;
 								ObjectPool.instance.pushObj("property",property);
-								console.log(property+"*********");
 								this.propertys[index] = null;
+								Main.instance.gameView.mapMgr.pushPropToArr(property.propertyType,egret.getTimer());
 							}
 						}
 					}
@@ -129,6 +129,7 @@ class BattleManager {
 							MapManager.mapItems[row][col] = MapItemType.NONE;
 							ObjectPool.instance.pushObj("property",property);
 							this.propertys[index] = null;
+							Main.instance.gameView.mapMgr.pushPropToArr(property.propertyType,egret.getTimer());
 						}
 					}
 				}
@@ -151,7 +152,6 @@ class BattleManager {
 			{
 				if(Util.isHit(this.player,arrow,true))
 				{
-					//扣血类型，0是玩家，1是敌人
 					this.player.doDamage(10);
 					ObjectPool.instance.pushObj("arrow",arrow);
 					this.arrowsEnemy[i] = null;
