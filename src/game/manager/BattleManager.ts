@@ -98,6 +98,7 @@ class BattleManager {
 								enemy.getAroundProperty(property);
 								MapManager.mapItems[row][col] = MapItemType.NONE;
 								ObjectPool.instance.pushObj("property",property);
+								console.log(property+"*********");
 								this.propertys[index] = null;
 							}
 						}

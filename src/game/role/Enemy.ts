@@ -74,7 +74,7 @@ class Enemy extends Role {
 		this.addChild(this.hpTube);
 		this.hpTube.showHp();
 		this.hpTube.showHpLine();
-		this.hpTube.visible = true;
+        this.hpTube.visible = true;
 
     }
     /** 转向 */

@@ -7,11 +7,15 @@ class MapManager {
 	static colMax:number = 40;
 	/**格子边长*/
 	static cellPix:number = 48;
-
 	static offsetX = 0;
 	static offsetY = 0;
+	//
+	static enemyTimesArr:Array<number>; //敌人死亡为了做生成的数组
+	static propretyTimesArr:Array<Array<number>>; //道具被吃之后做生成的数组
+	private previousFrameTime: number;//上一帧的时间
+	private gameTimer:number;//游戏时间
 	//地图所有小格子的数组，用来做显示，碰撞检测
-	//数组值的暂时定义：0，没有东西，1，障碍物 ,经验道具type = 2，血道具type = 3
+	//数组值的暂时定义：0，没有东西，1，障碍物 ,经验道具type = 2，血道具type = 3   ,敌人 type = 4(在地图上没有)
 	static mapItems:Array<Array<number>>; 
 	public constructor() {
 		this.init();
@@ -20,6 +24,8 @@ class MapManager {
 	public init()
 	{
 		MapManager.mapItems = new Array<Array<number>>();
+		MapManager.enemyTimesArr = new Array<number>();
+		MapManager.propretyTimesArr = new Array<Array<number>>();
 		for(let i = 0;i<MapManager.rowMax;++i)
 		{
 			let tempArr = new Array<number>();
@@ -31,8 +37,52 @@ class MapManager {
 		}
 		this.createMapObstacal();
 		this.createProperty();
-
 		this.showMap();
+		this.previousFrameTime = egret.getTimer();
+		this.gameTimer = 0;
+	}
+	//将敌人类型和时间push进数组
+	public pushEnemyToArr(time:number){
+		MapManager.enemyTimesArr.push(time);
+	}
+	//将道具的类型和死亡时间push进数组
+	public pushPropToArr(type:number,time:number){
+		let tempArr = [type,time];
+		MapManager.propretyTimesArr.push(tempArr);
+	}
+	//帧事件
+	public Update(){
+		let nowTimer:number = egret.getTimer();
+		if(MapManager.enemyTimesArr.length > 0){
+			for(let i:number = 0;i< MapManager.enemyTimesArr.length;i++){				
+				if((nowTimer - MapManager.enemyTimesArr[i])*0.001 < 20){
+					break;
+				}
+				Main.instance.gameView.enemyMgr.createOneEnemy();
+				//移除数组的第一个元素
+
+			}
+		}
+		if(MapManager.propretyTimesArr.length > 0){
+			for(let i:number = 0;i<MapManager.propretyTimesArr.length;i++){
+				let tempArr:Array<number> = MapManager.propretyTimesArr[i];
+				if((nowTimer - tempArr[1])*0.001 < 15){
+					break;
+				}
+				let vec = MapManager.getEmptyItem();
+				switch(tempArr[0]){
+					case 2: //道具2
+					MapManager.mapItems[vec.row][vec.col] = MapItemType.PROP_EXP;
+					Main.instance.gameView.gameBg.addProperty(vec.row,vec.col,MapManager.mapItems[vec.row][vec.col]);
+					break;
+					case 3: //道具3
+					MapManager.mapItems[vec.row][vec.col] = MapItemType.PROP_BLOOD;
+					Main.instance.gameView.gameBg.addProperty(vec.row,vec.col,MapManager.mapItems[vec.row][vec.col]);
+					break;
+				}
+				//移除数组的第一个元素
+			}
+		}
 	}
 
 	public createMapObstacal()
