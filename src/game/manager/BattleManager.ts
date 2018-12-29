@@ -158,7 +158,7 @@ class BattleManager {
 					//扣血类型，0是玩家，1是敌人
 					this.player.doDamage(arrow.damage);
 					ObjectPool.instance.pushObj("arrow",arrow);
-					this.arrowsEnemy[i] = null;
+					// this.arrowsEnemy[arrow.index] = null;
 				}
 			}
 
@@ -180,7 +180,7 @@ class BattleManager {
 					//扣血类型，0是玩家，1是敌人
 					this.enemys[j].doDamage(arrow.damage);
 					ObjectPool.instance.pushObj("arrow",arrow);
-					this.arrowsPlayer[i] = null;
+					// this.arrowsPlayer[arrow.index] = null;
 					}		
 				}
 			}
