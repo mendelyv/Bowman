@@ -17,7 +17,7 @@ class Role extends eui.Component
 	protected critRate: number//暴击率
 	protected exp: number;//当前经验值
 	protected expMax: number;//当前最大经验（升级所需经验）
-
+	public role_img:eui.Image;
 	public speed:number;//移动速度
 	public angle:number
 
@@ -32,6 +32,7 @@ class Role extends eui.Component
 	}
 	protected createChildren() {
 		super.createChildren();
+		
 	}
 	//扣血类型，
 	public doDamage(damage: number) {
