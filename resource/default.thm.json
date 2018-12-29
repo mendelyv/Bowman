@@ -6,6 +6,7 @@
 		"resource/eui_skins/component/HPTubeSkin.exml",
 		"resource/eui_skins/component/JoystickSkin.exml",
 		"resource/eui_skins/component/PopWindowSkin.exml",
+		"resource/eui_skins/component/SkillComponentSkin.exml",
 		"resource/eui_skins/game/GameBGSkin.exml",
 		"resource/eui_skins/game/RoleSkin.exml",
 		"resource/eui_skins/game/GameViewSkin.exml",

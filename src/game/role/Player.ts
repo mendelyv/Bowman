@@ -177,6 +177,12 @@ class Player extends Role
 		if(StageUtils.WIN_HEIGHT / 2 - this.speed <= this.y && this.y <= StageUtils.WIN_HEIGHT / 2 + this.speed)
 			this.movableY = false;
 	} 
+
+	public levelUp()
+	{
+		super.levelUp();
+		Main.instance.gameView.showSkills();
+	}
 }
 
 window["Player"] = Player;

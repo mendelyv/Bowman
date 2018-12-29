@@ -18,20 +18,25 @@ class SkillComponent extends eui.Component
     public hemophagia: boolean = false;//攻击吸血
     public changeRes: string;//换弓箭资源
 
+    private bg: eui.Image;
+
     public constructor()
     {
         super();
     }
 
-
     protected createChildren()
     {
-        
+        this.skinName = "SkillComponentSkin";   
     }
 
-    public enable()
+    public init(id: number)
     {
-        let config;
+        let config = GameConfig.skillConfig[id];
+        if(!config) return;
+
+        this.bg.source = config.skillBgRes;
+        
         this.addMaxHpValue = config.addMaxHpValue;
         this.addHpValue = config.addHpValue;
         this.addPowerValue = config.addPowerValue;
@@ -40,9 +45,18 @@ class SkillComponent extends eui.Component
         this.hemophagia = config.hemophagia;
         this.changeRes = config.changeRes;
 
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.enable, this);
+    }
+
+    public enable()
+    {
+        this.parent.visible = false;
+        this.parent.removeChildren();
         let player = Main.instance.gameView.player;
         player.addSkillProperty(this);
     }
+
+
 
 //class end
 }

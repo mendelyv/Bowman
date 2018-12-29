@@ -13,6 +13,11 @@
 		<ns1:Joystick id="joyL" skinName="JoystickSkin" anchorOffsetX="72.5" anchorOffsetY="72.5" alpha="0.3" scaleX="1" scaleY="1" x="152.5" y="597.5"/>
 		<ns1:Joystick id="joyR" skinName="JoystickSkin" anchorOffsetX="72.5" anchorOffsetY="72.5" alpha="0.3" scaleX="1" scaleY="1" x="1181.5" y="597.5"/>
 		<e:Image id="closeBtn" scaleX="1" scaleY="1" source="end_win_button_close_png" right="10" top="10" visible="false"/>
+		<e:Group id="skillComponents" width="522" height="200" horizontalCenter="0" bottom="26" anchorOffsetX="0" visible="false">
+			<e:layout>
+				<e:HorizontalLayout horizontalAlign="center" verticalAlign="middle" gap="12"/>
+			</e:layout>
+		</e:Group>
 	</e:Group>
     
 </e:Skin>

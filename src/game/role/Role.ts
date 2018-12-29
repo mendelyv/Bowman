@@ -119,7 +119,6 @@ class Role extends eui.Component
 	public levelUp()
 	{
 		this.level++;
-		
 	}
 
 	/** 点击技能时增加的属性值 */
