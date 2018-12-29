@@ -179,6 +179,7 @@ class EnemyAI
             //攻击
             this.state = EnemyState.ATTACK;
             this.obj.target = target;
+            
         }
         //如果进入自卫半径
         else if(dis < this.defendRadius)
