@@ -17,13 +17,16 @@ class Role extends eui.Component
 	protected expMax:number;//当前最大经验（升级所需经验）
 
 	public speed:number;//移动速度
-	public angle:number;
+	public angle:number
+
+	public ability: Ability;
 
 	public constructor()
 	{
 		super();
 		this.exp = 0;
 		this.expMax = 5;
+		this.ability = new Ability(this);
 	}
 	protected createChildren()
 	{
@@ -63,6 +66,13 @@ class Role extends eui.Component
 		{
 			this.hpTube.showHp();
 		}
+	}
+
+	/** 增加血量上限并回血 */
+	public addHPMaxAndResumeBlood(maxHpValue: number, hpValue: number)
+	{
+		this.maxHp += maxHpValue;
+		this.hp += hpValue;
 	}
 
 	public attack()//攻击
@@ -110,5 +120,11 @@ class Role extends eui.Component
 	{
 		this.level++;
 		
+	}
+
+	/** 点击技能时增加的属性值 */
+	public addSkillProperty(skill: SkillComponent)
+	{
+		this.ability.enable(skill);
 	}
 }

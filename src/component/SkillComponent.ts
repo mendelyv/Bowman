@@ -16,7 +16,7 @@ class SkillComponent extends eui.Component
     public addRangeValue: number = 0;//增加射程
     public addArrowNum: number = 0;//增加箭的数量
     public hemophagia: boolean = false;//攻击吸血
-    public changeRes: number = 0;//换弓箭资源
+    public changeRes: string;//换弓箭资源
 
     public constructor()
     {

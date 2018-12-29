@@ -12,13 +12,13 @@ class Player extends Role
 	public xSpeed: number = 0;
 	public ySpeed: number = 0;
 	public radius: number = 0;      //半径
-	public range: number = 300;//射程
+	// public range: number = 300;//射程
 
 	//循环
 	private tempX: number;
 	private tempY: number;
 
-	public friction: number = 0.1;     //摩擦力
+	public friction: number = 0.1;//摩擦力
 	public frictionX: number = 0;
 	public frictionY: number = 0;
 
@@ -63,25 +63,50 @@ class Player extends Role
 		this.role_img.rotation = angle * 180 / Math.PI + 90;
 		this.arrow.rotation = this.role_img.rotation - 90;
 	}
+
 	public attack():void{
 		let bg = Main.instance.gameView.gameBg;
 		let group = bg.arrowGroup;
-		let arrow: Arrow = ObjectPool.instance.getObj("arrow");
-		arrow.id = this.id;
-		arrow.whos = WhosArrow.PLAYER;
-		arrow.texture = RES.getRes("game_title_rope_png");
 
-		let point = new egret.Point();
-		this.parent.localToGlobal(this.x,this.y,point);
-		let targetPoint = new egret.Point();
-		group.parent.globalToLocal(point.x,point.y,targetPoint);
-		// group.addChild(arrow);
-		arrow.index = bg.addArrow(arrow, 0);
-		arrow.x = targetPoint.x;
-		arrow.y = targetPoint.y;
-		arrow.rotation = this.arrow.rotation + 90;
-		arrow.moveFrom(targetPoint.x, targetPoint.y, (arrow.rotation - 90) * Math.PI / 180, this.range);
+		let rotations = new Array<number>();
+		let tmpRot: number = this.arrow.rotation + 90;
+		let mid = Math.floor(this.ability.arrowNum / 2);//找中间的弓箭的位置
+		for(let i = 0; i < this.ability.arrowNum; i++)
+		{
+			let times = Math.abs(mid - i);
+			if(i < mid) rotations.push(tmpRot - 15 * times);
+			else if(i > mid) rotations.push(tmpRot + 15 * times);
+			else rotations.push(tmpRot);
+		}
+		if(mid % 2 == 0)//如果是偶数再偏一次
+		{
+			for(let i = 0; i < rotations.length; i++)
+			{
+				rotations[i] += 15 / 2;
+			}
+		}
+		for(let i = 0; i < rotations.length; i++)
+		{
+			let arrow: Arrow = ObjectPool.instance.getObj("arrow");
+			arrow.id = this.id;
+			arrow.damage = this.ability.power;
+			arrow.whos = WhosArrow.PLAYER;
+			arrow.texture = RES.getRes(this.ability.res);
+
+			let point = new egret.Point();
+			this.parent.localToGlobal(this.x,this.y,point);
+			let targetPoint = new egret.Point();
+			group.parent.globalToLocal(point.x,point.y,targetPoint);
+			// group.addChild(arrow);
+			arrow.index = bg.addArrow(arrow, 0);
+			arrow.x = targetPoint.x;
+			arrow.y = targetPoint.y;
+			arrow.rotation = rotations[i];
+			arrow.moveFrom(targetPoint.x, targetPoint.y, (arrow.rotation - 90) * Math.PI / 180, this.ability.range);
+		}
+		
 	}
+
 	public move(xAxis,yAxis,angle,offset): void {
 		//获得速度
 		// if(this.angle > Math.PI) {
@@ -144,11 +169,6 @@ class Player extends Role
 		this.verifyLimit();
 	}
 
-	/** 点击技能时增加的属性值 */
-	public addSkillProperty(skill: SkillComponent)
-	{
-		
-	}
 
 	private verifyLimit()
 	{

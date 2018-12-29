@@ -8,7 +8,7 @@
         "addRangeValue": 0,
         "addArrowNum": 0,
         "hemophagia": false,
-        "changeRes": 0
+        "changeRes": "game_title_rope_png"
     },
     "1":{
         "description": "提高攻击",
@@ -18,7 +18,7 @@
         "addRangeValue": 0,
         "addArrowNum": 0,
         "hemophagia": false,
-        "changeRes": 0
+        "changeRes": "game_title_rope_png"
     },
     "2":{
         "description": "增加子弹数量",
@@ -28,7 +28,7 @@
         "addRangeValue": 0,
         "addArrowNum": 1,
         "hemophagia": false,
-        "changeRes": 0
+        "changeRes": "game_title_rope_png"
     },
     "3":{
         "description": "子弹吸血",
@@ -38,7 +38,7 @@
         "addRangeValue": 0,
         "addArrowNum": 0,
         "hemophagia": true,
-        "changeRes": 0
+        "changeRes": "game_title_rope_png"
     },
     "4":{
         "description": "换子弹资源",
@@ -48,6 +48,6 @@
         "addRangeValue": 0,
         "addArrowNum": 0,
         "hemophagia": false,
-        "changeRes": 0        
+        "changeRes": "game_title_rope_png"        
     }
 }

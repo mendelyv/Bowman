@@ -15,8 +15,8 @@ class EnemyManager {
 	public init()
 	{	
 		this.bornPiont = new Array<egret.Point>();
-		this.initCount = Util.getRandomRange(5,9);
-		// this.initCount = 2;
+		// this.initCount = Util.getRandomRange(5,9);
+		this.initCount = 1;
 		this.createEnemys();
 	}
 	//生成初始敌人数量
