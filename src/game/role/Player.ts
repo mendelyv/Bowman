@@ -23,8 +23,8 @@ class Player extends Role {
 	public relifeTimer: egret.Timer//复活倒计时时间控制器
 	public constructor() {
 		super();
-        this.speed = 5;
-        this.angle = 0;
+		this.speed = 5;
+		this.angle = 0;
 		this.id = 0;
 	}
 
@@ -63,29 +63,26 @@ class Player extends Role {
 		this.arrow.rotation = this.role_img.rotation - 90;
 	}
 
-	public attack():void{
+	public attack(): void {
 		let bg = Main.instance.gameView.gameBg;
 		let group = bg.arrowGroup;
 
 		let rotations = new Array<number>();
 		let tmpRot: number = this.arrow.rotation + 90;
 		let mid = Math.floor(this.ability.arrowNum / 2);//找中间的弓箭的位置
-		for(let i = 0; i < this.ability.arrowNum; i++)
-		{
+		for (let i = 0; i < this.ability.arrowNum; i++) {
 			let times = Math.abs(mid - i);
-			if(i < mid) rotations.push(tmpRot - 15 * times);
-			else if(i > mid) rotations.push(tmpRot + 15 * times);
+			if (i < mid) rotations.push(tmpRot - 15 * times);
+			else if (i > mid) rotations.push(tmpRot + 15 * times);
 			else rotations.push(tmpRot);
 		}
-		if(mid % 2 == 0)//如果是偶数再偏一次
+		if (mid % 2 == 0)//如果是偶数再偏一次
 		{
-			for(let i = 0; i < rotations.length; i++)
-			{
+			for (let i = 0; i < rotations.length; i++) {
 				rotations[i] += 15 / 2;
 			}
 		}
-		for(let i = 0; i < rotations.length; i++)
-		{
+		for (let i = 0; i < rotations.length; i++) {
 			let arrow: Arrow = ObjectPool.instance.getObj("arrow");
 			arrow.id = this.id;
 			arrow.damage = this.ability.power;
@@ -93,9 +90,9 @@ class Player extends Role {
 			arrow.texture = RES.getRes(this.ability.res);
 
 			let point = new egret.Point();
-			this.parent.localToGlobal(this.x,this.y,point);
+			this.parent.localToGlobal(this.x, this.y, point);
 			let targetPoint = new egret.Point();
-			group.parent.globalToLocal(point.x,point.y,targetPoint);
+			group.parent.globalToLocal(point.x, point.y, targetPoint);
 			// group.addChild(arrow);
 			arrow.index = bg.addArrow(arrow, 0);
 			arrow.x = targetPoint.x;
@@ -103,10 +100,10 @@ class Player extends Role {
 			arrow.rotation = rotations[i];
 			arrow.moveFrom(targetPoint.x, targetPoint.y, (arrow.rotation - 90) * Math.PI / 180, this.ability.range);
 		}
-		
+
 	}
 
-	public move(xAxis,yAxis,angle,offset): void {
+	public move(xAxis, yAxis, angle, offset): void {
 
 		//获得速度
 		// if(this.angle > Math.PI) {
@@ -185,28 +182,46 @@ class Player extends Role {
 			let freeRelive: string = Util.getWordBySign('freeRelive');
 			let pop: PopWindow = Main.instance.crePop(reliveHint, function () { }, function () { }, reliveWord, freeRelive);
 
-			// let lifeCount: number = 9
-			// let lifeNum: egret.Bitmap = new egret.Bitmap(RES.getRes('red_num' + lifeCount))
-			// lifeNum.x = (0.75 * StageUtils.WIN_WIDTH - lifeNum.width) *0.5;
-			// lifeNum.y = StageUtils.WIN_WIDTH * 0.58
-			// pop.addChild(lifeNum)
+			this.creTimer(pop);
 
-			// //倒计时
-			// this.relifeTimer = new egret.Timer(1000, 10)
-			// this.relifeTimer.addEventListener(egret.TimerEvent.TIMER, () => {
-			// 	lifeCount--
-			// 	lifeNum.texture = RES.getRes('red_num' + lifeCount)
-			// }, this)
-			// this.relifeTimer.once(egret.TimerEvent.TIMER_COMPLETE, () => {
-			
-			// }, this)
-			// this.relifeTimer.start()
 			this.destroy();
 		}
-	} 
+	}
+	private creTimer(pop: PopWindow): void {
+		this.lifeNum = new egret.Bitmap(RES.getRes('red_num' + this._lifeCount))
+		this.lifeNum.x = (pop.width - this.lifeNum.width) * 0.5;
+		this.lifeNum.y = pop.height * 0.2;
+		pop.addChild(this.lifeNum)
 
-	public levelUp()
-	{
+		//倒计时
+		this.relifeTimer = new egret.Timer(1000, 10)
+		this.relifeTimer.addEventListener(egret.TimerEvent.TIMER, this.onTimer, this)
+		this.relifeTimer.once(egret.TimerEvent.TIMER_COMPLETE, () => {
+			this.removeTimer();
+			if (pop) {
+				if (pop.parent) {
+					pop.parent.removeChild(pop);
+				}
+			}
+			Main.instance.changeToMain();
+		}, this)
+		this.relifeTimer.start()
+	}
+	private lifeNum: egret.Bitmap;
+	private _lifeCount: number = 9;
+	private onTimer(e: egret.TimerEvent): void {
+		this._lifeCount--;
+		this.lifeNum.texture = RES.getRes('red_num' + this._lifeCount)
+	}
+
+	private removeTimer(): void {
+		if (this.relifeTimer) {
+			this.relifeTimer.addEventListener(egret.TimerEvent.TIMER, this.onTimer, this)
+			this.relifeTimer = null;
+		}
+	}
+
+	public levelUp() {
 		super.levelUp();
 		Main.instance.gameView.showSkills();
 	}
