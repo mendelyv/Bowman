@@ -14,8 +14,8 @@ class GameView extends eui.Component {
     private shootTime: number = 0;
     private shootDelay: number = 1000;
     private _broadcast: Broadcast;//广播
-    private mapMgr:MapManager;
-    private enemyMgr:EnemyManager;
+    public mapMgr:MapManager;
+    public enemyMgr:EnemyManager;
     public battleMgr:BattleManager;
     public constructor() {
         super();
