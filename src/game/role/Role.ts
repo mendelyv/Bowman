@@ -26,25 +26,11 @@ class Role extends eui.Component {
 		super.createChildren();
 	}
 	////扣血类型，0是玩家，1是敌人
-	public doDamage(damage: number, type: number) {
+	public doDamage(damage: number) {
 		this.hp -= damage;
 		this.hp = this.hp > 0 ? this.hp : 0;
 		if (this.hpTube) {
 			this.hpTube.showHp();
-		}
-		if (this.hp == 0) {
-			Main.instance.gameView.addMsg("'谁干死了谁");
-			this.destroy();
-			if (type == 1) {
-				ObjectPool.instance.pushObj("enemy", this);
-			}
-			else {
-				let reliveHint: string = Util.getWordBySign('reliveHint');
-				let reliveWord: string = Util.getWordBySign('reliveWord');
-				let freeRelive: string = Util.getWordBySign('freeRelive');
-				Main.instance.crePop(reliveHint, function () { }, function () { }, reliveWord, freeRelive);
-			}
-
 		}
 	}
 

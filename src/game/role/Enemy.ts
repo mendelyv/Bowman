@@ -34,18 +34,14 @@ class Enemy extends Role {
         this.ai = new EnemyAI(this);
     }
 
-    public initNav():void
-    {
-         if (MapManager.mapItems) {
-            if (MapManager.mapItems.length != 0)
-            {
-                if(!this.nav)
-                {
+    public initNav(): void {
+        if (MapManager.mapItems) {
+            if (MapManager.mapItems.length != 0) {
+                if (!this.nav) {
                     this.nav = new SilzAstar(MapManager.mapItems);
                 }
             }
-            if(!this.pathQueue)
-            {
+            if (!this.pathQueue) {
                 this.pathQueue = new Array<SilzAstarNode>();
             }
         }
@@ -60,21 +56,21 @@ class Enemy extends Role {
         this.ai.startAI();
 
         //给敌人添加血条
-        if(!this.hpTube){
-			this.hpTube = new HPTube(this,"HPTubeSkin");
-		}
-		this.maxHp = 80;
-		this.hp = 80;
-		this.hpTube.anchorOffsetX = this.hpTube.width*0.5 ;
-		this.hpTube.anchorOffsetY = this.hpTube.height*0.5;
-		this.anchorOffsetX = this.width * 0.5;
-		this.anchorOffsetY = this.height * 0.5;
-		this.hpTube.x = this.anchorOffsetX;
-		this.hpTube.y = -17;
-		this.addChild(this.hpTube);
-		this.hpTube.showHp();
-		this.hpTube.showHpLine();
-		this.hpTube.visible = true;
+        if (!this.hpTube) {
+            this.hpTube = new HPTube(this, "HPTubeSkin");
+        }
+        this.maxHp = 80;
+        this.hp = 80;
+        this.hpTube.anchorOffsetX = this.hpTube.width * 0.5;
+        this.hpTube.anchorOffsetY = this.hpTube.height * 0.5;
+        this.anchorOffsetX = this.width * 0.5;
+        this.anchorOffsetY = this.height * 0.5;
+        this.hpTube.x = this.anchorOffsetX;
+        this.hpTube.y = -17;
+        this.addChild(this.hpTube);
+        this.hpTube.showHp();
+        this.hpTube.showHpLine();
+        this.hpTube.visible = true;
 
     }
     /** 转向 */
@@ -135,7 +131,7 @@ class Enemy extends Role {
         }
         egret.Tween.removeTweens(this);
         this.moveTween = null;
-        if(needSetTargetNull)
+        if (needSetTargetNull)
             this.target = null;
     }
 
@@ -146,8 +142,7 @@ class Enemy extends Role {
 
         let group, arrow: Arrow;
 
-        if (this.shootTime >= this.shootDelay) 
-        {
+        if (this.shootTime >= this.shootDelay) {
             this.shootTime = 0;
             //先实例化一支弓箭
             group = Main.instance.gameView.gameBg.arrowGroup;
@@ -159,8 +154,7 @@ class Enemy extends Role {
         this.previousFrameTime = egret.getTimer();
 
         //旋转人物
-        if(this.target)
-        {
+        if (this.target) {
             let targetPoint = new egret.Point(this.target.x, this.target.y);
             this.parent.globalToLocal(targetPoint.x, targetPoint.y, targetPoint);
             //两个直角三角形直角边
@@ -171,9 +165,8 @@ class Enemy extends Role {
             let sinTheta = x / l;
             let theta = Math.asin(sinTheta) * 180 / Math.PI;
             //判断在哪个象限，即为判断转动角是否是补角
-            if(y < 0)
-            {
-                if(theta < 0) theta = -180 - theta;
+            if (y < 0) {
+                if (theta < 0) theta = -180 - theta;
                 else theta = 180 - theta;
             }
             this.moveToByAngle(0);//首先回正人物图像
@@ -181,8 +174,7 @@ class Enemy extends Role {
         }
 
         //添加显示，设置位置和角度，增加tween
-        if(group && arrow)
-        {
+        if (group && arrow) {
             // group.addChild(arrow);
             let bg = Main.instance.gameView.gameBg;
             arrow.index = bg.addArrow(arrow, 1);
@@ -216,7 +208,7 @@ class Enemy extends Role {
             egret.Tween.removeTweens(this);
             this.moveTween = null;
         }
-      
+
         this.initNav();
         let pathQueue = this.nav.find(start.y, start.x, end.y, end.x);
         if (!pathQueue) return;
@@ -226,16 +218,15 @@ class Enemy extends Role {
     }
 
     /** 去一个点 */
-    public gotoPoint(target: egret.Point)
-    {
+    public gotoPoint(target: egret.Point) {
         let start = MapManager.getRowColOfMap(new egret.Point(this.x, this.y));
-        let end = MapManager.getRowColOfMap(new egret.Point(target.x, target.y), true);  
+        let end = MapManager.getRowColOfMap(new egret.Point(target.x, target.y), true);
 
         //判断这次导航的目的地是否跟上次一样，如果一样就跳出
         if (this.endTarget)
             if (end == this.endTarget)
                 return;
-        this.endTarget = end;    
+        this.endTarget = end;
 
         this.stopMove();
         this.initNav();
@@ -245,6 +236,17 @@ class Enemy extends Role {
         this.pathQueue = pathQueue;
         this.moveOfPath();
     }
-
+    ////扣血类型，0是玩家，1是敌人
+    public doDamage(damage: number) {
+        super.doDamage(damage);
+        if (this.hp == 0) {
+            Main.instance.gameView.addMsg("'你干死了别人");
+            this.destroy();
+        }
+    }
+    public destroy() {
+        super.destroy();
+        ObjectPool.instance.pushObj("enemy", this);
+    }
     //class end
 }
