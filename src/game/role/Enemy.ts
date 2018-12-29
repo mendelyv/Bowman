@@ -9,6 +9,7 @@
 class Enemy extends Role {
 
     // public birthPoint: egret.Point;
+    public enemys: Array<Enemy>;//可以攻击的目标
     public arrow: eui.Image;
     public role_img: eui.Image;
     public bubble_img: eui.Image;
@@ -57,7 +58,7 @@ class Enemy extends Role {
         this.anchorOffsetY = this.height / 2;
         this.removeChild(this.arrow);
         delete this.arrow;//删除箭头
-        this.ai.startAI();
+        this.ai.start();
 
         //给敌人添加血条
         if(!this.hpTube){
@@ -76,6 +77,9 @@ class Enemy extends Role {
 		this.hpTube.showHpLine();
 		this.hpTube.visible = true;
 
+        //知道自己的敌人是谁
+        this.enemys = Main.instance.gameView.battleMgr.enemys;
+        // this.enemys.push(Main.instance.gameView.player);
     }
     /** 转向 */
     public moveToByAngle(angle: number): void {
@@ -162,7 +166,8 @@ class Enemy extends Role {
         if(this.target)
         {
             let targetPoint = new egret.Point(this.target.x, this.target.y);
-            this.parent.globalToLocal(targetPoint.x, targetPoint.y, targetPoint);
+            if(this.target.parent != this.parent)
+                this.parent.globalToLocal(targetPoint.x, targetPoint.y, targetPoint);
             //两个直角三角形直角边
             let x = targetPoint.x - this.x;
             let y = -(targetPoint.y - this.y);
@@ -245,6 +250,18 @@ class Enemy extends Role {
         this.pathQueue = pathQueue;
         this.moveOfPath();
     }
+
+
+    public recycle()
+    {
+        this.ai.stop();
+    }
+
+    public reset()
+    {
+        this.ai.start();
+    }
+
 
     //class end
 }

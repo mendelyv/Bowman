@@ -16,6 +16,7 @@ class EnemyManager {
 	{	
 		this.bornPiont = new Array<egret.Point>();
 		this.initCount = Util.getRandomRange(5,9);
+		// this.initCount = 2;
 		this.createEnemys();
 	}
 	//生成初始敌人数量
@@ -35,7 +36,7 @@ class EnemyManager {
 		for(let i = 0; i < this.bornPiont.length;i++ )
 		{
 			let vec = this.bornPiont[i];
-			let enemy = ObjectPool.instance.getObj("enemy");
+			let enemy = ObjectPool.instance.getObj("enemy") as Enemy;
 			let point = MapManager.getMapItemPos(vec.x,vec.y);
 			enemy.x = point.x;
 			enemy.y = point.y;

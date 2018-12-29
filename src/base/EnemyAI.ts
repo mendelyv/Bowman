@@ -3,16 +3,15 @@
 //1.将怪物分为以下几种状态：
 //待机状态（该状态有两种行为：原地呼吸，和游走，可通过权重配置待机状态下的两种行为的发生的比例）
 //追击状态（怪物跑向玩家）
-//返回状态（跑回出生位置，该状态下不再理会玩家）
+//攻击状态
 
 //2.可以为怪物配置各项状态的数值
-//游走半径，待机状态下，怪物游走时不会超过这个范围，根据出生点计算
 //自卫半径，当玩家与怪物之间距离小于自卫半径时进入追击状态
 //追击半径，怪物追击玩家时，自身不会超过这个范围，超出后跑回出生点，可以理解为最大活动范围
 //攻击距离，当玩家与怪物之间的距离小于攻击距离时攻击
 
 //3.各项数值设定的关系如下
-//比较合理的关系是：追击半径 > 自卫半径 > 攻击距离，游走半径只需要小于追击半径即可
+//比较合理的关系是：追击半径 > 自卫半径 > 攻击距离
 // 2）攻击距离不建议大于自卫半径，否则就无法触发追击状态，直接开始战斗了
 // 3）游走半径不建议大于追击半径，否则怪物可能刚刚开始追击就返回出生点
 
@@ -48,7 +47,8 @@ class EnemyAI
         this.state = EnemyState.IDLE;
     }
 
-    public startAI()
+    /** 打开AI，添加监听事件 */
+    public start()
     {
         this.isOn = true;
         this.obj.addEventListener(egret.Event.ENTER_FRAME, this.update, this);
@@ -56,6 +56,16 @@ class EnemyAI
         this.previousFramesTime = egret.getTimer();
         this.state = EnemyState.IDLE;
         // this.nextActionTime = 0;
+    }
+
+    /** 停止AI，移除帧事件监听 */ 
+    public stop()
+    {
+        if(!this.isOn) return;
+        
+        this.isOn = false;
+        this.obj.removeEventListener(egret.Event.ENTER_FRAME, this.update, this);
+        console.log(" ===== 停止AI ===== ");
     }
 
     //帧更新函数
@@ -125,16 +135,16 @@ class EnemyAI
         // this.nextActionTime = 0;
     }
 
-    private getTargetDistance()
+    /** 获取与目标之间的距离 */
+    private getTargetDistance(target: Role)
     {
-        let player = Main.instance.gameView.player;
-        if(!player) return;
-        let playerPoint = new egret.Point(player.x, player.y);
-        if(player.parent != this.obj.parent)
+        if(!target) return -1;
+        let targetPoint = new egret.Point(target.x, target.y);
+        if(target.parent != this.obj.parent)//判断对比双方是否在同一个坐标系中
         {
-            playerPoint = this.obj.parent.globalToLocal(playerPoint.x, playerPoint.y);
+            targetPoint = this.obj.parent.globalToLocal(targetPoint.x, targetPoint.y);
         }
-        return egret.Point.distance(new egret.Point(this.obj.x, this.obj.y), playerPoint);
+        return egret.Point.distance(new egret.Point(this.obj.x, this.obj.y), targetPoint);
     }
 
     /** 随机切换指令，随机思考干什么 */
@@ -156,50 +166,42 @@ class EnemyAI
         }
     }
 
-    /** 停止，移除帧事件监听 */ 
-    public stop()
-    {
-        if(!this.isOn) return;
-        
-        this.isOn = false;
-        this.obj.removeEventListener(egret.Event.ENTER_FRAME, this.update, this);
-        console.log(" ===== 停止AI ===== ");
-    }
-
-
     // ===== 对应状态的检查函数 start =====
+
     private idleCheck()
     {
-        let player = Main.instance.gameView.player;
-        let distancePlayer = this.getTargetDistance();
+        let target = this.findNearTarget();
+        let dis = this.getTargetDistance(target);
+        if(dis == -1) return;
         //如果距离可以攻击
-        if(distancePlayer <= this.attackRadius)
+        if(dis <= this.attackRadius)
         {
             //攻击
             this.state = EnemyState.ATTACK;
-            this.obj.target = player;
+            this.obj.target = target;
         }
         //如果进入自卫半径
-        else if(distancePlayer < this.defendRadius)
+        else if(dis < this.defendRadius)
         {
             this.state = EnemyState.CHASE;
-            this.obj.target = player;
+            this.obj.target = target;
         }
     }
 
     private walkCheck()
     {
-        let player = Main.instance.gameView.player;
-        let distancePlayer = this.getTargetDistance();
+        let target = this.findNearTarget();
+        let dis = this.getTargetDistance(target);
+        if(dis == -1) return;
         //如果距离可以攻击
-        if(distancePlayer <= this.attackRadius)
+        if(dis <= this.attackRadius)
         {
             //攻击
             this.state = EnemyState.ATTACK;
-            this.obj.target = player;
+            this.obj.target = target;
         }
         //如果进入自卫半径
-        else if(distancePlayer < this.defendRadius)
+        else if(dis < this.defendRadius)
         {
             this.state = EnemyState.CHASE;
         }
@@ -208,27 +210,46 @@ class EnemyAI
 
     private chaseCheck()
     {
-        let player = Main.instance.gameView.player;
-        let distancePlayer = this.getTargetDistance();
-        if(distancePlayer < this.attackRadius)
+        //如果是在追寻状态，就已经有target了，可以不用寻找
+        let target = this.obj.target;
+        if(!target)
+        {
+            this.randomState();
+            return;
+        }
+        let dis = this.getTargetDistance(target);
+        if(dis == -1) return;
+        if(dis < this.attackRadius)
         {
             //攻击
             this.state = EnemyState.ATTACK;
-            this.obj.target = player;
+            this.obj.target = target;
         }
         //如果超出追击范围就返回
-        if(distancePlayer > this.chaseRadius)
+        if(dis > this.chaseRadius)
         {
-            this.state = EnemyState.IDLE;
+            // this.state = EnemyState.IDLE;
+            this.randomState();
             this.obj.target = null;
         }
     }
 
     private attackCheck()
     {
-        let player = Main.instance.gameView.player;
-        let distancePlayer = this.getTargetDistance();
-        if(distancePlayer > this.attackRadius)
+        let target = this.obj.target;
+        if(!target)
+        {
+            this.randomState();
+            return;
+        }
+        let dis = this.getTargetDistance(target);
+        if(dis == -1) return;
+        if(target.die)
+        {
+            this.randomState();
+            return;
+        }
+        if(dis > this.attackRadius)
         {
             this.state = EnemyState.CHASE;
         }
@@ -252,14 +273,15 @@ class EnemyAI
         this.obj.addChild(shape);
         shape.x = this.obj.width / 2;
         shape.y = this.obj.height / 2;
-        shape = Util.drawCircle(this.wanderRadius, Util.s_colors.green);
-        this.obj.addChild(shape);
-        shape.x = this.obj.width / 2;
-        shape.y = this.obj.height / 2;    }
+        // shape = Util.drawCircle(this.wanderRadius, Util.s_colors.green);
+        // this.obj.addChild(shape);
+        // shape.x = this.obj.width / 2;
+        // shape.y = this.obj.height / 2;    
+    }
 
     public removeCircle()
     {
-        let i = 4;
+        let i = 3;
         while(i > 0)
         {
             this.obj.removeChild(this.obj.getChildAt(this.obj.numChildren - 1));
@@ -268,6 +290,37 @@ class EnemyAI
     }
     // ===== Test Code end =====
 
+    public findNearTarget(): Role
+    {
+        let dis = 0;
+        let ret = 100000;
+        let index = -1;
+        let arr = this.obj.enemys;
+        if(arr)
+        {
+            for(let i = 0; i < arr.length; i++)
+            {
+                let enemy = arr[i];
+                if(!enemy) continue;
+                if(enemy.die) continue;
+                if(enemy == this.obj) continue;
+
+                dis = this.getTargetDistance(enemy);
+                if(dis < ret)
+                {
+                    index = i;
+                    ret = dis;
+                }
+            }
+        }
+        let player = Main.instance.gameView.player;
+        dis = this.getTargetDistance(player);
+        if(dis < ret)
+        {
+            return player;
+        }
+        return arr[index];
+    }
 
     public destructor()
     {

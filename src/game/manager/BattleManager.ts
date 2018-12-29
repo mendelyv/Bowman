@@ -15,6 +15,8 @@ class BattleManager {
 		this.enemys = new Array<Enemy>();
 		this.arrowsEnemy = new Array<Arrow>();
 		this.arrowsPlayer = new Array<Arrow>();
+
+		// this.allRole = [this.enemys, this.player];
 	}
 
 	public addProperty(property:Property)
@@ -49,6 +51,7 @@ class BattleManager {
 	/**添加敌人*/
 	public addEnemy(enemy:Enemy)
 	{
+		enemy.enemys = this.enemys;
 		Util.push(this.enemys,enemy);
 	}
 

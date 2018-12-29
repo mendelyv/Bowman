@@ -17,6 +17,7 @@ class GameView extends eui.Component {
     private mapMgr:MapManager;
     private enemyMgr:EnemyManager;
     public battleMgr:BattleManager;
+
     public constructor() {
         super();
         this.init();
