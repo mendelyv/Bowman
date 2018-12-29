@@ -41,7 +41,7 @@ class MapManager {
 		this.previousFrameTime = egret.getTimer();
 		this.gameTimer = 0;
 	}
-	
+
 	//将敌人类型和时间push进数组
 	public pushEnemyToArr(time:number){
 		MapManager.enemyTimesArr.push(time);
