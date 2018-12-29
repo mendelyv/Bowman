@@ -355,12 +355,13 @@ class Main extends eui.UILayer {
      * @param confirmTxt ：确定按钮替换文本(缺省)
      * @param cancelTxt ：取消按钮替换文本(缺省)
      */
-    public crePop(message: string, confirmEvent?: Function, cancelEvent?: Function, confirmTxt?: string, cancelTxt?: string): void {
+    public crePop(message: string, confirmEvent?: Function, cancelEvent?: Function, confirmTxt?: string, cancelTxt?: string): PopWindow {
         let popup: PopWindow = new PopWindow();
         this.addChild(popup);
         popup.enable(message, confirmEvent, cancelEvent, confirmTxt, cancelTxt);
         popup.x = (StageUtils.WIN_WIDTH - popup.width)*0.5;
         popup.y = (StageUtils.WIN_HEIGHT - popup.height)*0.5;
+        return popup;
     }
 
     private changeScene(targetState: SceneState): void {

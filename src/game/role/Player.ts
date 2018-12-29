@@ -20,7 +20,7 @@ class Player extends Role {
 	public friction: number = 0.1;     //摩擦力
 	public frictionX: number = 0;
 	public frictionY: number = 0;
-
+	public relifeTimer: egret.Timer//复活倒计时时间控制器
 	public constructor() {
 		super();
 		this.speed = 5;
@@ -162,7 +162,24 @@ class Player extends Role {
 			let reliveHint: string = Util.getWordBySign('reliveHint');
 			let reliveWord: string = Util.getWordBySign('reliveWord');
 			let freeRelive: string = Util.getWordBySign('freeRelive');
-			Main.instance.crePop(reliveHint, function () { }, function () { }, reliveWord, freeRelive);
+			let pop: PopWindow = Main.instance.crePop(reliveHint, function () { }, function () { }, reliveWord, freeRelive);
+
+			// let lifeCount: number = 9
+			// let lifeNum: egret.Bitmap = new egret.Bitmap(RES.getRes('red_num' + lifeCount))
+			// lifeNum.x = (0.75 * StageUtils.WIN_WIDTH - lifeNum.width) *0.5;
+			// lifeNum.y = StageUtils.WIN_WIDTH * 0.58
+			// pop.addChild(lifeNum)
+
+			// //倒计时
+			// this.relifeTimer = new egret.Timer(1000, 10)
+			// this.relifeTimer.addEventListener(egret.TimerEvent.TIMER, () => {
+			// 	lifeCount--
+			// 	lifeNum.texture = RES.getRes('red_num' + lifeCount)
+			// }, this)
+			// this.relifeTimer.once(egret.TimerEvent.TIMER_COMPLETE, () => {
+			
+			// }, this)
+			// this.relifeTimer.start()
 			this.destroy();
 		}
 	}
