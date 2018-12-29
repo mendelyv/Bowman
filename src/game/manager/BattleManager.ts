@@ -173,7 +173,6 @@ class BattleManager {
 				}
 				if(Util.isCircleHit(this.enemys[j],arrow,true)){
 					if(Util.isHit(this.enemys[j],arrow,true)){
-					//扣血类型，0是玩家，1是敌人
 					this.enemys[j].doDamage(50);
 					ObjectPool.instance.pushObj("arrow",arrow);
 					this.arrowsPlayer[i] = null;

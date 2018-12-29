@@ -47,9 +47,9 @@ class EnemyManager {
 	/**添加一个敌人*/
 	public createOneEnemy(){
 		let vec = MapManager.getEmptyItem();
-		let points = new egret.Point(vec.row,vec.col);
+		let points = MapManager.getMapItemPos(vec.row,vec.col);
 		if(!this.hasSameBornPoint(points)){
-			let enemy = ObjectPool.instance.getObj("enemy");
+			let enemy = new Enemy();
 			enemy.x = points.x;
 			enemy.y	= points.y;
 			Main.instance.gameView.gameBg.addEnemy(enemy); 

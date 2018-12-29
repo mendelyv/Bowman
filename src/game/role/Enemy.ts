@@ -250,6 +250,7 @@ class Enemy extends Role {
     {
         super.destroy();
 	    ObjectPool.instance.pushObj("enemy",this);
+        Main.instance.gameView.mapMgr.pushEnemyToArr(egret.getTimer());
     }
     //class end
 }
