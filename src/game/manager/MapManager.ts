@@ -63,7 +63,7 @@ class MapManager {
 				}
 				Main.instance.gameView.enemyMgr.createOneEnemy();
 				//移除数组的第一个元素
-				MapManager.enemyTimesArr.splice(i,1);
+				MapManager.enemyTimesArr.shift();
 			}
 		}
 		if(MapManager.propretyTimesArr.length > 0){
