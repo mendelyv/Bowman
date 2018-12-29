@@ -73,8 +73,6 @@ class Main extends eui.UILayer {
         StageUtils.WIN_WIDTH = this.stage.stageWidth;
         StageUtils.WIN_HEIGHT = this.stage.stageHeight;
         egret.log("stageW=", StageUtils.WIN_WIDTH, " stageH=", StageUtils.WIN_HEIGHT);
-
-
         //资源加载完成
         await this.loadResource()
         await platform.login();
@@ -242,9 +240,9 @@ class Main extends eui.UILayer {
             // }
         });
     }
-     /**
-    * 设置转发 
-    */
+    /**
+   * 设置转发 
+   */
     public setDefaultShare() {
         //主动点击了转发 
         if (GameConfig.VER_CONTROL == "wechat") {
@@ -256,20 +254,20 @@ class Main extends eui.UILayer {
             platform.setDefaultShare(title, imgurl, `share=${type}`);
         }
     }
-      /**返回玩家数据 */
+    /**返回玩家数据 */
     public getUserData(): UserData {
         return this._userData;
     }
+    /**加载资源 */
     private async loadResource() {
         try {
             const loadingView = new LoadingUI();
             this.stage.addChild(loadingView);
             await RES.loadConfig("resource/default.res.json", "resource/");
-
             await this.loadTheme();
             await RES.loadGroup("preload", 0, loadingView);
+            await this.loadlocalConfig();
             this.stage.removeChild(loadingView);
-            this.loadlocalConfig();
         }
         catch (e) {
             console.error(e);
@@ -278,9 +276,9 @@ class Main extends eui.UILayer {
 
     private loadlocalConfig() {
         GameConfig.scenceConfig = RES.getRes("scence_json");
-        sceneconfig.WWinit();
-        let index = Util.getRandomRange(1,3);
-        GameConfig.obstacalsConfig = RES.getRes("obstacals"+index+"_json");
+        let index = Util.getRandomRange(1, 2);
+        GameConfig.obstacalsConfig = RES.getRes("obstacals" + index + "_json");
+        GameConfig.WORD_CONFIG_DATA = RES.getRes("wordConfig_json");
     }
 
     private loadTheme() {
@@ -314,8 +312,7 @@ class Main extends eui.UILayer {
     }
     //创建主界面
     private createMain() {
-        if (!this._mainView)
-        {
+        if (!this._mainView) {
             this._mainView = new MainView();
             this.addChild(this._mainView);
             this._mainView.width = StageUtils.WIN_WIDTH;
@@ -350,6 +347,20 @@ class Main extends eui.UILayer {
             }
             this._gameView = null;
         }
+    }
+    /** 创建弹窗
+     * @param message ：提示信息
+     * @param confirmEvent ：非取消按钮的事件
+     * @param cancelEvent ：非取消按钮的事件
+     * @param confirmTxt ：确定按钮替换文本(缺省)
+     * @param cancelTxt ：取消按钮替换文本(缺省)
+     */
+    public crePop(message: string, confirmEvent?: Function, cancelEvent?: Function, confirmTxt?: string, cancelTxt?: string): void {
+        let popup: PopWindow = new PopWindow();
+        this.addChild(popup);
+        popup.enable(message, confirmEvent, cancelEvent, confirmTxt, cancelTxt);
+        popup.x = (StageUtils.WIN_WIDTH - popup.width)*0.5;
+        popup.y = (StageUtils.WIN_HEIGHT - popup.height)*0.5;
     }
 
     private changeScene(targetState: SceneState): void {
