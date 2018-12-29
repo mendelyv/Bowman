@@ -246,5 +246,10 @@ class Enemy extends Role {
         this.moveOfPath();
     }
 
+    public destroy()
+    {
+        super.destroy();
+	    ObjectPool.instance.pushObj("enemy",this);
+    }
     //class end
 }

@@ -161,9 +161,11 @@ class MapManager {
 		return {row:row,col:col};
 	}
 
-	//碰撞检测,找到最近的有物体的地图单元
-	//targetTpye,目标类型的数组
-	//isSingle:返回最近的一个元素位置，否则返回所有元素的位置
+	/**碰撞检测,找到最近的有物体的地图单元
+	 * @param obj:目标对象
+	 * @param targetTpye,目标类型的数组
+	   @param isSingle:返回最近的一个元素位置，否则返回所有元素的位置
+	*/
 	public static getHitItem(obj:egret.DisplayObject ,targetTpye:Array<number>,isSingle:boolean = true)
 	{
 		let hei = obj.height;
