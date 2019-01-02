@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GameEndSkin" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Panel id="panel_gameEnd" width="600" height="300" horizontalCenter="0" verticalCenter="0" visible="false">
+		<e:Label id="score" text="100" x="303" y="100" size="50"/>
+		<e:Button id="btn_share" label="分享" x="34" y="187">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="game_rank_bg_png" source.down="game_rank_bg_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button id="btn_reStart" label="重开" x="362" y="187">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="game_rank_bg_png" source.down="game_rank_bg_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Label id="title" text="游戏结束" fontFamily="Microsoft YaHei" size="50" horizontalCenter="-4" top="-77" x="200" y="-145" scaleX="1" scaleY="1"/>
+		<e:Button id="btn_close" label="关闭" x="486" y="0.5" scaleX="1" scaleY="1" width="100">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="game_rank_bg_png" source.down="game_rank_bg_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Label text="得分：" x="131" y="97" size="50" fontFamily="Microsoft YaHei"/>
+	</e:Panel>
+	<e:Panel id="panel_reLife" width="600" height="500" horizontalCenter="0" verticalCenter="0">
+		<e:Button id="reLife_btnClose" label="关闭" x="497" y="11" width="100" height="50">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="game_rank_bg_png" source.down="game_rank_bg_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button id="reLife_btnCharge" label="钻石复活" x="83" y="350" width="150" height="100">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="game_rank_bg_png" source.down="game_rank_bg_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Button id="reLife_btnFree" label="免费复活" x="345" y="350" width="150" height="100">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="game_rank_bg_png" source.down="game_rank_bg_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<e:Label text="现在放弃太可惜啦，去复活？" y="285" horizontalCenter="0" textAlign="center" fontFamily="Microsoft YaHei" size="40"/>
+	</e:Panel>
+</e:Skin>

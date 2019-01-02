@@ -25,5 +25,6 @@
 			<e:Rect id="expMask" width="290" height="18" x="85" y="17"/>
 		</e:Panel>
 	</e:Group>
+	<ns1:GameEnd id="gameEnd" x="0" y="0" skinName="GameEndSkin" touchEnabled="true" visible="false"/>
     
 </e:Skin>

@@ -12,6 +12,7 @@ class GameView extends eui.Component {
     private expMask:eui.Rect;//玩家经验遮罩
     private expMaskWidth:number;//玩家经验遮罩的原始宽度
     public gameBg: GameBg;
+    public gameEnd:GameEnd;//结束面板
 
     private previousFrameTime: number = 0;
     private shootTime: number = 0;
@@ -52,6 +53,7 @@ class GameView extends eui.Component {
         this.mapMgr = new MapManager();
         this.enemyMgr = new EnemyManager();
         this.expMaskWidth = this.expMask.width;
+        this.gameEnd.visible = false;
         this.initBroadcast();
     }
     /**初始化广播 */
@@ -278,10 +280,20 @@ class GameView extends eui.Component {
         this.skillComponents.addChild(skill);
         skill.init(3);
     }
-
+    //玩家死亡
     public showGameEndReLife()
     {
-
+        this.gameEnd.visible = true;
+        this.gameEnd.showRelifePanel();
+        // this.joyR.active = true;
+        // this.joyL.active = true;
+    }
+    //玩家复活
+    public playerReLife()
+    {
+        // this.joyR.active = false;
+        // this.joyL.active = false;
+        this.player.reLife();
     }
 
     public showPlayerLvExp()
@@ -312,6 +324,7 @@ class GameView extends eui.Component {
         this.joyL.destructor();
         this.joyR.destructor();
         this.gameBg.destructor();
+        this.gameEnd.destructor();
         this.battleMgr.destructor();
         this.stage.removeEventListener(egret.Event.ENTER_FRAME, this.update, this);
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);

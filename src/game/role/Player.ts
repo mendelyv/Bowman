@@ -20,9 +20,7 @@ class Player extends Role {
 	public friction: number = 0.1;//摩擦力
 	public frictionX: number = 0;
 	public frictionY: number = 0;
-	public relifeTimer: egret.Timer//复活倒计时时间控制器
-	
-	private popPanel;//复活面板
+
 	public constructor() {
 		super();
 		this.speed = 5;
@@ -66,6 +64,10 @@ class Player extends Role {
 	}
 
 	public attack(): void {
+		if(this.die)
+		{
+			return;
+		}
 		let bg = Main.instance.gameView.gameBg;
 		let group = bg.arrowGroup;
 
@@ -178,80 +180,8 @@ class Player extends Role {
 	public doDamage(damage: number) {
 		super.doDamage(damage);
 		if (this.hp == 0) {
-			Main.instance.gameView.addMsg("'你被别人干死了");
-			let reliveHint: string = Util.getWordBySign('reliveHint');
-			let reliveWord: string = Util.getWordBySign('reliveWord');
-			let freeRelive: string = Util.getWordBySign('freeRelive');
-			if(!this.popPanel)
-			{
-				this.popPanel = Main.instance.crePop(reliveHint,()=>{this.onRelifeBtnClick(true);},()=>{this.onRelifeBtnClick(false);}, reliveWord, freeRelive);
-			}
-			//let pop: PopWindow = Main.instance.crePop(reliveHint,()=>{ this.reSatrt(),this.removeTimer();},()=>{this.removeTimer()}, reliveWord, freeRelive);
-
-			this.creTimer();
-
+			Main.instance.gameView.showGameEndReLife();
 			this.destroy();
-		}
-	}
-	private creTimer(): void {
-		this.lifeNum = new egret.Bitmap(RES.getRes('red_num' + this._lifeCount))
-		this.lifeNum.x = (this.popPanel.width - this.lifeNum.width) * 0.5;
-		this.lifeNum.y = this.popPanel.height * 0.2;
-		this.popPanel.addChild(this.lifeNum)
-
-		//倒计时
-		this.relifeTimer = new egret.Timer(1000, 10)
-		this.relifeTimer.addEventListener(egret.TimerEvent.TIMER, this.onTimer, this)
-		this.relifeTimer.once(egret.TimerEvent.TIMER_COMPLETE,this.onTimeEnd, this)
-		this.relifeTimer.start()
-	}
-
-	private onTimeEnd()
-	{
-		this.removeTimer();
-		if (this.popPanel) {
-			if (this.popPanel.parent) {
-				this.popPanel.parent.removeChild(this.popPanel);
-			}
-		}
-		this.popPanel = null;
-		Main.instance.changeToMain();
-	}
-
-	private onRelifeBtnClick(isSure:boolean)
-	{
-		if(isSure)
-		{
-			//点击确定
-			this.reSatrt();
-		}
-		else
-		{
-			//点击取消
-		}
-		this.popPanel = null;
-		this.removeTimer();
-	}
-
-	private lifeNum: egret.Bitmap;
-	private _lifeCount: number = 9;
-	private onTimer(e: egret.TimerEvent): void {
-		this._lifeCount--;
-		this.lifeNum.texture = RES.getRes('red_num' + this._lifeCount)
-	}
-
-	private removeTimer(): void {
-		if (this.relifeTimer) 
-		{
-			if(this.relifeTimer.hasEventListener(egret.TimerEvent.TIMER))
-			{
-				this.relifeTimer.removeEventListener(egret.TimerEvent.TIMER, this.onTimer, this)
-			}
-			if(this.relifeTimer.hasEventListener(egret.TimerEvent.TIMER_COMPLETE))
-			{
-				this.relifeTimer.removeEventListener(egret.TimerEvent.TIMER_COMPLETE,this.onTimeEnd,this);
-			}
-			this.relifeTimer = null;
 		}
 	}
 
@@ -266,7 +196,7 @@ class Player extends Role {
 		Main.instance.gameView.showPlayerLvExp();
 	}
 
-	public reSatrt()
+	public reLife()
 	{
 		this.hp = this.MaxHP * 0.5;
 		this.hpTube.showHp();
