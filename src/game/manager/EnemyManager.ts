@@ -54,9 +54,9 @@ class EnemyManager {
 			let enemy = ObjectPool.instance.getObj("enemy") as Enemy;
 			enemy.id = egret.getTimer();
 			enemy.x = points.x;
-			enemy.y	= points.y;
-			
+			enemy.y	= points.y;	
 			Main.instance.gameView.gameBg.addEnemy(enemy); 
+			console.log("添加一个敌人到地图"+vec.row+"^^^"+vec.col);
 		}
 		
 	}

@@ -24,8 +24,6 @@ class GameView extends eui.Component {
     /**初始化*/
     public init() {
         this.initObjectPool();
-
-
     }
   
     private initObjectPool() {

@@ -23,42 +23,42 @@ class Player extends Role {
 	public relifeTimer: egret.Timer//复活倒计时时间控制器
 	public constructor() {
 		super();
-		this.speed = 5;
-		this.angle = 0;
+		this.attribute.speed = 5;
+		this.attribute.angle = 0;
 		this.id = 0;
 	}
 
 	protected createChildren() {
 		this.skinName = "RoleSkin";
 		this.radius = this.width;
-		if (!this.hpTube) {
-			this.hpTube = new HPTube(this, "HPTubeSkin");
+		if (!this.attribute.hpTube) {
+			this.attribute.hpTube = new HPTube(this, "HPTubeSkin");
 		}
-		this.maxHp = 70;
-		this.hp = 70;
-		this.hpTube.anchorOffsetX = this.hpTube.width * 0.5;
-		this.hpTube.anchorOffsetY = this.hpTube.height * 0.5;
+		this.attribute.maxHp = 50;
+		this.attribute.hp = 50;
+		this.attribute.hpTube.anchorOffsetX = this.attribute.hpTube.width * 0.5;
+		this.attribute.hpTube.anchorOffsetY = this.attribute.hpTube.height * 0.5;
 		this.anchorOffsetX = this.width * 0.5;
 		this.anchorOffsetY = this.height * 0.5;
-		this.hpTube.x = this.anchorOffsetX;
-		this.hpTube.y = -37;
-		this.addChild(this.hpTube);
-		this.hpTube.showHp();
-		this.hpTube.showHpLine();
-		this.hpTube.visible = true;
+		this.attribute.hpTube.x = this.anchorOffsetX;
+		this.attribute.hpTube.y = -37;
+		this.addChild(this.attribute.hpTube);
+		this.attribute.hpTube.showHp();
+		this.attribute.hpTube.showHpLine();
+		this.attribute.hpTube.visible = true;
 	}
 	//根据角度设置x~y轴的速率
 	public moveToByAngle(angle: number): void {
 		if (angle <= Math.PI) {
-			this.xSpeed = Math.cos(angle) * this.speed;
-			this.ySpeed = Math.sin(angle) * this.speed;
-		} else if (this.angle <= Math.PI) {
-			this.frictionX = Math.cos(this.angle) * this.friction;
-			this.frictionY = Math.sin(this.angle) * this.friction;
+			this.xSpeed = Math.cos(angle) * this.attribute.speed;
+			this.ySpeed = Math.sin(angle) * this.attribute.speed;
+		} else if (this.attribute.angle <= Math.PI) {
+			this.frictionX = Math.cos(this.attribute.angle) * this.friction;
+			this.frictionY = Math.sin(this.attribute.angle) * this.friction;
 			//this.xSpeed = 0;
 			//this.ySpeed = 0;
 		}
-		this.angle = angle;
+		this.attribute.angle = angle;
 		this.role_img.rotation = angle * 180 / Math.PI + 90;
 		this.arrow.rotation = this.role_img.rotation - 90;
 	}
@@ -69,8 +69,8 @@ class Player extends Role {
 
 		let rotations = new Array<number>();
 		let tmpRot: number = this.arrow.rotation + 90;
-		let mid = Math.floor(this.ability.arrowNum / 2);//找中间的弓箭的位置
-		for (let i = 0; i < this.ability.arrowNum; i++) {
+		let mid = Math.floor(this.attribute.arrowNum / 2);//找中间的弓箭的位置
+		for (let i = 0; i < this.attribute.arrowNum; i++) {
 			let times = Math.abs(mid - i);
 			if (i < mid) rotations.push(tmpRot - 15 * times);
 			else if (i > mid) rotations.push(tmpRot + 15 * times);
@@ -85,9 +85,9 @@ class Player extends Role {
 		for (let i = 0; i < rotations.length; i++) {
 			let arrow: Arrow = ObjectPool.instance.getObj("arrow");
 			arrow.id = this.id;
-			arrow.damage = this.ability.power;
+			arrow.damage = this.attribute.power;
 			arrow.whos = WhosArrow.PLAYER;
-			arrow.texture = RES.getRes(this.ability.res);
+			arrow.texture = RES.getRes(this.attribute.res);
 
 			let point = new egret.Point();
 			this.parent.localToGlobal(this.x, this.y, point);
@@ -98,7 +98,7 @@ class Player extends Role {
 			arrow.x = targetPoint.x;
 			arrow.y = targetPoint.y;
 			arrow.rotation = rotations[i];
-			arrow.moveFrom(targetPoint.x, targetPoint.y, (arrow.rotation - 90) * Math.PI / 180, this.ability.range);
+			arrow.moveFrom(targetPoint.x, targetPoint.y, (arrow.rotation - 90) * Math.PI / 180, this.attribute.range);
 		}
 
 	}
@@ -123,8 +123,8 @@ class Player extends Role {
 		//     }
 		// }
 
-		this.tempX = this.x + xAxis * this.speed;
-		this.tempY = this.y + (-yAxis * this.speed);
+		this.tempX = this.x + xAxis * this.attribute.speed;
+		this.tempY = this.y + (-yAxis * this.attribute.speed);
 
 		// console.log(this.xSpeed);
 		// console.log(this.ySpeed);
@@ -167,15 +167,15 @@ class Player extends Role {
 	}
 
 	private verifyLimit() {
-		if (StageUtils.WIN_WIDTH / 2 - this.speed <= this.x && this.x <= StageUtils.WIN_WIDTH / 2 + this.speed)
+		if (StageUtils.WIN_WIDTH / 2 - this.attribute.speed <= this.x && this.x <= StageUtils.WIN_WIDTH / 2 + this.attribute.speed)
 			this.movableX = false;
-		if (StageUtils.WIN_HEIGHT / 2 - this.speed <= this.y && this.y <= StageUtils.WIN_HEIGHT / 2 + this.speed)
+		if (StageUtils.WIN_HEIGHT / 2 - this.attribute.speed <= this.y && this.y <= StageUtils.WIN_HEIGHT / 2 + this.attribute.speed)
 			this.movableY = false;
 	}
 
 	public doDamage(damage: number) {
 		super.doDamage(damage);
-		if (this.hp == 0) {
+		if (this.attribute.hp == 0) {
 			Main.instance.gameView.addMsg("'你被别人干死了");
 			let reliveHint: string = Util.getWordBySign('reliveHint');
 			let reliveWord: string = Util.getWordBySign('reliveWord');

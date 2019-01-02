@@ -1,0 +1,39 @@
+{
+    "description":"玩家属性配置表，包含人物的属性信息,hp：血量，speed：移速，attack：攻击力，shieldPower：防御力，range：射程，attackSpeed：攻速，critRate：暴击率，shape：体型",
+    "player":[
+       {
+        "value":{
+            "hp": 50,
+            "speed": 192,
+            "attack": 0,
+            "shieldPower": 0,
+            "range": 0,
+            "attackSpeed": 0,
+            "critRate": 0,
+            "shape": 1
+           },
+        "level":1
+        },
+      { 
+       "value":{
+            "hp": 0,
+            "speed": 0,
+            "attack": 0,
+            "shieldPower": 0,
+            "range": 0,
+            "attackSpeed": 0,
+            "critRate": 0,
+            "shape": 0
+           },
+        "level": 2
+        }
+        ],
+    "description":"武器属性配置表，包含武器的属性信息,speed: 武器移动速度，attack：攻击力，range：射程，attackSpeed：攻速，flySpeed：子弹飞行速度",
+    "Arms":{
+        "speed": 0,
+        "attack": 0,
+        "range": 240,
+        "attackSpeed": 1,
+        "flySpeed": 240
+    }
+}

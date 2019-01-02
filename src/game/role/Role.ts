@@ -6,29 +6,16 @@ class Role extends eui.Component
 	public id: number;//人物编号，使用这个来区分人物
 
 	public die: boolean = false;
-	protected hp: number;//当前血量
-	public get HP() { return this.hp; }
-	protected maxHp: number;//最大血量
-	public get MaxHP() { return this.maxHp; }
-	protected level: number;//当前等级
-	public get Level() { return this.level; }
-	protected hpTube: HPTube;//角色的血量条
-	protected shieldPower: number;//护甲值，用于计算伤害
-	protected critRate: number//暴击率
-	protected exp: number;//当前经验值
-	protected expMax: number;//当前最大经验（升级所需经验）
-	public role_img:eui.Image;
-	public speed:number;//移动速度
-	public angle:number
 
-	public ability: Ability;
+	public attribute: Attribute;
 
 
 	public constructor() {
 		super();
-		this.exp = 0;
-		this.expMax = 5;
-		this.ability = new Ability(this);
+		this.attribute = new Attribute(this);
+		this.attribute.exp = 0;
+		this.attribute.expMax = 5;
+
 	}
 	protected createChildren() {
 		super.createChildren();
@@ -36,10 +23,10 @@ class Role extends eui.Component
 	}
 	//扣血类型，
 	public doDamage(damage: number) {
-		this.hp -= damage;
-		this.hp = this.hp > 0 ? this.hp : 0;
-		if (this.hpTube) {
-			this.hpTube.showHp();
+		this.attribute.hp -= damage;
+		this.attribute.hp = this.attribute.hp > 0 ? this.attribute.hp : 0;
+		if (this.attribute.hpTube) {
+			this.attribute.hpTube.showHp();
 		}
 	}
 
@@ -52,18 +39,18 @@ class Role extends eui.Component
 
 	public resumeBlood(resumeValue: number)//回血
 	{
-		this.hp += resumeValue;
-		this.hp = this.hp < this.maxHp ? this.hp : this.maxHp;
-		if (this.hpTube) {
-			this.hpTube.showHp();
+		this.attribute.hp += resumeValue;
+		this.attribute.hp = this.attribute.hp < this.attribute.maxHp ? this.attribute.hp : this.attribute.maxHp;
+		if (this.attribute.hpTube) {
+			this.attribute.hpTube.showHp();
 		}
 	}
 
 	/** 增加血量上限并回血 */
 	public addHPMaxAndResumeBlood(maxHpValue: number, hpValue: number)
 	{
-		this.maxHp += maxHpValue;
-		this.hp += hpValue;
+		this.attribute.maxHp += maxHpValue;
+		this.attribute.hp += hpValue;
 	}
 
 	public attack()//攻击
@@ -73,8 +60,8 @@ class Role extends eui.Component
 
 	public destructor() {
 		if (this.parent) this.parent.removeChild(this);
-		if (this.hpTube) {
-			this.hpTube.destructor();
+		if (this.attribute.hpTube) {
+			this.attribute.hpTube.destructor();
 		}
 	}
 
@@ -93,21 +80,21 @@ class Role extends eui.Component
 
 	//加经验
 	public addExp(expValue: number) {
-		this.exp += expValue;
-		if (this.exp >= this.expMax) {
-			this.exp = 0;
-			this.expMax += 5;
+		this.attribute.exp += expValue;
+		if (this.attribute.exp >= this.attribute.expMax) {
+			this.attribute.exp = 0;
+			this.attribute.expMax += 5;
 			this.levelUp();
 		}
 	}
 	//升级
 	public levelUp() {
-		this.level++;
+		this.attribute.level++;
 	}
 
 	/** 点击技能时增加的属性值 */
 	public addSkillProperty(skill: SkillComponent)
 	{
-		this.ability.enable(skill);
+		this.attribute.enable(skill);
 	}
 }
