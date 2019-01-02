@@ -268,10 +268,10 @@ class Player extends Role {
 
 	public reSatrt()
 	{
-		this.hp = this.MaxHP * 0.5;
-		this.hpTube.showHp();
+		this.attribute.hp = this.attribute.MaxHP * 0.5;
+		this.attribute.hpTube.showHp();
 		this.die = false;
-		this.hpTube.showHp();
+		this.attribute.hpTube.showHp();
 	}
 }
 

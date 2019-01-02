@@ -286,8 +286,8 @@ class GameView extends eui.Component {
 
     public showPlayerLvExp()
     {
-        this.lvLabel.text = "Lv:" + this.player.Level;
-        this.expMask.width = this.expMaskWidth*(this.player.Exp / this.player.ExpMax);
+        this.lvLabel.text = "Lv:" + this.player.attribute.Level;
+        this.expMask.width = this.expMaskWidth*(this.player.attribute.exp / this.player.attribute.expMax);
     }
 
     /** 限制玩家移动，不允许出界 */

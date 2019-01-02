@@ -169,7 +169,7 @@ class BattleManager {
 
 							//吸血
 							if(atk)
-								if(atk.ability.hemophagia)
+								if(atk.attribute.hemophagia)
 									atk.resumeBlood(arrow.damage * 0.5);
 
 							if(enemy.die)
@@ -212,7 +212,7 @@ class BattleManager {
 					//扣血类型，0是玩家，1是敌人
 					this.enemys[j].doDamage(arrow.damage);
 					//吸血
-					if(this.player.ability.hemophagia)
+					if(this.player.attribute.hemophagia)
 						this.player.resumeBlood(arrow.damage * 0.5);
 					if(this.enemys[j].die)
 					{
