@@ -18,6 +18,12 @@
 				<e:HorizontalLayout horizontalAlign="center" verticalAlign="middle" gap="12"/>
 			</e:layout>
 		</e:Group>
+		<e:Panel id="expPanel" width="400" height="50" y="10" horizontalCenter="0">
+			<e:Label id="lvLabel" text="Lv:1" scaleX="1" scaleY="1" textColor="0xe52d2d" textAlign="center" fontFamily="Microsoft YaHei" verticalCenter="0" left="0"/>
+			<e:Image id="expBox" x="69.72" y="10.01" source="enemyBloodBg_png" width="320"/>
+			<e:Image id="expFlow" x="85" y="17" source="enemyBlood_png" width="290" mask="{expMask}"/>
+			<e:Rect id="expMask" width="290" height="18" x="85" y="17"/>
+		</e:Panel>
 	</e:Group>
     
 </e:Skin>

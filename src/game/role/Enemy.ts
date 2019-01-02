@@ -32,6 +32,8 @@ class Enemy extends Role {
     public constructor() {
         super();
         this.speed = 2.5;
+        this.maxHp = 80;
+        this.hp = 80;
         this.ai = new EnemyAI(this);
     }
 
@@ -62,8 +64,7 @@ class Enemy extends Role {
         if (!this.hpTube) {
             this.hpTube = new HPTube(this, "HPTubeSkin");
         }
-        this.maxHp = 80;
-        this.hp = 80;
+
         this.hpTube.anchorOffsetX = this.hpTube.width * 0.5;
         this.hpTube.anchorOffsetY = this.hpTube.height * 0.5;
         this.anchorOffsetX = this.width * 0.5;
@@ -293,5 +294,10 @@ class Enemy extends Role {
         this.die = false;
     }
 
+    public destructor()
+    {
+        super.destructor();
+        this.ai.stop();
+    }
     //class end
 }

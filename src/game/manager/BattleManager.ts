@@ -234,4 +234,35 @@ class BattleManager {
 		return null;
 	}
 
+
+	public destructor()
+	{
+		for(let i = 0 ;i < this.arrowsEnemy.length;i++)
+		{
+			if(this.arrowsEnemy[i])
+			{
+				this.arrowsEnemy[i].destructor();
+			}
+		}
+		this.arrowsEnemy = null;
+		for(let i = 0 ;i < this.arrowsPlayer.length;i++)
+		{
+			if(this.arrowsPlayer[i])
+			{
+				this.arrowsPlayer[i].destructor();
+			}
+		}
+		this.arrowsPlayer = null;
+		for(let i = 0 ;i < this.enemys.length;i++)
+		{
+			if(this.enemys[i])
+			{
+				this.enemys[i].destructor();
+			}
+		}
+		this.enemys = null;
+		this.player.destructor();
+		this.player = null;
+	}
+
 }

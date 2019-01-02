@@ -16,10 +16,12 @@ class Role extends eui.Component
 	protected shieldPower: number;//护甲值，用于计算伤害
 	protected critRate: number//暴击率
 	protected exp: number;//当前经验值
+	public get Exp(){return this.exp;}
 	protected expMax: number;//当前最大经验（升级所需经验）
+	public get ExpMax(){return this.expMax;}
 	public role_img:eui.Image;
 	public speed:number;//移动速度
-	public angle:number
+	public angle:number;
 
 	public ability: Ability;
 
@@ -28,6 +30,7 @@ class Role extends eui.Component
 		super();
 		this.exp = 0;
 		this.expMax = 5;
+		this.level = 1;
 		this.ability = new Ability(this);
 	}
 	protected createChildren() {
@@ -73,9 +76,10 @@ class Role extends eui.Component
 
 	public destructor() {
 		if (this.parent) this.parent.removeChild(this);
-		if (this.hpTube) {
-			this.hpTube.destructor();
-		}
+		// if (this.hpTube) {
+		// 	this.hpTube.destructor();
+		// }
+		// this.hpTube = null;
 	}
 
 	//与周围道具碰撞，吃道具
