@@ -272,7 +272,7 @@ class GameView extends eui.Component {
 
         let skill = new SkillComponent();
         this.skillComponents.addChild(skill);
-        skill.init(2);
+        skill.init(3);
     }
 
 

@@ -165,6 +165,13 @@ class BattleManager {
 						if(Util.isHit(enemy,arrow,true))
 						{
 							enemy.doDamage(arrow.damage);
+							let atk = this.getRoleOfID(arrow.id);
+
+							//吸血
+							if(atk)
+								if(atk.ability.hemophagia)
+									atk.resumeBlood(arrow.damage * 0.5);
+
 							if(enemy.die)
 							{
 								let role = this.getRoleOfID(arrow.id);
@@ -204,6 +211,9 @@ class BattleManager {
 					if(Util.isHit(this.enemys[j],arrow,true)){
 					//扣血类型，0是玩家，1是敌人
 					this.enemys[j].doDamage(arrow.damage);
+					//吸血
+					if(this.player.ability.hemophagia)
+						this.player.resumeBlood(arrow.damage * 0.5);
 					if(this.enemys[j].die)
 					{
 						this.player.addExp(1);
