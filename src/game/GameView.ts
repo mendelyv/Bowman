@@ -8,6 +8,9 @@ class GameView extends eui.Component {
     public uiGroup: eui.Group;
     private closeBtn: eui.Image;
     private skillComponents: eui.Group;
+    private lvLabel:eui.Label;//玩家等级
+    private expMask:eui.Rect;//玩家经验遮罩
+    private expMaskWidth:number;//玩家经验遮罩的原始宽度
     public gameBg: GameBg;
 
     private previousFrameTime: number = 0;
@@ -17,6 +20,8 @@ class GameView extends eui.Component {
     public mapMgr:MapManager;
     public enemyMgr:EnemyManager;
     public battleMgr:BattleManager;
+
+    
     public constructor() {
         super();
         this.init();
@@ -46,6 +51,7 @@ class GameView extends eui.Component {
         this.gameBg.gameView = this;
         this.mapMgr = new MapManager();
         this.enemyMgr = new EnemyManager();
+        this.expMaskWidth = this.expMask.width;
         this.initBroadcast();
     }
     /**初始化广播 */
@@ -270,9 +276,19 @@ class GameView extends eui.Component {
 
         let skill = new SkillComponent();
         this.skillComponents.addChild(skill);
-        skill.init(2);
+        skill.init(3);
     }
 
+    public showGameEndReLife()
+    {
+
+    }
+
+    public showPlayerLvExp()
+    {
+        this.lvLabel.text = "Lv:" + this.player.Level;
+        this.expMask.width = this.expMaskWidth*(this.player.Exp / this.player.ExpMax);
+    }
 
     /** 限制玩家移动，不允许出界 */
     private limitplayerMove() {
@@ -296,8 +312,12 @@ class GameView extends eui.Component {
         this.joyL.destructor();
         this.joyR.destructor();
         this.gameBg.destructor();
+        this.battleMgr.destructor();
         this.stage.removeEventListener(egret.Event.ENTER_FRAME, this.update, this);
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
         this.closeBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, Main.instance.changeToMain, Main.instance);
+        ObjectPool.instance.cleanObjectPool("enemy");
+        ObjectPool.instance.cleanObjectPool("property");
+        ObjectPool.instance.cleanObjectPool("arrow");
     }
 }

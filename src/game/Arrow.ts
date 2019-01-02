@@ -67,5 +67,12 @@ class Arrow extends egret.Bitmap
         }
     }
 
+    public destructor()
+    {
+        if(this.parent)
+            this.parent.removeChild(this);
+        egret.Tween.removeTweens(this);
+    }
+
 //class end
 }
