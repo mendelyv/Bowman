@@ -315,10 +315,13 @@ class EnemyAI
             }
         }
         let player = Main.instance.gameView.player;
-        dis = this.getTargetDistance(player);
-        if(dis < ret)
+        if(player&&!player.die)
         {
-            return player;
+            dis = this.getTargetDistance(player);
+            if(dis < ret)
+            {
+                return player;
+            }
         }
         return arr[index];
     }

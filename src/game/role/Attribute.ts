@@ -6,7 +6,7 @@
  * time : 2018.12.29
  * @author : 杨浩然
  */
-class Ability
+class Attribute
 {
     public static MAX_ARROW_NUM = 7;
 
@@ -17,6 +17,21 @@ class Ability
     public range: number;//射程
     public hemophagia: boolean;//攻击是否吸血
     public res: string;//弓箭的资源
+    //人物基础属性
+    public hp: number;//当前血量
+	public get HP() { return this.hp; }
+	public maxHp: number;//最大血量
+	public get MaxHP() { return this.maxHp; }
+	public level: number;//当前等级
+	public get Level() { return this.level; }
+	public hpTube: HPTube;//角色的血量条
+	public shieldPower: number;//护甲值，用于计算伤害
+	public critRate: number//暴击率
+	public exp: number;//当前经验值
+	public expMax: number;//当前最大经验（升级所需经验）
+	public role_img:eui.Image;
+	public speed:number;//移动速度
+	public angle:number
 
     public constructor(obj: Role)
     {
@@ -24,6 +39,7 @@ class Ability
         this.arrowNum = 1;
         this.range = 300;
         this.power = 10;
+        this.level = 1;
         this.hemophagia = false;
         this.res = "game_title_rope_png";
     }
@@ -38,7 +54,7 @@ class Ability
         }
 
         //根据配置文件给其他变量赋值
-        if(this.arrowNum < Ability.MAX_ARROW_NUM)
+        if(this.arrowNum < Attribute.MAX_ARROW_NUM)
             this.arrowNum += skill.addArrowNum;
         if(!this.hemophagia)
             this.hemophagia = skill.hemophagia;

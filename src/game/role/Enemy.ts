@@ -31,9 +31,7 @@ class Enemy extends Role {
 
     public constructor() {
         super();
-        this.speed = 2.5;
-        this.maxHp = 80;
-        this.hp = 80;
+        this.attribute.speed = 2.5;
         this.ai = new EnemyAI(this);
     }
 
@@ -53,7 +51,6 @@ class Enemy extends Role {
     protected createChildren() {
         this.skinName = "RoleSkin";
         this.role_img.source = "role_"+Util.getRandomRange(0,8)+"_png"
-		console.log(this.role_img.source);
         this.anchorOffsetX = this.width / 2;
         this.anchorOffsetY = this.height / 2;
         this.removeChild(this.arrow);
@@ -61,20 +58,21 @@ class Enemy extends Role {
         this.ai.start();
 
         //给敌人添加血条
-        if (!this.hpTube) {
-            this.hpTube = new HPTube(this, "HPTubeSkin");
+        if (!this.attribute.hpTube) {
+            this.attribute.hpTube = new HPTube(this, "HPTubeSkin");
         }
-
-        this.hpTube.anchorOffsetX = this.hpTube.width * 0.5;
-        this.hpTube.anchorOffsetY = this.hpTube.height * 0.5;
+        this.attribute.maxHp = 80;
+        this.attribute.hp = 80;
+        this.attribute.hpTube.anchorOffsetX = this.attribute.hpTube.width * 0.5;
+        this.attribute.hpTube.anchorOffsetY = this.attribute.hpTube.height * 0.5;
         this.anchorOffsetX = this.width * 0.5;
         this.anchorOffsetY = this.height * 0.5;
-        this.hpTube.x = this.anchorOffsetX;
-        this.hpTube.y = -17;
-        this.addChild(this.hpTube);
-        this.hpTube.showHp();
-        this.hpTube.showHpLine();
-        this.hpTube.visible = true;
+        this.attribute.hpTube.x = this.anchorOffsetX;
+        this.attribute.hpTube.y = -17;
+        this.addChild(this.attribute.hpTube);
+        this.attribute.hpTube.showHp();
+        this.attribute.hpTube.showHpLine();
+        this.attribute.hpTube.visible = true;
 
         //知道自己的敌人是谁
         this.enemys = Main.instance.gameView.battleMgr.enemys;
@@ -82,7 +80,7 @@ class Enemy extends Role {
     }
     /** 转向 */
     public moveToByAngle(angle: number): void {
-        this.angle = angle;
+        this.attribute.angle = angle;
         this.role_img.rotation = angle * 180 / Math.PI + 90;
     }
 
@@ -94,7 +92,7 @@ class Enemy extends Role {
      */
     public move(xPos: number, yPos: number, angle: number, Dis: number) {
         egret.Tween.removeTweens(this);
-        let time = (Dis / this.speed) * 1000 * 0.02;
+        let time = (Dis / this.attribute.speed) * 1000 * 0.02;
         xPos += Math.cos(angle) * Dis;
         yPos += Math.sin(angle) * Dis;
         var self = this;
@@ -117,7 +115,7 @@ class Enemy extends Role {
         }
         let target = MapManager.getMapItemPos(point.y, point.x);
         let dis = egret.Point.distance(new egret.Point(this.x, this.y), target);
-        let time = (dis / this.speed) * 1000 * 0.02;
+        let time = (dis / this.attribute.speed) * 1000 * 0.02;
         this.moveTween = egret.Tween.get(this).to({ x: target.x, y: target.y }, time)
             .call(function () {
                 this.pathIndex++;
@@ -175,8 +173,8 @@ class Enemy extends Role {
             this.shootTime = 0;
             let rotations = new Array<number>();
             let tmpRot: number = this.role_img.rotation;
-            let mid = Math.floor(this.ability.arrowNum / 2);//找中间的弓箭的位置
-            for(let i = 0; i < this.ability.arrowNum; i++)
+            let mid = Math.floor(this.attribute.arrowNum / 2);//找中间的弓箭的位置
+            for(let i = 0; i < this.attribute.arrowNum; i++)
             {
                 let times = Math.abs(mid - i);
                 if(i < mid) rotations.push(tmpRot - 15 * times);
@@ -197,16 +195,16 @@ class Enemy extends Role {
             {
                 arrow = ObjectPool.instance.getObj("arrow") as Arrow;
                 arrow.id = this.id;
-                arrow.damage = this.ability.power;
+                arrow.damage = this.attribute.power;
                 arrow.whos = WhosArrow.ENEMY;
-                arrow.texture = RES.getRes(this.ability.res);
+                arrow.texture = RES.getRes(this.attribute.res);
                 //添加显示，设置位置和角度，增加tween
                 let bg = Main.instance.gameView.gameBg;
                 arrow.index = bg.addArrow(arrow, WhosArrow.ENEMY);
                 arrow.x = this.x;
                 arrow.y = this.y;
                 arrow.rotation = rotations[i];
-                arrow.moveFrom(this.x, this.y, (arrow.rotation - 90) * Math.PI / 180, this.ability.range);
+                arrow.moveFrom(this.x, this.y, (arrow.rotation - 90) * Math.PI / 180, this.attribute.range);
             }
         }
         this.previousFrameTime = egret.getTimer();
@@ -267,7 +265,7 @@ class Enemy extends Role {
     ////扣血类型，0是玩家，1是敌人
     public doDamage(damage: number) {
         super.doDamage(damage);
-        if (this.hp == 0) {
+        if (this.attribute.hp == 0) {
             Main.instance.gameView.addMsg("'你干死了别人");
             this.destroy();
         }
@@ -288,15 +286,15 @@ class Enemy extends Role {
     public reset()
     {
         this.ai.start();
-        this.hp = 80;
-        this.maxHp = 80;
-        this.hpTube.showHp();
+        this.attribute.hp = 80;
+        this.attribute.maxHp = 80;
+        this.attribute.hpTube.showHp();
+      //  this.attribute.hpTube.updateHpLine();
         this.die = false;
     }
 
     public destructor()
     {
-        super.destructor();
         this.ai.stop();
     }
     //class end
