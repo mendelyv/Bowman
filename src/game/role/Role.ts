@@ -10,7 +10,8 @@ class Role extends eui.Component
 	public attribute: Attribute;
 
 	public hpTube: HPTube;//角色的血量条
-
+	
+	public nickName:string;//角色昵称
 	public constructor() {
 		super();
 		this.attribute = new Attribute(this);

@@ -3,4 +3,5 @@
 	<e:Image id="hpBox" scale9Grid="13,2,10,17" source="enemyBloodBg_png" left="0" right="0" top="0" bottom="0"/>
 	<e:Image id="hpFlow"  anchorOffsetX="0" anchorOffsetY="0" mask="{hpMask}" source="enemyBlood_png" top="7" bottom="8" left="6"/>
 	<e:Rect id="hpMask" width="92" fillAlpha="1" strokeAlpha="1" anchorOffsetX="0" strokeColor="0xffffff" top="7" bottom="8" left="6"/>
+	<e:Group id="hpGroup" width="104" left="0" top="0" bottom="0"/>
 </e:Skin>

@@ -278,7 +278,6 @@ class Enemy extends Role {
     public doDamage(damage: number) {
         super.doDamage(damage);
         if (this.attribute.hp == 0) {
-            Main.instance.gameView.addMsg("'你干死了别人");
             this.destroy();
         }
     }
