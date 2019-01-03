@@ -30,23 +30,23 @@ class Player extends Role {
 	protected createChildren() {
 		this.skinName = "RoleSkin";
 		this.radius = this.width;
-		if (!this.attribute.hpTube) {
-			this.attribute.hpTube = new HPTube(this, "HPTubeSkin");
+		if (!this.hpTube) {
+			this.hpTube = new HPTube(this, "HPTubeSkin");
 		}
 
 		this.attribute.maxHp = 50;
 		this.attribute.hp = 50;
-		this.attribute.hpTube.anchorOffsetX = this.attribute.hpTube.width * 0.5;
-		this.attribute.hpTube.anchorOffsetY = this.attribute.hpTube.height * 0.5;
+		this.hpTube.anchorOffsetX = this.hpTube.width * 0.5;
+		this.hpTube.anchorOffsetY = this.hpTube.height * 0.5;
 		this.anchorOffsetX = this.width * 0.5;
 		this.anchorOffsetY = this.height * 0.5;
 
-		this.attribute.hpTube.x = this.anchorOffsetX;
-		this.attribute.hpTube.y = -37;
-		this.addChild(this.attribute.hpTube);
-		this.attribute.hpTube.showHp();
-		this.attribute.hpTube.showHpLine();
-		this.attribute.hpTube.visible = true;
+		this.hpTube.x = this.anchorOffsetX;
+		this.hpTube.y = -37;
+		this.addChild(this.hpTube);
+		this.hpTube.showHp();
+		this.hpTube.showHpLine();
+		this.hpTube.visible = true;
 	}
 	//根据角度设置x~y轴的速率
 	public moveToByAngle(angle: number): void {
@@ -212,7 +212,7 @@ class Player extends Role {
 	public reLife()
 	{
 		this.attribute.hp = this.attribute.MaxHP;
-		this.attribute.hpTube.showHp();
+		this.hpTube.showHp();
 		this.die = false;
 	}
 }

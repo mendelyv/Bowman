@@ -9,6 +9,7 @@ class Role extends eui.Component
 
 	public attribute: Attribute;
 
+	public hpTube: HPTube;//角色的血量条
 
 	public constructor() {
 		super();
@@ -25,8 +26,8 @@ class Role extends eui.Component
 	public doDamage(damage: number) {
 		this.attribute.hp -= damage;
 		this.attribute.hp = this.attribute.hp > 0 ? this.attribute.hp : 0;
-		if (this.attribute.hpTube) {
-			this.attribute.hpTube.showHp();
+		if (this.hpTube) {
+			this.hpTube.showHp();
 		}
 	}
 
@@ -41,17 +42,12 @@ class Role extends eui.Component
 	{
 		this.attribute.hp += resumeValue;
 		this.attribute.hp = this.attribute.hp < this.attribute.maxHp ? this.attribute.hp : this.attribute.maxHp;
-		if (this.attribute.hpTube) {
-			this.attribute.hpTube.showHp();
+		if (this.hpTube) {
+			this.hpTube.showHp();
 		}
 	}
 
-	/** 增加血量上限并回血 */
-	public addHPMaxAndResumeBlood(maxHpValue: number, hpValue: number)
-	{
-		this.attribute.maxHp += maxHpValue;
-		this.attribute.hp += hpValue;
-	}
+
 
 	public attack()//攻击
 	{
@@ -60,8 +56,8 @@ class Role extends eui.Component
 
 	public destructor() {
 		if (this.parent) this.parent.removeChild(this);
-		if (this.attribute.hpTube) {
-			this.attribute.hpTube.destructor();
+		if (this.hpTube) {
+			this.hpTube.destructor();
 		}
 	}
 
