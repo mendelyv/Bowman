@@ -176,7 +176,8 @@ class BattleManager {
 							{
 								let role = this.getRoleOfID(arrow.id);
 								if(role) role.addExp(1);
-								Main.instance.gameView.addMsg(arrow.id+"号玩家杀死了"+enemy.id+"号玩家");
+								let roleName = this.getRoleOfnickName(arrow.id);
+								Main.instance.gameView.addMsg(roleName + "杀死了"+this.enemys[i].nickName);
 							}
 							ObjectPool.instance.pushObj("arrow",arrow);
 							break;
@@ -218,7 +219,7 @@ class BattleManager {
 					if(this.enemys[j].die)
 					{
 						this.player.addExp(1);
-						Main.instance.gameView.addMsg("你杀死了"+(j+1)+"号玩家");
+						Main.instance.gameView.addMsg("你杀死了"+this.enemys[j].nickName);
 					}
 					ObjectPool.instance.pushObj("arrow",arrow);
 					// this.arrowsPlayer[arrow.index] = null;
@@ -245,7 +246,22 @@ class BattleManager {
 		}
 		return null;
 	}
-
+	/**根据ID返回角色昵称*/
+	public getRoleOfnickName(id: number)
+	{
+		if(id == 0)
+			return this.player;
+		
+		for(let i = 0; i < this.enemys.length; i++)
+		{
+			let enemy = this.enemys[i];
+			if(!enemy) continue;
+			if(enemy.die) continue;
+			if(enemy.id == id)
+				return enemy.nickName;
+		}
+		return null;
+	}
 
 	public destructor()
 	{

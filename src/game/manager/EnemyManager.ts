@@ -37,6 +37,7 @@ class EnemyManager {
 		{
 			let vec = this.bornPiont[i];
 			let enemy = ObjectPool.instance.getObj("enemy") as Enemy;
+			enemy.nickName = "今晚打老虎" + (i+1)+"号";
 			enemy.id = egret.getTimer();
 			let point = MapManager.getMapItemPos(vec.x,vec.y);
 			enemy.x = point.x;

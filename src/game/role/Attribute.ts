@@ -51,7 +51,9 @@ class Attribute
         {
             this.maxHp += skill.addMaxHpValue;
 		    this.hp += skill.addHpValue;
-            this.obj.hpTube.showHp();
+            console.log(skill.addMaxHpValue);
+            console.log(this.maxHp);
+            this.obj.hpTube.updateHpLine(this.maxHp);
         }
         //根据配置文件给其他变量赋值
         if(this.arrowNum < Attribute.MAX_ARROW_NUM)
