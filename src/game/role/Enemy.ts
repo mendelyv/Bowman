@@ -262,7 +262,6 @@ class Enemy extends Role {
         this.moveOfPath();
     }
 
-
     public levelUp()
     {
         super.levelUp();

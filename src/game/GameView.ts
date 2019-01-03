@@ -308,15 +308,17 @@ class GameView extends eui.Component {
     {
         this.gameEnd.visible = true;
         this.gameEnd.showRelifePanel();
-        // this.joyR.active = true;
-        // this.joyL.active = true;
+        //关闭手柄检测
+        this.joyL.touchEnd();
+        this.joyR.touchEnd();
+        this.disableJoystick();
     }
     
     //玩家复活
     public playerReLife()
     {
-        // this.joyR.active = false;
-        // this.joyL.active = false;
+        //激活手柄检测
+        this.enableJoystick();
         this.player.reLife();
     }
 
@@ -372,3 +374,4 @@ class GameView extends eui.Component {
         ObjectPool.instance.cleanObjectPool("arrow");
     }
 }
+window["GameView"] = GameView;
