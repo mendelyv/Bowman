@@ -296,6 +296,20 @@ class GameView extends eui.Component {
         this.player.reLife();
     }
 
+    /** 打开手柄检测 */
+    public enableJoystick()
+    {
+        if(!this.stage.hasEventListener(egret.TouchEvent.TOUCH_BEGIN))
+            this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+    }
+
+    /** 关闭手柄检测 */
+    public disableJoystick()
+    {
+        if(this.stage.hasEventListener(egret.TouchEvent.TOUCH_BEGIN))
+            this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+    }
+
     public showPlayerLvExp()
     {
         this.lvLabel.text = "Lv:" + this.player.attribute.Level;
