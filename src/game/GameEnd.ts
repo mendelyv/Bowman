@@ -159,3 +159,4 @@ class GameEnd extends eui.Component{
 		this.reLife_btnCharge.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onReLife_btnChargeClick,this);
 	}
 }
+window["GameEnd"] = GameEnd;

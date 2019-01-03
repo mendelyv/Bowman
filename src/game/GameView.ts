@@ -334,3 +334,4 @@ class GameView extends eui.Component {
         ObjectPool.instance.cleanObjectPool("arrow");
     }
 }
+window["GameView"] = GameView;
