@@ -49,6 +49,8 @@ class GameView extends eui.Component {
         // this.showDiff();
         this.battleMgr = new BattleManager();
         this.battleMgr.player = this.player;
+        this.player.x = this.stage.stageWidth * 0.5;
+        this.player.y = this.stage.stageHeight * 0.5;
         this.gameBg.gameView = this;
         this.mapMgr = new MapManager();
         this.enemyMgr = new EnemyManager();

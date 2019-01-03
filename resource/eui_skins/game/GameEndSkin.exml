@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="GameEndSkin" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Panel id="panel_gameEnd" width="600" height="300" horizontalCenter="0" verticalCenter="0" visible="false">
+	<e:Panel id="panel_gameEnd" width="600" height="300" horizontalCenter="0" verticalCenter="0">
+		<e:Image source="end_win_bg_png" width="600" height="500" anchorOffsetX="300" anchorOffsetY="250" horizontalCenter="0" verticalCenter="0" x="0" y="-100" scaleX="1" scaleY="1"/>
 		<e:Label id="score" text="100" x="303" y="100" size="50"/>
 		<e:Button id="btn_share" label="分享" x="34" y="187">
 			<e:skinName>
@@ -29,8 +30,9 @@
 		</e:Button>
 		<e:Label text="得分：" x="131" y="97" size="50" fontFamily="Microsoft YaHei"/>
 	</e:Panel>
-	<e:Panel id="panel_reLife" width="600" height="500" horizontalCenter="0" verticalCenter="0">
-		<e:Button id="reLife_btnClose" label="关闭" x="497" y="11" width="100" height="50">
+	<e:Panel id="panel_reLife" width="600" height="500" horizontalCenter="0" verticalCenter="0" visible="false">
+		<e:Image source="end_win_bg_png" width="600" height="500" anchorOffsetX="300" anchorOffsetY="250" horizontalCenter="0" verticalCenter="0"/>
+		<e:Button id="reLife_btnClose" label="关闭" x="463" y="105" width="100" height="50">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="game_rank_bg_png" source.down="game_rank_bg_png"/>
