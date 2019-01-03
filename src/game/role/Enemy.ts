@@ -58,21 +58,21 @@ class Enemy extends Role {
         this.ai.start();
 
         //给敌人添加血条
-        if (!this.attribute.hpTube) {
-            this.attribute.hpTube = new HPTube(this, "HPTubeSkin");
+        if (!this.hpTube) {
+            this.hpTube = new HPTube(this, "HPTubeSkin");
         }
         this.attribute.maxHp = 80;
         this.attribute.hp = 80;
-        this.attribute.hpTube.anchorOffsetX = this.attribute.hpTube.width * 0.5;
-        this.attribute.hpTube.anchorOffsetY = this.attribute.hpTube.height * 0.5;
+        this.hpTube.anchorOffsetX = this.hpTube.width * 0.5;
+        this.hpTube.anchorOffsetY = this.hpTube.height * 0.5;
         this.anchorOffsetX = this.width * 0.5;
         this.anchorOffsetY = this.height * 0.5;
-        this.attribute.hpTube.x = this.anchorOffsetX;
-        this.attribute.hpTube.y = -17;
-        this.addChild(this.attribute.hpTube);
-        this.attribute.hpTube.showHp();
-        this.attribute.hpTube.showHpLine();
-        this.attribute.hpTube.visible = true;
+        this.hpTube.x = this.anchorOffsetX;
+        this.hpTube.y = -17;
+        this.addChild(this.hpTube);
+        this.hpTube.showHp();
+        this.hpTube.showHpLine();
+        this.hpTube.visible = true;
 
         //知道自己的敌人是谁
         this.enemys = Main.instance.gameView.battleMgr.enemys;
@@ -262,10 +262,23 @@ class Enemy extends Role {
         this.moveOfPath();
     }
 
-    ////扣血类型
+    public levelUp()
+    {
+        super.levelUp();
+
+        //随机一个技能给怪
+        let id = Math.floor(Math.random() * 100 % 4);
+        // console.log(" ===== " + id + " ===== ");
+        let config = GameConfig.skillConfig[id];
+        //让技能生效
+        this.attribute.enable(config);
+    }
+
+    ////扣血类型，0是玩家，1是敌人
     public doDamage(damage: number) {
         super.doDamage(damage);
         if (this.attribute.hp == 0) {
+            Main.instance.gameView.addMsg("'你干死了别人");
             this.destroy();
         }
     }
@@ -287,7 +300,7 @@ class Enemy extends Role {
         this.ai.start();
         this.attribute.hp = 80;
         this.attribute.maxHp = 80;
-        this.attribute.hpTube.showHp();
+        this.hpTube.showHp();
       //  this.attribute.hpTube.updateHpLine();
         this.die = false;
     }

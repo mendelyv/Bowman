@@ -24,7 +24,6 @@ class Attribute
 	public get MaxHP() { return this.maxHp; }
 	public level: number;//当前等级
 	public get Level() { return this.level; }
-	public hpTube: HPTube;//角色的血量条
 	public shieldPower: number;//护甲值，用于计算伤害
 	public critRate: number//暴击率
 	public exp: number;//当前经验值
@@ -45,14 +44,15 @@ class Attribute
     }
 
     /** 技能生效 */
-    public enable(skill: SkillComponent)
+    public enable(skill: any)
     {
         //如果加血的属性不为0，即代表要提高血量和加血
         if(skill.addMaxHpValue != 0 && skill.addHpValue != 0)
         {
-            this.obj.addHPMaxAndResumeBlood(skill.addMaxHpValue, skill.addHpValue);
+            this.maxHp += skill.addMaxHpValue;
+		    this.hp += skill.addHpValue;
+            this.obj.hpTube.showHp();
         }
-
         //根据配置文件给其他变量赋值
         if(this.arrowNum < Attribute.MAX_ARROW_NUM)
             this.arrowNum += skill.addArrowNum;

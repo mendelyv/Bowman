@@ -276,24 +276,64 @@ class GameView extends eui.Component {
         //先清一下，省的技能图标累加
         this.skillComponents.removeChildren();
 
+        let skillLen = 4;
+        let used = new Array<boolean>(skillLen);
+        let skillID = Math.floor(Math.random() * 100 % skillLen);
+        used[skillID] = true;
         let skill = new SkillComponent();
         this.skillComponents.addChild(skill);
-        skill.init(3);
+        skill.init(skillID);
+
+        do
+        {
+            skillID = Math.floor(Math.random() * 100 % skillLen);
+        }while(used[skillID]);
+        used[skillID] = true;        
+        skill = new SkillComponent();
+        this.skillComponents.addChild(skill);
+        skill.init(skillID);
+
+        do
+        {
+            skillID = Math.floor(Math.random() * 100 % skillLen);
+        }while(used[skillID]);
+        used[skillID] = true;
+        skill = new SkillComponent();
+        this.skillComponents.addChild(skill);
+        skill.init(skillID);
     }
+
     //玩家死亡
     public showGameEndReLife()
     {
         this.gameEnd.visible = true;
         this.gameEnd.showRelifePanel();
-        // this.joyR.active = true;
-        // this.joyL.active = true;
+        //关闭手柄检测
+        this.joyL.touchEnd();
+        this.joyR.touchEnd();
+        this.disableJoystick();
     }
+    
     //玩家复活
     public playerReLife()
     {
-        // this.joyR.active = false;
-        // this.joyL.active = false;
+        //激活手柄检测
+        this.enableJoystick();
         this.player.reLife();
+    }
+
+    /** 打开手柄检测 */
+    public enableJoystick()
+    {
+        if(!this.stage.hasEventListener(egret.TouchEvent.TOUCH_BEGIN))
+            this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+    }
+
+    /** 关闭手柄检测 */
+    public disableJoystick()
+    {
+        if(this.stage.hasEventListener(egret.TouchEvent.TOUCH_BEGIN))
+            this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
     }
 
     public showPlayerLvExp()
@@ -334,3 +374,4 @@ class GameView extends eui.Component {
         ObjectPool.instance.cleanObjectPool("arrow");
     }
 }
+window["GameView"] = GameView;
