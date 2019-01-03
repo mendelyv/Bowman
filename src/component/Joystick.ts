@@ -127,7 +127,7 @@ class Joystick extends eui.Component
     }
 
     /** 当触摸结束时的处理工作 */
-    private touchEnd()
+    public touchEnd()
     {
         //重置手柄的一些属性
         this.active = false;

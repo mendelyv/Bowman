@@ -262,7 +262,7 @@ class Enemy extends Role {
         this.moveOfPath();
     }
 
-    ////扣血类型，0是玩家，1是敌人
+    //
     public doDamage(damage: number) {
         super.doDamage(damage);
         if (this.attribute.hp == 0) {

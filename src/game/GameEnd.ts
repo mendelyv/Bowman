@@ -115,7 +115,7 @@ class GameEnd extends eui.Component{
 
 	public showGameEnd()
 	{
-
+		//显示的最终得分
 		this.score.text = "1212";
 		if(!this.btn_close.hasEventListener(egret.TouchEvent.TOUCH_TAP))
 		{
