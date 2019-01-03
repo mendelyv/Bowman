@@ -262,11 +262,10 @@ class Enemy extends Role {
         this.moveOfPath();
     }
 
-    ////扣血类型，0是玩家，1是敌人
+    ////扣血类型
     public doDamage(damage: number) {
         super.doDamage(damage);
         if (this.attribute.hp == 0) {
-            Main.instance.gameView.addMsg("'你干死了别人");
             this.destroy();
         }
     }

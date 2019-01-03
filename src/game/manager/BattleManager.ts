@@ -176,6 +176,7 @@ class BattleManager {
 							{
 								let role = this.getRoleOfID(arrow.id);
 								if(role) role.addExp(1);
+								Main.instance.gameView.addMsg(arrow.id+"号玩家杀死了"+enemy.id+"号玩家");
 							}
 							ObjectPool.instance.pushObj("arrow",arrow);
 							break;
@@ -209,7 +210,7 @@ class BattleManager {
 				}
 				if(Util.isCircleHit(this.enemys[j],arrow,true)){
 					if(Util.isHit(this.enemys[j],arrow,true)){
-					//扣血类型，0是玩家，1是敌人
+					//扣血
 					this.enemys[j].doDamage(arrow.damage);
 					//吸血
 					if(this.player.attribute.hemophagia)
@@ -217,6 +218,7 @@ class BattleManager {
 					if(this.enemys[j].die)
 					{
 						this.player.addExp(1);
+						Main.instance.gameView.addMsg("你杀死了"+(j+1)+"号玩家");
 					}
 					ObjectPool.instance.pushObj("arrow",arrow);
 					// this.arrowsPlayer[arrow.index] = null;
