@@ -12,6 +12,7 @@ class Attribute
 
     public obj: Role;//挂载的玩家对象
 
+    //技能属性
     public arrowNum: number;//箭的数量
     public power: number;//箭的威力
     public range: number;//射程
@@ -31,6 +32,8 @@ class Attribute
 	public role_img:eui.Image;
 	public speed:number;//移动速度
 	public angle:number
+    //基础属性
+
 
     public constructor(obj: Role)
     {
@@ -39,6 +42,7 @@ class Attribute
         this.range = 300;
         this.power = 10;
         this.level = 1;
+        this.shieldPower = 0;
         this.hemophagia = false;
         this.res = "game_title_rope_png";
     }

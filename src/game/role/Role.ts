@@ -21,10 +21,27 @@ class Role extends eui.Component
 	}
 	protected createChildren() {
 		super.createChildren();
-		
 	}
-	//扣血类型，
+
+	//根据等级设置角色数据
+	public setRoleLevel(level:number)
+	{
+		level = level > UserData.levelMax ? UserData.levelMax : level;
+		let playerConfig = GameConfig.playerConfig[level];
+		this.attribute.maxHp = playerConfig.hp;
+		this.resumeBlood(50);
+		this.attribute.critRate = playerConfig.critRate;
+		this.attribute.shieldPower = playerConfig.shieldPower;
+		this.attribute.speed = playerConfig.speed;
+		this.attribute.exp = 0;
+		this.attribute.expMax = playerConfig.experience;
+	}
+
+	//
 	public doDamage(damage: number) {
+		//伤害减去护甲
+		damage -= this.attribute.shieldPower;
+		damage = damage > 0 ? damage : 0;
 		this.attribute.hp -= damage;
 		this.attribute.hp = this.attribute.hp > 0 ? this.attribute.hp : 0;
 		if (this.hpTube) {
@@ -47,8 +64,6 @@ class Role extends eui.Component
 			this.hpTube.showHp();
 		}
 	}
-
-
 
 	public attack()//攻击
 	{

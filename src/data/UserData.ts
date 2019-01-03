@@ -6,6 +6,7 @@ class UserData {
 	public static goldRate:number = 1;//获得的金币倍数
 	public static expRate:number = 1;//获得的经验倍数
 	public static glod:number = 1;//玩家金币
+	public static levelMax:number = 25;//最高等级
 
 
 	public isGoldH: boolean = false;//是否开启了金币狂欢按钮
