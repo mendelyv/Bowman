@@ -14,6 +14,7 @@ class GameBg extends eui.Component {
 	private obstacalGroup: eui.Group;
 	private propertyGroup: eui.Group;
 	private enemyGroup: eui.Group;
+	private mapBG:eui.Image;//背景图片
 	public constructor() {
 		super();
 	}
@@ -59,7 +60,20 @@ class GameBg extends eui.Component {
 	}
 	protected createChildren() {
 		this.skinName = "GameBGSkin";
+		this.initBgWidthHeight();
 	}
+
+	private initBgWidthHeight()
+	{
+		//先加上视口的宽高
+		this.width = MapManager.cellPix * MapManager.colMax + this.stage.stageWidth;
+		this.height = MapManager.cellPix * MapManager.rowMax + this.stage.stageHeight;
+		MapManager.offsetX = this.stage.stageWidth * 0.5;
+		MapManager.offsetY = this.stage.stageHeight * 0.5;
+		this.mapBG.width = this.width;
+		this.mapBG.height = this.height;
+	}
+
 	/**创建障碍*/
 	public addObstacal(posX:number,posY:number)
 	{

@@ -47,15 +47,17 @@ class GameView extends eui.Component {
         this.initEvents();
         this.joyL.resetON = true;//打开左手手柄重置数据的开关
         // this.showDiff();
+        this.gameBg.gameView = this;
         this.battleMgr = new BattleManager();
         this.battleMgr.player = this.player;
-        this.player.x = this.stage.stageWidth * 0.5;
-        this.player.y = this.stage.stageHeight * 0.5;
-        this.gameBg.gameView = this;
         this.mapMgr = new MapManager();
         this.enemyMgr = new EnemyManager();
         this.expMaskWidth = this.expMask.width;
         this.gameEnd.visible = false;
+
+        let pos = MapManager.getRandomEmptyPos();
+		this.gameBg.x = -pos.x;
+		this.gameBg.y = -pos.y;
         this.initBroadcast();
     }
     /**初始化广播 */
@@ -201,19 +203,19 @@ class GameView extends eui.Component {
                 if (this.player.parent)
                     this.player.parent.localToGlobal(this.player.x, this.player.y, point_);
                 let point = MapManager.getRowColOfMap(new egret.Point(point_.x, point_.y), true)
-                if (Math.abs(row - point.x) <= 1) {
-                    if (col == point.y) {
+                if (col == point.y) {
+                    if(Math.abs(row - point.x) <= 1)
+                    {
                         if (row < point.x && yAxis > 0) {
                             yAxis = 0;
-                        }
+                         }
                         else if (row > point.x && yAxis < 0) {
                             yAxis = 0;
                         }
                     }
-
                 }
-                if (Math.abs(col - point.y) <= 1) {
-                    if (row == point.x) {
+                if (row == point.x) {
+                    if (Math.abs(col - point.y) <= 1) {
                         if (col > point.y && xAxis > 0) {
                             xAxis = 0;
                         }
@@ -221,7 +223,6 @@ class GameView extends eui.Component {
                             xAxis = 0;
                         }
                     }
-
                 }
             }
 

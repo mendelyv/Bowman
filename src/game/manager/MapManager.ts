@@ -170,8 +170,16 @@ class MapManager {
 		let bg = Main.instance.gameView.gameBg;
 		if(changeCoordinate)
 			point = bg.globalToLocal(point.x, point.y);
-		let col = Math.floor(point.x / MapManager.cellPix);
-		let row = Math.floor(point.y / MapManager.cellPix);
+		let col = Math.floor((point.x -MapManager.offsetX) / MapManager.cellPix);
+		let row = Math.floor((point.y - MapManager.offsetY)/ MapManager.cellPix);
+		if(col == MapManager.colMax)
+		{
+			col = MapManager.colMax - 1;
+		}
+		if(row == MapManager.rowMax)
+		{
+			row = MapManager.rowMax - 1;
+		}
 		return new egret.Point(row, col);
 	}
 
@@ -197,14 +205,14 @@ class MapManager {
 	// 	return new egret.Point(row,col);
 	// }
 
-	//随机一个空白的位置
-	public static getEmptyItem()
+	//随机一个空白的位置,count表示距离首位的位置
+	public static getEmptyItem(count:number = 0)
 	{
 		let row,col;
 		while(true)
 		{
-			row = Util.getRandomRange(0,MapManager.rowMax-1);
-			col = Util.getRandomRange(0,MapManager.colMax-1);
+			row = Util.getRandomRange(count,MapManager.rowMax-1-count);
+			col = Util.getRandomRange(count,MapManager.colMax-1-count);
 			if(!MapManager.mapItems){
 				break;
 			}
@@ -284,5 +292,13 @@ class MapManager {
 			}
 		}
 		return target;
+	}
+
+	//随机一个空的位置
+	public static getRandomEmptyPos()
+	{
+		let vec = MapManager.getEmptyItem(4);
+		let pos = MapManager.getMapItemPos(vec.row,vec.col);
+		return pos;
 	}
 }
