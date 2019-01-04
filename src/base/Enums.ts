@@ -32,3 +32,15 @@ enum WhosArrow
     PLAYER,
     ENEMY
 }
+
+//技能
+enum SkillType{
+    NONE,//空
+    AttackTypeIntensive,//攻击方式强化
+    CriticalIntensive,//暴击强化
+    AttackPowerIntensive,//攻击力强化
+    DefenseIntensive,//防御强化
+    SpeedIntensive,//移速强化
+    Hemophagia,//攻击吸血
+    KillOthenAddBlood,//击杀回血
+}
