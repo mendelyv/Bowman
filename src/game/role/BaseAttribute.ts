@@ -10,6 +10,7 @@
 class BaseAttribute {
 	public hp:number;//当前血量
 	public hpMax:number;//最大血量
+	public power:number;//攻击力
 
 	public speed:number;//移动速度
 	public angle:number;//旋转角度

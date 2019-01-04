@@ -8,7 +8,7 @@
  */
 class Weapon
 {
-    public power: number;
+    // public power: number;
     public range: number;
     public type;
     public level: number;
@@ -23,7 +23,7 @@ class Weapon
     public constructor(obj: Role)
     {
         this.obj = obj;
-        this.power = 10;
+        // this.power = 10;
         this.range = 300;
         this.level = 1;
     }

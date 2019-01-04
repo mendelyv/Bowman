@@ -54,7 +54,7 @@ class Bow extends Weapon
                     let arrow: Arrow = ObjectPool.instance.getObj("arrow");
                     arrow.id = this.obj.id;
 
-                    arrow.damage = this.obj.attribute.power + this.power;
+                    arrow.damage = this.obj.attribute.power;
                     arrow.whos = WhosArrow.PLAYER;
 
                     arrow.texture = RES.getRes(this.res);
@@ -110,7 +110,7 @@ class Bow extends Weapon
                 {
                     arrow = ObjectPool.instance.getObj("arrow") as Arrow;
                     arrow.id = this.obj.id;
-                    arrow.damage = this.obj.attribute.power + this.power;
+                    arrow.damage = this.obj.attribute.power;
                     arrow.whos = WhosArrow.ENEMY;
                     arrow.texture = RES.getRes(this.res);
                     //添加显示，设置位置和角度，增加tween

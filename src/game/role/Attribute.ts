@@ -62,6 +62,7 @@ class Attribute extends BaseAttribute
         this.exp = 0;
         this.expMax = 10;
         this.speed = 100;
+        this.power = 10;
         
         this.AttackTypeLv = 0;
         this.CriticalLv = 0;

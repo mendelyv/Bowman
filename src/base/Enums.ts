@@ -50,5 +50,5 @@ enum SkillType{
     DefenseIntensive,//防御强化
     SpeedIntensive,//移速强化
     Hemophagia,//攻击吸血
-
+    KillOthenAddBlood,
 }
