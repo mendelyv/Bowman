@@ -53,7 +53,7 @@ class SkillComponent extends eui.Component
         this.parent.visible = false;
         this.parent.removeChildren();
         let player = Main.instance.gameView.player;
-        player.addSkillProperty(this);
+        //player.addSkillProperty(this);
     }
 
 

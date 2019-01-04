@@ -56,8 +56,8 @@ class GameView extends eui.Component {
         this.gameEnd.visible = false;
 
         let pos = MapManager.getRandomEmptyPos();
-		this.gameBg.x = -pos.x;
-		this.gameBg.y = -pos.y;
+		this.gameBg.x = - pos.x;
+		this.gameBg.y = - pos.y;
         this.initBroadcast();
     }
     /**初始化广播 */
@@ -345,7 +345,7 @@ class GameView extends eui.Component {
 
     public showPlayerLvExp()
     {
-        this.lvLabel.text = "Lv:" + this.player.attribute.Level;
+        this.lvLabel.text = "Lv:" + this.player.attribute.level;
         this.expMask.width = this.expMaskWidth*(this.player.attribute.exp / this.player.attribute.expMax);
     }
 

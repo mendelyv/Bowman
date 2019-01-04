@@ -294,7 +294,7 @@ class MapManager {
 		return target;
 	}
 
-	//随机一个空的位置
+	//随机一个空的位置,将player放在该位置上
 	public static getRandomEmptyPos()
 	{
 		let vec = MapManager.getEmptyItem(4);

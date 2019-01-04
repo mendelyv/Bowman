@@ -58,7 +58,7 @@ class Enemy extends Role {
         if (!this.hpTube) {
             this.hpTube = new HPTube(this, "HPTubeSkin");
         }
-        this.attribute.maxHp = 80;
+        this.attribute.hpMax = 80;
         this.attribute.hp = 80;
         this.hpTube.anchorOffsetX = this.hpTube.width * 0.5;
         this.hpTube.anchorOffsetY = this.hpTube.height * 0.5;
@@ -301,7 +301,7 @@ class Enemy extends Role {
     {
         this.ai.start();
         this.attribute.hp = 80;
-        this.attribute.maxHp = 80;
+        this.attribute.hpMax = 80;
         this.hpTube.showHp();
       //  this.attribute.hpTube.updateHpLine();
         this.die = false;

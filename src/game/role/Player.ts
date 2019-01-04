@@ -33,7 +33,7 @@ class Player extends Role {
 			this.hpTube = new HPTube(this, "HPTubeSkin");
 		}
 
-		this.attribute.maxHp = 50;
+		this.attribute.hpMax = 50;
 		this.attribute.hp = 50;
 		this.hpTube.anchorOffsetX = this.hpTube.width * 0.5;
 		this.hpTube.anchorOffsetY = this.hpTube.height * 0.5;
@@ -110,6 +110,7 @@ class Player extends Role {
 
 		// 	arrow.moveFrom(targetPoint.x, targetPoint.y, (arrow.rotation - 90) * Math.PI / 180, this.attribute.range);
 		// }
+
 		this.weapon.attack(0);
 	}
 
@@ -210,7 +211,7 @@ class Player extends Role {
 
 	public reLife()
 	{
-		this.attribute.hp = this.attribute.MaxHP;
+		this.attribute.hp = this.attribute.hpMax;
 		this.hpTube.showHp();
 		this.die = false;
 	}

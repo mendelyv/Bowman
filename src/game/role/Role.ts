@@ -14,40 +14,22 @@ class Role extends eui.Component
 	public die: boolean = false;
 
 	public attribute: Attribute;
-
 	public hpTube: HPTube;//角色的血量条
-	
 	public nickName:string;//角色昵称
 	public constructor() {
 		super();
 		this.attribute = new Attribute(this);
-		this.attribute.exp = 0;
-		this.attribute.expMax = 5;
-
 	}
 	protected createChildren() {
 		super.createChildren();
 	}
 
-	//根据等级设置角色数据
-	public setRoleLevel(level:number)
-	{
-		level = level > UserData.levelMax ? UserData.levelMax : level;
-		let playerConfig = GameConfig.playerConfig[level];
-		this.attribute.maxHp = playerConfig.hp;
-		this.resumeBlood(50);
-		this.attribute.critRate = playerConfig.critRate;
-		this.attribute.shieldPower = playerConfig.shieldPower;
-		this.attribute.speed = playerConfig.speed;
-		this.attribute.exp = 0;
-		this.attribute.expMax = playerConfig.experience;
-	}
 
 	//
 	public doDamage(damage: number) {
-		//伤害减去护甲
-		damage -= this.attribute.shieldPower;
+		//计算伤害satrt
 		damage = damage > 0 ? damage : 0;
+		//end
 		this.attribute.hp -= damage;
 		this.attribute.hp = this.attribute.hp > 0 ? this.attribute.hp : 0;
 		if (this.hpTube) {
@@ -57,15 +39,12 @@ class Role extends eui.Component
 
 	public destroy() {
 		this.die = true;
-		// ObjectPool.instance.pushObj("enemy", this);
-		//20秒之后添加一个敌人
-
 	}
 
 	public resumeBlood(resumeValue: number)//回血
 	{
 		this.attribute.hp += resumeValue;
-		this.attribute.hp = this.attribute.hp < this.attribute.maxHp ? this.attribute.hp : this.attribute.maxHp;
+		this.attribute.hp = this.attribute.hp < this.attribute.hpMax ? this.attribute.hp : this.attribute.hpMax;
 		if (this.hpTube) {
 			this.hpTube.showHp();
 		}
@@ -90,10 +69,10 @@ class Role extends eui.Component
 		let propertyType = property.propertyType;
 		switch (propertyType) {
 			case MapItemType.PROP_BLOOD:
-				this.resumeBlood(10);
+				//this.resumeBlood(10);
 				break;
 			case MapItemType.PROP_EXP:
-				this.addExp(1);
+				//this.addExp(1);
 				break;
 		}
 	}
@@ -113,7 +92,7 @@ class Role extends eui.Component
 	}
 
 	/** 点击技能时增加的属性值 */
-	public addSkillProperty(skill: SkillComponent)
+	public addSkillProperty(skill: SkillType)
 	{
 		this.attribute.enable(skill);
 	}
