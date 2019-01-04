@@ -279,31 +279,35 @@ class GameView extends eui.Component {
         //先清一下，省的技能图标累加
         this.skillComponents.removeChildren();
 
-        let skillLen = 4;
-        let used = new Array<boolean>(skillLen);
-        let skillID = Math.floor(Math.random() * 100 % skillLen);
-        used[skillID] = true;
-        let skill = new SkillComponent();
-        this.skillComponents.addChild(skill);
-        skill.init(skillID);
+        // let skillLen = 4;
+        // let used = new Array<boolean>(skillLen);
+        // let skillID = Math.floor(Math.random() * 100 % skillLen);
+        // used[skillID] = true;
+        // let skill = new SkillComponent();
+        // this.skillComponents.addChild(skill);
+        // skill.init(skillID);
 
-        do
-        {
-            skillID = Math.floor(Math.random() * 100 % skillLen);
-        }while(used[skillID]);
-        used[skillID] = true;        
-        skill = new SkillComponent();
-        this.skillComponents.addChild(skill);
-        skill.init(skillID);
+        // do
+        // {
+        //     skillID = Math.floor(Math.random() * 100 % skillLen);
+        // }while(used[skillID]);
+        // used[skillID] = true;        
+        // skill = new SkillComponent();
+        // this.skillComponents.addChild(skill);
+        // skill.init(skillID);
 
-        do
-        {
-            skillID = Math.floor(Math.random() * 100 % skillLen);
-        }while(used[skillID]);
-        used[skillID] = true;
-        skill = new SkillComponent();
-        this.skillComponents.addChild(skill);
-        skill.init(skillID);
+        // do
+        // {
+        //     skillID = Math.floor(Math.random() * 100 % skillLen);
+        // }while(used[skillID]);
+        // used[skillID] = true;
+        // skill = new SkillComponent();
+        // this.skillComponents.addChild(skill);
+        // skill.init(skillID);
+
+        // let skill = new SkillComponent();
+        // this.skillComponents.addChild(skill);
+        // skill.init(2);
     }
 
     //玩家死亡

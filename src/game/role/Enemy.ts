@@ -10,10 +10,6 @@ class Enemy extends Role {
 
     // public birthPoint: egret.Point;
     public enemys: Array<Enemy>;//可以攻击的目标
-    public arrow: eui.Image;
-    public role_img: eui.Image;
-    public bubble_img: eui.Image;
-    public target: Role;//追寻的目标
     // public range: number = 300;//射程
 
     private ai: EnemyAI;
@@ -33,6 +29,7 @@ class Enemy extends Role {
         super();
         this.attribute.speed = 2.5;
         this.ai = new EnemyAI(this);
+        this.weapon = new Bow(this);
     }
 
     public initNav(): void {
@@ -142,72 +139,57 @@ class Enemy extends Role {
 
     /** 攻击 */
     public attack() {
-        let deltaTime = egret.getTimer() - this.previousFrameTime;
-        this.shootTime += deltaTime;
+        // let deltaTime = egret.getTimer() - this.previousFrameTime;
+        // this.shootTime += deltaTime;
 
-        let group, arrow: Arrow;
+        // let group, arrow: Arrow;
 
-        //旋转人物
-        if (this.target) {
-            let targetPoint = new egret.Point(this.target.x, this.target.y);
-            if(this.target.parent != this.parent)
-                this.parent.globalToLocal(targetPoint.x, targetPoint.y, targetPoint);
-            //两个直角三角形直角边
-            let x = targetPoint.x - this.x;
-            let y = -(targetPoint.y - this.y);
-            //斜边
-            let l = egret.Point.distance(new egret.Point(this.x, this.y), new egret.Point(targetPoint.x, targetPoint.y));
-            let sinTheta = x / l;
-            let theta = Math.asin(sinTheta) * 180 / Math.PI;
-            //判断在哪个象限，即为判断转动角是否是补角
-            if (y < 0) {
-                if (theta < 0) theta = -180 - theta;
-                else theta = 180 - theta;
-            }
-            this.moveToByAngle(0);//首先回正人物图像
-            this.moveToByAngle((theta - 90) * Math.PI / 180);
-        }
+        // //旋转人物
+        // if (this.target) {
+        //     this.lookAtTarget();
+        // }
 
-        if (this.shootTime >= this.shootDelay) 
-        {
-            this.shootTime = 0;
-            let rotations = new Array<number>();
-            let tmpRot: number = this.role_img.rotation;
-            let mid = Math.floor(this.attribute.arrowNum / 2);//找中间的弓箭的位置
-            for(let i = 0; i < this.attribute.arrowNum; i++)
-            {
-                let times = Math.abs(mid - i);
-                if(i < mid) rotations.push(tmpRot - 15 * times);
-                else if(i > mid) rotations.push(tmpRot + 15 * times);
-                else rotations.push(tmpRot);
-            }
-            if(mid % 2 == 0)//如果是偶数再偏一次
-            {
-                for(let i = 0; i < rotations.length; i++)
-                {
-                    rotations[i] += 15 / 2;
-                }
-            }
+        // if (this.shootTime >= this.shootDelay) 
+        // {
+        //     this.shootTime = 0;
+        //     let rotations = new Array<number>();
+        //     let tmpRot: number = this.role_img.rotation;
+        //     let mid = Math.floor(this.attribute.arrowNum / 2);//找中间的弓箭的位置
+        //     for(let i = 0; i < this.attribute.arrowNum; i++)
+        //     {
+        //         let times = Math.abs(mid - i);
+        //         if(i < mid) rotations.push(tmpRot - 15 * times);
+        //         else if(i > mid) rotations.push(tmpRot + 15 * times);
+        //         else rotations.push(tmpRot);
+        //     }
+        //     if(mid % 2 == 0)//如果是偶数再偏一次
+        //     {
+        //         for(let i = 0; i < rotations.length; i++)
+        //         {
+        //             rotations[i] += 15 / 2;
+        //         }
+        //     }
 
-            //先实例化一支弓箭
-            group = Main.instance.gameView.gameBg.arrowGroup;
-            for(let i = 0; i < rotations.length; i++)
-            {
-                arrow = ObjectPool.instance.getObj("arrow") as Arrow;
-                arrow.id = this.id;
-                arrow.damage = this.attribute.power;
-                arrow.whos = WhosArrow.ENEMY;
-                arrow.texture = RES.getRes(this.attribute.res);
-                //添加显示，设置位置和角度，增加tween
-                let bg = Main.instance.gameView.gameBg;
-                arrow.index = bg.addArrow(arrow, WhosArrow.ENEMY);
-                arrow.x = this.x;
-                arrow.y = this.y;
-                arrow.rotation = rotations[i];
-                arrow.moveFrom(this.x, this.y, (arrow.rotation - 90) * Math.PI / 180, this.attribute.range);
-            }
-        }
-        this.previousFrameTime = egret.getTimer();
+        //     //先实例化一支弓箭
+        //     group = Main.instance.gameView.gameBg.arrowGroup;
+        //     for(let i = 0; i < rotations.length; i++)
+        //     {
+        //         arrow = ObjectPool.instance.getObj("arrow") as Arrow;
+        //         arrow.id = this.id;
+        //         arrow.damage = this.attribute.power;
+        //         arrow.whos = WhosArrow.ENEMY;
+        //         arrow.texture = RES.getRes(this.attribute.res);
+        //         //添加显示，设置位置和角度，增加tween
+        //         let bg = Main.instance.gameView.gameBg;
+        //         arrow.index = bg.addArrow(arrow, WhosArrow.ENEMY);
+        //         arrow.x = this.x;
+        //         arrow.y = this.y;
+        //         arrow.rotation = rotations[i];
+        //         arrow.moveFrom(this.x, this.y, (arrow.rotation - 90) * Math.PI / 180, this.attribute.range);
+        //     }
+        // }
+        // this.previousFrameTime = egret.getTimer();
+        this.weapon.attack(1);
     }
 
     /** 追寻 */
@@ -262,16 +244,37 @@ class Enemy extends Role {
         this.moveOfPath();
     }
 
+    public lookAtTarget()
+    {
+        let targetPoint = new egret.Point(this.target.x, this.target.y);
+        if(this.target.parent != this.parent)
+            this.parent.globalToLocal(targetPoint.x, targetPoint.y, targetPoint);
+        //两个直角三角形直角边
+        let x = targetPoint.x - this.x;
+        let y = -(targetPoint.y - this.y);
+        //斜边
+        let l = egret.Point.distance(new egret.Point(this.x, this.y), new egret.Point(targetPoint.x, targetPoint.y));
+        let sinTheta = x / l;
+        let theta = Math.asin(sinTheta) * 180 / Math.PI;
+        //判断在哪个象限，即为判断转动角是否是补角
+        if (y < 0) {
+            if (theta < 0) theta = -180 - theta;
+            else theta = 180 - theta;
+        }
+        this.moveToByAngle(0);//首先回正人物图像
+        this.moveToByAngle((theta - 90) * Math.PI / 180);
+    }
+
     public levelUp()
     {
         super.levelUp();
 
-        //随机一个技能给怪
-        let id = Math.floor(Math.random() * 100 % 4);
-        // console.log(" ===== " + id + " ===== ");
-        let config = GameConfig.skillConfig[id];
-        //让技能生效
-        this.attribute.enable(config);
+        // //随机一个技能给怪
+        // let id = Math.floor(Math.random() * 100 % 4);
+        // // console.log(" ===== " + id + " ===== ");
+        // let config = GameConfig.skillConfig[id];
+        // //让技能生效
+        // this.attribute.enable(config);
     }
 
     ////扣血类型，0是玩家，1是敌人

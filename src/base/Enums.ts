@@ -32,3 +32,10 @@ enum WhosArrow
     PLAYER,
     ENEMY
 }
+
+enum WeaponType
+{
+    NONE,
+    BOW,
+    SHOTGUN,
+}

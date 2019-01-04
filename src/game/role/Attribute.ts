@@ -50,23 +50,24 @@ class Attribute
     /** 技能生效 */
     public enable(skill: any)
     {
-        //如果加血的属性不为0，即代表要提高血量和加血
-        if(skill.addMaxHpValue != 0 && skill.addHpValue != 0)
-        {
-            this.maxHp += skill.addMaxHpValue;
-		    this.hp += skill.addHpValue;
-            console.log(skill.addMaxHpValue);
-            console.log(this.maxHp);
-            this.obj.hpTube.updateHpLine(this.maxHp);
-        }
-        //根据配置文件给其他变量赋值
-        if(this.arrowNum < Attribute.MAX_ARROW_NUM)
-            this.arrowNum += skill.addArrowNum;
-        if(!this.hemophagia)
-            this.hemophagia = skill.hemophagia;
-        this.power += skill.addPowerValue;
-        this.range += skill.addRangeValue;
-        this.res = skill.changeRes;
+        // //如果加血的属性不为0，即代表要提高血量和加血
+        // if(skill.addMaxHpValue != 0 && skill.addHpValue != 0)
+        // {
+        //     this.maxHp += skill.addMaxHpValue;
+		//     this.hp += skill.addHpValue;
+        //     console.log(skill.addMaxHpValue);
+        //     console.log(this.maxHp);
+        //     this.obj.hpTube.updateHpLine(this.maxHp);
+        // }
+        // //根据配置文件给其他变量赋值
+        // if(this.arrowNum < Attribute.MAX_ARROW_NUM)
+        //     this.arrowNum += skill.addArrowNum;
+        // if(!this.hemophagia)
+        //     this.hemophagia = skill.hemophagia;
+        // this.power += skill.addPowerValue;
+        // this.range += skill.addRangeValue;
+        // this.res = skill.changeRes;
+        
     }
 
 

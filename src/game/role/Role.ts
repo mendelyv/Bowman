@@ -3,6 +3,12 @@
 
 class Role extends eui.Component 
 {
+	public arrow: eui.Image;
+	public role_img: eui.Image;
+	public bubble_img: eui.Image;
+	public target: Role;
+	public weapon: Weapon;
+
 	public id: number;//人物编号，使用这个来区分人物
 
 	public die: boolean = false;
@@ -76,6 +82,8 @@ class Role extends eui.Component
 			this.hpTube.destructor();
 		}
 	}
+
+	public lookAtTarget() { }
 
 	//与周围道具碰撞，吃道具
 	public getAroundProperty(property: Property) {
