@@ -239,7 +239,7 @@ class Player extends Role {
 
 	public reLife()
 	{
-		this.attribute.hp = this.attribute.hpMax;
+		this.attribute.hp = this.attribute.hpMax * 0.5;
 		this.hpTube.showHp();
 		this.die = false;
 	}
