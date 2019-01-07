@@ -20,8 +20,6 @@ class Player extends Role {
 	public frictionY: number = 0;
 	public constructor() {
 		super();
-		this.attribute.speed = 5;
-		this.attribute.angle = 0;
 		this.id = 0;
 		this.weapon = new Bow(this);
 	}
@@ -33,8 +31,6 @@ class Player extends Role {
 			this.hpTube = new HPTube(this, "HPTubeSkin");
 		}
 
-		this.attribute.hpMax = 50;
-		this.attribute.hp = 50;
 		this.hpTube.anchorOffsetX = this.hpTube.width * 0.5;
 		this.hpTube.anchorOffsetY = this.hpTube.height * 0.5;
 		this.anchorOffsetX = this.width * 0.5;
@@ -46,13 +42,23 @@ class Player extends Role {
 		this.hpTube.showHp();
 		this.hpTube.showHpLine();
 		this.hpTube.visible = true;
+
+		//初始化等级和基础配置
+		this.initPlayer();
 	}
+
+	public initPlayer()
+	{
+		this.attribute.level = 1;
+		this.setBaseAttOfLevel();
+	}
+
 	//根据角度设置x~y轴的速率
 	public moveToByAngle(angle: number): void {
 		if (angle <= Math.PI) {
 
-			this.xSpeed = Math.cos(angle) * this.attribute.speed;
-			this.ySpeed = Math.sin(angle) * this.attribute.speed;
+			this.xSpeed = Math.cos(angle) * this.getSpeed();
+			this.ySpeed = Math.sin(angle) * this.getSpeed();
 		} else if (this.attribute.angle <= Math.PI) {
 			this.frictionX = Math.cos(this.attribute.angle) * this.friction;
 			this.frictionY = Math.sin(this.attribute.angle) * this.friction;
@@ -135,8 +141,8 @@ class Player extends Role {
 		// }
 
 
-		this.tempX = this.x + xAxis * this.attribute.speed;
-		this.tempY = this.y + (-yAxis * this.attribute.speed);
+		this.tempX = this.x + xAxis * this.getSpeed();
+		this.tempY = this.y + (-yAxis * this.getSpeed());
 
 		// console.log(this.xSpeed);
 		// console.log(this.ySpeed);
@@ -189,17 +195,40 @@ class Player extends Role {
 
 	public doDamage(damage: number) {
 		super.doDamage(damage);
-
 		if (this.attribute.hp == 0) {
-
 			Main.instance.gameView.showGameEndReLife();
-			this.destroy();
 		}
 	}
 	
 	public levelUp() {
 		super.levelUp();
+		this.attribute.level = this.attribute.level < UserData.levelMax ? this.attribute.level : UserData.levelMax;
+		this.setBaseAttOfLevel();
 		Main.instance.gameView.showSkills();
+	}
+
+	//根据角色等级设置基础属性
+	public setBaseAttOfLevel()
+	{	
+		let index = this.attribute.level;
+		let playerConfig = GameConfig.playerConfig["player"][index.toString()];
+		if(playerConfig)
+		{
+			this.attribute.exp = 0;
+			this.attribute.expMax = playerConfig.experience;
+			this.attribute.speed = playerConfig.speed;
+			this.attribute.power = playerConfig.power;
+			let lastHpMax = this.attribute.hpMax;
+			this.attribute.hpMax = playerConfig.hp;
+
+			//设置当前血量
+			let resumeValue = this.attribute.hpMax - lastHpMax;
+			this.resumeBlood(resumeValue,true);
+		}
+		else
+		{
+			console.log("setBaseAttOfLevel error");
+		}
 	}
 
 	public addExp(expValue: number)
@@ -207,7 +236,6 @@ class Player extends Role {
 		super.addExp(expValue);
 		Main.instance.gameView.showPlayerLvExp();
 	}
-
 
 	public reLife()
 	{
