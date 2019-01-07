@@ -26,7 +26,7 @@ enum MapItemType
     PROP_BLOOD,//血道具
 }
 
-enum WhosArrow
+enum WhosBullet
 {
     NONE,
     PLAYER,

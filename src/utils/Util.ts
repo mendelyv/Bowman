@@ -717,11 +717,20 @@ class Util {
         return false;
     }
 
-        /** 圆碰撞 */
-    public static isCircleHit(obj1:egret.DisplayObject, obj2:egret.DisplayObject,needTrans:boolean =  false )
+    /** 圆碰撞
+     * @param obj1 ：显示对象
+     * @param obj2 ：显示对象
+     * @param needTrans ：是否需要转换坐标系
+     * @param obj1Radius ：手动修改显示对象的半径
+     * @param obj2Radius ：手动修改显示对象的半径
+     */
+    public static isCircleHit(obj1:egret.DisplayObject, obj2:egret.DisplayObject, needTrans:boolean =  false, obj1Radius?: number, obj2Radius?: number)
     {
-        let obj1R = Math.sqrt(obj1.width * obj1.width + obj1.height * obj1.height);
-        let obj2R = Math.sqrt(obj2.width * obj2.width + obj2.height * obj2.height);
+        let obj1R, obj2R;
+        if(obj1Radius) obj1R = obj1Radius;
+        else obj1R = Math.sqrt(obj1.width * obj1.width + obj1.height * obj1.height);
+        if(obj2Radius) obj2R = obj2Radius;
+        else obj2R = Math.sqrt(obj2.width * obj2.width + obj2.height * obj2.height);
         let obj1Point = new egret.Point(obj1.x,obj1.y);
         let obj2Point = new egret.Point(obj2.x,obj2.y);
         if(needTrans)
@@ -735,7 +744,7 @@ class Util {
                 obj2.parent.localToGlobal(obj2.x,obj2.y,obj2Point);
             }
         }
-        let distance = egret.Point.distance(new egret.Point(obj1Point.x, obj1Point.y), new egret.Point(obj2Point.x, obj2Point.y));
+        let distance = egret.Point.distance(obj1Point, obj2Point);
         if(obj1R + obj2R > distance)
             return true;
         return false;

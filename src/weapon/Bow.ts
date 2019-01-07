@@ -55,9 +55,10 @@ class Bow extends Weapon
                     arrow.id = this.obj.id;
 
                     arrow.damage = this.obj.attribute.power;
-                    arrow.whos = WhosArrow.PLAYER;
+                    arrow.whos = WhosBullet.PLAYER;
 
-                    arrow.texture = RES.getRes(this.res);
+                    arrow.display.texture = RES.getRes(this.res);
+                    arrow.addChild(arrow.display);
 
                     let point = new egret.Point();
                     this.obj.parent.localToGlobal(this.obj.x, this.obj.y, point);
@@ -66,7 +67,7 @@ class Bow extends Weapon
                     // group.addChild(arrow);
                     arrow.anchorOffsetX = arrow.width / 2;
                     arrow.anchorOffsetY = arrow.height / 2;
-                    arrow.index = bg.addArrow(arrow, WhosArrow.PLAYER);
+                    arrow.index = bg.addBullet(arrow, WhosBullet.PLAYER);
                     arrow.x = targetPoint.x;
                     arrow.y = targetPoint.y;
                     arrow.rotation = rotations[i];
@@ -111,13 +112,14 @@ class Bow extends Weapon
                     arrow = ObjectPool.instance.getObj("arrow") as Arrow;
                     arrow.id = this.obj.id;
                     arrow.damage = this.obj.attribute.power;
-                    arrow.whos = WhosArrow.ENEMY;
-                    arrow.texture = RES.getRes(this.res);
+                    arrow.whos = WhosBullet.ENEMY;
+                    arrow.display.texture = RES.getRes(this.res);
+                    arrow.addChild(arrow.display);
                     //添加显示，设置位置和角度，增加tween
                     let bg = Main.instance.gameView.gameBg;
                     arrow.anchorOffsetX = arrow.width / 2;
                     arrow.anchorOffsetY = arrow.height / 2;
-                    arrow.index = bg.addArrow(arrow, WhosArrow.ENEMY);
+                    arrow.index = bg.addBullet(arrow, WhosBullet.ENEMY);
                     arrow.x = this.obj.x;
                     arrow.y = this.obj.y;
                     arrow.rotation = rotations[i];

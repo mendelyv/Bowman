@@ -32,11 +32,14 @@ class Shotgun extends Weapon
 
                 let rot = this.obj.arrow.rotation + 90;
                 let bullet = new ShotgunBullet(this.range, this.angle, this.stayTime);
-                
+                bullet.damage = this.obj.attribute.power;
+                bullet.id = this.obj.id;
+                bullet.whos = WhosBullet.PLAYER;
                 //给扇形找个位置
                 bullet.anchorOffsetX = bullet.width / 2;
                 bullet.anchorOffsetY = this.obj.anchorOffsetY + bullet.height - 10;
-                group.addChild(bullet);
+                // group.addChild(bullet);
+                bullet.index = bg.addBullet(bullet, WhosBullet.PLAYER);
 
                 let playerPoint = group.globalToLocal(this.obj.x, this.obj.y);
                 bullet.x = playerPoint.x;

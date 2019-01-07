@@ -36,7 +36,7 @@ class GameView extends eui.Component {
         let property = new Property();
         ObjectPool.instance.createObjectPool("property", property);
         let arrow = new Arrow();
-        ObjectPool.instance.createObjectPool("arrow", arrow);
+        ObjectPool.instance.createObjectPool(arrow.poolName, arrow);
         let enemy = new Enemy();
         ObjectPool.instance.createObjectPool("enemy", enemy);
     }
@@ -59,6 +59,13 @@ class GameView extends eui.Component {
 		this.gameBg.x = - pos.x;
 		this.gameBg.y = - pos.y;
         this.initBroadcast();
+
+        // ===== Test Code start =====
+        let shape = Util.drawCircle(300, Util.s_colors.red);
+        this.player.addChild(shape);
+        shape.x = this.player.width / 2;
+        shape.y = this.player.height / 2;
+        // ===== Test Code end =====
     }
     /**初始化广播 */
     private initBroadcast():void{

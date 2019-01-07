@@ -6,15 +6,16 @@ class BattleManager {
 	public player:Player;
 	public propertys:Array<Property>;//所有地图上的道具
 	public enemys:Array<Enemy>;//所有敌人
-	public arrowsPlayer:Array<Arrow>;//玩家的所有弓箭
-	public arrowsEnemy:Array<Arrow>;//所有敌人的弓箭
+
+	public bulletsPlayer:Array<Bullet>;//玩家的子弹
+	public bulletsEnemy:Array<Bullet>;//所有敌人的子弹
 
 	public constructor() 
 	{
 		this.propertys = new Array<Property>();
 		this.enemys = new Array<Enemy>();
-		this.arrowsEnemy = new Array<Arrow>();
-		this.arrowsPlayer = new Array<Arrow>();
+		this.bulletsEnemy = new Array<Bullet>();
+		this.bulletsPlayer = new Array<Bullet>();
 
 		// this.allRole = [this.enemys, this.player];
 	}
@@ -56,20 +57,20 @@ class BattleManager {
 	}
 
 	/** 添加弓箭
-	 * @param arrow ：弓箭对象
-	 * @param whos ：谁的弓箭  0玩家的，1敌人的
+	 * @param bullet ：子弹对象
+	 * @param whos ：谁的子弹  0玩家的，1敌人的
 	 */
-	public addArrow(arrow: Arrow, whos: WhosArrow): number
+	public addBullet(bullet: Bullet, whos: WhosBullet): number
 	{
 		switch(whos)
 		{
-			case WhosArrow.PLAYER : 
-				Util.push(this.arrowsPlayer,arrow);
-				return this.arrowsPlayer.indexOf(arrow); 
+			case WhosBullet.PLAYER : 
+				Util.push(this.bulletsPlayer,bullet);
+				return this.bulletsPlayer.indexOf(bullet); 
 
-			case WhosArrow.ENEMY : 
-				Util.push(this.arrowsEnemy,arrow);
-				return this.arrowsEnemy.indexOf(arrow);
+			case WhosBullet.ENEMY : 
+				Util.push(this.bulletsEnemy,bullet);
+				return this.bulletsEnemy.indexOf(bullet);
 
 			default: console.error(" ***** error ***** ");
 		}
@@ -140,10 +141,10 @@ class BattleManager {
 		}
 
 		//敌人弓箭的碰撞检测，玩家扣血等
-		for(let i = 0 ;i<this.arrowsEnemy.length;++i)
+		for(let i = 0 ;i<this.bulletsEnemy.length;++i)
 		{
-			let arrow = this.arrowsEnemy[i];
-			if(!arrow)
+			let bullet = this.bulletsEnemy[i];
+			if(!bullet)
 			{
 				continue;
 			}
@@ -156,74 +157,72 @@ class BattleManager {
 				let enemy = this.enemys[i];
 				if(enemy&&!enemy.die)
 				{
-					if(arrow.id == enemy.id)
+					if(bullet.id == enemy.id)
 					{
 						continue;
 					}
-					if(Util.isCircleHit(enemy,arrow,true))
+					if(bullet.canDamage(enemy, true))
 					{
-						if(Util.isHit(enemy,arrow,true))
+						enemy.doDamage(bullet.damage);
+						let atk = this.getRoleOfID(bullet.id);
+						//吸血
+						if(atk)
+							if(atk.attribute.Hemophagia)
+								atk.resumeBlood(bullet.damage * 0.5);
+
+						if(enemy.die)
 						{
-							enemy.doDamage(arrow.damage);
-							let atk = this.getRoleOfID(arrow.id);
-
-							//吸血
-							if(atk)
-								if(atk.attribute.Hemophagia)
-									atk.resumeBlood(arrow.damage * 0.5);
-
-							if(enemy.die)
-							{
-								let role = this.getRoleOfID(arrow.id);
-								if(role) role.addExp(1);
-								let roleName = this.getRoleOfnickName(arrow.id);
-								Main.instance.gameView.addMsg(roleName + "杀死了"+this.enemys[i].nickName);
-							}
-							ObjectPool.instance.pushObj("arrow",arrow);
-							break;
+							let role = this.getRoleOfID(bullet.id);
+							if(role) role.addExp(1);
+							let roleName = this.getRoleOfnickName(bullet.id);
+							Main.instance.gameView.addMsg(roleName + "杀死了"+this.enemys[i].nickName);
 						}
+						if(bullet.activeTime < 0)
+							ObjectPool.instance.pushObj(bullet.poolName, bullet);
+						break;
 					}
 				}
 			}
 
-			if(Util.isCircleHit(this.player,arrow,true))
+			if(Util.isCircleHit(this.player,bullet,true))
 			{
-				if(Util.isHit(this.player,arrow,true))
+				if(Util.isHit(this.player,bullet,true))
 				{
-					this.player.doDamage(arrow.damage);
-					ObjectPool.instance.pushObj("arrow",arrow);
-					// this.arrowsEnemy[arrow.index] = null;
+					this.player.doDamage(bullet.damage);
+					if(bullet.activeTime < 0)
+						ObjectPool.instance.pushObj(bullet.poolName, bullet);
 				}
 			}
 
 		}
 
 		//玩家弓箭的碰撞检测，敌人扣血等
-		for(let i = 0;i<this.arrowsPlayer.length;++i)
+		for(let i = 0;i<this.bulletsPlayer.length;++i)
 		{
-			let arrow = this.arrowsPlayer[i];
-			if(!arrow){
+			let bullet = this.bulletsPlayer[i];
+			if(!bullet){
 				continue;
 			}
 			for(let j:number = 0; j < this.enemys.length; j++){
-				if(!this.enemys[j] || this.enemys[j].die){
+				let enemy = this.enemys[j];
+				if(!enemy || enemy.die){
 					continue;
 				}
-				if(Util.isCircleHit(this.enemys[j],arrow,true)){
-					if(Util.isHit(this.enemys[j],arrow,true)){
-					//扣血
-					this.enemys[j].doDamage(arrow.damage);
+				if(bullet.canDamage(enemy, false))
+				{
+					console.log(" hited ");
+					// enemy.doDamage(bullet.damage);
 					//吸血
 					if(this.player.attribute.Hemophagia)
-						this.player.resumeBlood(arrow.damage * 0.5);
+						this.player.resumeBlood(bullet.damage * 0.5);
+
 					if(this.enemys[j].die)
 					{
 						this.player.addExp(1);
 						Main.instance.gameView.addMsg("你杀死了"+this.enemys[j].nickName);
 					}
-					ObjectPool.instance.pushObj("arrow",arrow);
-					// this.arrowsPlayer[arrow.index] = null;
-					}		
+					if(bullet.activeTime < 0)
+						ObjectPool.instance.pushObj(bullet.poolName, bullet);
 				}
 			}
 		}
@@ -265,22 +264,22 @@ class BattleManager {
 
 	public destructor()
 	{
-		for(let i = 0 ;i < this.arrowsEnemy.length;i++)
+		for(let i = 0 ;i < this.bulletsEnemy.length;i++)
 		{
-			if(this.arrowsEnemy[i])
+			if(this.bulletsEnemy[i])
 			{
-				this.arrowsEnemy[i].destructor();
+				this.bulletsEnemy[i].destructor();
 			}
 		}
-		this.arrowsEnemy = null;
-		for(let i = 0 ;i < this.arrowsPlayer.length;i++)
+		this.bulletsEnemy = null;
+		for(let i = 0 ;i < this.bulletsPlayer.length;i++)
 		{
-			if(this.arrowsPlayer[i])
+			if(this.bulletsPlayer[i])
 			{
-				this.arrowsPlayer[i].destructor();
+				this.bulletsPlayer[i].destructor();
 			}
 		}
-		this.arrowsPlayer = null;
+		this.bulletsPlayer = null;
 		for(let i = 0 ;i < this.enemys.length;i++)
 		{
 			if(this.enemys[i])

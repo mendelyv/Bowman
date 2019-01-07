@@ -6,13 +6,10 @@
  * time : 2019.1.4
  * @author : 杨浩然
  */
-class ShotgunBullet extends egret.DisplayObjectContainer
+class ShotgunBullet extends Bullet
 {
     //动画
     public mc: egret.MovieClip;
-    public bit: egret.Bitmap;
-    //存活时间
-    public activeTime: number;
     //扇形范围
     public range: number;
     //扇形角度
@@ -27,14 +24,77 @@ class ShotgunBullet extends egret.DisplayObjectContainer
         this.angle = angle;
         this.activeTime = time;
         this.timer = new egret.Timer(this.activeTime, 1);
-        this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.destructor, this);
+        this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.lifeOut, this);
         this.timer.start();
-        this.bit = new egret.Bitmap(RES.getRes("shotgunBullet_png"));
-        this.addChild(this.bit);
+        this.display = new egret.Bitmap(RES.getRes("shotgunBullet_png"));
+        this.addChild(this.display);
+        this.poolName = "shotgunBullet";
     }
 
+    public canDamage(obj: any, needTrans: boolean)
+    {
+        super.canDamage(obj, needTrans);
+        //如果圆形碰撞了
+        if(Util.isCircleHit(obj, this, true, obj.width, this.range))
+        {
+            //计算前的准备工作
+            let obj1Point = new egret.Point(obj.x, obj.y);
+            let selfPoint = new egret.Point(this.x, this.y);
+            if(needTrans)
+            {
+                if(obj.parent) obj.parent.localToGlobal(obj.x, obj.y, obj1Point);
+                if(this.parent) this.parent.localToGlobal(this.x, this.y, selfPoint);
+            }
 
-    public destructor()
+            let l = egret.Point.distance(obj1Point, selfPoint);
+            let x = obj1Point.x - selfPoint.x;
+            let y = obj1Point.y - selfPoint.y;
+            let theta = Math.asin(x / l) * (180 / Math.PI);//碰撞对象的坐标与扇形圆心的坐标夹角
+            
+            //是否补角判断
+            if (y < 0) 
+            {
+                if (theta < 0) theta = -180 - theta;
+                else theta = 180 - theta;
+            }
+
+            let limitL = this.rotation - this.angle / 2;
+            let limitR = this.rotation + this.angle/ 2;
+            
+            if(limitL < theta && theta < limitR)
+                return true;
+            else
+                return false;
+        }
+        return false;
+    }
+
+    public recycle()
+    {
+        if(this.parent)
+            this.parent.removeChild(this);
+        if(this.whos != WhosBullet.NONE)
+        {
+            switch(this.whos)
+            {
+                case WhosBullet.PLAYER:
+                {
+                    let arr = Main.instance.gameView.battleMgr.bulletsPlayer;
+                    arr[this.index] = null;
+                }break;
+
+                case WhosBullet.ENEMY:
+                {
+                    let arr = Main.instance.gameView.battleMgr.bulletsEnemy;
+                    arr[this.index] = null;
+                }break;
+            }
+        }
+
+    }
+
+    /** 存活周期已到 */
+    public lifeOut()
     {
         if(this.parent)
             this.parent.removeChild(this);
@@ -46,6 +106,30 @@ class ShotgunBullet extends egret.DisplayObjectContainer
                 this.timer.removeEventListener(egret.TimerEvent.TIMER_COMPLETE, this.destructor, this);
         }
         this.timer = null;
+        ObjectPool.instance.pushObj(this.poolName, this);
+    }
+
+    public destructor()
+    {
+        if(this.parent)
+            this.parent.removeChild(this);
+        if(this.whos != WhosBullet.NONE)
+        {
+            switch(this.whos)
+            {
+                case WhosBullet.PLAYER:
+                {
+                    let arr = Main.instance.gameView.battleMgr.bulletsPlayer;
+                    arr[this.index] = null;
+                }break;
+
+                case WhosBullet.ENEMY:
+                {
+                    let arr = Main.instance.gameView.battleMgr.bulletsEnemy;
+                    arr[this.index] = null;
+                }break;
+            }
+        }
     }
 
 //class end
