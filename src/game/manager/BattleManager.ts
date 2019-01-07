@@ -15,15 +15,9 @@ class BattleManager {
 	{
 		this.propertys = new Array<Property>();
 		this.enemys = new Array<Enemy>();
-<<<<<<< HEAD
-		this.arrowsEnemy = new Array<Arrow>();
-		this.arrowsPlayer = new Array<Arrow>();
 		this.roleArray = new Array<Role>();
-=======
 		this.bulletsEnemy = new Array<Bullet>();
 		this.bulletsPlayer = new Array<Bullet>();
-
->>>>>>> bed0ba591a8f6edebeee0e5fa9dfa881905edd4c
 		// this.allRole = [this.enemys, this.player];
 	}
 
