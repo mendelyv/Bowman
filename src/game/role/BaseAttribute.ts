@@ -19,7 +19,7 @@ class BaseAttribute {
 
 	public exp:number;//当前经验
 	public expMax:number;//当前升级所需经验
-
+	public totalExp: number;//本局获得总经验；
 	public constructor() {
 	}
 }

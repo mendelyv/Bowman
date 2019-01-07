@@ -51,6 +51,7 @@ class GameView extends eui.Component {
         this.gameBg.gameView = this;
         this.battleMgr = new BattleManager();
         this.battleMgr.player = this.player;
+        Util.push(this.battleMgr.roleArray,this.player);
         this.mapMgr = new MapManager();
         this.enemyMgr = new EnemyManager();
         this.expMaskWidth = this.expMask.width;
@@ -60,16 +61,17 @@ class GameView extends eui.Component {
 		this.gameBg.x = - pos.x;
 		this.gameBg.y = - pos.y;
         this.initBroadcast();
-        this.initRankPanel();
+        this.updateRankPanel();
     }
-    /**初始化排行*/
-    private initRankPanel():void{
+    /**刷新排行*/
+    public updateRankPanel():void{
          if(!this._rankpanel){
             this._rankpanel = new RankPanel();
             this._rankpanel.x = 0;
             this._rankpanel.y = 0;
             this.rankGroup.addChild(this._rankpanel);
         }
+        this._rankpanel.updateView();
     }
     /**初始化广播 */
     private initBroadcast():void{

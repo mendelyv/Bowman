@@ -75,6 +75,8 @@ class Attribute extends BaseAttribute
         this.speed = 100;
         this.power = 10;
         
+        this.totalExp = 0;//本局总经验
+
         this.AttackTypeLv = 0;
         this.CriticalLv = 0;
         this.AttackPowerLv = 0;

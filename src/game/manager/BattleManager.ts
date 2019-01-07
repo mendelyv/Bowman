@@ -9,13 +9,14 @@ class BattleManager {
 	public arrowsPlayer:Array<Arrow>;//玩家的所有弓箭
 	public arrowsEnemy:Array<Arrow>;//所有敌人的弓箭
 
+	public roleArray:Array<Role>;//地图上所有敌人和玩家
 	public constructor() 
 	{
 		this.propertys = new Array<Property>();
 		this.enemys = new Array<Enemy>();
 		this.arrowsEnemy = new Array<Arrow>();
 		this.arrowsPlayer = new Array<Arrow>();
-
+		this.roleArray = new Array<Role>();
 		// this.allRole = [this.enemys, this.player];
 	}
 
@@ -53,6 +54,7 @@ class BattleManager {
 	{
 		enemy.enemys = this.enemys;
 		Util.push(this.enemys,enemy);
+		Util.push(this.roleArray,enemy);
 	}
 
 	/** 添加弓箭
@@ -220,6 +222,7 @@ class BattleManager {
 					{
 						this.player.addExp(1);
 						Main.instance.gameView.addMsg("你杀死了"+this.enemys[j].nickName);
+						
 					}
 					ObjectPool.instance.pushObj("arrow",arrow);
 					// this.arrowsPlayer[arrow.index] = null;

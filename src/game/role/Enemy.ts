@@ -68,7 +68,7 @@ class Enemy extends Role {
         this.hpTube.y = -17;
         this.addChild(this.hpTube);
         this.hpTube.showHp();
-        this.hpTube.showHpLine();
+       // this.hpTube.showHpLine();
         this.hpTube.visible = true;
 
         //知道自己的敌人是谁
@@ -287,6 +287,7 @@ class Enemy extends Role {
     public destroy() {
         super.destroy();
         ObjectPool.instance.pushObj("enemy", this);
+
         Main.instance.gameView.mapMgr.pushEnemyToArr(egret.getTimer());
     }
 
@@ -305,6 +306,7 @@ class Enemy extends Role {
         this.hpTube.showHp();
       //  this.attribute.hpTube.updateHpLine();
         this.die = false;
+        this.attribute.totalExp = 0;
     }
 
     public destructor()

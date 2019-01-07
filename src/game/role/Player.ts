@@ -22,6 +22,7 @@ class Player extends Role {
 		super();
 		this.id = 0;
 		this.weapon = new Bow(this);
+		this.nickName = "我的名字"
 	}
 
 	protected createChildren() {
@@ -40,7 +41,7 @@ class Player extends Role {
 		this.hpTube.y = -37;
 		this.addChild(this.hpTube);
 		this.hpTube.showHp();
-		this.hpTube.showHpLine();
+		//this.hpTube.showHpLine();
 		this.hpTube.visible = true;
 
 		//初始化等级和基础配置

@@ -14,6 +14,7 @@ class HPTube extends eui.Component
     private hpGroup: eui.Rect;//放置血条线的容器
     private obj: Role;//挂载血条的对象
     private hpTempWid: number;
+    private oldHpMax:number=0;
 
     public constructor(obj: Role, skinName: string){
         super();
@@ -27,11 +28,16 @@ class HPTube extends eui.Component
     {
         let rate = this.obj.attribute.hp / this.obj.attribute.hpMax;
         this.hpMask.width = this.hpTempWid * rate;
+        if(this.oldHpMax != this.obj.attribute.hpMax){
+            this.oldHpMax = this.obj.attribute.hpMax;
+            this.updateHpLine(this.obj.attribute.hpMax);
+        }
+        // this.showHpLine();
     }
     /**添加血条分割线*/
-    public showHpLine(){
-        let start_x:number = this.hpFlow.x + 6 ;
-        let start_y:number = this.hpFlow.y + 7;
+    private showHpLine(){
+        let start_x:number = 0  ;
+        let start_y:number = 0 ;
         let lat_w:number = (this.hpFlow.width-(this.obj.attribute.hpMax/10 - 1)*2)/(this.obj.attribute.hpMax/10);//一格宽度
         for(let i:number = 0;i<this.obj.attribute.hpMax/10 - 1;i++){
              var line: egret.Bitmap = Util.createBitmap("hptube_line_png");
@@ -44,8 +50,8 @@ class HPTube extends eui.Component
     }
     /**根据最大血量刷新血条分割线*/
     public updateHpLine(MaxHP:number){
-        let start_x:number = this.hpFlow.x ;
-        let start_y:number = this.hpFlow.y ;
+        let start_x:number = 6 ;
+        let start_y:number = 7 ;
         let lat_w:number = (this.hpFlow.width-(MaxHP/(MaxHP*0.1) - 1)*1) /(MaxHP/(MaxHP*0.1));  //一格宽度
         if(this.hpGroup){
         this.hpGroup.removeChildren();
