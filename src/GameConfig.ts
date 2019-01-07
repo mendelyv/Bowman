@@ -14,6 +14,7 @@ class GameConfig {
     public static obstacalsConfig;//障碍配置表
     public static skillConfig;//技能配置表
     public static playerConfig;//玩家配置表
+    public static enemyConfig;//敌人配置表
 
     // http通讯地址,请自行填入自己的服务器地址，若有跨域问题则点开开发工具详情，勾选不校验合法域名
     private static headUrl: string = 'https://gmkun.vmobs.net';//正式服服务器地址

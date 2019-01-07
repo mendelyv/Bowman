@@ -48,7 +48,9 @@ enum SkillType{
     CriticalIntensive,//暴击强化
     AttackPowerIntensive,//攻击力强化
     DefenseIntensive,//防御强化
+    ResumeBloodIntensive,//回血加强
+    AddExpIntensive,//加经验加强
     SpeedIntensive,//移速强化
     Hemophagia,//攻击吸血
-    KillOthenAddBlood,
+    KillOthenAddBlood,//击杀回血
 }

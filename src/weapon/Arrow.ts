@@ -2,7 +2,7 @@
 
 /**
  * class name : Arrow
- * description : 弓箭
+ * description : 箭
  * time : 2018.12.26
  * @author : 杨浩然
  */

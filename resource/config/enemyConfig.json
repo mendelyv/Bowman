@@ -1,177 +1,177 @@
 {
     "description":"玩家属性配置表，包含人物的属性信息,hp：血量，speed：移速，power：攻击力,shape：体型,experience: 升级所需经验",
-    "player":{
+    "enemy":{
                 "1":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "2":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "3":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "4":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "5":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "6":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "7":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "8":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "9":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "10":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "11":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "12":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "13":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "14":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "15":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "16":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "17":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "18":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "19":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "20":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "21":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "22":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "23":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "24":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10
         },
                 "25":{
             "hp": 50,
-            "speed": 192,
+            "speed": 2.5,
             "shape": 1,
             "experience":100,
             "power":10

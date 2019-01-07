@@ -113,6 +113,7 @@ class BattleManager {
 		}
 
 		//玩家的碰撞检测，吃道具
+		
 		if(this.player && !this.player.die)
 		{
 			let hitPoint = MapManager.getHitItem(this.player,[MapItemType.PROP_BLOOD,MapItemType.PROP_EXP]);
@@ -173,27 +174,25 @@ class BattleManager {
 						if(enemy.die)
 						{
 							let role = this.getRoleOfID(bullet.id);
-							if(role) role.addExp(1);
+							if(role) 
+							{
+								role.addExp(1);
+								//击杀回血
+								if(role.attribute.KillOthenAddBlood)
+								{
+									role.resumeBlood(0.5 * role.attribute.hpMax);
+								}
+							}
 							let roleName = this.getRoleOfnickName(bullet.id);
 							Main.instance.gameView.addMsg(roleName + "杀死了"+this.enemys[i].nickName);
 						}
+
 						if(bullet.activeTime < 0)
 							ObjectPool.instance.pushObj(bullet.poolName, bullet);
 						break;
 					}
 				}
 			}
-
-			if(Util.isCircleHit(this.player,bullet,true))
-			{
-				if(Util.isHit(this.player,bullet,true))
-				{
-					this.player.doDamage(bullet.damage);
-					if(bullet.activeTime < 0)
-						ObjectPool.instance.pushObj(bullet.poolName, bullet);
-				}
-			}
-
 		}
 
 		//玩家弓箭的碰撞检测，敌人扣血等
@@ -219,6 +218,11 @@ class BattleManager {
 					if(this.enemys[j].die)
 					{
 						this.player.addExp(1);
+						//击杀回血
+						if(this.player.attribute.KillOthenAddBlood)
+						{
+							this.player.resumeBlood(0.5 * this.player.attribute.hpMax);
+						}
 						Main.instance.gameView.addMsg("你杀死了"+this.enemys[j].nickName);
 					}
 					if(bullet.activeTime < 0)
