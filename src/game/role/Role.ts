@@ -11,7 +11,8 @@ class Role extends eui.Component
 
 	public hpTube: HPTube;//角色的血量条
 	
-	public nickName:string;//角色昵称
+	public nickName:string; //角色昵称
+	public roleExp:number; //人物经验
 	public constructor() {
 		super();
 		this.attribute = new Attribute(this);

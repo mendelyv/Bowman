@@ -6,6 +6,8 @@ declare class JoystickSkin extends eui.Skin{
 }
 declare class PopWindowSkin extends eui.Skin{
 }
+declare class RankComponent extends eui.Skin{
+}
 declare class SkillComponentSkin extends eui.Skin{
 }
 declare class GameBGSkin extends eui.Skin{

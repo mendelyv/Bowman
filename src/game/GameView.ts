@@ -13,7 +13,7 @@ class GameView extends eui.Component {
     private expMaskWidth:number;//玩家经验遮罩的原始宽度
     public gameBg: GameBg;
     public gameEnd:GameEnd;//结束面板
-
+    public rankGroup:eui.Group;//排行面板
     private previousFrameTime: number = 0;
     private shootTime: number = 0;
     private shootDelay: number = 1000;
@@ -21,7 +21,7 @@ class GameView extends eui.Component {
     public mapMgr:MapManager;
     public enemyMgr:EnemyManager;
     public battleMgr:BattleManager;
-
+    private _rankpanel:RankPanel;
     
     public constructor() {
         super();
@@ -30,6 +30,7 @@ class GameView extends eui.Component {
     /**初始化*/
     public init() {
         this.initObjectPool();
+       
     }
   
     private initObjectPool() {
@@ -57,6 +58,16 @@ class GameView extends eui.Component {
         this.expMaskWidth = this.expMask.width;
         this.gameEnd.visible = false;
         this.initBroadcast();
+        this.initRankPanel();
+    }
+    /**初始化排行*/
+    private initRankPanel():void{
+         if(!this._rankpanel){
+            this._rankpanel = new RankPanel();
+            this._rankpanel.x = 0;
+            this._rankpanel.y = 0;
+            this.rankGroup.addChild(this._rankpanel);
+        }
     }
     /**初始化广播 */
     private initBroadcast():void{

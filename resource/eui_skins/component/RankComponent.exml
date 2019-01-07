@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RankComponent" width="400" height="300" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="bg" left="0" right="0" top="0" bottom="0" source="com_rank_bg_png" alpha="0.5"/>
+	<e:Group id="labels" left="0" right="0" top="0" bottom="0">
+		<e:Label text="#1     我是大老虎" x="147" y="68"/>
+		<e:Label text="#2     我是大老虎" x="157" y="78"/>
+		<e:Label text="#3     我是大老虎" x="167" y="88"/>
+		<e:Label text="#1     我是大老虎" x="177" y="98"/>
+		<e:Label text="#1     我是大老虎" x="187" y="108"/>
+		<e:Label text="#1     我是大老虎" x="197" y="118"/>
+		<e:layout>
+			<e:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
+		</e:layout>
+	</e:Group>
+</e:Skin>

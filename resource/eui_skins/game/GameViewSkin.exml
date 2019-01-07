@@ -24,7 +24,9 @@
 			<e:Image id="expFlow" x="85" y="17" source="enemyBlood_png" width="290" mask="{expMask}"/>
 			<e:Rect id="expMask" width="290" height="18" x="85" y="17"/>
 		</e:Panel>
+
 	</e:Group>
+	<e:Group id="rankGroup" width="322.67" height="285.33" x="1010.33" y="0" anchorOffsetY="0" anchorOffsetX="0" scaleX="1" scaleY="1"/>
 	<ns1:GameEnd id="gameEnd" x="0" y="0" skinName="GameEndSkin" touchEnabled="true" visible="false"/>
     
 </e:Skin>
