@@ -7,7 +7,7 @@
 
 	<e:Group id="elementGroup" left="0" right="0" top="0" bottom="0"/>
 	<e:Group id="roleGroup" left="0" right="0" top="0" bottom="0">
-		<ns1:Player id="player" skinName="RoleSkin" anchorOffsetX="50" anchorOffsetY="50" x="667" y="375" scaleX="1" scaleY="1"/>
+		<ns1:Player id="player" skinName="RoleSkin" anchorOffsetX="50" anchorOffsetY="50" scaleX="1" scaleY="1" horizontalCenter="0" verticalCenter="0"/>
 	</e:Group>
 	<e:Group id="uiGroup" left="0" right="0" top="0" bottom="0">
 		<ns1:Joystick id="joyL" skinName="JoystickSkin" anchorOffsetX="72.5" anchorOffsetY="72.5" alpha="0.3" scaleX="1" scaleY="1" x="152.5" y="597.5"/>

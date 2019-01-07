@@ -48,15 +48,17 @@ class GameView extends eui.Component {
         this.initEvents();
         this.joyL.resetON = true;//打开左手手柄重置数据的开关
         // this.showDiff();
+        this.gameBg.gameView = this;
         this.battleMgr = new BattleManager();
         this.battleMgr.player = this.player;
-        this.player.x = this.stage.stageWidth * 0.5;
-        this.player.y = this.stage.stageHeight * 0.5;
-        this.gameBg.gameView = this;
         this.mapMgr = new MapManager();
         this.enemyMgr = new EnemyManager();
         this.expMaskWidth = this.expMask.width;
         this.gameEnd.visible = false;
+
+        let pos = MapManager.getRandomEmptyPos();
+		this.gameBg.x = - pos.x;
+		this.gameBg.y = - pos.y;
         this.initBroadcast();
         this.initRankPanel();
     }
@@ -212,19 +214,19 @@ class GameView extends eui.Component {
                 if (this.player.parent)
                     this.player.parent.localToGlobal(this.player.x, this.player.y, point_);
                 let point = MapManager.getRowColOfMap(new egret.Point(point_.x, point_.y), true)
-                if (Math.abs(row - point.x) <= 1) {
-                    if (col == point.y) {
+                if (col == point.y) {
+                    if(Math.abs(row - point.x) <= 1)
+                    {
                         if (row < point.x && yAxis > 0) {
                             yAxis = 0;
-                        }
+                         }
                         else if (row > point.x && yAxis < 0) {
                             yAxis = 0;
                         }
                     }
-
                 }
-                if (Math.abs(col - point.y) <= 1) {
-                    if (row == point.x) {
+                if (row == point.x) {
+                    if (Math.abs(col - point.y) <= 1) {
                         if (col > point.y && xAxis > 0) {
                             xAxis = 0;
                         }
@@ -232,7 +234,6 @@ class GameView extends eui.Component {
                             xAxis = 0;
                         }
                     }
-
                 }
             }
 
@@ -289,31 +290,35 @@ class GameView extends eui.Component {
         //先清一下，省的技能图标累加
         this.skillComponents.removeChildren();
 
-        let skillLen = 4;
-        let used = new Array<boolean>(skillLen);
-        let skillID = Math.floor(Math.random() * 100 % skillLen);
-        used[skillID] = true;
-        let skill = new SkillComponent();
-        this.skillComponents.addChild(skill);
-        skill.init(skillID);
+        // let skillLen = 4;
+        // let used = new Array<boolean>(skillLen);
+        // let skillID = Math.floor(Math.random() * 100 % skillLen);
+        // used[skillID] = true;
+        // let skill = new SkillComponent();
+        // this.skillComponents.addChild(skill);
+        // skill.init(skillID);
 
-        do
-        {
-            skillID = Math.floor(Math.random() * 100 % skillLen);
-        }while(used[skillID]);
-        used[skillID] = true;        
-        skill = new SkillComponent();
-        this.skillComponents.addChild(skill);
-        skill.init(skillID);
+        // do
+        // {
+        //     skillID = Math.floor(Math.random() * 100 % skillLen);
+        // }while(used[skillID]);
+        // used[skillID] = true;        
+        // skill = new SkillComponent();
+        // this.skillComponents.addChild(skill);
+        // skill.init(skillID);
 
-        do
-        {
-            skillID = Math.floor(Math.random() * 100 % skillLen);
-        }while(used[skillID]);
-        used[skillID] = true;
-        skill = new SkillComponent();
-        this.skillComponents.addChild(skill);
-        skill.init(skillID);
+        // do
+        // {
+        //     skillID = Math.floor(Math.random() * 100 % skillLen);
+        // }while(used[skillID]);
+        // used[skillID] = true;
+        // skill = new SkillComponent();
+        // this.skillComponents.addChild(skill);
+        // skill.init(skillID);
+
+        // let skill = new SkillComponent();
+        // this.skillComponents.addChild(skill);
+        // skill.init(2);
     }
 
     //玩家死亡
@@ -351,7 +356,7 @@ class GameView extends eui.Component {
 
     public showPlayerLvExp()
     {
-        this.lvLabel.text = "Lv:" + this.player.attribute.Level;
+        this.lvLabel.text = "Lv:" + this.player.attribute.level;
         this.expMask.width = this.expMaskWidth*(this.player.attribute.exp / this.player.attribute.expMax);
     }
 

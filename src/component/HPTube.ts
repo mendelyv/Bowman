@@ -25,15 +25,15 @@ class HPTube extends eui.Component
     /** 显示血条 */
     public showHp()
     {
-        let rate = this.obj.attribute.HP / this.obj.attribute.MaxHP;
+        let rate = this.obj.attribute.hp / this.obj.attribute.hpMax;
         this.hpMask.width = this.hpTempWid * rate;
     }
     /**添加血条分割线*/
     public showHpLine(){
         let start_x:number = this.hpFlow.x + 6 ;
         let start_y:number = this.hpFlow.y + 7;
-        let lat_w:number = (this.hpFlow.width-(this.obj.attribute.MaxHP/10 - 1)*2)/(this.obj.attribute.MaxHP/10);//一格宽度
-        for(let i:number = 0;i<this.obj.attribute.MaxHP/10 - 1;i++){
+        let lat_w:number = (this.hpFlow.width-(this.obj.attribute.hpMax/10 - 1)*2)/(this.obj.attribute.hpMax/10);//一格宽度
+        for(let i:number = 0;i<this.obj.attribute.hpMax/10 - 1;i++){
              var line: egret.Bitmap = Util.createBitmap("hptube_line_png");
              line.width = 2;
              line.height = this.hpFlow.height;

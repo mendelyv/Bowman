@@ -3,64 +3,75 @@
 
 class Role extends eui.Component 
 {
+	public arrow: eui.Image;
+	public role_img: eui.Image;
+	public bubble_img: eui.Image;
+	public target: Role;
+	public weapon: Weapon;
+
 	public id: number;//人物编号，使用这个来区分人物
 
 	public die: boolean = false;
 
 	public attribute: Attribute;
-
 	public hpTube: HPTube;//角色的血量条
-	
-	public nickName:string; //角色昵称
-	public roleExp:number; //人物经验
+	public nickName:string;//角色昵称
 	public constructor() {
 		super();
 		this.attribute = new Attribute(this);
-		this.attribute.exp = 0;
-		this.attribute.expMax = 5;
-
 	}
 	protected createChildren() {
 		super.createChildren();
 	}
 
-	//根据等级设置角色数据
-	public setRoleLevel(level:number)
-	{
-		level = level > UserData.levelMax ? UserData.levelMax : level;
-		let playerConfig = GameConfig.playerConfig[level];
-		this.attribute.maxHp = playerConfig.hp;
-		this.resumeBlood(50);
-		this.attribute.critRate = playerConfig.critRate;
-		this.attribute.shieldPower = playerConfig.shieldPower;
-		this.attribute.speed = playerConfig.speed;
-		this.attribute.exp = 0;
-		this.attribute.expMax = playerConfig.experience;
-	}
 
-	//
+	/*被攻击，受伤害掉血
+	*@param damage: 敌人造成的伤害
+	*/   
 	public doDamage(damage: number) {
-		//伤害减去护甲
-		damage -= this.attribute.shieldPower;
-		damage = damage > 0 ? damage : 0;
+		//计算伤害satrt
+		damage *= 1 - Attribute.defenseArr[this.attribute.DefenseLv]; 
+		//end
 		this.attribute.hp -= damage;
 		this.attribute.hp = this.attribute.hp > 0 ? this.attribute.hp : 0;
 		if (this.hpTube) {
 			this.hpTube.showHp();
 		}
 	}
+	//对别人的伤害
+	public getDamage()
+	{
+		//基础攻击力 + 技能加成
+		let damage = this.attribute.power*(1 + Attribute.attackPowerArr[this.attribute.AttackPowerLv]);
+		//是否暴击
+		if(this.isCritical())
+		{
+			damage *= 2;
+		}
+		return damage;
+	}
+
+	//是否暴击，用以计算伤害
+	public isCritical()
+	{
+		let maxCount = 10000;
+		let count = Attribute.criticalArr[this.attribute.CriticalLv] * maxCount;
+		let num = Util.getRandomRange(1,maxCount);
+		if(num <= count)
+		{
+			return true;
+		}
+		return false;
+	}
 
 	public destroy() {
 		this.die = true;
-		// ObjectPool.instance.pushObj("enemy", this);
-		//20秒之后添加一个敌人
-
 	}
 
 	public resumeBlood(resumeValue: number)//回血
 	{
 		this.attribute.hp += resumeValue;
-		this.attribute.hp = this.attribute.hp < this.attribute.maxHp ? this.attribute.hp : this.attribute.maxHp;
+		this.attribute.hp = this.attribute.hp < this.attribute.hpMax ? this.attribute.hp : this.attribute.hpMax;
 		if (this.hpTube) {
 			this.hpTube.showHp();
 		}
@@ -78,15 +89,17 @@ class Role extends eui.Component
 		}
 	}
 
+	public lookAtTarget() { }
+
 	//与周围道具碰撞，吃道具
 	public getAroundProperty(property: Property) {
 		let propertyType = property.propertyType;
 		switch (propertyType) {
 			case MapItemType.PROP_BLOOD:
-				this.resumeBlood(10);
+				//this.resumeBlood(10);
 				break;
 			case MapItemType.PROP_EXP:
-				this.addExp(1);
+				//this.addExp(1);
 				break;
 		}
 	}
@@ -106,8 +119,9 @@ class Role extends eui.Component
 	}
 
 	/** 点击技能时增加的属性值 */
-	public addSkillProperty(skill: SkillComponent)
+	public addSkillProperty(skill: SkillType)
 	{
 		this.attribute.enable(skill);
 	}
+
 }
