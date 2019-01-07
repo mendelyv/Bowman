@@ -193,6 +193,31 @@ class BattleManager {
 					}
 				}
 			}
+
+			if(bullet.canDamage(this.player, true))
+			{
+				this.player.doDamage(bullet.damage);
+				let atk = this.getRoleOfID(bullet.id);
+				//吸血
+				if(atk)
+					if(atk.attribute.Hemophagia)
+						atk.resumeBlood(bullet.damage * 0.5);
+				if(this.player.die)
+				{	
+					let role = this.getRoleOfID(bullet.id);
+					if(role) 
+					{
+						role.addExp(1);
+						//击杀回血
+						if(role.attribute.KillOthenAddBlood)
+						{
+							role.resumeBlood(0.5 * role.attribute.hpMax);
+						}
+					}
+				}
+				if(bullet.activeTime < 0)
+					ObjectPool.instance.pushObj(bullet.poolName, bullet);
+			}
 		}
 
 		//玩家弓箭的碰撞检测，敌人扣血等
@@ -210,7 +235,7 @@ class BattleManager {
 				if(bullet.canDamage(enemy, false))
 				{
 					console.log(" hited ");
-					// enemy.doDamage(bullet.damage);
+					enemy.doDamage(bullet.damage);
 					//吸血
 					if(this.player.attribute.Hemophagia)
 						this.player.resumeBlood(bullet.damage * 0.5);

@@ -117,7 +117,7 @@ class EnemyAI
 
             case EnemyState.ATTACK:
                 this.obj.stopMove(false);
-                // this.obj.attack();
+                this.obj.attack();
                 this.attackCheck();
             break;
         
