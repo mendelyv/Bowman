@@ -23,7 +23,7 @@ class Player extends Role {
 		this.attribute.speed = 5;
 		this.attribute.angle = 0;
 		this.id = 0;
-		this.weapon = new Bow(this);
+		this.weapon = new Shotgun(this);
 	}
 
 	protected createChildren() {
