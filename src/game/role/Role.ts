@@ -198,10 +198,4 @@ class Role extends eui.Component
 		return arr;
 	}
 
-	/** 点击技能时增加的属性值 */
-	public addSkillProperty(skill: SkillType)
-	{
-		this.attribute.enable(skill);
-	}
-
 }
