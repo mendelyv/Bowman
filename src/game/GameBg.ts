@@ -107,14 +107,14 @@ class GameBg extends eui.Component {
 		
 	}
 
-	/** 添加弓箭
-	 * @param arrow ：弓箭对象
-	 * @param whos ：谁的弓箭  0玩家的，1敌人的
+	/** 添加子弹
+	 * @param bullet ：子弹
+	 * @param whos ：谁的子弹  0玩家的，1敌人的
 	 */
-	public addArrow(arrow: Arrow, whos: WhosArrow): number
+	public addBullet(bullet: Bullet, whos: WhosBullet): number
 	{
-		this.arrowGroup.addChild(arrow);
-		return this.gameView.battleMgr.addArrow(arrow, whos);
+		this.arrowGroup.addChild(bullet);
+		return this.gameView.battleMgr.addBullet(bullet, whos);
 	}
 
 	public destructor()

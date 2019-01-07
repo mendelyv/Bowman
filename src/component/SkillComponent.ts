@@ -8,52 +8,31 @@
  */
 class SkillComponent extends eui.Component
 {
-    public id: number = 0;//skill在配置文件中的编号
-
-    public addMaxHpValue: number = 0;//增加血量上限值
-    public addHpValue: number = 0;//增加血量
-    public addPowerValue: number = 0;//增加威力
-    public addRangeValue: number = 0;//增加射程
-    public addArrowNum: number = 0;//增加箭的数量
-    public hemophagia: boolean = false;//攻击吸血
-    public changeRes: string;//换弓箭资源
-
     private bg: eui.Image;
+    private skillType:SkillType;//技能类型
 
-    public constructor()
+    public constructor(skillType)
     {
         super();
+        this.skillType = skillType;
     }
 
     protected createChildren()
     {
-        this.skinName = "SkillComponentSkin";   
+        this.skinName = "SkillComponentSkin";
+        this.init();
     }
 
-    public init(id: number)
+    public init()
     {
-        let config = GameConfig.skillConfig[id];
-        if(!config) return;
-
-        this.bg.source = config.skillBgRes;
-        
-        this.addMaxHpValue = config.addMaxHpValue;
-        this.addHpValue = config.addHpValue;
-        this.addPowerValue = config.addPowerValue;
-        this.addRangeValue = config.addRangeValue;
-        this.addArrowNum = config.addArrowNum;
-        this.hemophagia = config.hemophagia;
-        this.changeRes = config.changeRes;
-
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.enable, this);
+        let index = this.skillType as number;
+        this.bg.source = "skill_"+index+"_jpg";
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBtnClick, this);
     }
 
-    public enable()
+    public onBtnClick()
     {
-        this.parent.visible = false;
-        this.parent.removeChildren();
-        let player = Main.instance.gameView.player;
-        //player.addSkillProperty(this);
+        Main.instance.gameView.playerAddSkill(this.skillType);
     }
 
 

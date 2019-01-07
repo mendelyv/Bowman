@@ -1,9 +1,9 @@
 {
 	"groups": [
-		{
-			"keys": "element_common_png,element_common_0_png,element_common_1_png,element_common_2_png,element_common_3_png,element_guazi_png,element_juzi_png,element_penshe_png,element_weight_png,end_button_continue_png,end_button_share_png,end_eat_font_png,end_nianhuo_icon_png,end_num_icon_png,end_rank_font_png,end_rank_icon_png,end_time_font_png,end_weight_font_png,end_lose_bg_png,end_lose_button_close_png,end_lose_font_icon_png,end_lose_tips_0_png,end_lose_tips_1_png,end_win_bg_png,end_win_button_close_png,end_win_font_icon_png,end_win_tips_png,game_broadcast_bg_png,game_button_jet_png,game_button_split_png,game_exploits_icon_png,game_exploits_text_png,game_handle_circle_png,game_handle_circleFrame_png,game_rank_bg_png,game_rank_button_png,game_rank_icon_png,game_spore_dir_png,game_title_bg_png,game_title_rope_png,game_weight_text_png,loading_bar_png,loading_bar_bg_png,loading_bg_jpg,loading_line_png,loading_logo_png,login_head_bg_png,login_random_head_button_png,login_random_name_button_png,login_start_button_png,login_text_bar_png,paopao_0_png,paopao_1_png,paopao_10_png,paopao_11_png,paopao_2_png,paopao_3_png,paopao_4_png,paopao_5_png,paopao_6_png,paopao_7_png,paopao_8_png,paopao_9_png,role_0_png,role_1_png,role_10_png,role_11_png,role_2_png,role_3_png,role_4_png,role_5_png,role_6_png,role_7_png,role_8_png,role_9_png,scence_json,map_block_png,obs_block_png,skillConfig_json,map_png,car0_png,enemyBloodBg_png,enemyBlood_png,hptube_line_png,obstacals2_json,obstacals1_json,skill_hemophagia_png,skill_addRange_png,skill_addPower_png,skill_addHp_png,skill_addArrow_png,wordConfig_json,skill_addArrow2_png,skill_addHp2_png,skill_addPower2_png,skill_addRange2_png,skill_hemophagia2_png,red_num_json,playerConfig_json,map_bg_png,default.thm_json,com_rank_bg_png",
-			"name": "preload"
-		}
+    {
+      "keys": "element_common_png,element_common_0_png,element_common_1_png,element_common_2_png,element_common_3_png,element_guazi_png,element_juzi_png,element_penshe_png,element_weight_png,end_button_continue_png,end_button_share_png,end_eat_font_png,end_nianhuo_icon_png,end_num_icon_png,end_rank_font_png,end_rank_icon_png,end_time_font_png,end_weight_font_png,end_lose_bg_png,end_lose_button_close_png,end_lose_font_icon_png,end_lose_tips_0_png,end_lose_tips_1_png,end_win_bg_png,end_win_button_close_png,end_win_font_icon_png,end_win_tips_png,game_broadcast_bg_png,game_button_jet_png,game_button_split_png,game_exploits_icon_png,game_exploits_text_png,game_handle_circle_png,game_handle_circleFrame_png,game_rank_bg_png,game_rank_button_png,game_rank_icon_png,game_spore_dir_png,game_title_bg_png,game_title_rope_png,game_weight_text_png,loading_bar_png,loading_bar_bg_png,loading_bg_jpg,loading_line_png,loading_logo_png,login_head_bg_png,login_random_head_button_png,login_random_name_button_png,login_start_button_png,login_text_bar_png,paopao_0_png,paopao_1_png,paopao_10_png,paopao_11_png,paopao_2_png,paopao_3_png,paopao_4_png,paopao_5_png,paopao_6_png,paopao_7_png,paopao_8_png,paopao_9_png,role_0_png,role_1_png,role_10_png,role_11_png,role_2_png,role_3_png,role_4_png,role_5_png,role_6_png,role_7_png,role_8_png,role_9_png,scence_json,map_block_png,obs_block_png,skillConfig_json,map_png,car0_png,enemyBloodBg_png,enemyBlood_png,hptube_line_png,obstacals2_json,obstacals1_json,wordConfig_json,red_num_json,playerConfig_json,map_bg_png,default.thm_json,com_rank_bg_png,skill_1_jpg,skill_2_jpg,skill_9_jpg,skill_7_jpg,skill_5_jpg,skill_3_jpg,skill_4_jpg,skill_6_jpg,skill_8_jpg,enemyConfig_json,shotgunBullet_png",
+      "name": "preload"
+    }
 	],
 	"resources": [
 		{
@@ -442,56 +442,6 @@
 			"name": "wordConfig_json"
 		},
 		{
-			"url": "assets/game/skill_addArrow.png",
-			"type": "image",
-			"name": "skill_addArrow_png"
-		},
-		{
-			"url": "assets/game/skill_addHp.png",
-			"type": "image",
-			"name": "skill_addHp_png"
-		},
-		{
-			"url": "assets/game/skill_addPower.png",
-			"type": "image",
-			"name": "skill_addPower_png"
-		},
-		{
-			"url": "assets/game/skill_addRange.png",
-			"type": "image",
-			"name": "skill_addRange_png"
-		},
-		{
-			"url": "assets/game/skill_hemophagia.png",
-			"type": "image",
-			"name": "skill_hemophagia_png"
-		},
-		{
-			"url": "assets/game/skill_addArrow.png",
-			"type": "image",
-			"name": "skill_addArrow2_png"
-		},
-		{
-			"url": "assets/game/skill_addHp.png",
-			"type": "image",
-			"name": "skill_addHp2_png"
-		},
-		{
-			"url": "assets/game/skill_addPower.png",
-			"type": "image",
-			"name": "skill_addPower2_png"
-		},
-		{
-			"url": "assets/game/skill_addRange.png",
-			"type": "image",
-			"name": "skill_addRange2_png"
-		},
-		{
-			"url": "assets/game/skill_hemophagia.png",
-			"type": "image",
-			"name": "skill_hemophagia2_png"
-		},
-		{
 			"url": "assets/game/red_num.json",
 			"type": "sheet",
 			"name": "red_num_json",
@@ -513,9 +463,64 @@
 			"name": "default.thm_json"
 		},
 		{
-			"name": "com_rank_bg_png",
+			"url": "assets/game/com_rank_bg.png",
 			"type": "image",
-			"url": "assets/game/com_rank_bg.png"
+			"name": "com_rank_bg_png"
+		},
+		{
+			"url": "assets/game/skill_2.jpg",
+			"type": "image",
+			"name": "skill_2_jpg"
+		},
+		{
+			"url": "assets/game/skill_3.jpg",
+			"type": "image",
+			"name": "skill_3_jpg"
+		},
+		{
+			"url": "assets/game/skill_4.jpg",
+			"type": "image",
+			"name": "skill_4_jpg"
+		},
+		{
+			"url": "assets/game/skill_5.jpg",
+			"type": "image",
+			"name": "skill_5_jpg"
+		},
+		{
+			"url": "assets/game/skill_6.jpg",
+			"type": "image",
+			"name": "skill_6_jpg"
+		},
+		{
+			"url": "assets/game/skill_7.jpg",
+			"type": "image",
+			"name": "skill_7_jpg"
+		},
+		{
+			"url": "assets/game/skill_8.jpg",
+			"type": "image",
+			"name": "skill_8_jpg"
+		},
+		{
+			"url": "assets/game/skill_9.jpg",
+			"type": "image",
+			"name": "skill_9_jpg"
+		},
+		{
+			"url": "assets/game/skill_1.jpg",
+			"type": "image",
+			"name": "skill_1_jpg"
+		},
+    {
+      "url": "assets/game/shotgunBullet.png",
+      "type": "image",
+      "name": "shotgunBullet_png"
+    },
+    {
+			"url": "config/enemyConfig.json",
+			"type": "json",
+			"name": "enemyConfig_json"
 		}
 	]
 }

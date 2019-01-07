@@ -280,6 +280,7 @@ class Main extends eui.UILayer {
         let index = Util.getRandomRange(1, 2);
         GameConfig.obstacalsConfig = RES.getRes("obstacals" + index + "_json");
         GameConfig.playerConfig = RES.getRes("playerConfig_json");
+        GameConfig.enemyConfig = RES.getRes("enemyConfig_json");
         GameConfig.WORD_CONFIG_DATA = RES.getRes("wordConfig_json");
     }
 

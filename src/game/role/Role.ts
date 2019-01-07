@@ -148,10 +148,57 @@ class Role extends eui.Component
 		}
 	}
 
-	/** 点击技能时增加的属性值 */
-	public addSkillProperty(skill: SkillType)
+	//获取技能中的 当前没有，或可以升级的技能    先只考虑了通用的
+	public getRandomSkills():Array<SkillType>
 	{
-		this.attribute.enable(skill);
+		let arr = new Array<SkillType>();
+		if(this.attribute.AttackTypeLv < Attribute.attackTypeArr.length - 1)
+		{
+			arr.push(SkillType.AttackTypeIntensive);
+		}
+		if(this.attribute.CriticalLv < Attribute.criticalArr.length - 1)
+		{
+			arr.push(SkillType.CriticalIntensive);
+		}
+		if(this.attribute.AttackPowerLv < Attribute.attackPowerArr.length - 1)
+		{
+			arr.push(SkillType.AttackPowerIntensive);
+		}
+		if(this.attribute.DefenseLv < Attribute.defenseArr.length - 1)
+		{
+			arr.push(SkillType.DefenseIntensive);
+		}
+		if(this.attribute.ResumeBloodLv < Attribute.resumeBloodArr.length - 1)
+		{
+			arr.push(SkillType.ResumeBloodIntensive);
+		}
+		if(this.attribute.AddExpLv < Attribute.addExpArr.length - 1)
+		{
+			arr.push(SkillType.AddExpIntensive);
+		}
+		if(!this.attribute.SpeedIntensive)
+		{
+			arr.push(SkillType.SpeedIntensive);
+		}
+		if(!this.attribute.Hemophagia)
+		{
+			arr.push(SkillType.Hemophagia);
+		}
+		if(!this.attribute.KillOthenAddBlood)
+		{
+			arr.push(SkillType.KillOthenAddBlood);
+		}
+		
+		if(arr.length <= 3)
+		{
+			//
+		}
+		else
+		{
+			arr = Util.randomArrayOrder(arr);
+			arr.splice(3,arr.length - 3);
+		}
+		return arr;
 	}
 
 }

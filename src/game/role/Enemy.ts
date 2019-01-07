@@ -7,7 +7,6 @@
  * @author : 杨浩然
  */
 class Enemy extends Role {
-
     // public birthPoint: egret.Point;
     public enemys: Array<Enemy>;//可以攻击的目标
     // public range: number = 300;//射程
@@ -27,7 +26,7 @@ class Enemy extends Role {
 
     public constructor() {
         super();
-        this.attribute.speed = 2.5;
+        //this.attribute.speed = 2.5;
         this.ai = new EnemyAI(this);
         this.weapon = new Bow(this);
     }
@@ -58,8 +57,8 @@ class Enemy extends Role {
         if (!this.hpTube) {
             this.hpTube = new HPTube(this, "HPTubeSkin");
         }
-        this.attribute.hpMax = 80;
-        this.attribute.hp = 80;
+        // this.attribute.hpMax = 80;
+        // this.attribute.hp = 80;
         this.hpTube.anchorOffsetX = this.hpTube.width * 0.5;
         this.hpTube.anchorOffsetY = this.hpTube.height * 0.5;
         this.anchorOffsetX = this.width * 0.5;
@@ -74,6 +73,9 @@ class Enemy extends Role {
         //知道自己的敌人是谁
         this.enemys = Main.instance.gameView.battleMgr.enemys;
         // this.enemys.push(Main.instance.gameView.player);
+
+        this.attribute.level = 1;
+        this.setBaseAttOfLevel();
     }
     /** 转向 */
     public moveToByAngle(angle: number): void {
@@ -89,7 +91,7 @@ class Enemy extends Role {
      */
     public move(xPos: number, yPos: number, angle: number, Dis: number) {
         egret.Tween.removeTweens(this);
-        let time = (Dis / this.attribute.speed) * 1000 * 0.02;
+        let time = (Dis / this.getSpeed()) * 1000 * 0.02;
         xPos += Math.cos(angle) * Dis;
         yPos += Math.sin(angle) * Dis;
         var self = this;
@@ -112,7 +114,7 @@ class Enemy extends Role {
         }
         let target = MapManager.getMapItemPos(point.y, point.x);
         let dis = egret.Point.distance(new egret.Point(this.x, this.y), target);
-        let time = (dis / this.attribute.speed) * 1000 * 0.02;
+        let time = (dis / this.getSpeed()) * 1000 * 0.02;
         this.moveTween = egret.Tween.get(this).to({ x: target.x, y: target.y }, time)
             .call(function () {
                 this.pathIndex++;
@@ -268,22 +270,42 @@ class Enemy extends Role {
     public levelUp()
     {
         super.levelUp();
-
-        // //随机一个技能给怪
-        // let id = Math.floor(Math.random() * 100 % 4);
-        // // console.log(" ===== " + id + " ===== ");
-        // let config = GameConfig.skillConfig[id];
-        // //让技能生效
-        // this.attribute.enable(config);
-    }
-
-    ////扣血类型，0是玩家，1是敌人
-    public doDamage(damage: number) {
-        super.doDamage(damage);
-        if (this.attribute.hp == 0) {
-            this.destroy();
+        this.setBaseAttOfLevel();
+        let skillArr = this.getRandomSkills();
+        if(skillArr.length == 0)
+        {
+            //没有技能了
         }
+        else{
+            this.attribute.enable(skillArr[0]);
+        }
+
     }
+
+	//根据角色等级设置基础属性
+	public setBaseAttOfLevel()
+	{	
+		let index = this.attribute.level;
+		let enemyConfig = GameConfig.enemyConfig["enemy"][index.toString()];
+		if(enemyConfig)
+		{
+			this.attribute.exp = 0;
+			this.attribute.expMax = enemyConfig.experience;
+			this.attribute.speed = enemyConfig.speed;
+			this.attribute.power = enemyConfig.power;
+			let lastHpMax = this.attribute.hpMax;
+			this.attribute.hpMax = enemyConfig.hp;
+
+			//设置当前血量
+			let resumeValue = this.attribute.hpMax - lastHpMax;
+			this.resumeBlood(resumeValue,true);
+		}
+		else
+		{
+			console.log("setBaseAttOfLevel error");
+		}
+	}
+
     public destroy() {
         super.destroy();
         ObjectPool.instance.pushObj("enemy", this);
@@ -301,10 +323,11 @@ class Enemy extends Role {
     public reset()
     {
         this.ai.start();
-        this.attribute.hp = 80;
-        this.attribute.hpMax = 80;
+        this.attribute.level = 1;
+        this.setBaseAttOfLevel();
+        this.attribute.hp = this.attribute.hpMax;
         this.hpTube.showHp();
-      //  this.attribute.hpTube.updateHpLine();
+        this.attribute.clearAllSkills();
         this.die = false;
         this.attribute.totalExp = 0;
     }

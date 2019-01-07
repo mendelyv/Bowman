@@ -37,7 +37,7 @@ class GameView extends eui.Component {
         let property = new Property();
         ObjectPool.instance.createObjectPool("property", property);
         let arrow = new Arrow();
-        ObjectPool.instance.createObjectPool("arrow", arrow);
+        ObjectPool.instance.createObjectPool(arrow.poolName, arrow);
         let enemy = new Enemy();
         ObjectPool.instance.createObjectPool("enemy", enemy);
     }
@@ -61,11 +61,19 @@ class GameView extends eui.Component {
 		this.gameBg.x = - pos.x;
 		this.gameBg.y = - pos.y;
         this.initBroadcast();
+        
+        // ===== Test Code start =====
+        let shape = Util.drawCircle(300, Util.s_colors.red);
+        this.player.addChild(shape);
+        shape.x = this.player.width / 2;
+        shape.y = this.player.height / 2;
+        // ===== Test Code end =====
+
         this.updateRankPanel();
     }
     /**刷新排行*/
     public updateRankPanel():void{
-         if(!this._rankpanel){
+        if(!this._rankpanel){
             this._rankpanel = new RankPanel();
             this._rankpanel.x = 0;
             this._rankpanel.y = 0;
@@ -73,6 +81,7 @@ class GameView extends eui.Component {
         }
         this._rankpanel.updateView();
     }
+    
     /**初始化广播 */
     private initBroadcast():void{
           if (!this._broadcast) {
@@ -291,36 +300,29 @@ class GameView extends eui.Component {
 
         //先清一下，省的技能图标累加
         this.skillComponents.removeChildren();
+        let skillArr = this.player.getRandomSkills();
+        if(skillArr.length == 0 )
+        {
+            //技能加完了
+            
+        }
+        else
+        {
+            for(let i = 0;i < skillArr.length ; ++i)
+            {
+                let skill = new SkillComponent(skillArr[i]);
+                this.skillComponents.addChild(skill);
+            }
+        }
+    }
 
-        // let skillLen = 4;
-        // let used = new Array<boolean>(skillLen);
-        // let skillID = Math.floor(Math.random() * 100 % skillLen);
-        // used[skillID] = true;
-        // let skill = new SkillComponent();
-        // this.skillComponents.addChild(skill);
-        // skill.init(skillID);
+    
+    public playerAddSkill(skillType:SkillType)
+    {
+        this.skillComponents.visible = false;
+        this.skillComponents.removeChildren();
 
-        // do
-        // {
-        //     skillID = Math.floor(Math.random() * 100 % skillLen);
-        // }while(used[skillID]);
-        // used[skillID] = true;        
-        // skill = new SkillComponent();
-        // this.skillComponents.addChild(skill);
-        // skill.init(skillID);
-
-        // do
-        // {
-        //     skillID = Math.floor(Math.random() * 100 % skillLen);
-        // }while(used[skillID]);
-        // used[skillID] = true;
-        // skill = new SkillComponent();
-        // this.skillComponents.addChild(skill);
-        // skill.init(skillID);
-
-        // let skill = new SkillComponent();
-        // this.skillComponents.addChild(skill);
-        // skill.init(2);
+        this.player.attribute.enable(skillType);
     }
 
     //玩家死亡
