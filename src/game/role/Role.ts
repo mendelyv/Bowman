@@ -25,16 +25,43 @@ class Role extends eui.Component
 	}
 
 
-	//
+	/*被攻击，受伤害掉血
+	*@param damage: 敌人造成的伤害
+	*/   
 	public doDamage(damage: number) {
 		//计算伤害satrt
-		damage = damage > 0 ? damage : 0;
+		damage *= 1 - Attribute.defenseArr[this.attribute.DefenseLv]; 
 		//end
 		this.attribute.hp -= damage;
 		this.attribute.hp = this.attribute.hp > 0 ? this.attribute.hp : 0;
 		if (this.hpTube) {
 			this.hpTube.showHp();
 		}
+	}
+	//对别人的伤害
+	public getDamage()
+	{
+		//基础攻击力 + 技能加成
+		let damage = this.attribute.power*(1 + Attribute.attackPowerArr[this.attribute.AttackPowerLv]);
+		//是否暴击
+		if(this.isCritical())
+		{
+			damage *= 2;
+		}
+		return damage;
+	}
+
+	//是否暴击，用以计算伤害
+	public isCritical()
+	{
+		let maxCount = 10000;
+		let count = Attribute.criticalArr[this.attribute.CriticalLv] * maxCount;
+		let num = Util.getRandomRange(1,maxCount);
+		if(num <= count)
+		{
+			return true;
+		}
+		return false;
 	}
 
 	public destroy() {
@@ -96,4 +123,5 @@ class Role extends eui.Component
 	{
 		this.attribute.enable(skill);
 	}
+
 }
