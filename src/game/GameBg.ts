@@ -68,8 +68,8 @@ class GameBg extends eui.Component {
 		//先加上视口的宽高
 		this.width = MapManager.cellPix * MapManager.colMax + this.stage.stageWidth;
 		this.height = MapManager.cellPix * MapManager.rowMax + this.stage.stageHeight;
-		MapManager.offsetX = this.stage.stageWidth * 0.5;
-		MapManager.offsetY = this.stage.stageHeight * 0.5;
+		MapManager.offsetX = StageUtils.WIN_WIDTH * 0.5;
+		MapManager.offsetY = StageUtils.WIN_HEIGHT * 0.5;
 		this.mapBG.width = this.width;
 		this.mapBG.height = this.height;
 	}

@@ -9,14 +9,16 @@
 class Weapon
 {
     // public power: number;
-    public range: number;
+    public range: number;//武器攻击距离
     public type;
-    public level: number;
+    public level: number;//等级
+    
 
     //攻击控制
-    private previousFrameTime: number = 0;
-    private shootTime: number = 0;
-    private shootDelay: number = 1000;
+    protected shootDelay: number = 1000;//攻速
+    protected previousFrameTime: number = 0;
+    protected shootTime: number = 0;
+    
 
     protected obj: Role;//持有这个武器的对象
 
@@ -47,9 +49,9 @@ class Weapon
     }
 
     /** 升级 */
-    public upLevel()
+    public setLevel(lv:number)
     {
-        this.level++;
+        this.level = lv;
     }
 
 

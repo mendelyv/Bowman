@@ -79,6 +79,7 @@ class Attribute extends BaseAttribute
             case SkillType.AttackTypeIntensive://武器等级
                 this.AttackTypeLv++;
                 this.AttackTypeLv = this.AttackTypeLv < Attribute.attackTypeArr.length - 1 ? this.AttackTypeLv : Attribute.attackTypeArr.length - 1;
+                this.obj.weapon.setLevel(Attribute.attackTypeArr[this.AttackTypeLv]);
                 break;
             case SkillType.CriticalIntensive://暴击
                 this.CriticalLv++;

@@ -58,16 +58,10 @@ class GameView extends eui.Component {
         this.gameEnd.visible = false;
 
         let pos = MapManager.getRandomEmptyPos();
-		this.gameBg.x = - pos.x;
-		this.gameBg.y = - pos.y;
+		this.gameBg.x = StageUtils.WIN_WIDTH * 0.5 - pos.x;
+		this.gameBg.y = StageUtils.WIN_HEIGHT * 0.5 - pos.y;
         this.initBroadcast();
         
-        // ===== Test Code start =====
-        let shape = Util.drawCircle(300, Util.s_colors.red);
-        this.player.addChild(shape);
-        shape.x = this.player.width / 2;
-        shape.y = this.player.height / 2;
-        // ===== Test Code end =====
         if(!this._rankpanel){
             this._rankpanel = new RankPanel();
             this._rankpanel.x = 0;

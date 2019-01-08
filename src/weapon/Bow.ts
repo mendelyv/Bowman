@@ -12,6 +12,7 @@ class Bow extends Weapon
     private static MAX_LEVEL = 5;
     /** 弓箭数量 */
     public arrowNum: number;
+    public speed: number;
     public res: string;
 
     public constructor(obj: Role)
@@ -19,6 +20,7 @@ class Bow extends Weapon
         super(obj);
         this.type = WeaponType.BOW;
         this.arrowNum = 1;
+        this.speed = 150;
         this.res = "game_title_rope_png";
     }
 
@@ -74,6 +76,7 @@ class Bow extends Weapon
                     arrow.y = targetPoint.y;
                     arrow.rotation = rotations[i];
 
+                    arrow.speed = this.speed;
                     arrow.moveFrom(targetPoint.x, targetPoint.y, (arrow.rotation - 90) * Math.PI / 180, this.range);
                 }
                 // ===== 主玩家攻击 end =====
@@ -127,6 +130,8 @@ class Bow extends Weapon
                     arrow.x = this.obj.x;
                     arrow.y = this.obj.y;
                     arrow.rotation = rotations[i];
+
+                    arrow.speed = this.speed;
                     arrow.moveFrom(this.obj.x, this.obj.y, (arrow.rotation - 90) * Math.PI / 180, this.range);
                 }
 
@@ -135,11 +140,17 @@ class Bow extends Weapon
         }
     }
 
-    public upLevel()
+    public setLevel(lv:number)
     {
-        super.upLevel();
-        if(this.level > Bow.MAX_LEVEL)
-            this.level = Bow.MAX_LEVEL;
+        super.setLevel(lv);
+        this.setWeaponDataOfLv();
+    }
+
+    private setWeaponDataOfLv()
+    {
+        this.range = (this.level - 1) * 30 + 300;
+        this.shootTime = 1000 - (this.level - 1) * 100;
+        this.speed = (this.level - 1) * 15 + 150;
     }
 
 //class end
