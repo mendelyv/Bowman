@@ -55,7 +55,7 @@ class BattleManager {
 	{
 		enemy.enemys = this.enemys;
 		Util.push(this.enemys,enemy);
-		Util.push(this.roleArray,enemy);
+		this.roleArray.push(enemy);;
 	}
 
 	/** 添加弓箭
@@ -175,18 +175,18 @@ class BattleManager {
 
 						if(enemy.die)
 						{
+							this.removeEnemyById(enemy.id);
 							let role = this.getRoleOfID(bullet.id);
 							if(role) 
-							{
+							{	
 								role.addExp(1);
 								//击杀回血
 								if(role.attribute.KillOthenAddBlood)
 								{
 									role.resumeBlood(0.5 * role.attribute.hpMax);
 								}
+							Main.instance.gameView.addMsg(role.nickName + "杀死了"+enemy.nickName);
 							}
-							let roleName = this.getRoleOfnickName(bullet.id);
-							Main.instance.gameView.addMsg(roleName + "杀死了"+this.enemys[i].nickName);
 						}
 
 						if(bullet.activeTime < 0)
@@ -206,9 +206,11 @@ class BattleManager {
 						atk.resumeBlood(bullet.damage * 0.5);
 				if(this.player.die)
 				{	
+					this.removeEnemyById(this.player.id);
 					let role = this.getRoleOfID(bullet.id);
 					if(role) 
 					{
+						
 						role.addExp(1);
 						//击杀回血
 						if(role.attribute.KillOthenAddBlood)
@@ -244,6 +246,7 @@ class BattleManager {
 
 					if(this.enemys[j].die)
 					{
+						this.removeEnemyById(this.enemys[j].id);
 						this.player.addExp(1);
 						//击杀回血
 						if(this.player.attribute.KillOthenAddBlood)
@@ -293,7 +296,18 @@ class BattleManager {
 		}
 		return null;
 	}
-
+	/**根据ID移除敌人*/
+	public removeEnemyById(id:number){
+		for(let i= 0;i<this.roleArray.length;i++){
+			let role = this.roleArray[i];
+			if(!role) continue;
+			if(role.id == id){
+				this.roleArray[i] = null;
+				this.roleArray.splice(i,1);
+				
+			}
+		}
+	}
 	public destructor()
 	{
 		for(let i = 0 ;i < this.bulletsEnemy.length;i++)
