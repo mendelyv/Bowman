@@ -236,7 +236,7 @@ class BattleManager {
 				}
 				if(bullet.canDamage(enemy, false))
 				{
-					console.log(" hited ");
+					// console.log(bullet.hashCode + " hited ");
 					enemy.doDamage(bullet.damage);
 					//吸血
 					if(this.player.attribute.Hemophagia)

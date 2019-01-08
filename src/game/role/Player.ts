@@ -20,7 +20,7 @@ class Player extends Role {
 	public constructor() {
 		super();
 		this.id = 0;
-		this.weapon = new Bow(this);
+		this.weapon = new Shotgun(this);
 		this.nickName = "我的名字"
 	}
 

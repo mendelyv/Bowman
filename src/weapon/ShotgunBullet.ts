@@ -16,6 +16,7 @@ class ShotgunBullet extends Bullet
     public angle: number;
 
     private timer: egret.Timer;
+    private damagedRoleID: Array<number>;
 
     public constructor(range: number, angle: number, time: number)
     {
@@ -29,11 +30,18 @@ class ShotgunBullet extends Bullet
         this.display = new egret.Bitmap(RES.getRes("shotgunBullet_png"));
         this.addChild(this.display);
         this.poolName = "shotgunBullet";
+        this.damagedRoleID = new Array<number>();
     }
 
-    public canDamage(obj: any, needTrans: boolean)
+    public canDamage(obj: Role, needTrans: boolean)
     {
         super.canDamage(obj, needTrans);
+
+        //做一个检测，防止同一个单位多次伤害
+        if(this.damagedRoleID.length > 0)
+            if(this.damagedRoleID.indexOf(obj.id) >= 0)
+                return false;
+
         //如果圆形碰撞了
         if(Util.isCircleHit(obj, this, true, obj.width, this.range))
         {
@@ -52,7 +60,7 @@ class ShotgunBullet extends Bullet
             let theta = Math.asin(x / l) * (180 / Math.PI);//碰撞对象的坐标与扇形圆心的坐标夹角
             
             //是否补角判断
-            if (y < 0) 
+            if (y > 0) 
             {
                 if (theta < 0) theta = -180 - theta;
                 else theta = 180 - theta;
@@ -62,7 +70,10 @@ class ShotgunBullet extends Bullet
             let limitR = this.rotation + this.angle/ 2;
             
             if(limitL < theta && theta < limitR)
+            {
+                this.damagedRoleID.push(obj.id);
                 return true;
+            }
             else
                 return false;
         }
@@ -90,7 +101,7 @@ class ShotgunBullet extends Bullet
                 }break;
             }
         }
-
+        this.damagedRoleID = [];
     }
 
     /** 存活周期已到 */
@@ -103,7 +114,7 @@ class ShotgunBullet extends Bullet
         {
             this.timer.stop();
             if(this.timer.hasEventListener(egret.TimerEvent.TIMER_COMPLETE))
-                this.timer.removeEventListener(egret.TimerEvent.TIMER_COMPLETE, this.destructor, this);
+                this.timer.removeEventListener(egret.TimerEvent.TIMER_COMPLETE, this.lifeOut, this);
         }
         this.timer = null;
         ObjectPool.instance.pushObj(this.poolName, this);
@@ -111,6 +122,7 @@ class ShotgunBullet extends Bullet
 
     public destructor()
     {
+        // console.log(this.hashCode + "  destructor  ");
         if(this.parent)
             this.parent.removeChild(this);
         if(this.whos != WhosBullet.NONE)
@@ -130,6 +142,7 @@ class ShotgunBullet extends Bullet
                 }break;
             }
         }
+        this.damagedRoleID = null;
     }
 
 //class end
