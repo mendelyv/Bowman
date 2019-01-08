@@ -89,11 +89,11 @@ class RankItem extends egret.DisplayObjectContainer{
 
     private drawSelf(item_w:number,flag:number,name:string,totalExp:number){
       this._comRankTxt = Util.createText("#"+(flag+1),item_w*0.01,this._itemH - 38,30,Util.s_colors.white,false,egret.HorizontalAlign.LEFT); 
-      this._comRankTxt.textColor = Util.s_colors.black;
+      this._comRankTxt.textColor = Util.s_colors.white;
       this._comRankTxt.textAlign = egret.HorizontalAlign.LEFT;
       this.addChild(this._comRankTxt);
       this._comNickNameTxt = Util.createText(name + "    "+totalExp,this._comRankTxt.x + 38,this._itemH - 38,30,Util.s_colors.white,false,egret.HorizontalAlign.LEFT); 
-      this._comNickNameTxt.textColor = Util.s_colors.black;
+      this._comNickNameTxt.textColor = Util.s_colors.white;
       this._comNickNameTxt.textAlign = egret.HorizontalAlign.LEFT;
       this.addChild(this._comNickNameTxt);
     }
