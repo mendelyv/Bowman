@@ -16,7 +16,7 @@ class RankPanel extends egret.DisplayObjectContainer
         let rank_bg:egret.Bitmap = Util.createBitmap("com_rank_bg_png");
         rank_bg.width = StageUtils.WIN_WIDTH * 0.55;
         rank_bg.height = StageUtils.WIN_HEIGHT * 0.35;
-        rank_bg.alpha = 0.3;
+        rank_bg.alpha = 0.1;
         let list_w:number = rank_bg.width;
         let list_h:number = rank_bg.height * 0.8;
         //遮罩
