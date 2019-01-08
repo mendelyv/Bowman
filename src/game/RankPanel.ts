@@ -16,7 +16,7 @@ class RankPanel extends egret.DisplayObjectContainer
         let rank_bg:egret.Bitmap = Util.createBitmap("com_rank_bg_png");
         rank_bg.width = StageUtils.WIN_WIDTH * 0.55;
         rank_bg.height = StageUtils.WIN_HEIGHT * 0.35;
-        rank_bg.alpha = 0.5;
+        rank_bg.alpha = 0.3;
         let list_w:number = rank_bg.width;
         let list_h:number = rank_bg.height * 0.8;
         //遮罩
@@ -33,18 +33,21 @@ class RankPanel extends egret.DisplayObjectContainer
         this._listView.height = list_h;
         this._listView.x = rank_bg.x;
         this._listView.y = rank_bg.y;
-
-        let exp:number = 100;
-        for(let i = 0; i<Main.instance.gameView.battleMgr.roleArray.length;i++){
-            if(Main.instance.gameView.battleMgr.roleArray[i] != null&&Main.instance.gameView.battleMgr.roleArray[i].die){
+        let role = Main.instance.gameView.battleMgr.roleArray;
+       // console.log(role.length);
+        role.sort(function (x, y){
+           return y.attribute.totalExp - x.attribute.totalExp;
+        });
+        for(let i = 0; i<role.length;i++){
+            if(role[i] == null){
                // Main.instance.gameView.battleMgr.roleArray[i] =null;
                 continue;
             }
-            let rankItem: RankItem = new RankItem(this,exp,list_w,i,Main.instance.gameView.battleMgr.roleArray[i].nickName,Main.instance.gameView.battleMgr.roleArray[i].attribute.totalExp);
+            let rankItem: RankItem = new RankItem(this,list_w,i,role[i].nickName,role[i].attribute.totalExp);
             rankItem.name = i.toString();
-            if(Main.instance.gameView.battleMgr.roleArray[i].id == 0){
+            if(role[i].id == 0){
                 let myRankTxt:egret.TextField = Util.createText("#1",rank_bg.width*0.01,rank_bg.height - 38,30,Util.s_colors.red,false,egret.HorizontalAlign.LEFT);
-                let myExpTxt: egret.TextField = Util.createText(Main.instance.gameView.battleMgr.roleArray[i].nickName+"   "+Main.instance.gameView.battleMgr.roleArray[i].attribute.totalExp,myRankTxt.x + 48,myRankTxt.y,30,Util.s_colors.red,false,egret.HorizontalAlign.LEFT);
+                let myExpTxt: egret.TextField = Util.createText(role[i].nickName+"   "+ role[i].attribute.totalExp,myRankTxt.x + 48,myRankTxt.y,30,Util.s_colors.red,false,egret.HorizontalAlign.LEFT);
                 this.addChild(myRankTxt);
                 this.addChild(myExpTxt);
             }
@@ -77,7 +80,7 @@ class RankItem extends egret.DisplayObjectContainer{
     private _itemW: number;
     private _itemH: number = 48;
 
-    public constructor(rankPanel: RankPanel, Exp:number,item_w:number,flag:number,name:string,totalExp:number){
+    public constructor(rankPanel: RankPanel,item_w:number,flag:number,name:string,totalExp:number){
         super();
         this._rankPanel = rankPanel;
         this._itemW = item_w;
