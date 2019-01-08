@@ -43,7 +43,7 @@ class ShotgunBullet extends Bullet
                 return false;
 
         //如果圆形碰撞了
-        if(Util.isCircleHit(obj, this, true, obj.width, this.range))
+        if(Util.isCircleHit(obj, this, true, obj.width / 2, this.range))
         {
             //计算前的准备工作
             let obj1Point = new egret.Point(obj.x, obj.y);

@@ -62,13 +62,6 @@ class GameView extends eui.Component {
 		this.gameBg.y = - pos.y;
         this.initBroadcast();
         
-        // ===== Test Code start =====
-        let shape = Util.drawCircle(300, Util.s_colors.red);
-        this.player.addChild(shape);
-        shape.x = this.player.width / 2;
-        shape.y = this.player.height / 2;
-        // ===== Test Code end =====
-
         this.updateRankPanel();
     }
     /**刷新排行*/

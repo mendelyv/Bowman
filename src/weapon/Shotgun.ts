@@ -56,9 +56,17 @@ class Shotgun extends Weapon
         }
     }
 
-    public upLevel()
+    public setLevel(lv:number)
     {
+        super.setLevel(lv);
+        this.setWeaponDataOfLv();
+    }
 
+    private setWeaponDataOfLv()
+    {
+        this.range = (this.level - 1) * 20 + 200;
+        this.angle = (this.level - 1) * 3 + 30;
+        this.stayTime = (this.level - 1) * 50 + 500;
     }
 
 //class end
