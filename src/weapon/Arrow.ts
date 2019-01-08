@@ -71,11 +71,11 @@ class Arrow extends Bullet
         }
     }
 
-    /** 检测碰撞
+    /** 检测可否造成伤害
      * @param obj ：碰撞的对象
      * @param needTrans ：是否需要转换坐标系
      */
-    public canDamage(obj: any, needTrans: boolean)
+    public canDamage(obj: Role, needTrans: boolean)
     {
         super.canDamage(obj, needTrans);
         if(Util.isCircleHit(obj,this,true))

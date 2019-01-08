@@ -23,7 +23,7 @@ class Bullet extends egret.DisplayObjectContainer
     }
 
     /** 检测碰撞 */
-    public canDamage(obj: any, needTrans: boolean)
+    public canDamage(obj: Role, needTrans: boolean)
     {
 
     }
