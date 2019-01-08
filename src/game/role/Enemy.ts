@@ -67,6 +67,7 @@ class Enemy extends Role {
         this.hpTube.y = -17;
         this.addChild(this.hpTube);
         this.hpTube.showHp();
+        this.hpTube.showNickName();
        // this.hpTube.showHpLine();
         this.hpTube.visible = true;
 
@@ -330,6 +331,8 @@ class Enemy extends Role {
         this.attribute.clearAllSkills();
         this.die = false;
         this.attribute.totalExp = 0;
+        this.nickName = Main.instance.gameView.enemyMgr.randomEnemyName();
+        this.hpTube.showNickName();
     }
 
     public destructor()

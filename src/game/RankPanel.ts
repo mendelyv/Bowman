@@ -28,31 +28,28 @@ class RankPanel extends egret.DisplayObjectContainer
         this.addChild(rankMask);
         this.addChild(rank_bg);
         this._listSp = new egret.DisplayObjectContainer();
-        //
+        //scorllview的宽高
         this._listView.width = list_w;
         this._listView.height = list_h;
         this._listView.x = rank_bg.x;
         this._listView.y = rank_bg.y;
         let role = Main.instance.gameView.battleMgr.roleArray;
-       // console.log(role.length);
         role.sort(function (x, y){
            return y.attribute.totalExp - x.attribute.totalExp;
         });
         for(let i = 0; i<role.length;i++){
             if(role[i] == null){
-               // Main.instance.gameView.battleMgr.roleArray[i] =null;
                 continue;
             }
-            let rankItem: RankItem = new RankItem(this,list_w,i,role[i].nickName,role[i].attribute.totalExp);
-            rankItem.name = i.toString();
-            if(role[i].id == 0){
-                let myRankTxt:egret.TextField = Util.createText("#1",rank_bg.width*0.01,rank_bg.height - 38,30,Util.s_colors.red,false,egret.HorizontalAlign.LEFT);
-                let myExpTxt: egret.TextField = Util.createText(role[i].nickName+"   "+ role[i].attribute.totalExp,myRankTxt.x + 48,myRankTxt.y,30,Util.s_colors.red,false,egret.HorizontalAlign.LEFT);
-                this.addChild(myRankTxt);
-                this.addChild(myExpTxt);
-            }
-             this.addList(rankItem);
-           
+        let rankItem: RankItem = new RankItem(this,list_w,i,role[i].nickName,role[i].attribute.totalExp);
+        rankItem.name = i.toString();
+        if(role[i].id == 0){
+            let myRankTxt:egret.TextField = Util.createText("#"+(i+1),rank_bg.width*0.01,rank_bg.height - 38,30,Util.s_colors.red,false,egret.HorizontalAlign.LEFT);
+            let myExpTxt: egret.TextField = Util.createText(role[i].nickName+"   "+ role[i].attribute.totalExp,myRankTxt.x + 48,myRankTxt.y,30,Util.s_colors.red,false,egret.HorizontalAlign.LEFT);
+            this.addChild(myRankTxt);
+            this.addChild(myExpTxt);
+        }
+        this.addList(rankItem);    
         }
         this._listView.setContent(this._listSp);
         this.addChild(this._listView);
