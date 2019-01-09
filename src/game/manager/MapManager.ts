@@ -183,6 +183,68 @@ class MapManager {
 		return new egret.Point(row, col);
 	}
 
+
+	public static getLineItems(start: egret.Point, end: egret.Point, startCoord: boolean = false, endCoord: boolean = false)
+	{
+		//初始化数值
+		let sRC = MapManager.getRowColOfMap(start, startCoord);
+		let row = sRC.x, col = sRC.y;
+		let eRC = MapManager.getRowColOfMap(end, endCoord);
+		let endRow = eRC.x, endCol = eRC.y;
+		let nextRow = row, nextCol = col;
+		let deltaRow = endRow - row, deltaCol = endCol - col;
+		let stepRow, stepCol;
+		let currentStep = 0, fraction;
+		//初始化需要返回的数组
+		let ret = new Array<MapData>();
+
+		//路径方向的计算
+		if(deltaRow < 0) stepRow = -1;
+		else stepRow = 1;
+		if(deltaCol < 0) stepCol = -1;
+		else stepCol = 1;
+		deltaRow = Math.abs(deltaRow * 2);
+		deltaCol = Math.abs(deltaCol * 2);
+		ret[currentStep] = new MapData(nextRow, nextCol);
+		currentStep++;
+
+		//Bersenham算法
+		if(deltaCol > deltaRow)
+		{
+			fraction = deltaRow * 2 - deltaCol;
+			while(nextCol != endCol)
+			{
+				if(fraction >= 0)
+				{
+					nextRow = nextRow + stepRow;
+					fraction = fraction - deltaCol;
+				}
+				nextCol = nextCol + stepCol;
+				fraction = fraction + deltaRow;
+				ret[currentStep] = new MapData(nextRow, nextCol);
+				currentStep++;
+			}
+		}
+		else
+		{
+			fraction = deltaCol * 2 - deltaRow;
+			while(nextRow != endRow)
+			{
+				if(fraction >= 0)
+				{
+					nextCol = nextCol + stepCol;
+					fraction = fraction - deltaRow;
+				}
+				nextRow = nextRow + stepRow;
+				fraction = fraction + deltaCol;
+				ret[currentStep] = new MapData(nextRow, nextCol);
+				currentStep++;
+			}
+		}
+
+		return ret;
+	}
+
 	// public static getMapItemRowCol(obj:egret.DisplayObject)
 	// {
 	// 	let point = new egret.Point(obj.x,obj.y);
