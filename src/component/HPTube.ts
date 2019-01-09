@@ -29,7 +29,7 @@ class HPTube extends eui.Component
     {
         let rate = this.obj.attribute.hp / this.obj.attribute.HpMax;
         this.hpMask.width = this.hpTempWid * rate;
-        if(this.oldHpMax != this.obj.attribute.HpMax&&this.obj.attribute.HpMax - this.oldHpMax==100){
+        if(this.oldHpMax != this.obj.attribute.HpMax){
             this.oldHpMax = this.obj.attribute.HpMax;
             this.updateHpLine(this.obj.attribute.HpMax);
         }
