@@ -144,66 +144,79 @@ class Role extends eui.Component
 		}
 	}
 
-	//获取技能中的 当前没有，或可以升级的技能    先只考虑了通用的
-	public getRandomSkills():Array<SkillType>
+	//获取技能中的 当前没有，或可以升级的技能
+	public getRandomSkills():Array<Skill>
 	{
-		let arr = new Array<SkillType>();
+		let arr = new Array<Skill>();
 		if(this.attribute.CriticalLv < Attribute.criticalArr.length - 1)
 		{
-			arr.push(SkillType.CriticalIntensive);
+			let skill = new Skill(WeaponType.NONE,SkillType.CriticalIntensive);
+			arr.push(skill);
 		}
 		if(this.attribute.AttackPowerLv < Attribute.attackPowerArr.length - 1)
 		{
-			arr.push(SkillType.AttackPowerIntensive);
+			let skill = new Skill(WeaponType.NONE,SkillType.AttackPowerIntensive);
+			arr.push(skill);
 		}
 		if(this.attribute.DefenseLv < Attribute.defenseArr.length - 1)
 		{
-			arr.push(SkillType.DefenseIntensive);
+			let skill = new Skill(WeaponType.NONE,SkillType.DefenseIntensive);
+			arr.push(skill);
 		}
 		if(this.attribute.ResumeBloodLv < Attribute.resumeBloodArr.length - 1)
 		{
-			arr.push(SkillType.ResumeBloodIntensive);
+			let skill = new Skill(WeaponType.NONE,SkillType.ResumeBloodIntensive);
+			arr.push(skill);
 		}
 		if(this.attribute.AddExpLv < Attribute.addExpArr.length - 1)
 		{
-			arr.push(SkillType.AddExpIntensive);
+			let skill = new Skill(WeaponType.NONE,SkillType.AddExpIntensive);
+			arr.push(skill);
 		}
 		if(this.attribute.AddSpeedLv < Attribute.addSpeedArr.length - 1)
 		{
-			arr.push(SkillType.SpeedIntensive);
+			let skill = new Skill(WeaponType.NONE,SkillType.SpeedIntensive);
+			arr.push(skill);
 		}
 		if(this.attribute.AddHpMaxLv < Attribute.addHpMaxArr.length - 1)
 		{
-			arr.push(SkillType.AddHpMax);
+			let skill = new Skill(WeaponType.NONE,SkillType.AddHpMax);
+			arr.push(skill);
 		}
 		if(!this.attribute.Hemophagia)
 		{
-			arr.push(SkillType.Hemophagia);
+			let skill = new Skill(WeaponType.NONE,SkillType.Hemophagia);
+			arr.push(skill);
 		}
 		if(!this.attribute.KillOthenAddBlood)
 		{
-			arr.push(SkillType.KillOthenAddBlood);
+			let skill = new Skill(WeaponType.NONE,SkillType.KillOthenAddBlood);
+			arr.push(skill);
 		}
-		// 角色技能
-		switch(this.weapon.type)
+		let weaponSkills = this.weapon.getSkills();
+		if(weaponSkills.length > 0)
 		{
-			case WeaponType.BOW:
-				
-				break;
-			case WeaponType.SHOTGUN:
-
-				break;
+			arr = arr.concat(weaponSkills);
 		}
-		if(arr.length <= 3)
+		if(arr.length > 3)
 		{
-			//
+			let tempArr = new Array<number>();
+			for(let i = 0 ; i < arr.length ;++i)
+			{
+				tempArr.push(i);
+			}
+			tempArr = Util.randomArrayOrder(tempArr);
+			let targetArr = new Array<Skill>();
+			for(let i = 0; i < 3 ; ++i)
+			{
+				targetArr.push(arr[tempArr[i]]);
+			}
+			return targetArr;
 		}
 		else
 		{
-			arr = Util.randomArrayOrder(arr);
-			arr.splice(3,arr.length - 3);
+			return arr;
 		}
-		return arr;
 	}
 
 }

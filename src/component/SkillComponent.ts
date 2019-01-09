@@ -9,12 +9,14 @@
 class SkillComponent extends eui.Component
 {
     private bg: eui.Image;
-    private skillType:SkillType;//技能类型
+    private skillType:WeaponType;//技能类型
+    private skill:number;//具体技能
 
-    public constructor(skillType)
+    public constructor(skillType:WeaponType,skill:number)
     {
         super();
         this.skillType = skillType;
+        this.skill = skill;
     }
 
     protected createChildren()
@@ -25,17 +27,27 @@ class SkillComponent extends eui.Component
 
     public init()
     {
-        let index = this.skillType as number;
-        this.bg.source = "skill_"+index+"_jpg";
+        let index1 = this.skillType as number;
+        let index2 = this.skill;
+        this.bg.source = "skill_"+index1 +"_" +index2+"_jpg";
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBtnClick, this);
     }
 
     public onBtnClick()
     {
-        Main.instance.gameView.playerAddSkill(this.skillType);
+        Main.instance.gameView.playerAddSkill(this.skillType,this.skill);
     }
 
 
 
 //class end
+}
+
+class Skill {
+	public skillType:WeaponType;
+	public skill:number;
+	public constructor(skillType:WeaponType,skill:number) {
+		this.skillType = skillType;
+		this.skill = skill;
+	}
 }

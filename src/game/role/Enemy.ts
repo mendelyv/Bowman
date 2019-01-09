@@ -279,7 +279,17 @@ class Enemy extends Role {
             //没有技能了
         }
         else{
-            this.attribute.enable(skillArr[0]);
+            let skill = skillArr[0];
+            switch(skill.skillType)
+            {
+                case WeaponType.NONE:
+                    this.attribute.enable(skill.skill);
+                    break;
+                case WeaponType.BOW:
+                case WeaponType.SHOTGUN:
+                    this.weapon.enableSkill(skill.skill);
+                    break;
+            }
         }
 
     }
