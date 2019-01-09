@@ -37,6 +37,7 @@ class Main extends eui.UILayer {
     private _gameView: GameView;
     public get gameView(): GameView { return this._gameView; }
     private _mainView: MainView;
+    private _heroView: HeroView;
     private _oldTime: number = 0;//记录离开小程序时间
     private _userData: UserData;//玩家数据
     protected createChildren(): void {
@@ -333,8 +334,26 @@ class Main extends eui.UILayer {
             this._mainView = null;
         }
     }
+    //创建英雄商城界面
+    public createHeroView():void{
+        if(!this._heroView){
+            this._heroView = new HeroView();
+            this.addChild(this._heroView);
+            this._heroView.width = StageUtils.WIN_WIDTH;
+            this._heroView.height = StageUtils.WIN_HEIGHT;
+        }
+    }
+    //释放英雄商城界面
+    public releaseHeroView(): void{
+        if(this._heroView){
+            if(this._heroView.parent){
+                this._heroView.parent.removeChild(this._heroView);    
+            }
+            this._heroView = null;
+        }
+    }
     //创建游戏
-    private createGameV(): void {
+    public createGameV(): void {
         if (!this._gameView) {
             this._gameView = new GameView();
             this.addChild(this._gameView);

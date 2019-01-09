@@ -15,6 +15,7 @@ class HeroView extends eui.Component{
     {
         super.createChildren();
         this.skinName = "HeroViewSkin";
+        this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP,Main.instance.releaseHeroView,Main.instance);
     }
 }
 window["HeroView"] = HeroView;
