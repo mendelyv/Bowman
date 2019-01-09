@@ -15,6 +15,7 @@ class GameConfig {
     public static skillConfig;//技能配置表
     public static playerConfig;//玩家配置表
     public static enemyConfig;//敌人配置表
+    public static nameConfig;//敌人名字配置表
 
     // http通讯地址,请自行填入自己的服务器地址，若有跨域问题则点开开发工具详情，勾选不校验合法域名
     private static headUrl: string = 'https://gmkun.vmobs.net';//正式服服务器地址
@@ -32,7 +33,7 @@ class GameConfig {
     // 游戏分享类型 1主动分享 2分享后加速 3分享后得金币 4点我翻倍 5双倍领取签到奖励
     private static shareType: number = 1;
 
-    static nameary:string[] = ["大大1","大大2","大大3","大大4","大大5","大大6","大大7","大大8"];
+    //static nameary:string[] = ["大大1","大大2","大大3","大大4","大大5","大大6","大大7","大大8"];
     //static roleary:string[] = ["head_0","head_1","head_2","head_3","head_4","head_5","head_6"];
     //static paopaoary:string[] = ["head_0","head_1","head_2","head_3","head_4","head_5","head_6"];
     //static mapwidth:number = 6000;//地图的宽

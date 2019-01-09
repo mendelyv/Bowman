@@ -16,7 +16,7 @@ class RankPanel extends egret.DisplayObjectContainer
         let rank_bg:egret.Bitmap = Util.createBitmap("com_rank_bg_png");
         rank_bg.width = StageUtils.WIN_WIDTH * 0.55;
         rank_bg.height = StageUtils.WIN_HEIGHT * 0.35;
-        rank_bg.alpha = 0.3;
+        rank_bg.alpha = 0.1;
         let list_w:number = rank_bg.width;
         let list_h:number = rank_bg.height * 0.8;
         //遮罩
@@ -28,31 +28,28 @@ class RankPanel extends egret.DisplayObjectContainer
         this.addChild(rankMask);
         this.addChild(rank_bg);
         this._listSp = new egret.DisplayObjectContainer();
-        //
+        //scorllview的宽高
         this._listView.width = list_w;
         this._listView.height = list_h;
         this._listView.x = rank_bg.x;
         this._listView.y = rank_bg.y;
         let role = Main.instance.gameView.battleMgr.roleArray;
-       // console.log(role.length);
         role.sort(function (x, y){
            return y.attribute.totalExp - x.attribute.totalExp;
         });
         for(let i = 0; i<role.length;i++){
             if(role[i] == null){
-               // Main.instance.gameView.battleMgr.roleArray[i] =null;
                 continue;
             }
-            let rankItem: RankItem = new RankItem(this,list_w,i,role[i].nickName,role[i].attribute.totalExp);
-            rankItem.name = i.toString();
-            if(role[i].id == 0){
-                let myRankTxt:egret.TextField = Util.createText("#1",rank_bg.width*0.01,rank_bg.height - 38,30,Util.s_colors.red,false,egret.HorizontalAlign.LEFT);
-                let myExpTxt: egret.TextField = Util.createText(role[i].nickName+"   "+ role[i].attribute.totalExp,myRankTxt.x + 48,myRankTxt.y,30,Util.s_colors.red,false,egret.HorizontalAlign.LEFT);
-                this.addChild(myRankTxt);
-                this.addChild(myExpTxt);
-            }
-             this.addList(rankItem);
-           
+        let rankItem: RankItem = new RankItem(this,list_w,i,role[i].nickName,role[i].attribute.totalExp);
+        rankItem.name = i.toString();
+        if(role[i].id == 0){
+            let myRankTxt:egret.TextField = Util.createText("#"+(i+1),rank_bg.width*0.01,rank_bg.height - 38,30,Util.s_colors.red,false,egret.HorizontalAlign.LEFT);
+            let myExpTxt: egret.TextField = Util.createText(role[i].nickName+"   "+ role[i].attribute.totalExp,myRankTxt.x + 48,myRankTxt.y,30,Util.s_colors.red,false,egret.HorizontalAlign.LEFT);
+            this.addChild(myRankTxt);
+            this.addChild(myExpTxt);
+        }
+        this.addList(rankItem);    
         }
         this._listView.setContent(this._listSp);
         this.addChild(this._listView);
@@ -91,12 +88,12 @@ class RankItem extends egret.DisplayObjectContainer{
     }
 
     private drawSelf(item_w:number,flag:number,name:string,totalExp:number){
-      this._comRankTxt = Util.createText("#"+(flag+1),item_w*0.01,this._itemH - 38,30,Util.s_colors.black,false,egret.HorizontalAlign.LEFT); 
-      this._comRankTxt.textColor = Util.s_colors.black;
+      this._comRankTxt = Util.createText("#"+(flag+1),item_w*0.01,this._itemH - 38,30,Util.s_colors.white,false,egret.HorizontalAlign.LEFT); 
+      this._comRankTxt.textColor = Util.s_colors.white;
       this._comRankTxt.textAlign = egret.HorizontalAlign.LEFT;
       this.addChild(this._comRankTxt);
-      this._comNickNameTxt = Util.createText(name + "    "+totalExp,this._comRankTxt.x + 38,this._itemH - 38,30,Util.s_colors.black,false,egret.HorizontalAlign.LEFT); 
-      this._comNickNameTxt.textColor = Util.s_colors.black;
+      this._comNickNameTxt = Util.createText(name + "    "+totalExp,this._comRankTxt.x + 38,this._itemH - 38,30,Util.s_colors.white,false,egret.HorizontalAlign.LEFT); 
+      this._comNickNameTxt.textColor = Util.s_colors.white;
       this._comNickNameTxt.textAlign = egret.HorizontalAlign.LEFT;
       this.addChild(this._comNickNameTxt);
     }

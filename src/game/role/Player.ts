@@ -30,7 +30,6 @@ class Player extends Role {
 		if (!this.hpTube) {
 			this.hpTube = new HPTube(this, "HPTubeSkin");
 		}
-
 		this.hpTube.anchorOffsetX = this.hpTube.width * 0.5;
 		this.hpTube.anchorOffsetY = this.hpTube.height * 0.5;
 		this.anchorOffsetX = this.width * 0.5;
@@ -40,9 +39,10 @@ class Player extends Role {
 		this.hpTube.y = -37;
 		this.addChild(this.hpTube);
 		this.hpTube.showHp();
+		this.hpTube.showNickName();
 		//this.hpTube.showHpLine();
 		this.hpTube.visible = true;
-
+		
 		//初始化等级和基础配置
 		this.initPlayer();
 	}
@@ -141,6 +141,9 @@ class Player extends Role {
 		this.attribute.hp = this.attribute.HpMax * 0.5;
 		this.hpTube.showHp();
 		this.die = false;
+		Main.instance.gameView.battleMgr.roleArray.push(this);
+		Main.instance.gameView.updateRankPanel();
+		this.hpTube.showNickName();
 	}
 }
 
