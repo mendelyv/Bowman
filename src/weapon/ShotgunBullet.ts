@@ -72,12 +72,26 @@ class ShotgunBullet extends Bullet
             if(limitL < theta && theta < limitR)
             {
                 this.damagedRoleID.push(obj.id);
-                return true;
+                return this.checkBarrier(obj);
             }
             else
                 return false;
         }
         return false;
+    }
+
+    /** 检测障碍物
+     */
+    private checkBarrier(obj: Role)
+    {
+        let arr = MapManager.getLineItems(new egret.Point(this.x, this.y), new egret.Point(obj.x, obj.y));
+        for(let i = 0; i < arr.length; i++)
+        {
+            let data = arr[i];
+            if(MapManager.mapItems[data.row][data.col] == 1)
+                return false;
+        }
+        return true;
     }
 
     public recycle()
