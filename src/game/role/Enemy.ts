@@ -273,6 +273,12 @@ class Enemy extends Role {
         // 敌人暂时不做升级
         // super.levelUp();
         // this.setBaseAttOfLevel();
+       
+        this.getOneRandomSkill();
+    }
+
+    public getOneRandomSkill()
+    {
         let skillArr = this.getRandomSkills();
         if(skillArr.length == 0)
         {
@@ -291,7 +297,22 @@ class Enemy extends Role {
                     break;
             }
         }
+    }
 
+    public getSkillsOfLv()
+    {
+        if(this.attribute.level == 1)
+        {
+            //一级的技能
+        }   
+        else
+        {
+            let count = this.attribute.level - 1;
+            for(let i = 0;i < count;++i)
+            {
+                this.getOneRandomSkill();
+            }
+        }
     }
 
 	//根据角色等级设置基础属性
@@ -336,8 +357,16 @@ class Enemy extends Role {
     {
         this.ai.start();
         this.attribute.clearAllSkills();
-        this.attribute.level = 1;
+        let lvMin = Main.instance.gameView.player.attribute.level - 1;
+        if(lvMin<0)
+        {
+            lvMin = 0;
+        }
+        let lvMax = Main.instance.gameView.player.attribute.level + 1;
+        this.attribute.level = Util.getRandomRange(lvMin,lvMax);
+        this.getSkillsOfLv();
         this.setBaseAttOfLevel();
+
         this.attribute.hp = this.attribute.HpMax;
         this.hpTube.showHp();
         
