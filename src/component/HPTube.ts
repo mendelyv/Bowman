@@ -29,7 +29,7 @@ class HPTube extends eui.Component
     {
         let rate = this.obj.attribute.hp / this.obj.attribute.hpMax;
         this.hpMask.width = this.hpTempWid * rate;
-        if(this.oldHpMax != this.obj.attribute.hpMax){
+        if(this.oldHpMax != this.obj.attribute.hpMax&&this.obj.attribute.hpMax - this.oldHpMax==100){
             this.oldHpMax = this.obj.attribute.hpMax;
             this.updateHpLine(this.obj.attribute.hpMax);
         }
@@ -57,18 +57,24 @@ class HPTube extends eui.Component
     public updateHpLine(MaxHP:number){
         let start_x:number = 6 ;
         let start_y:number = 7 ;
-        let lat_w:number = (this.hpFlow.width-(MaxHP/(MaxHP*0.1) - 1)*1) /(MaxHP/(MaxHP*0.1));  //一格宽度
         if(this.hpGroup){
         this.hpGroup.removeChildren();
         }
-        for(let i:number = 0;i<MaxHP/(MaxHP*0.1) - 1;i++){
-             var line: egret.Bitmap = Util.createBitmap("hptube_line_png");
-             line.width = 1;
-             line.height = this.hpFlow.height;
-             this.hpGroup.addChild(line);
-             line.x = start_x + (i + 1)*(lat_w + line.width) - line.width;
-             line.y = start_y;
+        let lat_w:number = (this.hpFlow.width-Math.floor((MaxHP/(100)) - 1)*2) /(MaxHP/(100));  //一格宽度
+        if(MaxHP<200){
+            return;
         }
+        else{    
+            for(let i:number = 0;i< Math.floor(MaxHP/(100)) - 1;i++){
+                 var line: egret.Bitmap = Util.createBitmap("hptube_line_png");
+                 line.width = 2;
+                 line.height = this.hpFlow.height;
+                 this.hpGroup.addChild(line);
+                 line.x = start_x + (i + 1)*(lat_w + line.width) - line.width;
+                 line.y = start_y;
+            }
+        }
+      
     }
     public destructor()
     {

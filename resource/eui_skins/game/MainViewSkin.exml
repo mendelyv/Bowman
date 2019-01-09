@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="MainViewSkin" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
 	<e:Image source="loading_bg_jpg" left="0" right="0" top="0" bottom="0"/>
-	<e:Image id="startBtn" y="564" source="login_start_button_png" horizontalCenter="0"/>
-	<ns1:AvatarComponent x="36" y="34" skinName="AvatarComponentSkin"/>
+	<e:Image id="startBtn" y="494.15" source="login_start_button_png" horizontalCenter="0.5"/>
+	<ns1:AvatarComponent x="0" y="0" skinName="AvatarComponentSkin"/>
+	<e:Image id="gold_bg" width="230.61" height="60.91" x="203" y="2.85" anchorOffsetX="0" anchorOffsetY="0" source="gold_bg_png"/>
+	<e:Label id="goldLebal" text="66666666" x="276.33" y="15.33" anchorOffsetY="0" height="38.67" anchorOffsetX="0" width="155.34" textAlign="center" verticalAlign="middle"/>
+	<e:Image id="batImage" width="689.69" height="274.54" x="347.15" y="219.61" anchorOffsetX="0" anchorOffsetY="0" source="start_name_png"/>
+	<e:Image id="shareBtn" width="147" height="60" x="112" y="690" anchorOffsetX="0" anchorOffsetY="0" source="btnShare_png"/>
+	<e:Image id="heroBtn" width="147" height="60" x="280" y="690" anchorOffsetX="0" anchorOffsetY="0" source="common_button_brown_png"/>
+	<e:Label id="heroLabel" text="英雄" x="280" y="690" width="147" height="60" textAlign="center" verticalAlign="middle" size="25"/>
+	<e:Image id="rankBtn" width="147" height="60" x="450" y="690" anchorOffsetX="0" anchorOffsetY="0" source="btnRank_png"/>
 </e:Skin>
