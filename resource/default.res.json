@@ -446,7 +446,7 @@
 			"url": "assets/main_ui/main_ui.json",
 			"type": "sheet",
 			"name": "main_ui_json",
-			"subkeys": "btnRank_png,btnShare_png,btnStart_png,common_button_blue_png,common_button_brown_png,common_button_green_png,game_gold_icon_png,gold_bg_png,start_name_png,ui_point_png"
+			"subkeys": "btnRank_png,btnShare_png,btnStart_png,common_button_blue_png,common_button_brown_png,common_button_green_png,game_gold_icon_png,game_hero_btn_jpg,gold_bg_png,start_name_png,ui_point_png"
 		},
 		{
 			"url": "assets/main_ui/game_bg.jpg",
