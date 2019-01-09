@@ -85,5 +85,16 @@ class Shotgun extends Weapon
         }
     }
 
+    public getSkills():Array<Skill>
+    {   
+        let arr = new Array<Skill>();
+        if(this.level < Shotgun.levelMax)
+        {
+            let skill = new Skill(WeaponType.SHOTGUN,ShotgunSkillType.AttackTypeIntensive);
+            arr.push(skill);
+        }
+        return arr;
+    }
+
 //class end
 }

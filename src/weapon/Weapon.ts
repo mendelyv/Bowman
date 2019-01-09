@@ -6,7 +6,7 @@
  * time : 2019.1.4
  * @author : 杨浩然
  */
-class Weapon
+abstract class Weapon
 {
     public range: number;//武器攻击距离
     public type: WeaponType;
@@ -54,8 +54,10 @@ class Weapon
 
     public enableSkill(skillType:number)
     {
-        
+
     }
+
+    public abstract getSkills():Array<Skill>;
 
 //class end
 }

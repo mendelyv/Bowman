@@ -43,13 +43,15 @@ enum WeaponType
 
 enum BowSkillType
 {
+    NONE,
+    AttackTypeIntensive,//攻击方式强化
     AddArrowNum,//箭的数量+1
     BackAttack,//后放箭
-    AttackTypeIntensive,//攻击方式强化
 }
 
 enum ShotgunSkillType
 {
+    NONE,
     AttackTypeIntensive,//攻击方式强化
 }
 

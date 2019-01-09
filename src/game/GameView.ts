@@ -311,19 +311,29 @@ class GameView extends eui.Component {
         {
             for(let i = 0;i < skillArr.length ; ++i)
             {
-                let skill = new SkillComponent(skillArr[i]);
+                let skill = new SkillComponent(skillArr[i].skillType,skillArr[i].skill);
                 this.skillComponents.addChild(skill);
             }
         }
     }
 
     
-    public playerAddSkill(skillType:SkillType)
+    public playerAddSkill(skillType:WeaponType,skill:number)
     {
         this.skillComponents.visible = false;
         this.skillComponents.removeChildren();
-
-        this.player.attribute.enable(skillType);
+        
+        switch(skillType)
+        {
+            case WeaponType.NONE:
+                this.player.attribute.enable(skill);
+                break;
+            case WeaponType.BOW:
+            case WeaponType.SHOTGUN:
+                this.player.weapon.enableSkill(skill);
+                break;
+        }
+        
     }
 
     //玩家死亡

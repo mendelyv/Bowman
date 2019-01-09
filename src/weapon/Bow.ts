@@ -11,6 +11,7 @@ class Bow extends Weapon
     public  static MAX_ARROW_NUM: number = 7;
     public static levelMax:number = 5;//最大等级
     /** 弓箭数量 */
+    public backAttack:boolean;//后方箭
     public arrowNum: number;
     public speed: number;
     public res: string;
@@ -19,6 +20,7 @@ class Bow extends Weapon
     {
         super(obj);
         this.type = WeaponType.BOW;
+        this.backAttack = false;
         this.arrowNum = 1;
         this.speed = 150;
         this.res = "game_title_rope_png";
@@ -170,8 +172,30 @@ class Bow extends Weapon
                 this.upLevel();
                 break;
             case BowSkillType.BackAttack:
+                this.backAttack = true;
                 break;
         }
+    }
+
+    public getSkills():Array<Skill>
+    {
+        let arr = new Array<Skill>();
+        if(this.level < Bow.levelMax)
+		{
+			let skill = new Skill(WeaponType.BOW,BowSkillType.AttackTypeIntensive);
+			arr.push(skill);
+		}
+        if(this.arrowNum < Bow.MAX_ARROW_NUM)
+        {
+            let skill = new Skill(WeaponType.BOW,BowSkillType.AddArrowNum);
+            arr.push(skill);
+        }
+        if(!this.backAttack)
+        {
+            let skill = new Skill(WeaponType.BOW,BowSkillType.BackAttack);
+            arr.push(skill);
+        }
+        return arr;
     }
 
 //class end
