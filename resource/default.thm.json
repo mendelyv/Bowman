@@ -7,10 +7,13 @@
 		"resource/eui_skins/component/JoystickSkin.exml",
 		"resource/eui_skins/component/PopWindowSkin.exml",
 		"resource/eui_skins/component/SkillComponentSkin.exml",
+		"resource/eui_skins/game/CheckBoxSkin.exml",
 		"resource/eui_skins/game/GameBGSkin.exml",
 		"resource/eui_skins/game/GameEndSkin.exml",
 		"resource/eui_skins/game/RoleSkin.exml",
 		"resource/eui_skins/game/GameViewSkin.exml",
+		"resource/eui_skins/game/HeroItemSkin.exml",
+		"resource/eui_skins/game/HeroRowSkin.exml",
 		"resource/eui_skins/game/HeroViewSkin.exml",
 		"resource/eui_skins/game/MainViewSkin.exml"
 	],
