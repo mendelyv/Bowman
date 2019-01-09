@@ -14,6 +14,8 @@ declare class GameEndSkin extends eui.Skin{
 }
 declare class GameViewSkin extends eui.Skin{
 }
+declare class HeroViewSkin extends eui.Skin{
+}
 declare class MainViewSkin extends eui.Skin{
 }
 declare class RoleSkin extends eui.Skin{
