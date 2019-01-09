@@ -67,6 +67,14 @@ class Role extends eui.Component
 	{
 		let maxCount = 10000;
 		let count = Attribute.criticalArr[this.attribute.CriticalLv] * maxCount;
+		if(count == 0)
+		{
+			return false;
+		}
+		else if(count == 1)
+		{
+			return true;
+		}
 		let num = Util.getRandomRange(1,maxCount);
 		if(num <= count)
 		{
