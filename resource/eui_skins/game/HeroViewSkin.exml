@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HeroViewSkin" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="shopBG" height="750" x="0" width="1334" source="game_bg_jpg"/>
+	<e:Image width="1106" height="70" x="226" y="0" anchorOffsetX="0" anchorOffsetY="0" source="game_second_g_f_png"/>
+	<e:Image id="goldBg" height="72" y="0" anchorOffsetX="0" anchorOffsetY="0" source="gold_bg_png" left="515" horizontalCenter="0" right="515"/>
+	<e:Label id="goldLabel" text="6666666" anchorOffsetY="0" height="44.67" anchorOffsetX="0" textAlign="center" verticalAlign="middle" left="608" top="16" verticalCenter="-336.5" right="517"/>
+	<e:Image id="gemBg" height="66" anchorOffsetX="0" anchorOffsetY="0" source="gold_bg_png" horizontalCenter="337" left="846" y="0" right="172"/>
+	<e:Image id="gem" width="140" height="78.42" anchorOffsetX="0" anchorOffsetY="0" source="gem_icon_png" left="819" y="0"/>
+	<e:Label id="gemLabel" text="666666" anchorOffsetY="0" anchorOffsetX="0" textAlign="center" verticalAlign="middle" right="175" left="960" top="15" bottom="696"/>
+	<e:Image id="closeBtn" width="94.24" height="79.09" x="42" y="0" anchorOffsetX="0" anchorOffsetY="0" source="com_btn_close_png"/>
+</e:Skin>

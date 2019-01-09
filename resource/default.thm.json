@@ -11,6 +11,7 @@
 		"resource/eui_skins/game/GameEndSkin.exml",
 		"resource/eui_skins/game/RoleSkin.exml",
 		"resource/eui_skins/game/GameViewSkin.exml",
+		"resource/eui_skins/game/HeroViewSkin.exml",
 		"resource/eui_skins/game/MainViewSkin.exml"
 	],
 	"path": "resource/default.thm.json"
