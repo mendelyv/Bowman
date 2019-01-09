@@ -26,11 +26,11 @@ class HPTube extends eui.Component
     /** 显示血条 */
     public showHp()
     {
-        let rate = this.obj.attribute.hp / this.obj.attribute.hpMax;
+        let rate = this.obj.attribute.hp / this.obj.attribute.HpMax;
         this.hpMask.width = this.hpTempWid * rate;
-        if(this.oldHpMax != this.obj.attribute.hpMax){
-            this.oldHpMax = this.obj.attribute.hpMax;
-            this.updateHpLine(this.obj.attribute.hpMax);
+        if(this.oldHpMax != this.obj.attribute.HpMax){
+            this.oldHpMax = this.obj.attribute.HpMax;
+            this.updateHpLine(this.obj.attribute.HpMax);
         }
         // this.showHpLine();
     }
@@ -38,8 +38,8 @@ class HPTube extends eui.Component
     private showHpLine(){
         let start_x:number = 0  ;
         let start_y:number = 0 ;
-        let lat_w:number = (this.hpFlow.width-(this.obj.attribute.hpMax/10 - 1)*2)/(this.obj.attribute.hpMax/10);//一格宽度
-        for(let i:number = 0;i<this.obj.attribute.hpMax/10 - 1;i++){
+        let lat_w:number = (this.hpFlow.width-(this.obj.attribute.HpMax/10 - 1)*2)/(this.obj.attribute.HpMax/10);//一格宽度
+        for(let i:number = 0;i<this.obj.attribute.HpMax/10 - 1;i++){
              var line: egret.Bitmap = Util.createBitmap("hptube_line_png");
              line.width = 2;
              line.height = this.hpFlow.height;

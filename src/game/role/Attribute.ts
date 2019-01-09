@@ -8,24 +8,24 @@
  */
 class Attribute extends BaseAttribute
 {
-    static attackTypeArr:Array<number>;
     static criticalArr:Array<number>;
     static attackPowerArr:Array<number>;
     static defenseArr:Array<number>;
     static resumeBloodArr:Array<number>;
     static addExpArr:Array<number>;
+    static addSpeedArr:Array<number>;
+    static addHpMaxArr:Array<number>;
 
     public obj: Role;//挂载的玩家对象
-    public weaponType:WeaponType;//武器类型,弓箭，喷子等
 
-    public AttackTypeLv:number;//攻击方式等级（武器等级）
     public CriticalLv:number;//暴击等级
     public AttackPowerLv:number;//攻击力等级(子弹等级)
     public DefenseLv:number;//防御等级
     public ResumeBloodLv:number;//回血等级
     public AddExpLv:number;//加经验等级
+    public AddSpeedLv:number;//移速加强等级
+    public AddHpMaxLv:number;//加最大血量等级
 
-    public SpeedIntensive:boolean;//移速加强
     public Hemophagia:boolean;//伤害吸血
     public KillOthenAddBlood:boolean;//击杀吸血
 
@@ -34,37 +34,19 @@ class Attribute extends BaseAttribute
         super();
 
         this.obj = obj;
-        this.weaponType = WeaponType.BOW;
-        this.hp = 50;
-        this.hpMax = 50;
-        this.level = 1;
-        this.exp = 0;
-        this.expMax = 10;
-        this.speed = 100;
-        this.power = 10;
 
         this.totalExp = 0;//本局总经验
 
-        this.AttackTypeLv = 0;
-        this.CriticalLv = 0;
-        this.AttackPowerLv = 0;
-        this.DefenseLv = 0;
-        this.AddExpLv =  0;
-        this.ResumeBloodLv = 0;
-
-        this.SpeedIntensive = false;
-        this.Hemophagia = false;
-        this.KillOthenAddBlood = false;
         this.clearAllSkills();
 
-
-        Attribute.attackTypeArr = [1,2,3,4,5];
         Attribute.criticalArr = [0,0.1,0.2,0.3,0.4,0.5];
-        Attribute.attackPowerArr = [0,0.1,0.2,0.3,0.4,0.5];
         Attribute.defenseArr = [0,0.1,0.2,0.3,0.4,0.5];
         Attribute.resumeBloodArr = [0,0.2,0.4,0.6,0.8,1];
         Attribute.addExpArr = [0,0.2,0.4,0.6,0.8,1];
-
+        //数值
+        Attribute.attackPowerArr = [0,20,40,60,80,100];
+        Attribute.addSpeedArr = [0,50,100,150];
+        Attribute.addHpMaxArr = [0,100,200,300];
     }
 
     /** 技能生效 */
@@ -75,11 +57,6 @@ class Attribute extends BaseAttribute
             case SkillType.AttackPowerIntensive://攻击力
                 this.AttackPowerLv++;
                 this.AttackPowerLv = this.AttackPowerLv < Attribute.attackPowerArr.length -1 ? this.AttackPowerLv : Attribute.attackPowerArr.length -1;
-                break;
-            case SkillType.AttackTypeIntensive://武器等级
-                this.AttackTypeLv++;
-                this.AttackTypeLv = this.AttackTypeLv < Attribute.attackTypeArr.length - 1 ? this.AttackTypeLv : Attribute.attackTypeArr.length - 1;
-                this.obj.weapon.setLevel(Attribute.attackTypeArr[this.AttackTypeLv]);
                 break;
             case SkillType.CriticalIntensive://暴击
                 this.CriticalLv++;
@@ -96,11 +73,17 @@ class Attribute extends BaseAttribute
             case SkillType.ResumeBloodIntensive://回血
                 this.ResumeBloodLv++;
                 this.ResumeBloodLv = this.ResumeBloodLv < Attribute.resumeBloodArr.length - 1 ? this.ResumeBloodLv : Attribute.resumeBloodArr.length - 1;
+            case SkillType.SpeedIntensive://移动加速
+                this.AddSpeedLv++;
+                this.AddSpeedLv = this.AddSpeedLv < Attribute.addSpeedArr.length - 1 ? this.AddSpeedLv : Attribute.addSpeedArr.length - 1;
+                break;
+            case SkillType.AddHpMax://增加最大血量
+                this.AddHpMaxLv++;
+                this.AddHpMaxLv = this.AddHpMaxLv < Attribute.addHpMaxArr.length - 1 ? this.AddHpMaxLv : Attribute.addHpMaxArr.length - 1;
+                this.obj.resumeBlood(Attribute.addHpMaxArr[this.AddHpMaxLv],true);
+                break;
             case SkillType.Hemophagia://攻击吸血
                 this.Hemophagia = true;
-                break;
-            case SkillType.SpeedIntensive://移动加速
-                this.SpeedIntensive = true;
                 break;
             case SkillType.KillOthenAddBlood://击杀回血
                 this.KillOthenAddBlood = true;
@@ -111,16 +94,27 @@ class Attribute extends BaseAttribute
 
     public clearAllSkills()
     {
-        this.AttackTypeLv = 0;
         this.CriticalLv = 0;
         this.AttackPowerLv = 0;
         this.DefenseLv = 0;
         this.AddExpLv =  0;
         this.ResumeBloodLv = 0;
+        this.AddSpeedLv = 0;
+        this.AddHpMaxLv = 0;
 
-        this.SpeedIntensive = false;
         this.Hemophagia = false;
         this.KillOthenAddBlood = false;
+    }
+
+    public get HpMax()
+    {
+        let hpMax = this.hpMax + Attribute.addHpMaxArr[this.AddHpMaxLv];
+        return hpMax;
+    }
+
+    public set HpMax(value:number)
+    {
+        this.hpMax = value;
     }
 
 //class end

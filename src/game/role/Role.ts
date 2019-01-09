@@ -53,7 +53,7 @@ class Role extends eui.Component
 	public getDamage()
 	{
 		//基础攻击力 + 技能加成
-		let damage = this.attribute.power*(1 + Attribute.attackPowerArr[this.attribute.AttackPowerLv]);
+		let damage = this.attribute.power + Attribute.attackPowerArr[this.attribute.AttackPowerLv];
 		//是否暴击
 		if(this.isCritical())
 		{
@@ -86,7 +86,7 @@ class Role extends eui.Component
 		}
 		this.attribute.hp += resumeValue * rate;
 		//end
-		this.attribute.hp = this.attribute.hp < this.attribute.hpMax ? this.attribute.hp : this.attribute.hpMax;
+		this.attribute.hp = this.attribute.hp < this.attribute.HpMax ? this.attribute.hp : this.attribute.HpMax;
 		if (this.hpTube) {
 			this.hpTube.showHp();
 		}
@@ -118,11 +118,7 @@ class Role extends eui.Component
 	// 获取移动速度
 	public getSpeed()
 	{	
-		let speed = this.attribute.speed;
-		if(this.attribute.SpeedIntensive)
-		{
-			speed *= 1.5;
-		}
+		let speed = this.attribute.speed + Attribute.addSpeedArr[this.attribute.AddSpeedLv];
 		return speed;
 	}
 
@@ -152,10 +148,6 @@ class Role extends eui.Component
 	public getRandomSkills():Array<SkillType>
 	{
 		let arr = new Array<SkillType>();
-		if(this.attribute.AttackTypeLv < Attribute.attackTypeArr.length - 1)
-		{
-			arr.push(SkillType.AttackTypeIntensive);
-		}
 		if(this.attribute.CriticalLv < Attribute.criticalArr.length - 1)
 		{
 			arr.push(SkillType.CriticalIntensive);
@@ -176,9 +168,13 @@ class Role extends eui.Component
 		{
 			arr.push(SkillType.AddExpIntensive);
 		}
-		if(!this.attribute.SpeedIntensive)
+		if(this.attribute.AddSpeedLv < Attribute.addSpeedArr.length - 1)
 		{
 			arr.push(SkillType.SpeedIntensive);
+		}
+		if(this.attribute.AddHpMaxLv < Attribute.addHpMaxArr.length - 1)
+		{
+			arr.push(SkillType.AddHpMax);
 		}
 		if(!this.attribute.Hemophagia)
 		{
@@ -188,7 +184,16 @@ class Role extends eui.Component
 		{
 			arr.push(SkillType.KillOthenAddBlood);
 		}
-		
+		// 角色技能
+		switch(this.weapon.type)
+		{
+			case WeaponType.BOW:
+				
+				break;
+			case WeaponType.SHOTGUN:
+
+				break;
+		}
 		if(arr.length <= 3)
 		{
 			//

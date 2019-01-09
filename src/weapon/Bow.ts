@@ -8,8 +8,8 @@
  */
 class Bow extends Weapon
 {
-    private static MAX_ARROW_NUM: number = 7;
-    private static MAX_LEVEL = 5;
+    public  static MAX_ARROW_NUM: number = 7;
+    public static levelMax:number = 5;//最大等级
     /** 弓箭数量 */
     public arrowNum: number;
     public speed: number;
@@ -140,9 +140,13 @@ class Bow extends Weapon
         }
     }
 
-    public setLevel(lv:number)
+    public upLevel()
     {
-        super.setLevel(lv);
+        super.upLevel();
+        if(this.level > Bow.levelMax)
+        {
+            this.level = Bow.levelMax;
+        }
         this.setWeaponDataOfLv();
     }
 
@@ -151,6 +155,23 @@ class Bow extends Weapon
         this.range = (this.level - 1) * 30 + 300;
         this.shootTime = 1000 - (this.level - 1) * 100;
         this.speed = (this.level - 1) * 15 + 150;
+    }
+
+    public enableSkill(skillType:BowSkillType)
+    {
+        super.enableSkill(skillType);
+        switch(skillType)
+        {
+            case BowSkillType.AddArrowNum:
+                this.arrowNum++;
+                this.arrowNum = this.arrowNum < Bow.MAX_ARROW_NUM ? this.arrowNum : Bow.MAX_ARROW_NUM;
+                break;
+            case BowSkillType.AttackTypeIntensive:
+                this.upLevel();
+                break;
+            case BowSkillType.BackAttack:
+                break;
+        }
     }
 
 //class end

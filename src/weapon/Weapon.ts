@@ -8,9 +8,8 @@
  */
 class Weapon
 {
-    // public power: number;
     public range: number;//武器攻击距离
-    public type;
+    public type: WeaponType;
     public level: number;//等级
     
 
@@ -25,7 +24,6 @@ class Weapon
     public constructor(obj: Role)
     {
         this.obj = obj;
-        // this.power = 10;
         this.range = 300;
         this.level = 1;
     }
@@ -49,11 +47,15 @@ class Weapon
     }
 
     /** 升级 */
-    public setLevel(lv:number)
+    public upLevel()
     {
-        this.level = lv;
+        this.level++;
     }
 
+    public enableSkill(skillType:number)
+    {
+        
+    }
 
 //class end
 }

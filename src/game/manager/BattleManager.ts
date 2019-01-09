@@ -183,7 +183,7 @@ class BattleManager {
 								//击杀回血
 								if(role.attribute.KillOthenAddBlood)
 								{
-									role.resumeBlood(0.5 * role.attribute.hpMax);
+									role.resumeBlood(0.5 * role.attribute.HpMax);
 								}
 							Main.instance.gameView.addMsg(role.nickName + "杀死了"+enemy.nickName);
 							}
@@ -215,7 +215,7 @@ class BattleManager {
 						//击杀回血
 						if(role.attribute.KillOthenAddBlood)
 						{
-							role.resumeBlood(0.5 * role.attribute.hpMax);
+							role.resumeBlood(0.5 * role.attribute.HpMax);
 						}
 					}
 				}
@@ -251,7 +251,7 @@ class BattleManager {
 						//击杀回血
 						if(this.player.attribute.KillOthenAddBlood)
 						{
-							this.player.resumeBlood(0.5 * this.player.attribute.hpMax);
+							this.player.resumeBlood(0.5 * this.player.attribute.HpMax);
 						}
 						Main.instance.gameView.addMsg("你杀死了"+this.enemys[j].nickName);
 						

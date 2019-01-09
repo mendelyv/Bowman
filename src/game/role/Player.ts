@@ -117,11 +117,11 @@ class Player extends Role {
 			this.attribute.expMax = playerConfig.experience;
 			this.attribute.speed = playerConfig.speed;
 			this.attribute.power = playerConfig.power;
-			let lastHpMax = this.attribute.hpMax;
-			this.attribute.hpMax = playerConfig.hp;
+			let lastHpMax = this.attribute.HpMax;
+			this.attribute.HpMax = playerConfig.hp;
 
 			//设置当前血量
-			let resumeValue = this.attribute.hpMax - lastHpMax;
+			let resumeValue = this.attribute.HpMax - lastHpMax;
 			this.resumeBlood(resumeValue,true);
 		}
 		else
@@ -138,7 +138,7 @@ class Player extends Role {
 
 	public reLife()
 	{
-		this.attribute.hp = this.attribute.hpMax * 0.5;
+		this.attribute.hp = this.attribute.HpMax * 0.5;
 		this.hpTube.showHp();
 		this.die = false;
 	}

@@ -11,6 +11,7 @@ class Shotgun extends Weapon
     public angle: number;//扇形角
     public stayTime: number;//扇形停留时间
 
+    public static levelMax:number = 5;//最大等级
     public constructor(obj: Role)
     {
         super(obj);
@@ -56,9 +57,13 @@ class Shotgun extends Weapon
         }
     }
 
-    public setLevel(lv:number)
+    public upLevel()
     {
-        super.setLevel(lv);
+        super.upLevel();
+        if(this.level > Shotgun.levelMax)
+        {
+            this.level = Shotgun.levelMax;
+        }
         this.setWeaponDataOfLv();
     }
 
@@ -67,6 +72,17 @@ class Shotgun extends Weapon
         this.range = (this.level - 1) * 20 + 200;
         this.angle = (this.level - 1) * 3 + 30;
         this.stayTime = (this.level - 1) * 50 + 500;
+    }
+
+    public enableSkill(skillType:ShotgunSkillType) 
+    {
+        super.enableSkill(skillType);
+        switch(skillType)
+        {
+            case ShotgunSkillType.AttackTypeIntensive:
+                this.upLevel();
+                break;
+        }
     }
 
 //class end
