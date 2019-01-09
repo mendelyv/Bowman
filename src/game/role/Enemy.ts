@@ -92,7 +92,7 @@ class Enemy extends Role {
      */
     public move(xPos: number, yPos: number, angle: number, Dis: number) {
         egret.Tween.removeTweens(this);
-        let time = (Dis / this.getSpeed()) * 1000 * 0.02;
+        let time = (Dis / this.getSpeed()) * 1000 * 2;
         xPos += Math.cos(angle) * Dis;
         yPos += Math.sin(angle) * Dis;
         var self = this;
@@ -115,7 +115,7 @@ class Enemy extends Role {
         }
         let target = MapManager.getMapItemPos(point.y, point.x);
         let dis = egret.Point.distance(new egret.Point(this.x, this.y), target);
-        let time = (dis / this.getSpeed()) * 1000 * 0.02;
+        let time = (dis / this.getSpeed()) * 1000 * 2;
         this.moveTween = egret.Tween.get(this).to({ x: target.x, y: target.y }, time)
             .call(function () {
                 this.pathIndex++;
@@ -295,11 +295,11 @@ class Enemy extends Role {
 			this.attribute.expMax = enemyConfig.experience;
 			this.attribute.speed = enemyConfig.speed;
 			this.attribute.power = enemyConfig.power;
-			let lastHpMax = this.attribute.hpMax;
-			this.attribute.hpMax = enemyConfig.hp;
+			let lastHpMax = this.attribute.HpMax;
+			this.attribute.HpMax = enemyConfig.hp;
 
 			//设置当前血量
-			let resumeValue = this.attribute.hpMax - lastHpMax;
+			let resumeValue = this.attribute.HpMax - lastHpMax;
 			this.resumeBlood(resumeValue,true);
 		}
 		else
@@ -325,11 +325,12 @@ class Enemy extends Role {
     public reset()
     {
         this.ai.start();
+        this.attribute.clearAllSkills();
         this.attribute.level = 1;
         this.setBaseAttOfLevel();
-        this.attribute.hp = this.attribute.hpMax;
+        this.attribute.hp = this.attribute.HpMax;
         this.hpTube.showHp();
-        this.attribute.clearAllSkills();
+        
         this.die = false;
         this.attribute.totalExp = 0;
         this.nickName = Main.instance.gameView.enemyMgr.randomEnemyName();

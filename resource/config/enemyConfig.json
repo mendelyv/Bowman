@@ -2,179 +2,179 @@
     "description":"玩家属性配置表，包含人物的属性信息,hp：血量，speed：移速，power：攻击力,shape：体型,experience: 升级所需经验",
     "enemy":{
                 "1":{
-            "hp": 50,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "2":{
-            "hp": 100,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "3":{
-            "hp": 150,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "4":{
-            "hp": 200,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "5":{
-            "hp": 250,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "6":{
-            "hp": 300,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "7":{
-            "hp": 350,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "8":{
             "hp": 400,
-            "speed": 2.5,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "9":{
-            "hp": 450,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "10":{
-            "hp": 500,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "11":{
-            "hp": 550,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "12":{
-            "hp": 600,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "13":{
-            "hp": 650,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "14":{
-            "hp": 700,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "15":{
-            "hp": 750,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "16":{
-            "hp": 800,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "17":{
-            "hp": 850,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "18":{
-            "hp": 900,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "19":{
-            "hp": 950,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "20":{
-            "hp": 1000,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "21":{
-            "hp": 1050,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "22":{
-            "hp": 1100,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "23":{
-            "hp": 1150,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "24":{
-            "hp": 1200,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         },
                 "25":{
-            "hp": 1250,
-            "speed": 2.5,
+            "hp": 400,
+            "speed": 200,
             "shape": 1,
             "experience":10,
-            "power":10
+            "power":100
         }
     }
 }

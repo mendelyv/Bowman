@@ -41,10 +41,21 @@ enum WeaponType
     SHOTGUN,
 }
 
+enum BowSkillType
+{
+    AddArrowNum,//箭的数量+1
+    BackAttack,//后放箭
+    AttackTypeIntensive,//攻击方式强化
+}
+
+enum ShotgunSkillType
+{
+    AttackTypeIntensive,//攻击方式强化
+}
+
 //技能
 enum SkillType{
     NONE,//空
-    AttackTypeIntensive,//攻击方式强化
     CriticalIntensive,//暴击强化
     AttackPowerIntensive,//攻击力强化
     DefenseIntensive,//防御强化
@@ -53,4 +64,5 @@ enum SkillType{
     SpeedIntensive,//移速强化
     Hemophagia,//攻击吸血
     KillOthenAddBlood,//击杀回血
+    AddHpMax,//增加最大血量
 }
