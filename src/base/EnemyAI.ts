@@ -24,10 +24,11 @@
 class EnemyAI
 {
     public state: EnemyState;//状态
-    public wanderRadius: number = 200;//游走半径，移动状态下，如果超出游走半径会返回出生位置
-    public defendRadius: number = 150;//自卫半径，玩家进入后怪物会追击玩家，当距离<攻击距离则会发动攻击
-    public chaseRadius: number = 180;//追击半径，当怪物超出这个追击半径后放弃追击，返回初始位置
-    public attackRadius: number = 100;//攻击半径，当玩家进入这个半径后就发起攻击
+    public defendRadius: number = 500;//自卫半径，玩家进入后怪物会追击玩家，当距离<攻击距离则会发动攻击
+    public chaseRadius: number = 550;//追击半径，当怪物超出这个追击半径后放弃追击，返回初始位置
+    public attackRadius: number = 100;//攻击半径，当玩家进入这个半径后就发起攻击\
+    public runawayDis: number = 500;//逃跑距离
+    public runawayHp: number = 100;//逃跑的血量
     // public player: Role;//主玩家对象
     
     private previousFramesTime: number;//上一帧的时间
@@ -120,6 +121,40 @@ class EnemyAI
                 this.obj.attack();
                 this.attackCheck();
             break;
+
+            case EnemyState.RUNAWAY:
+                // ===== 找逃跑需要的点 start =====
+                //逃跑逻辑只针对玩家
+                let player = Main.instance.gameView.player;
+                let playerPoint = new egret.Point(player.x, player.y);
+                let selfPoint = new egret.Point(this.obj.x, this.obj.y);
+                //全部都转换到世界坐标系计算
+                playerPoint = player.parent.localToGlobal(playerPoint.x, playerPoint.y);
+                selfPoint = this.obj.parent.localToGlobal(selfPoint.x, selfPoint.y);
+                //三角函数计算前的准备工作
+                let l = egret.Point.distance(playerPoint, selfPoint);
+                let x = playerPoint.x - selfPoint.x;
+                let y = playerPoint.y - selfPoint.y;
+                //计算角度
+                let theta = Math.asin(x / l) * (180 / Math.PI);
+                
+                theta = -theta;//使用对顶角计算逃跑点跟自己的夹角，可浮动，注意正负
+                let runPoint = new egret.Point(
+                    this.obj.x + this.runawayDis * Math.sin(theta * Math.PI / 180),
+                    this.obj.y - this.runawayDis * Math.cos(theta * Math.PI / 180)
+                );
+                //如果这个点可以过去
+                if(this.obj.canGoto(runPoint))
+                {
+                    this.obj.gotoPoint(runPoint);
+                }
+                else//如果这个点去不了，那就回头直接攻击玩家
+                {
+                    this.obj.target = player;
+                    this.state = EnemyState.ATTACK;
+                }
+                this.runawayCheck();
+            break;
         
             default : console.warn(" ----- 未找到对应的 EnemyState ----- "); break;
         }
@@ -157,10 +192,9 @@ class EnemyAI
         }
         else//在行走的权重区间
         {
-            //Ran TODO ：随机一个点位移
             this.state = EnemyState.WALK;
-            let x = Math.random() * 10000 % 1920;
-            let y = Math.random() * 10000 % 1920;
+            let x = Math.random() * 10000 % MapManager.colMax;
+            let y = Math.random() * 10000 % MapManager.rowMax;
             let point = new egret.Point(x, y);
             this.obj.gotoPoint(point);
         }
@@ -187,6 +221,16 @@ class EnemyAI
             this.state = EnemyState.CHASE;
             this.obj.target = target;
         }
+        //如果在玩家的攻击范围内
+        let player = Main.instance.gameView.player;
+        if(this.getTargetDistance(player) < player.weapon.range)
+        {
+            //并且血量进入危险的阈值
+            if(this.obj.attribute.hp <= this.runawayHp)
+            {
+                this.state = EnemyState.RUNAWAY;
+            }
+        }
     }
 
     private walkCheck()
@@ -205,6 +249,16 @@ class EnemyAI
         else if(dis < this.defendRadius)
         {
             this.state = EnemyState.CHASE;
+        }
+        //如果在玩家的攻击范围内
+        let player = Main.instance.gameView.player;
+        if(this.getTargetDistance(player) < player.weapon.range)
+        {
+            //并且血量进入危险的阈值
+            if(this.obj.attribute.hp <= this.runawayHp)
+            {
+                this.state = EnemyState.RUNAWAY;
+            }
         }
     }
 
@@ -233,6 +287,17 @@ class EnemyAI
             this.randomState();
             this.obj.target = null;
         }
+
+        //如果在玩家的攻击范围内
+        let player = Main.instance.gameView.player;
+        if(this.getTargetDistance(player) < player.weapon.range)
+        {
+            //并且血量进入危险的阈值
+            if(this.obj.attribute.hp <= this.runawayHp)
+            {
+                this.state = EnemyState.RUNAWAY;
+            }
+        }
     }
 
     private attackCheck()
@@ -253,6 +318,35 @@ class EnemyAI
         if(dis > this.attackRadius)
         {
             this.state = EnemyState.CHASE;
+        }
+
+        //如果在玩家的攻击范围内
+        let player = Main.instance.gameView.player;
+        if(this.getTargetDistance(player) < player.weapon.range)
+        {
+            //并且血量进入危险的阈值
+            if(this.obj.attribute.hp <= this.runawayHp)
+            {
+                this.state = EnemyState.RUNAWAY;
+            }
+        }
+    }
+
+    private runawayCheck()
+    {
+        //逃跑逻辑只针对主玩家，所以检查的时候特殊处理
+        let target = Main.instance.gameView.player;
+        if(!target)
+        {
+            this.randomState();
+            return;
+        }
+        let dis = this.getTargetDistance(target);
+        if(dis == -1) return;
+        if(dis > target.weapon.range * 2)//如果距离出了玩家的武器攻击距离
+        {
+            this.randomState();
+            return;
         }
     }
 
