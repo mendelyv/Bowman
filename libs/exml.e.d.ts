@@ -8,11 +8,17 @@ declare class PopWindowSkin extends eui.Skin{
 }
 declare class SkillComponentSkin extends eui.Skin{
 }
+declare class CheckBoxSkin extends eui.Skin{
+}
 declare class GameBGSkin extends eui.Skin{
 }
 declare class GameEndSkin extends eui.Skin{
 }
 declare class GameViewSkin extends eui.Skin{
+}
+declare class HeroItemSkin extends eui.Skin{
+}
+declare class HeroRowSkin extends eui.Skin{
 }
 declare class HeroViewSkin extends eui.Skin{
 }
