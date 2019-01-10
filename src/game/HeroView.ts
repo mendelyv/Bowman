@@ -34,7 +34,7 @@ class HeroView extends eui.Component {
         let index = 0;
         for (let i = 0; i < config.length; i++) {
             let obj = {
-                index: i, name: config[i].work, hp: config[i].hp, gold: config[i].gold
+                index: i, name: config[i].work, hp: config[i].hp, gold: config[i].gold,info:config[i].info
             }
             if (index < 4) {
                 items.push(obj)
