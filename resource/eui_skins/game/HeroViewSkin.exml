@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="HeroViewSkin" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="shopBG" height="750" x="0" width="1334" source="game_bg_jpg"/>
+	<e:Image id="shopBG" source="obs_block_png" right="0" left="0" top="0" bottom="0"/>
 	<e:Image width="1106" height="70" x="226" y="0" anchorOffsetX="0" anchorOffsetY="0" source="game_second_g_f_png"/>
 	<e:Image id="goldBg" height="72" y="0" anchorOffsetX="0" anchorOffsetY="0" source="gold_bg_png" left="515" horizontalCenter="0" right="515"/>
 	<e:Label id="goldLabel" text="6666666" anchorOffsetY="0" height="44.67" anchorOffsetX="0" textAlign="center" verticalAlign="middle" width="209" y="16" x="608"/>
