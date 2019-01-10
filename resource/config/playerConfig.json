@@ -1,180 +1,244 @@
 {
-    "description":"玩家属性配置表，包含人物的属性信息,hp：血量，speed：移速，power：攻击力,shape：体型,experience: 升级所需经验",
-    "player":{
-                "1":{
+    "description": "hero英雄基础属性配置：work初始职业，hp:初始血量，gold：购买需要的金币。玩家属性配置表，包含人物的属性信息,hp：血量，speed：移速，power：攻击力,shape：体型,experience: 升级所需经验",
+    "hero": {
+        "config": [
+            {
+                "work": "弓箭手",
+                "hp": 400,
+                "gold": 0
+            },
+            {
+                "work": "散弹枪",
+                "hp": 600,
+                "gold": 999999
+            },
+            {
+                "work": "敬请期待",
+                "hp": 0,
+                "gold": 0
+            },
+            {
+                "work": "敬请期待",
+                "hp": 0,
+                "gold": 0
+            },
+            {
+                "work": "敬请期待",
+                "hp": 0,
+                "gold": 0
+            },
+            {
+                "work": "敬请期待",
+                "hp": 0,
+                "gold": 0
+            },
+            {
+                "work": "敬请期待",
+                "hp": 0,
+                "gold": 0
+            },
+            {
+                "work": "敬请期待",
+                "hp": 0,
+                "gold": 0
+            },
+            {
+                "work": "敬请期待",
+                "hp": 0,
+                "gold": 0
+            },
+            {
+                "work": "敬请期待",
+                "hp": 0,
+                "gold": 0
+            },
+            {
+                "work": "敬请期待",
+                "hp": 0,
+                "gold": 0
+            },
+            {
+                "work": "敬请期待",
+                "hp": 0,
+                "gold": 0
+            }
+        ]
+    },
+    "player": {
+        "1": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":100,
-            "power":100
+            "experience": 100,
+            "power": 100
         },
-                "2":{
+        "2": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":300,
-            "power":100
+            "experience": 300,
+            "power": 100
         },
-                "3":{
+        "3": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":600,
-            "power":100
+            "experience": 600,
+            "power": 100
         },
-                "4":{
+        "4": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":1000,
-            "power":100
+            "experience": 1000,
+            "power": 100
         },
-                "5":{
+        "5": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":1500,
-            "power":100
+            "experience": 1500,
+            "power": 100
         },
-                "6":{
+        "6": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":2100,
-            "power":100
+            "experience": 2100,
+            "power": 100
         },
-                "7":{
+        "7": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":2800,
-            "power":100
+            "experience": 2800,
+            "power": 100
         },
-                "8":{
+        "8": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":3600,
-            "power":100
+            "experience": 3600,
+            "power": 100
         },
-                "9":{
+        "9": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":4500,
-            "power":100
+            "experience": 4500,
+            "power": 100
         },
-                "10":{
+        "10": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":5500,
-            "power":100
+            "experience": 5500,
+            "power": 100
         },
-                "11":{
+        "11": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":6600,
-            "power":100
+            "experience": 6600,
+            "power": 100
         },
-                "12":{
+        "12": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":7800,
-            "power":100
+            "experience": 7800,
+            "power": 100
         },
-                "13":{
+        "13": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":9100,
-            "power":100
+            "experience": 9100,
+            "power": 100
         },
-                "14":{
+        "14": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":10500,
-            "power":100
+            "experience": 10500,
+            "power": 100
         },
-                "15":{
+        "15": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":12000,
-            "power":100
+            "experience": 12000,
+            "power": 100
         },
-                "16":{
+        "16": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":13600,
-            "power":100
+            "experience": 13600,
+            "power": 100
         },
-                "17":{
+        "17": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":15300,
-            "power":100
+            "experience": 15300,
+            "power": 100
         },
-                "18":{
+        "18": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":17100,
-            "power":100
+            "experience": 17100,
+            "power": 100
         },
-                "19":{
+        "19": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":19000,
-            "power":100
+            "experience": 19000,
+            "power": 100
         },
-                "20":{
+        "20": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":21000,
-            "power":100
+            "experience": 21000,
+            "power": 100
         },
-                "21":{
+        "21": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":23100,
-            "power":100
+            "experience": 23100,
+            "power": 100
         },
-                "22":{
+        "22": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":25300,
-            "power":100
+            "experience": 25300,
+            "power": 100
         },
-                "23":{
+        "23": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":27600,
-            "power":100
+            "experience": 27600,
+            "power": 100
         },
-                "24":{
+        "24": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":30000,
-            "power":100
+            "experience": 30000,
+            "power": 100
         },
-                "25":{
+        "25": {
             "hp": 400,
             "speed": 200,
             "shape": 1,
-            "experience":30000,
-            "power":100
+            "experience": 30000,
+            "power": 100
         }
     }
 }
