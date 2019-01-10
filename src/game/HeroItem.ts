@@ -17,14 +17,14 @@ class HeroItem extends eui.ItemRenderer {
      protected createChildren() {
         super.createChildren();
     }
-    public data: {index:number,name:string,hp:number,isSelect:boolean,gold:number };
+    public data: {index:number,name:string,hp:number,gold:number };
     protected dataChanged(): void {
         super.dataChanged();
         this.name_txt.text = this.data.name;
         this.role_img.source = "role_"+this.data.index+"_png";
         this.work_img.source = "workIcon_"+this.data.index+"_png";
         this.hp_txt.text = this.data.hp.toString();
-        if(this.data.isSelect)
+        if(HeroView.s_defSel == this.data.index)
         {
             this.select_img.visible = true;
             this.buy_btn.visible = false;

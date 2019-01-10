@@ -28,6 +28,7 @@
 //////////////////////////////////////////////////////////////////////////////////////
 
 class Main extends eui.UILayer {
+    // public uiEvent = new egret.EventDispatcher();
     private static _instance: Main;//主类单例
     public static get instance(): Main { return Main._instance; }
     public isLoadCom: boolean = false;//是否加载完资源

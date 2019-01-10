@@ -19,8 +19,14 @@ class HeroRow extends eui.ItemRenderer {
         let i: number = Number(e.currentTarget.name);
         let tempData = this.data.items[i];
         if (tempData) {
-            tempData.isSelect = true;
-            this.dataChanged();
+            HeroView.s_defSel = tempData.index;
+            // Main.instance.uiEvent.dispatchEventWith('refreshHeroList');
+            // this.dataChanged();
+            let list: eui.List = this.parent as eui.List;
+            for (let i = 0; i < list.numChildren; i++) {
+                let row:HeroRow = list.getChildAt(i) as HeroRow;
+                row.dataChanged();
+            }
         }
     }
     public data: { items: any[] };
