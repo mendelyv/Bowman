@@ -81,6 +81,34 @@ class Bow extends Weapon
                     arrow.speed = this.speed;
                     arrow.moveFrom(targetPoint.x, targetPoint.y, (arrow.rotation - 90) * Math.PI / 180, this.range);
                 }
+                if(this.backAttack)//后放箭
+                {
+                    let arrow: Arrow = ObjectPool.instance.getObj("arrow");
+                    arrow.id = this.obj.id;
+
+                    //计算伤害 start
+                    arrow.damage = this.obj.getDamage();
+                    //end
+                    arrow.whos = WhosBullet.PLAYER;
+
+                    arrow.display.texture = RES.getRes(this.res);
+                    arrow.addChild(arrow.display);
+
+                    let point = new egret.Point();
+                    this.obj.parent.localToGlobal(this.obj.x, this.obj.y, point);
+                    let targetPoint = new egret.Point();
+                    group.parent.globalToLocal(point.x, point.y, targetPoint);
+                    // group.addChild(arrow);
+                    arrow.anchorOffsetX = arrow.width / 2;
+                    arrow.anchorOffsetY = arrow.height / 2;
+                    arrow.index = bg.addBullet(arrow, WhosBullet.PLAYER);
+                    arrow.x = targetPoint.x;
+                    arrow.y = targetPoint.y;
+                    arrow.rotation = tmpRot-180;
+
+                    arrow.speed = this.speed;
+                    arrow.moveFrom(targetPoint.x, targetPoint.y, (arrow.rotation - 90) * Math.PI / 180, this.range);
+                }
                 // ===== 主玩家攻击 end =====
             }break;
 
@@ -136,7 +164,28 @@ class Bow extends Weapon
                     arrow.speed = this.speed;
                     arrow.moveFrom(this.obj.x, this.obj.y, (arrow.rotation - 90) * Math.PI / 180, this.range);
                 }
+                if(this.backAttack)//后放箭
+                {
+                    arrow = ObjectPool.instance.getObj("arrow") as Arrow;
+                    arrow.id = this.obj.id;
 
+                    arrow.damage = this.obj.getDamage();
+                    arrow.whos = WhosBullet.ENEMY;
+                    arrow.display.texture = RES.getRes(this.res);
+                    arrow.addChild(arrow.display);
+  
+                    //添加显示，设置位置和角度，增加tween
+                    let bg = Main.instance.gameView.gameBg;
+                    arrow.anchorOffsetX = arrow.width / 2;
+                    arrow.anchorOffsetY = arrow.height / 2;
+                    arrow.index = bg.addBullet(arrow, WhosBullet.ENEMY);
+                    arrow.x = this.obj.x;
+                    arrow.y = this.obj.y;
+                    arrow.rotation = tmpRot - 180;
+
+                    arrow.speed = this.speed;
+                    arrow.moveFrom(this.obj.x, this.obj.y, (arrow.rotation - 90) * Math.PI / 180, this.range);
+                }
                 // ===== 敌人攻击 end =====
             }break;
         }

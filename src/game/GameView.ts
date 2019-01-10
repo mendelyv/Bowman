@@ -30,7 +30,6 @@ class GameView extends eui.Component {
     /**初始化*/
     public init() {
         this.initObjectPool();
-       
     }
   
     private initObjectPool() {
@@ -54,7 +53,6 @@ class GameView extends eui.Component {
         this.battleMgr.roleArray.push(this.player);
         this.mapMgr = new MapManager();
         this.enemyMgr = new EnemyManager();
-        this.expMaskWidth = this.expMask.width;
         this.gameEnd.visible = false;
 
         let pos = MapManager.getRandomEmptyPos();
@@ -69,7 +67,15 @@ class GameView extends eui.Component {
             this.rankGroup.addChild(this._rankpanel);
         }
         this.updateRankPanel();
+        this.initExpPanel();
     }
+
+    public initExpPanel()
+    {
+        this.expMaskWidth = this.expMask.width;
+        this.expMask.width = 0;
+    }
+
     /**刷新排行*/
     public updateRankPanel():void{
         if(this.rankGroup){

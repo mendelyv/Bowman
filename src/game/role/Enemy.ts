@@ -29,6 +29,7 @@ class Enemy extends Role {
         //this.attribute.speed = 2.5;
         this.ai = new EnemyAI(this);
         this.weapon = new Bow(this);
+        this.ai.attackRadius = this.weapon.range;
     }
 
     public initNav(): void {
@@ -142,56 +143,6 @@ class Enemy extends Role {
 
     /** 攻击 */
     public attack() {
-        // let deltaTime = egret.getTimer() - this.previousFrameTime;
-        // this.shootTime += deltaTime;
-
-        // let group, arrow: Arrow;
-
-        // //旋转人物
-        // if (this.target) {
-        //     this.lookAtTarget();
-        // }
-
-        // if (this.shootTime >= this.shootDelay) 
-        // {
-        //     this.shootTime = 0;
-        //     let rotations = new Array<number>();
-        //     let tmpRot: number = this.role_img.rotation;
-        //     let mid = Math.floor(this.attribute.arrowNum / 2);//找中间的弓箭的位置
-        //     for(let i = 0; i < this.attribute.arrowNum; i++)
-        //     {
-        //         let times = Math.abs(mid - i);
-        //         if(i < mid) rotations.push(tmpRot - 15 * times);
-        //         else if(i > mid) rotations.push(tmpRot + 15 * times);
-        //         else rotations.push(tmpRot);
-        //     }
-        //     if(mid % 2 == 0)//如果是偶数再偏一次
-        //     {
-        //         for(let i = 0; i < rotations.length; i++)
-        //         {
-        //             rotations[i] += 15 / 2;
-        //         }
-        //     }
-
-        //     //先实例化一支弓箭
-        //     group = Main.instance.gameView.gameBg.arrowGroup;
-        //     for(let i = 0; i < rotations.length; i++)
-        //     {
-        //         arrow = ObjectPool.instance.getObj("arrow") as Arrow;
-        //         arrow.id = this.id;
-        //         arrow.damage = this.attribute.power;
-        //         arrow.whos = WhosArrow.ENEMY;
-        //         arrow.texture = RES.getRes(this.attribute.res);
-        //         //添加显示，设置位置和角度，增加tween
-        //         let bg = Main.instance.gameView.gameBg;
-        //         arrow.index = bg.addArrow(arrow, WhosArrow.ENEMY);
-        //         arrow.x = this.x;
-        //         arrow.y = this.y;
-        //         arrow.rotation = rotations[i];
-        //         arrow.moveFrom(this.x, this.y, (arrow.rotation - 90) * Math.PI / 180, this.attribute.range);
-        //     }
-        // }
-        // this.previousFrameTime = egret.getTimer();
         this.weapon.attack(1);
     }
 
@@ -245,6 +196,17 @@ class Enemy extends Role {
 
         this.pathQueue = pathQueue;
         this.moveOfPath();
+    }
+
+    /** 能不能去 */
+    public canGoto(target: egret.Point): boolean
+    {
+        let start = MapManager.getRowColOfMap(new egret.Point(this.x, this.y));
+        let end = MapManager.getRowColOfMap(new egret.Point(target.x, target.y), true);
+        this.initNav();
+        let pathQueue = this.nav.find(start.y, start.x, end.y, end.x);
+        if(!pathQueue) return false;
+        else return true;
     }
 
     public lookAtTarget()

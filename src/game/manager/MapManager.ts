@@ -9,7 +9,10 @@ class MapManager {
 	static cellPix:number = 48;
 	static offsetX = 0;
 	static offsetY = 0;
-	//
+	//最大宽高
+	static maxWid: number;
+	static maxHei: number;
+
 	static enemyTimesArr:Array<number>; //敌人死亡为了做生成的数组
 	static propretyTimesArr:Array<Array<number>>; //道具被吃之后做生成的数组
 	
@@ -37,6 +40,9 @@ class MapManager {
 		this.createMapObstacal();
 		this.createProperty();
 		this.showMap();
+
+		MapManager.maxWid = MapManager.colMax * MapManager.cellPix;
+		MapManager.maxHei = MapManager.rowMax * MapManager.cellPix;
 	}
 
 	//将敌人类型和时间push进数组
