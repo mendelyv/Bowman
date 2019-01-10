@@ -7,6 +7,7 @@ class Role extends eui.Component
 	public role_img: eui.Image;
 	public bubble_img: eui.Image;
 	public target: Role;
+	public weaponType:WeaponType;//武器类型
 	public weapon: Weapon;
 
 	public id: number;//人物编号，使用这个来区分人物
@@ -17,8 +18,10 @@ class Role extends eui.Component
 	public hpTube: HPTube;//角色的血量条
 	public nickName:string;//角色昵称
 	
+	
 	public constructor() {
 		super();
+		this.weaponType = WeaponType.BOW;
 		this.attribute = new Attribute(this);
 	}
 	protected createChildren() {
@@ -106,16 +109,20 @@ class Role extends eui.Component
 		this.attribute.exp += expValue * ( 1 + Attribute.addExpArr[this.attribute.AddExpLv]);
 		this.attribute.totalExp += expValue*(1 + Attribute.addExpArr[this.attribute.AddExpLv]);
 		Main.instance.gameView.updateRankPanel();
-		if (this.attribute.exp >= this.attribute.expMax) 
+		if(this.attribute.level < UserData.levelMax)
 		{
-			this.levelUp();
+			if (this.attribute.exp >= this.attribute.expMax) 
+			{
+				this.levelUp();
+			}
 		}
 	}
 
 	//升级
-	public levelUp() 
+	public levelUp()
 	{	
-		this.attribute.level++;
+		// 	this.attribute.level++;
+		// }
 	}
 
 	public attack()//攻击

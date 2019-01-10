@@ -20,7 +20,15 @@ class Player extends Role {
 	public constructor() {
 		super();
 		this.id = 0;
-		this.weapon = new Shotgun(this);
+		switch(this.weaponType)
+		{
+			case WeaponType.BOW:
+				this.weapon = new Bow(this);
+				break;
+			case WeaponType.SHOTGUN:
+				this.weapon = new Shotgun(this);
+				break;
+		}
 		this.nickName = "我的名字"
 	}
 
@@ -101,6 +109,22 @@ class Player extends Role {
 	
 	public levelUp() {
 		super.levelUp();
+
+		let expNeed;//下一级所需经验
+		let playerConfig = GameConfig.playerConfig["player"];
+		do
+		{
+			if(this.attribute.level >= UserData.levelMax)
+			{
+				break;
+			}	
+			this.attribute.exp -= playerConfig[(this.attribute.level).toString()].experience;
+			this.attribute.level++;
+			this.attribute.exp = this.attribute.exp > 0 ? this.attribute.exp : 0;
+			expNeed = playerConfig[this.attribute.level.toString()].experience;
+		}
+		while(this.attribute.exp >= expNeed);
+		
 		this.attribute.level = this.attribute.level < UserData.levelMax ? this.attribute.level : UserData.levelMax;
 		this.setBaseAttOfLevel();
 		Main.instance.gameView.showSkills();
