@@ -24,6 +24,7 @@ class Arrow extends Bullet
         // this.myDrawRect();
         let shp = Util.drawLineRectangle(this.x, this.y, 10, 28, 0xff0000, 2);
         this.addChild(shp);
+        this.tag = WeaponType.BOW;
     }
 
     //根据弓箭id生成不同的弓箭
@@ -45,7 +46,7 @@ class Arrow extends Bullet
         // console.log("time===",time);
         egret.Tween.get(this).to({ x: xPos,y: yPos }, time).call(function():void{
             egret.Tween.removeTweens(this);
-            ObjectPool.instance.pushObj("arrow", this);
+            ObjectPool.instance.pushObj(this.poolName, this);
         },this);
     }
 

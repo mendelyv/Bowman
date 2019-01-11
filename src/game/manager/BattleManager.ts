@@ -156,11 +156,18 @@ class BattleManager {
 			{
 				break;
 			}
+
 			//撞到墙
 			if(bullet.isHitObstacal())
 			{
-				ObjectPool.instance.pushObj(bullet.poolName, bullet);
+				switch(bullet.tag)
+				{
+					case WeaponType.BOW: ObjectPool.instance.pushObj(bullet.poolName, bullet); break;
+					case WeaponType.GRENADEBAG : (bullet as Grenade).hitWall(); break;
+				}
+				
 			}
+			
 			for(let i =0;i<this.enemys.length;++i)
 			{
 				let enemy = this.enemys[i];
@@ -240,7 +247,11 @@ class BattleManager {
 			//撞到墙
 			if(bullet.isHitObstacal())
 			{
-				ObjectPool.instance.pushObj(bullet.poolName, bullet);
+				switch(bullet.tag)
+				{
+					case WeaponType.BOW: ObjectPool.instance.pushObj(bullet.poolName, bullet); break;
+					case WeaponType.GRENADEBAG : (bullet as Grenade).hitWall(); break;
+				}
 			}
 			for(let j:number = 0; j < this.enemys.length; j++){
 				let enemy = this.enemys[j];

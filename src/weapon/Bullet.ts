@@ -15,11 +15,13 @@ abstract class Bullet extends egret.DisplayObjectContainer
     public damage: number;//伤害量
     public display: egret.DisplayObject;//显示对象
     public whos: WhosBullet = WhosBullet.NONE;//谁的弓箭
+    public tag: WeaponType;
 
     public constructor()
     {
         super();
         this.index = -1;
+        this.tag = WeaponType.NONE;
     }
 
     /** 检测碰撞 */

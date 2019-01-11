@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "element_common_png,element_common_0_png,element_common_1_png,element_common_2_png,element_common_3_png,element_guazi_png,element_juzi_png,element_penshe_png,end_button_continue_png,end_button_share_png,end_eat_font_png,end_rank_font_png,end_time_font_png,end_weight_font_png,end_win_bg_png,end_win_button_close_png,end_win_font_icon_png,end_win_tips_png,game_broadcast_bg_png,game_exploits_text_png,game_handle_circle_png,game_handle_circleFrame_png,game_rank_bg_png,game_spore_dir_png,game_title_rope_png,loading_bar_png,loading_bar_bg_png,loading_bg_jpg,loading_line_png,loading_logo_png,login_head_bg_png,login_random_head_button_png,login_random_name_button_png,login_start_button_png,login_text_bar_png,paopao_0_png,paopao_1_png,paopao_10_png,paopao_11_png,paopao_2_png,paopao_3_png,paopao_4_png,paopao_5_png,paopao_6_png,paopao_7_png,paopao_8_png,paopao_9_png,role_0_png,role_1_png,role_10_png,role_11_png,role_2_png,role_3_png,role_4_png,role_5_png,role_6_png,role_7_png,role_8_png,role_9_png,scence_json,map_block_png,obs_block_png,skillConfig_json,enemyBloodBg_png,enemyBlood_png,hptube_line_png,obstacals2_json,obstacals1_json,wordConfig_json,red_num_json,playerConfig_json,map_bg_png,default.thm_json,com_rank_bg_png,enemyConfig_json,shotgunBullet_png,game_second_g_f_png,gem_icon_png,com_btn_close_png,skill_0_9_jpg,skill_0_7_jpg,skill_0_5_jpg,skill_0_3_jpg,skill_0_1_jpg,skill_0_2_jpg,skill_0_4_jpg,skill_0_6_jpg,skill_0_8_jpg,skill_1_1_jpg,nameConfig_json,skill_2_1_jpg,skill_1_2_jpg,skill_1_3_jpg,ui_right_png,ui_check_png,heart_icon_png,ui_select_png,workIcon_4_png,workIcon_3_png,workIcon_2_png,workIcon_1_png,workIcon_0_png,workIcon_5_png,workIcon_6_png,workIcon_9_png,workIcon_7_png,workIcon_8_png,workIcon_11_png,workIcon_10_png,ui_hero_info_png",
+			"keys": "element_common_png,element_common_0_png,element_common_1_png,element_common_2_png,element_common_3_png,element_guazi_png,element_juzi_png,element_penshe_png,end_button_continue_png,end_button_share_png,end_eat_font_png,end_rank_font_png,end_time_font_png,end_weight_font_png,end_win_bg_png,end_win_button_close_png,end_win_font_icon_png,end_win_tips_png,game_broadcast_bg_png,game_exploits_text_png,game_handle_circle_png,game_handle_circleFrame_png,game_rank_bg_png,game_spore_dir_png,game_title_rope_png,loading_bar_png,loading_bar_bg_png,loading_bg_jpg,loading_line_png,loading_logo_png,login_head_bg_png,login_random_head_button_png,login_random_name_button_png,login_start_button_png,login_text_bar_png,paopao_0_png,paopao_1_png,paopao_10_png,paopao_11_png,paopao_2_png,paopao_3_png,paopao_4_png,paopao_5_png,paopao_6_png,paopao_7_png,paopao_8_png,paopao_9_png,role_0_png,role_1_png,role_10_png,role_11_png,role_2_png,role_3_png,role_4_png,role_5_png,role_6_png,role_7_png,role_8_png,role_9_png,scence_json,map_block_png,obs_block_png,skillConfig_json,enemyBloodBg_png,enemyBlood_png,hptube_line_png,obstacals2_json,obstacals1_json,wordConfig_json,red_num_json,playerConfig_json,map_bg_png,default.thm_json,com_rank_bg_png,enemyConfig_json,shotgunBullet_png,game_second_g_f_png,gem_icon_png,com_btn_close_png,skill_0_9_jpg,skill_0_7_jpg,skill_0_5_jpg,skill_0_3_jpg,skill_0_1_jpg,skill_0_2_jpg,skill_0_4_jpg,skill_0_6_jpg,skill_0_8_jpg,skill_1_1_jpg,nameConfig_json,skill_2_1_jpg,skill_1_2_jpg,skill_1_3_jpg,ui_right_png,ui_check_png,heart_icon_png,ui_select_png,workIcon_4_png,workIcon_3_png,workIcon_2_png,workIcon_1_png,workIcon_0_png,workIcon_5_png,workIcon_6_png,workIcon_9_png,workIcon_7_png,workIcon_8_png,workIcon_11_png,workIcon_10_png,ui_hero_info_png,grenade_png",
 			"name": "preload"
 		}
 	],
@@ -559,9 +559,14 @@
 			"name": "workIcon_9_png"
 		},
 		{
-			"name": "ui_hero_info_png",
+			"url": "assets/main_ui/ui_hero_info.png",
 			"type": "image",
-			"url": "assets/main_ui/ui_hero_info.png"
+			"name": "ui_hero_info_png"
+		},
+		{
+			"url": "assets/game/grenade.png",
+			"type": "image",
+			"name": "grenade_png"
 		}
 	]
 }
