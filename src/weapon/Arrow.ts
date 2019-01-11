@@ -103,8 +103,11 @@ class Arrow extends Bullet
                 let hitPointPos = MapManager.getMapItemPos(hitPoint.x,hitPoint.y);
                 hitPointPos = Main.instance.gameView.gameBg.obstacalGroup.localToGlobal(hitPointPos.x,hitPointPos.y);
                 let pos = new egret.Point(this.x,this.y);
-                pos = this.parent.localToGlobal(this.x,this.y);
-            
+                if(this.parent)
+                {
+                    pos = this.parent.localToGlobal(this.x,this.y);
+                }
+                
                 let obj1R = Math.sqrt(this.width * this.width + this.height * this.height);
                 let obj2R = Math.sqrt(MapManager.cellPix * MapManager.cellPix + MapManager.cellPix * MapManager.cellPix);
 

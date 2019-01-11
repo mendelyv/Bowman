@@ -34,7 +34,7 @@ class ShotgunBullet extends Bullet
     }
 
 
-    /** 喷子用 */
+    /** 喷子用 不会消失，返回false*/
     public  isHitObstacal():boolean
     {
         return false;
