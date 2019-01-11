@@ -16,6 +16,7 @@ class Grenade extends Bullet
     private active: boolean;
     private timer: egret.Timer;
     private damagedRoleID: Array<number>;
+    private isHitWall: boolean;
 
     public constructor(range: number, damageRange: number, countDown: number, speed: number)
     {
@@ -36,6 +37,8 @@ class Grenade extends Bullet
         this.timer = new egret.Timer(this.countDown, 1);
         this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.countDownCB, this);
         this.damagedRoleID = new Array<number>();
+        this.tag = WeaponType.GRENADEBAG;
+        this.isHitWall = false;
     }
 
     //喷射移动
@@ -68,11 +71,83 @@ class Grenade extends Bullet
 
         if(Util.isCircleHit(obj, this, true, obj.width / 2, this.damageRange))
         {
-            this.damagedRoleID.push(obj.id);
-            return true;
+            if(this.checkBarrier(obj, startCoord, endCoord))
+            {
+                this.damagedRoleID.push(obj.id);
+                return true;
+            }
+            return false;
         }
+        return false;
 
     }
+
+    /** 检测障碍物 */
+    private checkBarrier(obj: Role, startCoord: boolean = false, endCoord: boolean = false)
+    {
+        let arr = MapManager.getLineItems(new egret.Point(this.x, this.y), new egret.Point(obj.x, obj.y), startCoord, endCoord);
+        for(let i = 0; i < arr.length; i++)
+        {
+            let data = arr[i];
+            if(MapManager.mapItems[data.row][data.col] == 1)
+                return false;
+        }
+        return true;
+    }
+
+    /** 撞墙了 */
+    public hitWall()
+    {
+        if(this.isHitWall) return;
+
+        this.isHitWall = true;
+        egret.Tween.removeTweens(this);
+        this.timer.start();
+        // console.log(" ===== " + this.hashCode + " ===== " );
+    }
+
+    /** 炸弹与墙的碰撞 */
+    public isHitObstacal():boolean
+    {
+        if(this.isHitWall) return true;
+
+        let hitPoints = MapManager.getHitItem(this,[MapItemType.OBSTACAL],false);
+        if(hitPoints)
+        {
+            for(let i = 0 ; i < hitPoints.length ; i++)
+            {
+                let hitPoint = hitPoints[i];
+                let hitPointPos = MapManager.getMapItemPos(hitPoint.x,hitPoint.y);
+                hitPointPos = Main.instance.gameView.gameBg.obstacalGroup.localToGlobal(hitPointPos.x,hitPointPos.y);
+                let pos = new egret.Point(this.x,this.y);
+                if(this.parent)
+                {
+                    pos = this.parent.localToGlobal(this.x,this.y);
+                }
+                
+                let obj1R = Math.sqrt(this.width * this.width + this.height * this.height);
+                let obj2R = Math.sqrt(MapManager.cellPix * MapManager.cellPix + MapManager.cellPix * MapManager.cellPix);
+
+                let distance = egret.Point.distance(pos, hitPointPos);
+                if(obj1R + obj2R > distance)
+                {
+                    let aim_cx = pos.x - this.anchorOffsetX  + this.width * 0.5;
+                    let aim_cy = pos.y - this.anchorOffsetY + this.height * 0.5;
+                    let hit_cx = hitPointPos.x;
+                    let hit_cy = hitPointPos.y;
+
+                    let dx = Math.abs(aim_cx - hit_cx);
+                    let dy = Math.abs(aim_cy - hit_cy);
+                    if (dx <= Math.abs(MapManager.cellPix * 0.5 + this.width * 0.5) && dy <= Math.abs(MapManager.cellPix * 0.5  + this.height * 0.5)) 
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
 
 
     public recycle()
@@ -124,6 +199,23 @@ class Grenade extends Bullet
         if(this.parent)
             this.parent.removeChild(this);
         egret.Tween.removeTweens(this);
+        if(this.whos != WhosBullet.NONE)
+        {
+            switch(this.whos)
+            {
+                case WhosBullet.PLAYER:
+                {
+                    let arr = Main.instance.gameView.battleMgr.bulletsPlayer;
+                    arr[this.index] = null;
+                }break;
+
+                case WhosBullet.ENEMY:
+                {
+                    let arr = Main.instance.gameView.battleMgr.bulletsEnemy;
+                    arr[this.index] = null;
+                }break;
+            }
+        }
     }
 
 //class end

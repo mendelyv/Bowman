@@ -24,6 +24,7 @@ class Arrow extends Bullet
         // this.myDrawRect();
         let shp = Util.drawLineRectangle(this.x, this.y, 10, 28, 0xff0000, 2);
         this.addChild(shp);
+        this.tag = WeaponType.BOW;
     }
 
     //根据弓箭id生成不同的弓箭

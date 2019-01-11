@@ -31,6 +31,7 @@ class ShotgunBullet extends Bullet
         this.addChild(this.display);
         this.poolName = "shotgunBullet";
         this.damagedRoleID = new Array<number>();
+        this.tag = WeaponType.SHOTGUN;
     }
 
 
@@ -74,11 +75,14 @@ class ShotgunBullet extends Bullet
             
             if(limitL < theta && theta < limitR)
             {
-                this.damagedRoleID.push(obj.id);
-                return this.checkBarrier(obj, startCoord, endCoord);
-            }
-            else
+                if(this.checkBarrier(obj, startCoord, endCoord))
+                {
+                    this.damagedRoleID.push(obj.id);
+                    return true;
+                }
                 return false;
+            }
+            return false;
         }
         return false;
     }
