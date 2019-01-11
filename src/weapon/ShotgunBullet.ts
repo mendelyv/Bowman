@@ -33,10 +33,14 @@ class ShotgunBullet extends Bullet
         this.damagedRoleID = new Array<number>();
     }
 
+    /** 喷子用 */
+    public  isHitObstacal():boolean
+    {
+        return false;
+    }
+
     public canDamage(obj: Role, needTrans: boolean)
     {
-        super.canDamage(obj, needTrans);
-
         //做一个检测，防止同一个单位多次伤害
         if(this.damagedRoleID.length > 0)
             if(this.damagedRoleID.indexOf(obj.id) >= 0)

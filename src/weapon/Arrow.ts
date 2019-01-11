@@ -77,12 +77,48 @@ class Arrow extends Bullet
      */
     public canDamage(obj: Role, needTrans: boolean)
     {
-        super.canDamage(obj, needTrans);
         if(Util.isCircleHit(obj,this,true))
         {
             if(Util.isHit(obj,this,true))
             {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    /** 箭与墙的碰撞 */
+    public  isHitObstacal():boolean
+    {
+        let hitPoints = MapManager.getHitItem(this,[MapItemType.OBSTACAL],false);
+        if(hitPoints)
+        {
+            for(let i = 0 ; i < hitPoints.length ; i++)
+            {
+                let hitPoint = hitPoints[i];
+                let hitPointPos = MapManager.getMapItemPos(hitPoint.x,hitPoint.y);
+                hitPointPos = Main.instance.gameView.gameBg.obstacalGroup.localToGlobal(hitPointPos.x,hitPointPos.y);
+                let pos = new egret.Point(this.x,this.y);
+                pos = this.parent.localToGlobal(this.x,this.y);
+            
+                let obj1R = Math.sqrt(this.width * this.width + this.height * this.height);
+                let obj2R = Math.sqrt(MapManager.cellPix * MapManager.cellPix + MapManager.cellPix * MapManager.cellPix);
+
+                let distance = egret.Point.distance(pos, hitPointPos);
+                if(obj1R + obj2R > distance)
+                {
+                    let aim_cx = pos.x - this.anchorOffsetX  + this.width * 0.5;
+                    let aim_cy = pos.y - this.anchorOffsetY + this.height * 0.5;
+                    let hit_cx = hitPointPos.x;
+                    let hit_cy = hitPointPos.y;
+
+                    let dx = Math.abs(aim_cx - hit_cx);
+                    let dy = Math.abs(aim_cy - hit_cy);
+                    if (dx <= Math.abs(MapManager.cellPix * 0.5 + this.width * 0.5) && dy <= Math.abs(MapManager.cellPix * 0.5  + this.height * 0.5)) 
+                    {
+                        return true;
+                    }
+                }
             }
         }
         return false;
