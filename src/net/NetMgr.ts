@@ -31,14 +31,7 @@ class NetMgr {
 			GameConfig.setVOID(str2Json.videoId);
 			GameConfig.setVOIDPER(Number(str2Json.ADpercent));
 			NetMgr.instance.nomalEvent.dispatchEventWith('version');
-			let ud: UserData = Main.instance.getUserData();
-			if (str2Json.diamondNum) {
-				let signArr: Array<number> = Util.strToArrNum(str2Json.diamondNum, '_');
-				ud.setSignAwards(signArr);
-			}
-			if (str2Json.invite) {
-				ud.setInviteAward(Number(str2Json.invite));
-			}
+		
 			//TODO:测试数据
 			// GameConfig.setVerNo(1);
 			// GameConfig.setADID('adunit-acc120a1d4f95221');
@@ -64,29 +57,25 @@ class NetMgr {
 		platform.hideLoading();
 		let str2Json = JSON.parse(str);
 		if (str2Json.stat == "ok") {
-			let ud: UserData = Main.instance.getUserData();
-			ud.setOpenId(str2Json.openId);
-			ud.setUser(str2Json.data);
-			if (str2Json.signNums) {
-				ud.setSignNum(Number(str2Json.signNums));
-			}
-			if (str2Json.isSignedToday) {
-				ud.setSign(Boolean(str2Json.isSignedToday));
-			}
-			if (str2Json.coinNextReduce && str2Json.coinNextReduce > 0) {
-				ud.setHapRedGem(Number(str2Json.coinNextReduce));
-			}
-			if (str2Json.bombNextReduce && str2Json.bombNextReduce > 0) {
-				ud.setBombRedGem(Number(str2Json.bombNextReduce));
-			}
+		
+			UserData.setOpenId(str2Json.openId);
+			UserData.setUser(str2Json.data);
+			// if (str2Json.signNums) {
+			// 	UserData.setSignNum(Number(str2Json.signNums));
+			// }
+			// if (str2Json.isSignedToday) {
+			// 	UserData.setSign(Boolean(str2Json.isSignedToday));
+			// }
+			// if (str2Json.coinNextReduce && str2Json.coinNextReduce > 0) {
+			// 	UserData.setHapRedGem(Number(str2Json.coinNextReduce));
+			// }
+			// if (str2Json.bombNextReduce && str2Json.bombNextReduce > 0) {
+			// 	UserData.setBombRedGem(Number(str2Json.bombNextReduce));
+			// }
 			NetMgr.instance.nomalEvent.dispatchEventWith('login');
 		}
 	}
-	/**获取openId值 */
-	private getOpenId(): string {
-		let token: string = Main.instance.getUserData().getOpenId();
-		return token;
-	}
+
 //class end
 }
 

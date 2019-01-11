@@ -48,8 +48,8 @@ class Enemy extends Role {
     protected createChildren() {
         this.skinName = "RoleSkin";
         this.role_img.source = "role_"+Util.getRandomRange(0,8)+"_png"
-        this.anchorOffsetX = this.width / 2;
-        this.anchorOffsetY = this.height / 2;
+        this.anchorOffsetX = this.width *0.5;
+        this.anchorOffsetY = this.height *0.5;
         this.removeChild(this.arrow);
         delete this.arrow;//删除箭头
         this.ai.start();

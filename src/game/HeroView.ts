@@ -3,7 +3,7 @@
 */
 
 class HeroView extends eui.Component {
-    public static s_defSel: number = 0;//默认选择第0个
+   
     private goldLabel: eui.Label; //金币文本
     private gemLabel: eui.Label; //钻石文本
     private closeBtn: eui.Image;  //返回按钮
@@ -21,6 +21,8 @@ class HeroView extends eui.Component {
         this.skinName = "HeroViewSkin";
         this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, Main.instance.releaseHeroView, Main.instance);
         // Main.instance.uiEvent.addEventListener('refreshHeroList', this.refreshList, this);
+        this.goldLabel.text = UserData.getGold().toString();
+        this.gemLabel.text = UserData.getGem().toString();
         let heroConfig = GameConfig.playerConfig.hero;
         let config: Array<any> = heroConfig.config;
         if (config.length > 2) {

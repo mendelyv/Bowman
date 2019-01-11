@@ -43,7 +43,7 @@ class ShotgunBullet extends Bullet
                 return false;
 
         //如果圆形碰撞了
-        if(Util.isCircleHit(obj, this, true, obj.width / 2, this.range))
+        if(Util.isCircleHit(obj, this, true, obj.width *0.5, this.range))
         {
             //计算前的准备工作
             let obj1Point = new egret.Point(obj.x, obj.y);
@@ -66,8 +66,8 @@ class ShotgunBullet extends Bullet
                 else theta = 180 - theta;
             }
 
-            let limitL = this.rotation - this.angle / 2;
-            let limitR = this.rotation + this.angle/ 2;
+            let limitL = this.rotation - this.angle *0.5;
+            let limitR = this.rotation + this.angle*0.5;
             
             if(limitL < theta && theta < limitR)
             {
