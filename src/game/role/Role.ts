@@ -151,7 +151,7 @@ class Role extends eui.Component
 		let propertyType = property.propertyType;
 		switch (propertyType) {
 			case MapItemType.PROP_BLOOD:
-				this.resumeBlood(10);
+				this.resumeBlood(50);
 				break;
 			case MapItemType.PROP_EXP:
 				this.addExp(10);

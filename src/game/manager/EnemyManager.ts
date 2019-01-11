@@ -50,8 +50,8 @@ class EnemyManager {
 	/**随机敌人名字*/
 	public randomEnemyName(){
 		let index:number = Util.getRandomRange(0,2);
-		if(index == 0){
-			let engIndex = Util.getRandomRange(0,47);
+		if(index != 0){
+			let engIndex = Util.getRandomRange(0,58);
 			let name = GameConfig.nameConfig["engName"][engIndex];
 			return name;
 		}else{
