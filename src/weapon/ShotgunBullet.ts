@@ -33,9 +33,9 @@ class ShotgunBullet extends Bullet
         this.damagedRoleID = new Array<number>();
     }
 
-    public canDamage(obj: Role, needTrans: boolean)
+    public canDamage(obj: Role, startCoord: boolean = false, endCoord: boolean = false)
     {
-        super.canDamage(obj, needTrans);
+        super.canDamage(obj, startCoord, endCoord);
 
         //做一个检测，防止同一个单位多次伤害
         if(this.damagedRoleID.length > 0)
@@ -48,11 +48,9 @@ class ShotgunBullet extends Bullet
             //计算前的准备工作
             let obj1Point = new egret.Point(obj.x, obj.y);
             let selfPoint = new egret.Point(this.x, this.y);
-            if(needTrans)
-            {
-                if(obj.parent) obj.parent.localToGlobal(obj.x, obj.y, obj1Point);
-                if(this.parent) this.parent.localToGlobal(this.x, this.y, selfPoint);
-            }
+
+            if(obj.parent) obj.parent.localToGlobal(obj.x, obj.y, obj1Point);
+            if(this.parent) this.parent.localToGlobal(this.x, this.y, selfPoint);
 
             let l = egret.Point.distance(obj1Point, selfPoint);
             let x = obj1Point.x - selfPoint.x;
@@ -72,7 +70,7 @@ class ShotgunBullet extends Bullet
             if(limitL < theta && theta < limitR)
             {
                 this.damagedRoleID.push(obj.id);
-                return this.checkBarrier(obj);
+                return this.checkBarrier(obj, startCoord, endCoord);
             }
             else
                 return false;
@@ -82,9 +80,9 @@ class ShotgunBullet extends Bullet
 
     /** 检测障碍物
      */
-    private checkBarrier(obj: Role)
+    private checkBarrier(obj: Role, startCoord: boolean = false, endCoord: boolean = false)
     {
-        let arr = MapManager.getLineItems(new egret.Point(this.x, this.y), new egret.Point(obj.x, obj.y));
+        let arr = MapManager.getLineItems(new egret.Point(this.x, this.y), new egret.Point(obj.x, obj.y), startCoord, endCoord);
         for(let i = 0; i < arr.length; i++)
         {
             let data = arr[i];

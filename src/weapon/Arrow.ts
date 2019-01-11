@@ -21,6 +21,9 @@ class Arrow extends Bullet
         this.display = new egret.Bitmap();
         this.poolName = "arrow";
         this.activeTime = -1;
+        // this.myDrawRect();
+        let shp = Util.drawLineRectangle(this.x, this.y, 10, 28, 0xff0000, 2);
+        this.addChild(shp);
     }
 
     //根据弓箭id生成不同的弓箭
@@ -75,9 +78,9 @@ class Arrow extends Bullet
      * @param obj ：碰撞的对象
      * @param needTrans ：是否需要转换坐标系
      */
-    public canDamage(obj: Role, needTrans: boolean)
+    public canDamage(obj: Role)
     {
-        super.canDamage(obj, needTrans);
+        super.canDamage(obj);
         if(Util.isCircleHit(obj,this,true))
         {
             if(Util.isHit(obj,this,true))
@@ -87,6 +90,18 @@ class Arrow extends Bullet
         }
         return false;
     }
+
+    // ===== test code start =====
+    /** 画一个矩形 */
+    public myDrawRect()
+    {
+        let shape = new egret.Shape();
+        shape.graphics.beginFill(0xff0000);
+        shape.graphics.drawRect(this.x, this.y, 10, 28);
+        shape.graphics.endFill();
+        this.addChild(shape);
+    }
+    // ===== test code end =====
 
     public destructor()
     {

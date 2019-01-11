@@ -164,7 +164,7 @@ class BattleManager {
 					{
 						continue;
 					}
-					if(bullet.canDamage(enemy, true))
+					if(bullet.canDamage(enemy))//敌人之间判断伤害不需要转化坐标系
 					{
 						enemy.doDamage(bullet.damage);
 						let atk = this.getRoleOfID(bullet.id);
@@ -196,7 +196,7 @@ class BattleManager {
 				}
 			}
 
-			if(bullet.canDamage(this.player, true))
+			if(bullet.canDamage(this.player, false, true))//跟玩家做判断的时候，玩家的坐标系需要转换
 			{
 				this.player.doDamage(bullet.damage);
 				let atk = this.getRoleOfID(bullet.id);

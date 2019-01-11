@@ -147,13 +147,13 @@ class EnemyAI
                 if(this.obj.canGoto(runPoint))
                 {
                     this.obj.gotoPoint(runPoint);
+                    this.runawayCheck();
                 }
                 else//如果这个点去不了，那就回头直接攻击玩家
                 {
                     this.obj.target = player;
                     this.state = EnemyState.ATTACK;
                 }
-                this.runawayCheck();
             break;
         
             default : console.warn(" ----- 未找到对应的 EnemyState ----- "); break;
@@ -228,6 +228,7 @@ class EnemyAI
             //并且血量进入危险的阈值
             if(this.obj.attribute.hp <= this.runawayHp)
             {
+                this.obj.target = null;
                 this.state = EnemyState.RUNAWAY;
             }
         }
@@ -257,6 +258,7 @@ class EnemyAI
             //并且血量进入危险的阈值
             if(this.obj.attribute.hp <= this.runawayHp)
             {
+                this.obj.target = null;
                 this.state = EnemyState.RUNAWAY;
             }
         }
@@ -295,6 +297,7 @@ class EnemyAI
             //并且血量进入危险的阈值
             if(this.obj.attribute.hp <= this.runawayHp)
             {
+                this.obj.target = null;
                 this.state = EnemyState.RUNAWAY;
             }
         }
@@ -327,6 +330,7 @@ class EnemyAI
             //并且血量进入危险的阈值
             if(this.obj.attribute.hp <= this.runawayHp)
             {
+                this.obj.target = null;
                 this.state = EnemyState.RUNAWAY;
             }
         }
@@ -343,7 +347,7 @@ class EnemyAI
         }
         let dis = this.getTargetDistance(target);
         if(dis == -1) return;
-        if(dis > target.weapon.range * 2)//如果距离出了玩家的武器攻击距离
+        if(dis > target.weapon.range * 1.2)//如果距离出了玩家的武器攻击距离
         {
             this.randomState();
             return;
