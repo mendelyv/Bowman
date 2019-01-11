@@ -8,21 +8,22 @@ class GameView extends eui.Component {
     public uiGroup: eui.Group;
     private closeBtn: eui.Image;
     private skillComponents: eui.Group;
-    private lvLabel:eui.Label;//玩家等级
-    private expMask:eui.Rect;//玩家经验遮罩
-    private expMaskWidth:number;//玩家经验遮罩的原始宽度
+    private lvLabel: eui.Label;//玩家等级
+    private expMask: eui.Rect;//玩家经验遮罩
+    private expMaskWidth: number;//玩家经验遮罩的原始宽度
     public gameBg: GameBg;
-    public gameEnd:GameEnd;//结束面板
-    public rankGroup:eui.Group;//排行面板
+    public gameEnd: GameEnd;//结束面板
+    public rankGroup: eui.Group;//排行面板
     private previousFrameTime: number = 0;
     private shootTime: number = 0;
     private shootDelay: number = 1000;
     private _broadcast: Broadcast;//广播
-    public mapMgr:MapManager;
-    public enemyMgr:EnemyManager;
-    public battleMgr:BattleManager;
-    private _rankpanel:RankPanel;
-    
+    public mapMgr: MapManager;
+    public enemyMgr: EnemyManager;
+    public battleMgr: BattleManager;
+    private _rankpanel: RankPanel;
+
+
     public constructor() {
         super();
         this.init();
@@ -31,7 +32,7 @@ class GameView extends eui.Component {
     public init() {
         this.initObjectPool();
     }
-  
+
     private initObjectPool() {
         let property = new Property();
         ObjectPool.instance.createObjectPool("property", property);
@@ -51,16 +52,19 @@ class GameView extends eui.Component {
         this.battleMgr = new BattleManager();
         this.battleMgr.player = this.player;
         this.battleMgr.roleArray.push(this.player);
+        if (this.player.weaponType == WeaponType.ROTARY_DARTS) {
+			this.player.attack();
+		}
         this.mapMgr = new MapManager();
         this.enemyMgr = new EnemyManager();
         this.gameEnd.visible = false;
 
         let pos = MapManager.getRandomEmptyPos();
-		this.gameBg.x = StageUtils.WIN_WIDTH * 0.5 - pos.x;
-		this.gameBg.y = StageUtils.WIN_HEIGHT * 0.5 - pos.y;
+        this.gameBg.x = StageUtils.WIN_WIDTH * 0.5 - pos.x;
+        this.gameBg.y = StageUtils.WIN_HEIGHT * 0.5 - pos.y;
         this.initBroadcast();
-        
-        if(!this._rankpanel){
+
+        if (!this._rankpanel) {
             this._rankpanel = new RankPanel();
             this._rankpanel.x = 0;
             this._rankpanel.y = 0;
@@ -70,34 +74,33 @@ class GameView extends eui.Component {
         this.initExpPanel();
     }
 
-    public initExpPanel()
-    {
+    public initExpPanel() {
         this.expMaskWidth = this.expMask.width;
         this.expMask.width = 0;
     }
 
     /**刷新排行*/
-    public updateRankPanel():void{
-        if(this.rankGroup){
+    public updateRankPanel(): void {
+        if (this.rankGroup) {
             this.rankGroup.removeChildren();
         }
-            this._rankpanel = new RankPanel();
-            this._rankpanel.x = 0;
-            this._rankpanel.y = 0;
-            this.rankGroup.addChild(this._rankpanel);
+        this._rankpanel = new RankPanel();
+        this._rankpanel.x = 0;
+        this._rankpanel.y = 0;
+        this.rankGroup.addChild(this._rankpanel);
 
         this._rankpanel.updateView();
     }
-    
+
     /**初始化广播 */
-    private initBroadcast():void{
-          if (!this._broadcast) {
+    private initBroadcast(): void {
+        if (!this._broadcast) {
             this._broadcast = new Broadcast();
-            this._broadcast.x = StageUtils.WIN_WIDTH *0.5;
+            this._broadcast.x = StageUtils.WIN_WIDTH * 0.5;
             this.uiGroup.addChild(this._broadcast);
         }
-    } 
-      public addMsg(msg: string): void {
+    }
+    public addMsg(msg: string): void {
         if (this._broadcast) {
             this._broadcast.addMsg(msg);
         }
@@ -123,9 +126,12 @@ class GameView extends eui.Component {
 
         if (this.joyR.active) {
             // console.log(" ===== shoot ===== ");
-            if (this.shootTime >= this.shootDelay) {
-                this.player.attack();
-                this.shootTime = 0;
+            if(this.player.weaponType != WeaponType.ROTARY_DARTS)
+            {
+                if (this.shootTime >= this.shootDelay) {
+                    this.player.attack();
+                    this.shootTime = 0;
+                }
             }
         }
         this.battleMgr.update();
@@ -152,11 +158,10 @@ class GameView extends eui.Component {
                     this.player.parent.localToGlobal(this.player.x, this.player.y, point_);
                 let point = MapManager.getRowColOfMap(new egret.Point(point_.x, point_.y), true)
                 if (col == point.y) {
-                    if(Math.abs(row - point.x) <= 1)
-                    {
+                    if (Math.abs(row - point.x) <= 1) {
                         if (row < point.x && yAxis > 0) {
                             yAxis = 0;
-                         }
+                        }
                         else if (row > point.x && yAxis < 0) {
                             yAxis = 0;
                         }
@@ -220,50 +225,44 @@ class GameView extends eui.Component {
     }
 
 
-    public showSkills()
-    {
+    public showSkills() {
         this.skillComponents.visible = true;
 
         //先清一下，省的技能图标累加
         this.skillComponents.removeChildren();
         let skillArr = this.player.getRandomSkills();
-        if(skillArr.length == 0 )
-        {
+        if (skillArr.length == 0) {
             //技能加完了
-            
+
         }
-        else
-        {
-            for(let i = 0;i < skillArr.length ; ++i)
-            {
-                let skill = new SkillComponent(skillArr[i].skillType,skillArr[i].skill);
+        else {
+            for (let i = 0; i < skillArr.length; ++i) {
+                let skill = new SkillComponent(skillArr[i].skillType, skillArr[i].skill);
                 this.skillComponents.addChild(skill);
             }
         }
     }
 
-    
-    public playerAddSkill(skillType:WeaponType,skill:number)
-    {
+
+    public playerAddSkill(skillType: WeaponType, skill: number) {
         this.skillComponents.visible = false;
         this.skillComponents.removeChildren();
-        
-        switch(skillType)
-        {
+
+        switch (skillType) {
             case WeaponType.NONE:
                 this.player.attribute.enable(skill);
                 break;
             case WeaponType.BOW:
             case WeaponType.SHOTGUN:
+            case WeaponType.ROTARY_DARTS:
                 this.player.weapon.enableSkill(skill);
                 break;
         }
-        
+
     }
 
     //玩家死亡
-    public showGameEndReLife()
-    {
+    public showGameEndReLife() {
         this.gameEnd.visible = true;
         this.gameEnd.showRelifePanel();
         //关闭手柄检测
@@ -271,33 +270,29 @@ class GameView extends eui.Component {
         this.joyR.touchEnd();
         this.disableJoystick();
     }
-    
+
     //玩家复活
-    public playerReLife()
-    {
+    public playerReLife() {
         //激活手柄检测
         this.enableJoystick();
         this.player.reLife();
     }
 
     /** 打开手柄检测 */
-    public enableJoystick()
-    {
-        if(!this.stage.hasEventListener(egret.TouchEvent.TOUCH_BEGIN))
+    public enableJoystick() {
+        if (!this.stage.hasEventListener(egret.TouchEvent.TOUCH_BEGIN))
             this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
     }
 
     /** 关闭手柄检测 */
-    public disableJoystick()
-    {
-        if(this.stage.hasEventListener(egret.TouchEvent.TOUCH_BEGIN))
+    public disableJoystick() {
+        if (this.stage.hasEventListener(egret.TouchEvent.TOUCH_BEGIN))
             this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
     }
 
-    public showPlayerLvExp()
-    {
+    public showPlayerLvExp() {
         this.lvLabel.text = "Lv:" + this.player.attribute.level;
-        this.expMask.width = this.expMaskWidth*(this.player.attribute.exp / this.player.attribute.expMax);
+        this.expMask.width = this.expMaskWidth * (this.player.attribute.exp / this.player.attribute.expMax);
     }
 
     /** 限制玩家移动，不允许出界 */

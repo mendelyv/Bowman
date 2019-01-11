@@ -41,7 +41,7 @@ class Bow extends Weapon
                 let rotations = new Array<number>();
                 let tmpRot: number = this.obj.arrow.rotation + 90;
 
-                let mid = Math.floor(this.arrowNum / 2);//找中间的弓箭的位置
+                let mid = Math.floor(this.arrowNum *0.5);//找中间的弓箭的位置
                 for (let i = 0; i < this.arrowNum; i++) {
                     let times = Math.abs(mid - i);
                     if (i < mid) rotations.push(tmpRot - 15 * times);
@@ -51,7 +51,7 @@ class Bow extends Weapon
                 if (mid % 2 == 0)//如果是偶数再偏一次
                 {
                     for (let i = 0; i < rotations.length; i++) {
-                        rotations[i] += 15 / 2;
+                        rotations[i] += 7.5;
                     }
                 }
                 for (let i = 0; i < rotations.length; i++) {
@@ -71,8 +71,8 @@ class Bow extends Weapon
                     let targetPoint = new egret.Point();
                     group.parent.globalToLocal(point.x, point.y, targetPoint);
                     // group.addChild(arrow);
-                    arrow.anchorOffsetX = arrow.width / 2;
-                    arrow.anchorOffsetY = arrow.height / 2;
+                    arrow.anchorOffsetX = arrow.width *0.5;
+                    arrow.anchorOffsetY = arrow.height *0.5;
                     arrow.index = bg.addBullet(arrow, WhosBullet.PLAYER);
                     arrow.x = targetPoint.x;
                     arrow.y = targetPoint.y;
@@ -99,8 +99,8 @@ class Bow extends Weapon
                     let targetPoint = new egret.Point();
                     group.parent.globalToLocal(point.x, point.y, targetPoint);
                     // group.addChild(arrow);
-                    arrow.anchorOffsetX = arrow.width / 2;
-                    arrow.anchorOffsetY = arrow.height / 2;
+                    arrow.anchorOffsetX = arrow.width *0.5;
+                    arrow.anchorOffsetY = arrow.height *0.5;
                     arrow.index = bg.addBullet(arrow, WhosBullet.PLAYER);
                     arrow.x = targetPoint.x;
                     arrow.y = targetPoint.y;
@@ -124,7 +124,7 @@ class Bow extends Weapon
 
                 let rotations = new Array<number>();
                 let tmpRot: number = this.obj.role_img.rotation;
-                let mid = Math.floor(this.arrowNum / 2);//找中间的弓箭的位置
+                let mid = Math.floor(this.arrowNum *0.5);//找中间的弓箭的位置
                 for(let i = 0; i < this.arrowNum; i++)
                 {
                     let times = Math.abs(mid - i);
@@ -136,7 +136,7 @@ class Bow extends Weapon
                 {
                     for(let i = 0; i < rotations.length; i++)
                     {
-                        rotations[i] += 15 / 2;
+                        rotations[i] += 7.5;
                     }
                 }
 
@@ -154,8 +154,8 @@ class Bow extends Weapon
   
                     //添加显示，设置位置和角度，增加tween
                     let bg = Main.instance.gameView.gameBg;
-                    arrow.anchorOffsetX = arrow.width / 2;
-                    arrow.anchorOffsetY = arrow.height / 2;
+                    arrow.anchorOffsetX = arrow.width *0.5;
+                    arrow.anchorOffsetY = arrow.height *0.5;
                     arrow.index = bg.addBullet(arrow, WhosBullet.ENEMY);
                     arrow.x = this.obj.x;
                     arrow.y = this.obj.y;
@@ -176,8 +176,8 @@ class Bow extends Weapon
   
                     //添加显示，设置位置和角度，增加tween
                     let bg = Main.instance.gameView.gameBg;
-                    arrow.anchorOffsetX = arrow.width / 2;
-                    arrow.anchorOffsetY = arrow.height / 2;
+                    arrow.anchorOffsetX = arrow.width *0.5;
+                    arrow.anchorOffsetY = arrow.height *0.5;
                     arrow.index = bg.addBullet(arrow, WhosBullet.ENEMY);
                     arrow.x = this.obj.x;
                     arrow.y = this.obj.y;

@@ -19,6 +19,7 @@ class BattleManager {
 		this.bulletsEnemy = new Array<Bullet>();
 		this.bulletsPlayer = new Array<Bullet>();
 		// this.allRole = [this.enemys, this.player];
+			
 	}
 
 	public addProperty(property:Property)

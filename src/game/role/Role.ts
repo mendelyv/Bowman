@@ -21,7 +21,7 @@ class Role extends eui.Component
 	
 	public constructor() {
 		super();
-		this.weaponType = WeaponType.BOW;
+		this.weaponType =  WeaponType.ROTARY_DARTS; //UserData.s_weaponType;//WeaponType.BOW;
 		this.attribute = new Attribute(this);
 	}
 	protected createChildren() {

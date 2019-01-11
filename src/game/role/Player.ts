@@ -20,13 +20,15 @@ class Player extends Role {
 	public constructor() {
 		super();
 		this.id = 0;
-		switch(this.weaponType)
-		{
+		switch (this.weaponType) {
 			case WeaponType.BOW:
 				this.weapon = new Bow(this);
 				break;
 			case WeaponType.SHOTGUN:
 				this.weapon = new Shotgun(this);
+				break;
+			case WeaponType.ROTARY_DARTS:
+				this.weapon = new RotaryDarts(this);
 				break;
 		}
 		this.nickName = UserData.getNickeName();
@@ -35,10 +37,10 @@ class Player extends Role {
 	protected createChildren() {
 		this.skinName = "RoleSkin";
 		let heroConfig = GameConfig.playerConfig.hero;
-        let config: Array<any> = heroConfig.config;
-		let sel:number = UserData.s_selRole;
+		let config: Array<any> = heroConfig.config;
+		let sel: number = UserData.s_selRole;
 		this.attribute.HpMax = config[sel].hp;
-		this.role_img.source = "role_"+sel+"_png";
+		this.role_img.source = "role_" + sel + "_png";
 		this.radius = this.width;
 		if (!this.hpTube) {
 			this.hpTube = new HPTube(this, "HPTubeSkin");
@@ -55,15 +57,15 @@ class Player extends Role {
 		this.hpTube.showNickName();
 		//this.hpTube.showHpLine();
 		this.hpTube.visible = true;
-		
+
 		//初始化等级和基础配置
 		this.initPlayer();
 	}
 
-	public initPlayer()
-	{
+	public initPlayer() {
 		this.attribute.level = 1;
 		this.setBaseAttOfLevel();
+	
 	}
 
 	//根据角度设置x~y轴的速率
@@ -84,8 +86,8 @@ class Player extends Role {
 		this.arrow.rotation = this.role_img.rotation - 90;
 	}
 
-	public attack(): void {
-		this.weapon.attack(0);
+	public attack(): boolean {
+		return this.weapon.attack(0);
 	}
 
 	public move(xAxis, yAxis, angle, offset): void {
@@ -98,10 +100,10 @@ class Player extends Role {
 
 	private verifyLimit() {
 
-		if (StageUtils.WIN_WIDTH / 2 - this.attribute.speed <= this.x && this.x <= StageUtils.WIN_WIDTH / 2 + this.attribute.speed)
+		if (StageUtils.WIN_WIDTH * 0.5 - this.attribute.speed <= this.x && this.x <= StageUtils.WIN_WIDTH * 0.5 + this.attribute.speed)
 			this.movableX = false;
-	
-		if (StageUtils.WIN_HEIGHT / 2 - this.attribute.speed <= this.y && this.y <= StageUtils.WIN_HEIGHT / 2 + this.attribute.speed)
+
+		if (StageUtils.WIN_HEIGHT * 0.5 - this.attribute.speed <= this.y && this.y <= StageUtils.WIN_HEIGHT * 0.5 + this.attribute.speed)
 			this.movableY = false;
 	}
 
@@ -111,37 +113,33 @@ class Player extends Role {
 			Main.instance.gameView.showGameEndReLife();
 		}
 	}
-	
+
 	public levelUp() {
 		super.levelUp();
 
 		let expNeed;//下一级所需经验
 		let playerConfig = GameConfig.playerConfig["player"];
-		do
-		{
-			if(this.attribute.level >= UserData.levelMax)
-			{
+		do {
+			if (this.attribute.level >= UserData.levelMax) {
 				break;
-			}	
+			}
 			this.attribute.exp -= playerConfig[(this.attribute.level).toString()].experience;
 			this.attribute.level++;
 			this.attribute.exp = this.attribute.exp > 0 ? this.attribute.exp : 0;
 			expNeed = playerConfig[this.attribute.level.toString()].experience;
 		}
-		while(this.attribute.exp >= expNeed);
-		
+		while (this.attribute.exp >= expNeed);
+
 		this.attribute.level = this.attribute.level < UserData.levelMax ? this.attribute.level : UserData.levelMax;
 		this.setBaseAttOfLevel();
 		Main.instance.gameView.showSkills();
 	}
 
 	//根据角色等级设置基础属性
-	public setBaseAttOfLevel()
-	{	
+	public setBaseAttOfLevel() {
 		let index = this.attribute.level;
 		let playerConfig = GameConfig.playerConfig["player"][index.toString()];
-		if(playerConfig)
-		{
+		if (playerConfig) {
 			this.attribute.exp = 0;
 			this.attribute.expMax = playerConfig.experience;
 			this.attribute.speed = playerConfig.speed;
@@ -151,22 +149,20 @@ class Player extends Role {
 
 			//设置当前血量
 			let resumeValue = this.attribute.HpMax - lastHpMax;
-			this.resumeBlood(resumeValue,true);
+			this.resumeBlood(resumeValue, true);
+
 		}
-		else
-		{
+		else {
 			console.log("setBaseAttOfLevel error");
 		}
 	}
 
-	public addExp(expValue: number)
-	{
+	public addExp(expValue: number) {
 		super.addExp(expValue);
 		Main.instance.gameView.showPlayerLvExp();
 	}
 
-	public reLife()
-	{
+	public reLife() {
 		this.attribute.hp = this.attribute.HpMax * 0.5;
 		this.hpTube.showHp();
 		this.die = false;

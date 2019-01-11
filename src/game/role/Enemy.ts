@@ -255,6 +255,7 @@ class Enemy extends Role {
                     break;
                 case WeaponType.BOW:
                 case WeaponType.SHOTGUN:
+                case WeaponType.ROTARY_DARTS:
                     this.weapon.enableSkill(skill.skill);
                     break;
             }

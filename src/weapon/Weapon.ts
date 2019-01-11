@@ -31,12 +31,15 @@ abstract class Weapon
     /** 攻击 */
     public attack(attackType: number): boolean
     {
+        if(this.obj.die) return false;
+        if(this.shootDelay == -1)
+        {
+            return true;
+        }
         //先更新显示的时间
         let deltaTime = egret.getTimer() - this.previousFrameTime;
         this.shootTime += deltaTime;
         this.previousFrameTime = egret.getTimer();
-
-        if(this.obj.die) return false;
 
         if(this.shootTime >= this.shootDelay)
         {

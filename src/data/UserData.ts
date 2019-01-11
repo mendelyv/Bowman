@@ -7,7 +7,8 @@ class UserData {
 	public static expRate: number = 1;//获得的经验倍数
 	public static levelMax: number = 25;//最高等级
 	public static s_selRole: number = 0;//默认选择第0个角色
-
+	public static s_weaponType:number = 0;//初始玩家使用的武器类型   BOW,//弓箭 SHOTGUN,//散弹枪 ROTARY_DARTS,//旋转镖
+	
 	private static _openId: string = ""; //微信用户id
 	private static _code: string = "";//微信code
 	private static _nickName: string = "凯撒大帝";//玩家昵称
@@ -38,7 +39,7 @@ class UserData {
 			}
 		}
 	}
-/**获取微信openId*/
+	/**获取微信openId*/
 	public static getOpenId(): string {
 		return UserData._openId;
 	}
@@ -145,8 +146,6 @@ class UserData {
 			// Util.saveDataToLocal(RMS_BISHA, now_time);
 		}
 	}
-
-
 	/**
 	 * 存储数据到服务器
 	 */
