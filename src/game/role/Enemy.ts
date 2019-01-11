@@ -143,7 +143,8 @@ class Enemy extends Role {
 
     /** 攻击 */
     public attack() {
-        this.weapon.attack(1);
+        if(this.weapon)
+            this.weapon.attack(1);
     }
 
     /** 追寻 */

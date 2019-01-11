@@ -85,7 +85,8 @@ class Player extends Role {
 	}
 
 	public attack(): void {
-		this.weapon.attack(0);
+		if(this.weapon)
+			this.weapon.attack(0);
 	}
 
 	public move(xAxis, yAxis, angle, offset): void {

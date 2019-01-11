@@ -48,7 +48,7 @@ class Bow extends Weapon
                     else if (i > mid) rotations.push(tmpRot + 15 * times);
                     else rotations.push(tmpRot);
                 }
-                if (mid % 2 == 0)//如果是偶数再偏一次
+                if (mid % 2 == 0 && mid != 0)//如果是偶数再偏一次
                 {
                     for (let i = 0; i < rotations.length; i++) {
                         rotations[i] += 15 / 2;
@@ -132,7 +132,7 @@ class Bow extends Weapon
                     else if(i > mid) rotations.push(tmpRot + 15 * times);
                     else rotations.push(tmpRot);
                 }
-                if(mid % 2 == 0)//如果是偶数再偏一次
+                if(mid % 2 == 0 && mid != 1)//如果是偶数再偏一次
                 {
                     for(let i = 0; i < rotations.length; i++)
                     {

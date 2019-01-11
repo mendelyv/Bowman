@@ -23,7 +23,8 @@ abstract class Bullet extends egret.DisplayObjectContainer
     }
 
     /** 检测碰撞 */
-    public abstract canDamage(obj: Role, needTrans: boolean):boolean;
+    public abstract  canDamage(obj: Role, startCoord?: boolean, endCoord?: boolean):boolean
+    
 
     /** 是否碰到障碍物 */
     public abstract isHitObstacal():boolean;
