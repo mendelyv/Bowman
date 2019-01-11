@@ -8,6 +8,7 @@
  */
 class GrenadeBag extends Weapon
 {
+    public static MAX_LEVEL: number = 5;
     public speed: number;//飞行速度
     public flyRange: number;//飞行距离
     public damageRange: number;//爆炸范围
@@ -82,6 +83,25 @@ class GrenadeBag extends Weapon
         }
 
         return true;
+    }
+
+    public upLevel()
+    {
+        super.upLevel();
+        if(this.level > GrenadeBag.MAX_LEVEL)
+        {
+            this.level = GrenadeBag.MAX_LEVEL;
+        }
+        this.setWeaponDataOfLv();
+    }
+
+    private setWeaponDataOfLv()
+    {
+        this.range = 100;
+        this.shootTime = 1000 - (this.level - 1) * 100;
+        this.speed = (this.level - 1) * 15 + 150;
+        this.damageRange = (this.level - 1) * 10 + 100;
+        this.countDown = 400 - (this.level - 1) * 40;
     }
 
     public getSkills(): Array<Skill>
