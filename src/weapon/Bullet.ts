@@ -6,7 +6,7 @@
  * time : 2019.1.7
  * @author : 杨浩然
  */
-class Bullet extends egret.DisplayObjectContainer
+abstract class Bullet extends egret.DisplayObjectContainer
 {
     public activeTime: number;//存活时间
     public poolName: string;//所在对象池的名字
@@ -23,11 +23,11 @@ class Bullet extends egret.DisplayObjectContainer
     }
 
     /** 检测碰撞 */
-    public canDamage(obj: Role, needTrans: boolean)
-    {
+    public abstract  canDamage(obj: Role, startCoord?: boolean, endCoord?: boolean):boolean
+    
 
-    }
-
+    /** 是否碰到障碍物 */
+    public abstract isHitObstacal():boolean;
 
     public destructor()
     {

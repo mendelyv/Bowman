@@ -143,7 +143,8 @@ class Enemy extends Role {
 
     /** 攻击 */
     public attack() {
-        this.weapon.attack(1);
+        if(this.weapon)
+            this.weapon.attack(1);
     }
 
     /** 追寻 */
@@ -235,7 +236,7 @@ class Enemy extends Role {
         // 敌人暂时不做升级
         // super.levelUp();
         // this.setBaseAttOfLevel();
-       
+        this.attribute.exp = 0;
         this.getOneRandomSkill();
     }
 

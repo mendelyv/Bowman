@@ -11,7 +11,7 @@ class GameBg extends eui.Component {
 	private obsMapName: string = "obs_block_png";
 
 	public 	arrowGroup:eui.Group;
-	private obstacalGroup: eui.Group;
+	public obstacalGroup: eui.Group;
 	private propertyGroup: eui.Group;
 	private enemyGroup: eui.Group;
 	private mapBG:eui.Image;//背景图片

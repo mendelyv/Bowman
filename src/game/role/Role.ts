@@ -127,7 +127,7 @@ class Role extends eui.Component
 
 	public attack()//攻击
 	{
-
+		
 	}
 
 	// 获取移动速度

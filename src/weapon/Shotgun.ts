@@ -52,7 +52,29 @@ class Shotgun extends Weapon
 
             case 1:
             {
+                // ===== 敌人攻击 start =====
+                let bg = Main.instance.gameView.gameBg;
+                let group = bg.arrowGroup;
 
+                //旋转人物
+                if (this.obj.target) {
+                    this.obj.lookAtTarget();
+                }
+
+                // let rot = this.obj.role_img.rotation + 90;
+                let bullet = new ShotgunBullet(this.range, this.angle, this.stayTime);
+                bullet.damage = this.obj.attribute.power;
+                bullet.id = this.obj.id;
+                bullet.whos = WhosBullet.ENEMY;
+                //给扇形找个位置
+                bullet.anchorOffsetX = bullet.width / 2;
+                bullet.anchorOffsetY = this.obj.anchorOffsetY + bullet.height - 10;
+                bullet.index = bg.addBullet(bullet, WhosBullet.ENEMY);
+                let objPoint = new egret.Point(this.obj.x, this.obj.y);
+                bullet.x = objPoint.x;
+                bullet.y = objPoint.y;
+                bullet.rotation = this.obj.role_img.rotation;
+                // ===== 敌人攻击 end =====
             }break;
         }
     }
