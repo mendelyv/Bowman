@@ -61,7 +61,7 @@ class HeroItem extends eui.ItemRenderer {
         });
     }
     private onSelectBtn(e: egret.TouchEvent): void {
-        HeroView.s_defSel = this.data.index;
+        UserData.s_selRole = this.data.index;
         
         let list: eui.List = this.parent.parent.parent as eui.List;
         for (let i = 0; i < list.numChildren; i++) {
@@ -78,7 +78,7 @@ class HeroItem extends eui.ItemRenderer {
         this.role_img.source = "role_" + this.data.index + "_png";
         this.work_img.source = "workIcon_" + this.data.index + "_png";
         this.hp_txt.text = this.data.hp.toString();
-        if (HeroView.s_defSel == this.data.index) {
+        if (UserData.s_selRole == this.data.index) {
             this.select_img.visible = true;
             this.buy_btn.visible = false;
             this.bg_rect.fillColor = Util.s_colors.blue;

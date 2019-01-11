@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="HeroRowSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" width="800">
-	<e:Group width="800" height="300" anchorOffsetX="0" anchorOffsetY="0">
-		<ns1:HeroItem id="item0" skinName="HeroItemSkin" y="0" left="0"/>
-		<ns1:HeroItem id="item1" skinName="HeroItemSkin" y="0" left="200"/>
-		<ns1:HeroItem id="item2" skinName="HeroItemSkin" y="0" right="200"/>
-		<ns1:HeroItem id="item3" skinName="HeroItemSkin" y="0" right="0"/>
+<e:Skin class="HeroRowSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" width="1000">
+	<e:Group width="1000" height="310" anchorOffsetX="0" anchorOffsetY="0">
+		<ns1:HeroItem id="item0" skinName="HeroItemSkin" y="0" x="0"/>
+		<ns1:HeroItem id="item1" skinName="HeroItemSkin" y="0" x="200"/>
+		<ns1:HeroItem id="item2" skinName="HeroItemSkin" y="0" x="550"/>
+		<ns1:HeroItem id="item3" skinName="HeroItemSkin" y="0" x="750"/>
+		<e:layout>
+			<e:HorizontalLayout gap="0"/>
+		</e:layout>
 	</e:Group>
 </e:Skin>

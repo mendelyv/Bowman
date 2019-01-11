@@ -29,11 +29,16 @@ class Player extends Role {
 				this.weapon = new Shotgun(this);
 				break;
 		}
-		this.nickName = "我的名字"
+		this.nickName = UserData.getNickeName();
 	}
 
 	protected createChildren() {
 		this.skinName = "RoleSkin";
+		let heroConfig = GameConfig.playerConfig.hero;
+        let config: Array<any> = heroConfig.config;
+		let sel:number = UserData.s_selRole;
+		this.attribute.HpMax = config[sel].hp;
+		this.role_img.source = "role_"+sel+"_png";
 		this.radius = this.width;
 		if (!this.hpTube) {
 			this.hpTube = new HPTube(this, "HPTubeSkin");

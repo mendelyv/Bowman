@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="HeroItemSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" width="200"
-        height="300">
-	<e:Group id="hero_gp" y="0" anchorOffsetX="100" width="200" anchorOffsetY="0" height="300" x="100" scaleY="1"
+<e:Skin class="HeroItemSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" width="250"
+        height="310">
+	<e:Group id="hero_gp" y="0" anchorOffsetX="100" width="250" anchorOffsetY="0" height="310" x="100" scaleY="1"
 	         scaleX="1">
 		<e:Rect id="bg_rect" scaleX="1" scaleY="1" left="2" right="2" top="2" bottom="2" fillColor="0xcbdbfd"
 		        ellipseWidth="10" ellipseHeight="10" anchorOffsetX="0" anchorOffsetY="0" />
-		<e:Group horizontalCenter="0" top="2">
-			<e:Rect fillColor="0x88b4fd" height="38" ellipseWidth="10" width="190" x="0" ellipseHeight="10" strokeAlpha="0" />
+		<e:Group top="2" left="10" right="10" height="56">
+			<e:Rect fillColor="0x88b4fd" ellipseWidth="10" ellipseHeight="10" strokeAlpha="0"  left="0" right="0" top="0" bottom="0"/>
 			<e:Label id="name_txt" text="名称" size="26" fontFamily="Microsoft YaHei" horizontalCenter="0" verticalCenter="0"
 			         textColor="0x000000" />
-			<e:Image id="hero_info_img" source="ui_hero_info_png"  touchEnabled="true"/>
+			<e:Image id="hero_info_img" source="ui_hero_info_png"  touchEnabled="true" verticalCenter="0" anchorOffsetX="0" width="56" anchorOffsetY="0" height="56"/>
 		</e:Group>
 		<e:Image id="role_img" anchorOffsetX="100" anchorOffsetY="100" horizontalCenter="0" rotation="0" source="role_1_png"
-		         width="200" height="200" top="10"  touchEnabled="false"/>
+		         width="200" height="200" top="30"  touchEnabled="false"/>
 		<e:Group left="18" bottom="60">
 			<e:Image id="heart_img" source="heart_icon_png" width="59" anchorOffsetY="0" height="51" />
 			<e:Label id="hp_txt" text="50" size="20" fontFamily="Microsoft YaHei" horizontalCenter="0" verticalCenter="0" />
@@ -32,7 +32,7 @@
 			</e:skinName>
 		</e:Button>
 		<e:Button id="select_btn" label="选择" icon="common_button_blue_png" horizontalCenter="0" touchEnabled="true"
-		          bottom="2" width="150" height="50" visible="true">
+		          bottom="2" width="150" height="50">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
 					<e:Image width="100%" height="100%" source="common_button_blue_png" source.down="common_button_blue_png" />
@@ -41,7 +41,7 @@
 			</e:skinName>
 		</e:Button>
 	</e:Group>
-	<e:Group id="info_gp" y="0" anchorOffsetX="100" width="200" anchorOffsetY="0" height="300" x="100" scaleY="1"
+	<e:Group id="info_gp" y="0" anchorOffsetX="100" width="250" anchorOffsetY="0" height="310" x="100" scaleY="1"
 	         scaleX="1" touchEnabled="true" visible="false">
 		<e:Rect id="info_bg_rect" scaleX="1" scaleY="1" left="2" right="2" top="2" bottom="2" fillColor="0xcbdbfd"
 		        ellipseWidth="10" ellipseHeight="10" anchorOffsetX="0" anchorOffsetY="0" />

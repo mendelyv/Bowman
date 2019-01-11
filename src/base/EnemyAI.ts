@@ -4,6 +4,7 @@
 //待机状态（该状态有两种行为：原地呼吸，和游走，可通过权重配置待机状态下的两种行为的发生的比例）
 //追击状态（怪物跑向玩家）
 //攻击状态
+//逃跑状态
 
 //2.可以为怪物配置各项状态的数值
 //自卫半径，当玩家与怪物之间距离小于自卫半径时进入追击状态
@@ -360,18 +361,20 @@ class EnemyAI
     /** 测试函数，使用不同颜色绘制圆形 */
     public drawCircle()
     {
-        let shape = Util.drawCircle(this.defendRadius, Util.s_colors.yellow);
-        this.obj.addChild(shape);
-        shape.x = this.obj.width / 2;
-        shape.y = this.obj.height / 2;
-        shape = Util.drawCircle(this.chaseRadius, Util.s_colors.blue);
-        this.obj.addChild(shape);
-        shape.x = this.obj.width / 2;
-        shape.y = this.obj.height / 2;
-        shape = Util.drawCircle(this.attackRadius, Util.s_colors.red);
-        this.obj.addChild(shape);
-        shape.x = this.obj.width / 2;
-        shape.y = this.obj.height / 2;
+        // let shape = Util.drawCircle(this.defendRadius, Util.s_colors.yellow);
+        // this.obj.addChild(shape);
+        // shape.x = this.obj.width / 2;
+        // shape.y = this.obj.height / 2;
+        // shape = Util.drawCircle(this.chaseRadius, Util.s_colors.blue);
+        // this.obj.addChild(shape);
+        // shape.x = this.obj.width / 2;
+        // shape.y = this.obj.height / 2;
+        // shape = Util.drawCircle(this.attackRadius, Util.s_colors.red);
+        // this.obj.addChild(shape);
+        // shape.x = this.obj.width / 2;
+        // shape.y = this.obj.height / 2;
+
+
         // shape = Util.drawCircle(this.wanderRadius, Util.s_colors.green);
         // this.obj.addChild(shape);
         // shape.x = this.obj.width / 2;

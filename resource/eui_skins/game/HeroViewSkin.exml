@@ -11,7 +11,7 @@
 	<e:Image id="closeBtn" width="94.24" height="79.09" x="42" y="0" anchorOffsetX="0" anchorOffsetY="0" source="com_btn_close_png"/>
 	<e:Label text="英雄" x="227.46" y="1" anchorOffsetY="0" height="70" anchorOffsetX="0" width="239.15" textAlign="center" verticalAlign="middle" size="50"/>
 	  <e:Scroller id="scroller" anchorOffsetX="0" anchorOffsetY="0" scrollPolicyH="off" scrollPolicyV="on"
-                    width="800" horizontalCenter="0" height="580" touchEnabled="true" top="120">
+                    width="1000" horizontalCenter="0" height="620" touchEnabled="true" top="100">
             <e:List id="list" itemRenderer="HeroRow" anchorOffsetX="0" >
                 <e:ArrayCollection>
                     <e:Array>
