@@ -7,7 +7,8 @@ class HeroItem extends eui.ItemRenderer {
     public name_txt: eui.Label;//职业名称
     public role_img: eui.Image;//英雄图片
     public work_img: eui.Image;//职业小图标
-    public select_img: eui.Image;//选中图片显示
+    public select_img: eui.Image;//选中图片（红点）显示
+    public enterGame_Btn: eui.Button;//选择英雄进入游戏按钮
     public hp_txt: eui.Label;//血量
     public hero_info_img: eui.Image;//点击查看英雄简介
     public buy_btn: eui.Button;//购买按钮
@@ -35,8 +36,11 @@ class HeroItem extends eui.ItemRenderer {
         if (!this.select_btn.hasEventListener(egret.TouchEvent.TOUCH_TAP)) {
             this.select_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSelectBtn, this);
         }
+        if(!this.enterGame_Btn.hasEventListener(egret.TouchEvent.TOUCH_TAP)){
+            this.enterGame_Btn.addEventListener(egret.TouchEvent.TOUCH_TAP, Main.instance.changeToGame, Main.instance);
+        }
     }
-
+    //显示英雄信息按钮
     private onHeroInfo(e: egret.TouchEvent): void {
         this.hero_gp.scaleX = 1;
         this.info_gp.scaleX = -1;
@@ -49,6 +53,7 @@ class HeroItem extends eui.ItemRenderer {
             self.info_gp.scaleX = 1;
         });
     }
+    //隐藏英雄信息按钮
     private onInfo(e: egret.TouchEvent): void {
         var self = this;
         this.hero_gp.scaleX = -1;
@@ -60,6 +65,7 @@ class HeroItem extends eui.ItemRenderer {
             self.hero_gp.scaleX = 1;
         });
     }
+    //选择英雄按钮
     private onSelectBtn(e: egret.TouchEvent): void {
         UserData.s_selRole = this.data.index;
         
@@ -68,7 +74,13 @@ class HeroItem extends eui.ItemRenderer {
             let row: HeroRow = list.getChildAt(i) as HeroRow;
             row.dataChanged();
         }
+    }
+    //进入游戏按钮
+    private onEnterGameBtn(e:egret.TouchEvent):void{
 
+        Main.instance.changeToGame;//进入游戏界面
+        //释放英雄商城
+        Main.instance.releaseHeroView;
     }
     public data: { index: number, name: string, hp: number, gold: number, info: string };
     protected dataChanged(): void {
@@ -80,6 +92,7 @@ class HeroItem extends eui.ItemRenderer {
         this.hp_txt.text = this.data.hp.toString();
         if (UserData.s_selRole == this.data.index) {
             this.select_img.visible = true;
+            this.enterGame_Btn.visible = true;
             this.buy_btn.visible = false;
             this.bg_rect.fillColor = Util.s_colors.blue;
             this.info_bg_rect.fillColor = Util.s_colors.blue;
@@ -87,6 +100,7 @@ class HeroItem extends eui.ItemRenderer {
         }
         else {
             this.select_img.visible = false;
+            this.enterGame_Btn.visible = false;
             this.bg_rect.fillColor = 0xcbdbfd;
             this.info_bg_rect.fillColor = 0xcbdbfd;
             this.select_btn.visible = true;
