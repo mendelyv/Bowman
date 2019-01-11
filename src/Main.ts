@@ -40,7 +40,7 @@ class Main extends eui.UILayer {
     private _mainView: MainView;
     private _heroView: HeroView;
     private _oldTime: number = 0;//记录离开小程序时间
-    private _userData: UserData;//玩家数据
+   
     protected createChildren(): void {
         super.createChildren();
 
@@ -70,7 +70,7 @@ class Main extends eui.UILayer {
 
     private async runGame() {
         Main._instance = this;
-        this._userData = new UserData();
+    
         this.stage.maxTouches = 2;//设置最多触摸点 只能有2个
         StageUtils.WIN_WIDTH = this.stage.stageWidth;
         StageUtils.WIN_HEIGHT = this.stage.stageHeight;
@@ -84,7 +84,7 @@ class Main extends eui.UILayer {
         let login = await platform.login(); //微信小游戏登录
         if (login) {
             console.log("login=", login);
-            this._userData.setCode(login.code);
+            UserData.setCode(login.code);
             // this.reqServerLogin();
         }
         else {
@@ -95,10 +95,10 @@ class Main extends eui.UILayer {
         // if (this._userInfo) {
         //     console.log("userInfo====", this._userInfo);
 
-        //     this._userData.setAvatar(this._userInfo.avatarUrl);
-        //     this._userData.setNickName(this._userInfo.nickName);
-        //     console.log("avater=", this._userData.getAvatar());
-        //     console.log("nickName=", this._userData.getNickeName());
+        //     UserData.setAvatar(this._userInfo.avatarUrl);
+        //     UserData.setNickName(this._userInfo.nickName);
+        //     console.log("avater=", UserData.getAvatar());
+        //     console.log("nickName=", UserData.getNickeName());
         // }
         // else {
         //     console.log("用户点击了授权按钮");
@@ -106,8 +106,8 @@ class Main extends eui.UILayer {
         //     console.log("authInfo=", authInfo);
         //     if (authInfo) {
         //         this._userInfo = authInfo.userInfo;
-        //         this._userData.setAvatar(this._userInfo.avatarUrl);
-        //         this._userData.setNickName(this._userInfo.nickName);
+        //         UserData.setAvatar(this._userInfo.avatarUrl);
+        //         UserData.setNickName(this._userInfo.nickName);
         //     }
         // }
         if (GameConfig.VER_CONTROL == "test") {
@@ -130,7 +130,7 @@ class Main extends eui.UILayer {
     private reqServerLogin(): void {
         // this.changeToGame();//TODO:测试代码
         NetMgr.instance.nomalEvent.addEventListener('login', this.parseLogin, this);
-        let code: string = this._userData.getCode();
+        let code: string = UserData.getCode();
         console.log("发送code到服务器=", code);
         NetMgr.instance.reqWeixinLogin(code, this.parseErrorNet);//*登录或者注册新的微信用户
     }
@@ -151,8 +151,8 @@ class Main extends eui.UILayer {
             let login = await platform.login(); //微信小游戏登录
             if (login) {
                 console.log("login=", login);
-                SELF.getUserData().setCode(login.code);
-                var code: string = SELF.getUserData().getCode();
+                UserData.setCode(login.code);
+                var code: string = UserData.getCode();
                 // let popup: ComPopup = new ComPopup(hint,
                 //     function () {
                 //         NetMgr.instance.reqServerConfig();//请求版本信息
@@ -257,10 +257,7 @@ class Main extends eui.UILayer {
             platform.setDefaultShare(title, imgurl, `share=${type}`);
         }
     }
-    /**返回玩家数据 */
-    public getUserData(): UserData {
-        return this._userData;
-    }
+
     /**加载资源 */
     private async loadResource() {
         try {

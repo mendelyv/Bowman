@@ -101,7 +101,7 @@ class GameBg extends eui.Component {
 	public addEnemy(enemy:Enemy){
 			this.enemyGroup.addChild(enemy);
 			// ===== Test Code start =====
-			enemy.AI.drawCircle();
+			// enemy.AI.drawCircle();
 			// ===== Test Code end =====
 			this.gameView.battleMgr.addEnemy(enemy);
 		

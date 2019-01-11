@@ -5,62 +5,74 @@
             {
                 "work": "弓箭手",
                 "hp": 400,
-                "gold": 0
+                "gold": 0,
+                "info": "<font size='26' color='0x63916a'>防御提升</font> \n <font size='26' color='0x000000'>受到的伤害减少</font> \n <font size='26' color='0x63916a'>磁铁</font> \n <font size='26' color='0x000000'>可以吸取身边的星星和心</font> \n \n<font size='26' color='0x63916a'>弓箭</font> \n <font size='26' color='0x000000'>武器更换为弓箭</font>"
             },
             {
                 "work": "散弹枪",
                 "hp": 600,
-                "gold": 999999
+                "gold": 999999,
+                "info": "<font size='26' color='0x63916a'>防御提升</font> \n <font size='26' color='0x000000'>受到的伤害减少</font> \n <font size='26' color='0x63916a'>磁铁</font> \n <font size='26' color='0x000000'>可以吸取身边的星星和心</font> \n \n<font size='26' color='0x63916a'>弓箭</font> \n <font size='26' color='0x000000'>武器更换为散弹枪</font>"
             },
             {
                 "work": "敬请期待",
                 "hp": 0,
-                "gold": 0
+                "gold": 0,
+                "info": ""
             },
             {
                 "work": "敬请期待",
                 "hp": 0,
-                "gold": 0
+                "gold": 0,
+                "info": ""
             },
             {
                 "work": "敬请期待",
                 "hp": 0,
-                "gold": 0
+                "gold": 0,
+                "info": ""
             },
             {
                 "work": "敬请期待",
                 "hp": 0,
-                "gold": 0
+                "gold": 0,
+                "info": ""
             },
             {
                 "work": "敬请期待",
                 "hp": 0,
-                "gold": 0
+                "gold": 0,
+                "info": ""
             },
             {
                 "work": "敬请期待",
                 "hp": 0,
-                "gold": 0
+                "gold": 0,
+                "info": ""
             },
             {
                 "work": "敬请期待",
                 "hp": 0,
-                "gold": 0
+                "gold": 0,
+                "info": ""
             },
             {
                 "work": "敬请期待",
                 "hp": 0,
-                "gold": 0
+                "gold": 0,
+                "info": ""
             },
             {
                 "work": "敬请期待",
                 "hp": 0,
-                "gold": 0
+                "gold": 0,
+                "info": ""
             },
             {
                 "work": "敬请期待",
                 "hp": 0,
-                "gold": 0
+                "gold": 0,
+                "info": ""
             }
         ]
     },
