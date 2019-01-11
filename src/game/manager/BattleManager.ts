@@ -143,6 +143,7 @@ class BattleManager {
 			}			
 		}
 
+
 		//敌人弓箭的碰撞检测，玩家扣血等
 		for(let i = 0 ;i<this.bulletsEnemy.length;++i)
 		{
@@ -154,6 +155,11 @@ class BattleManager {
 			if(!this.player || this.player.die)
 			{
 				break;
+			}
+			//撞到墙
+			if(bullet.isHitObstacal())
+			{
+				ObjectPool.instance.pushObj(bullet.poolName, bullet);
 			}
 			for(let i =0;i<this.enemys.length;++i)
 			{
@@ -230,6 +236,11 @@ class BattleManager {
 			let bullet = this.bulletsPlayer[i];
 			if(!bullet){
 				continue;
+			}
+			//撞到墙
+			if(bullet.isHitObstacal())
+			{
+				ObjectPool.instance.pushObj(bullet.poolName, bullet);
 			}
 			for(let j:number = 0; j < this.enemys.length; j++){
 				let enemy = this.enemys[j];
