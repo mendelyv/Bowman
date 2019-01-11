@@ -404,6 +404,7 @@ class Main extends eui.UILayer {
     }
     /**切换到游戏界面 */
     public changeToGame(): void {
+        this.releaseHeroView();
         this.changeScene(SceneState.GAMEING);
     }
     /**切换到主界面 */
