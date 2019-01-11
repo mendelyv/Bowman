@@ -235,7 +235,7 @@ class Enemy extends Role {
         // 敌人暂时不做升级
         // super.levelUp();
         // this.setBaseAttOfLevel();
-       
+        this.attribute.exp = 0;
         this.getOneRandomSkill();
     }
 
