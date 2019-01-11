@@ -20,7 +20,15 @@
 		<e:Image id="work_img" width="49" anchorOffsetY="0" height="48" anchorOffsetX="0" right="18" bottom="60"
 		         source="workIcon_0_png" />
 		<e:Image id="select_img" source="ui_select_png" width="49" anchorOffsetY="0" height="48" anchorOffsetX="0" bottom="10"
-		         horizontalCenter="0" />
+		         horizontalCenter="-77.5" />
+		<e:Button id="enterGame_Btn" label="进入游戏" width="150" height="50" horizontalCenter="32" bottom="8">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_button_green_png" source.down="common_button_green_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
 		<e:Button id="buy_btn" label="999999" icon="common_button_blue_png" horizontalCenter="0" touchEnabled="true"
 		          bottom="2" width="150" height="50" visible="false">
 			<e:skinName>
@@ -32,7 +40,7 @@
 			</e:skinName>
 		</e:Button>
 		<e:Button id="select_btn" label="选择" icon="common_button_blue_png" horizontalCenter="0" touchEnabled="true"
-		          bottom="2" width="150" height="50" visible="true">
+		          bottom="2" width="150" height="50">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">
 					<e:Image width="100%" height="100%" source="common_button_blue_png" source.down="common_button_blue_png" />

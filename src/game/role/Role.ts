@@ -21,7 +21,7 @@ class Role extends eui.Component
 	
 	public constructor() {
 		super();
-		this.weaponType =  WeaponType.ROTARY_DARTS; //UserData.s_weaponType;//WeaponType.BOW;
+		this.weaponType =  UserData.s_weaponType;//WeaponType.BOW; //WeaponType.ROTARY_DARTS; 
 		this.attribute = new Attribute(this);
 	}
 	protected createChildren() {
@@ -127,7 +127,7 @@ class Role extends eui.Component
 
 	public attack()//攻击
 	{
-
+		
 	}
 
 	// 获取移动速度
@@ -151,7 +151,7 @@ class Role extends eui.Component
 		let propertyType = property.propertyType;
 		switch (propertyType) {
 			case MapItemType.PROP_BLOOD:
-				this.resumeBlood(10);
+				this.resumeBlood(50);
 				break;
 			case MapItemType.PROP_EXP:
 				this.addExp(10);

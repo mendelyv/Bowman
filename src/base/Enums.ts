@@ -40,7 +40,9 @@ enum WeaponType
     BOW = 0,//弓箭
     SHOTGUN = 1,//散弹枪
     ROTARY_DARTS = 2,//旋转镖
+   GRENADEBAG=3,
     MAX_COUNT//最大数
+ 
 }
 
 enum BowSkillType

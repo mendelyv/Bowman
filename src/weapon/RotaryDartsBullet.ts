@@ -31,25 +31,19 @@ class RotaryDartsBullet extends Bullet {
     }
  
 
-    public canDamage(obj: Role, needTrans: boolean) {
-        super.canDamage(obj, needTrans);
+    public canDamage(obj: Role, startCoord?: boolean, endCoord?: boolean) {
         //如果圆形碰撞了
         if (Util.isCircleHit(obj, this.parent, true, obj.width *0.5, this.range)) {
-            //计算前的准备工作
-            // let obj1Point = new egret.Point(obj.x, obj.y);
-            // let selfPoint = new egret.Point(this.x, this.y);
-            // if (needTrans) {
-            //     if (obj.parent) obj.parent.localToGlobal(obj.x, obj.y, obj1Point);
-            //     if (this.parent) this.parent.localToGlobal(this.x, this.y, selfPoint);
-            // }
-            if(Util.isHit(obj,this._darts,true))
+            if(Util.isHit(obj,this,true))
             {
                 return true;
             }
         }
         return false;
     }
-   
+   public  isHitObstacal():boolean{
+       return false;
+   }
     public destructor() {
         // console.log(this.hashCode + "  destructor  ");
         egret.Tween.removeTweens(this._darts);

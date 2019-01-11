@@ -144,6 +144,7 @@ class BattleManager {
 			}			
 		}
 
+
 		//敌人弓箭的碰撞检测，玩家扣血等
 		for(let i = 0 ;i<this.bulletsEnemy.length;++i)
 		{
@@ -156,6 +157,18 @@ class BattleManager {
 			{
 				break;
 			}
+
+			//撞到墙
+			if(bullet.isHitObstacal())
+			{
+				switch(bullet.tag)
+				{
+					case WeaponType.BOW: ObjectPool.instance.pushObj(bullet.poolName, bullet); break;
+					case WeaponType.GRENADEBAG : (bullet as Grenade).hitWall(); break;
+				}
+				
+			}
+			
 			for(let i =0;i<this.enemys.length;++i)
 			{
 				let enemy = this.enemys[i];
@@ -165,7 +178,7 @@ class BattleManager {
 					{
 						continue;
 					}
-					if(bullet.canDamage(enemy, true))
+					if(bullet.canDamage(enemy))//敌人之间判断伤害不需要转化坐标系
 					{
 						enemy.doDamage(bullet.damage);
 						let atk = this.getRoleOfID(bullet.id);
@@ -197,7 +210,7 @@ class BattleManager {
 				}
 			}
 
-			if(bullet.canDamage(this.player, true))
+			if(bullet.canDamage(this.player, false, true))//跟玩家做判断的时候，玩家的坐标系需要转换
 			{
 				this.player.doDamage(bullet.damage);
 				let atk = this.getRoleOfID(bullet.id);
@@ -231,6 +244,15 @@ class BattleManager {
 			let bullet = this.bulletsPlayer[i];
 			if(!bullet){
 				continue;
+			}
+			//撞到墙
+			if(bullet.isHitObstacal())
+			{
+				switch(bullet.tag)
+				{
+					case WeaponType.BOW: ObjectPool.instance.pushObj(bullet.poolName, bullet); break;
+					case WeaponType.GRENADEBAG : (bullet as Grenade).hitWall(); break;
+				}
 			}
 			for(let j:number = 0; j < this.enemys.length; j++){
 				let enemy = this.enemys[j];

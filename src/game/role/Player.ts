@@ -86,8 +86,9 @@ class Player extends Role {
 		this.arrow.rotation = this.role_img.rotation - 90;
 	}
 
-	public attack(): boolean {
-		return this.weapon.attack(0);
+	public attack(): void {
+		if(this.weapon)
+			this.weapon.attack(0);
 	}
 
 	public move(xAxis, yAxis, angle, offset): void {
