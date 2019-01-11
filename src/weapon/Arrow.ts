@@ -45,7 +45,7 @@ class Arrow extends Bullet
         // console.log("time===",time);
         egret.Tween.get(this).to({ x: xPos,y: yPos }, time).call(function():void{
             egret.Tween.removeTweens(this);
-            ObjectPool.instance.pushObj("arrow", this);
+            ObjectPool.instance.pushObj(this.poolName, this);
         },this);
     }
 

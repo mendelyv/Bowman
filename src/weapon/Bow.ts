@@ -189,6 +189,8 @@ class Bow extends Weapon
                 // ===== 敌人攻击 end =====
             }break;
         }
+
+        return true;
     }
 
     public upLevel()

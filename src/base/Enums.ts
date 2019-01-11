@@ -39,6 +39,7 @@ enum WeaponType
     NONE,
     BOW,
     SHOTGUN,
+    GRENADEBAG,
 }
 
 enum BowSkillType
