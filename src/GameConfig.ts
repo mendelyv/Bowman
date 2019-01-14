@@ -6,7 +6,6 @@
 class GameConfig {
     public static WORD_CONFIG_DATA = [];//多语言配置数据
     public static VER_CONTROL = "test";//控制版本模式 test 测试登录 wechat 微信登录
-    public static BUY_BEI: number = 1.07;//每次购买后价格提升1.07倍并显示，取整。
     public static IS_DEBUG: boolean = false;//默认不显示 加速按钮
     public static CUR_VERNO: number = 3;//当前游戏版本
 
@@ -18,8 +17,8 @@ class GameConfig {
     public static nameConfig;//敌人名字配置表
 
     // http通讯地址,请自行填入自己的服务器地址，若有跨域问题则点开开发工具详情，勾选不校验合法域名
-    private static headUrl: string = 'https://gmkun.vmobs.net';//正式服服务器地址
-    // private static headUrl: string = 'https://gmkun.taoke93.com';//测试服服务器地址
+    // private static headUrl: string = 'https://gmkun.vmobs.net';//正式服服务器地址
+    private static headUrl: string = 'https://gmkun.taoke93.com';//测试服服务器地址
     // 游戏版本号
     private static verNo: number = 1;//现在服务器的版本
     // 视频广告ID

@@ -22,7 +22,7 @@ class Bow extends Weapon
         this.type = WeaponType.BOW;
         this.backAttack = false;
         this.arrowNum = 1;
-        this.speed = 150;
+        this.speed = 50;
         this.res = "game_title_rope_png";
     }
 

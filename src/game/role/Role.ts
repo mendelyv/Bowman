@@ -212,10 +212,13 @@ class Role extends eui.Component
 			let skill = new Skill(WeaponType.NONE,SkillType.KillOthenAddBlood);
 			arr.push(skill);
 		}
-		let weaponSkills = this.weapon.getSkills();
-		if(weaponSkills.length > 0)
+		if(this.weapon)
 		{
-			arr = arr.concat(weaponSkills);
+			let weaponSkills = this.weapon.getSkills();
+			if(weaponSkills.length > 0)
+			{
+				arr = arr.concat(weaponSkills);
+			}
 		}
 		if(arr.length > 3)
 		{
