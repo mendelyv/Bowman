@@ -224,13 +224,17 @@ class EnemyAI
         }
         //如果在玩家的攻击范围内
         let player = Main.instance.gameView.player;
-        if(this.getTargetDistance(player) < player.weapon.range)
+        let weapon = player.weapon;
+        if(weapon)
         {
-            //并且血量进入危险的阈值
-            if(this.obj.attribute.hp <= this.runawayHp)
+            if(this.getTargetDistance(player) < weapon.range)
             {
-                this.obj.target = null;
-                this.state = EnemyState.RUNAWAY;
+                //并且血量进入危险的阈值
+                if(this.obj.attribute.hp <= this.runawayHp)
+                {
+                    this.obj.target = null;
+                    this.state = EnemyState.RUNAWAY;
+                }
             }
         }
     }
@@ -254,13 +258,17 @@ class EnemyAI
         }
         //如果在玩家的攻击范围内
         let player = Main.instance.gameView.player;
-        if(this.getTargetDistance(player) < player.weapon.range)
+        let weapon = player.weapon;
+        if(weapon)
         {
-            //并且血量进入危险的阈值
-            if(this.obj.attribute.hp <= this.runawayHp)
+            if(this.getTargetDistance(player) < player.weapon.range)
             {
-                this.obj.target = null;
-                this.state = EnemyState.RUNAWAY;
+                //并且血量进入危险的阈值
+                if(this.obj.attribute.hp <= this.runawayHp)
+                {
+                    this.obj.target = null;
+                    this.state = EnemyState.RUNAWAY;
+                }
             }
         }
     }
@@ -293,13 +301,17 @@ class EnemyAI
 
         //如果在玩家的攻击范围内
         let player = Main.instance.gameView.player;
-        if(this.getTargetDistance(player) < player.weapon.range)
+        let weapon = player.weapon;
+        if(weapon)
         {
-            //并且血量进入危险的阈值
-            if(this.obj.attribute.hp <= this.runawayHp)
+            if(this.getTargetDistance(player) < weapon.range)
             {
-                this.obj.target = null;
-                this.state = EnemyState.RUNAWAY;
+                //并且血量进入危险的阈值
+                if(this.obj.attribute.hp <= this.runawayHp)
+                {
+                    this.obj.target = null;
+                    this.state = EnemyState.RUNAWAY;
+                }
             }
         }
     }
@@ -326,13 +338,17 @@ class EnemyAI
 
         //如果在玩家的攻击范围内
         let player = Main.instance.gameView.player;
-        if(this.getTargetDistance(player) < player.weapon.range)
+        let weapon = player.weapon;
+        if(weapon)
         {
-            //并且血量进入危险的阈值
-            if(this.obj.attribute.hp <= this.runawayHp)
+            if(this.getTargetDistance(player) < player.weapon.range)
             {
-                this.obj.target = null;
-                this.state = EnemyState.RUNAWAY;
+                //并且血量进入危险的阈值
+                if(this.obj.attribute.hp <= this.runawayHp)
+                {
+                    this.obj.target = null;
+                    this.state = EnemyState.RUNAWAY;
+                }
             }
         }
     }

@@ -112,10 +112,10 @@ class GameBg extends eui.Component {
 	 * @param bullet ：子弹
 	 * @param whos ：谁的子弹  0玩家的，1敌人的
 	 */
-	public addBullet(bullet: Bullet, whos: WhosBullet): number
+	public addBullet(bullet: Bullet): number
 	{
 		this.arrowGroup.addChild(bullet);
-		return this.gameView.battleMgr.addBullet(bullet, whos);
+		return this.gameView.battleMgr.addBullet(bullet);
 	}
 	/**添加防御盾
 	 *   @param shield ：防御盾对象

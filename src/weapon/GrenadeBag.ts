@@ -46,7 +46,7 @@ class GrenadeBag extends Weapon
                 this.obj.parent.localToGlobal(this.obj.x, this.obj.y, point);
                 let targetPoint = group.parent.globalToLocal(point.x, point.y);
                 
-                grenade.index = bg.addBullet(grenade, WhosBullet.PLAYER);
+                grenade.index = bg.addBullet(grenade);
                 grenade.x = targetPoint.x;
                 grenade.y = targetPoint.y;
                 grenade.rotation = rot;
@@ -72,7 +72,7 @@ class GrenadeBag extends Weapon
                 grenade.damage = this.obj.getDamage();
                 grenade.whos = WhosBullet.ENEMY;
 
-                grenade.index = bg.addBullet(grenade, WhosBullet.ENEMY);
+                grenade.index = bg.addBullet(grenade);
                 grenade.x = this.obj.x;
                 grenade.y = this.obj.y;
                 grenade.rotation = rot;
@@ -83,6 +83,17 @@ class GrenadeBag extends Weapon
         }
 
         return true;
+    }
+
+    public enableSkill(skillType:GrenadebagSkillType) 
+    {
+        super.enableSkill(skillType);
+        switch(skillType)
+        {
+            case GrenadebagSkillType.AttackTypeIntensive:
+                this.upLevel();
+                break;
+        }
     }
 
     public upLevel()
@@ -107,9 +118,11 @@ class GrenadeBag extends Weapon
     public getSkills(): Array<Skill>
     {
         let arr = new Array<Skill>();
-
-
-        
+        if(this.level < GrenadeBag.MAX_LEVEL)
+        {
+            let skill = new Skill(WeaponType.GRENADEBAG,GrenadebagSkillType.AttackTypeIntensive);
+            arr.push(skill);
+        }
         return arr;
     }
 }

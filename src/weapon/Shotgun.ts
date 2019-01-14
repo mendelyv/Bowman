@@ -40,7 +40,7 @@ class Shotgun extends Weapon
                 bullet.anchorOffsetX = bullet.width / 2;
                 bullet.anchorOffsetY = this.obj.anchorOffsetY + bullet.height - 10;
                 // group.addChild(bullet);
-                bullet.index = bg.addBullet(bullet, WhosBullet.PLAYER);
+                bullet.index = bg.addBullet(bullet);
 
                 let playerPoint = group.globalToLocal(this.obj.x, this.obj.y);
                 bullet.x = playerPoint.x;
@@ -69,7 +69,7 @@ class Shotgun extends Weapon
                 //给扇形找个位置
                 bullet.anchorOffsetX = bullet.width / 2;
                 bullet.anchorOffsetY = this.obj.anchorOffsetY + bullet.height - 10;
-                bullet.index = bg.addBullet(bullet, WhosBullet.ENEMY);
+                bullet.index = bg.addBullet(bullet);
                 let objPoint = new egret.Point(this.obj.x, this.obj.y);
                 bullet.x = objPoint.x;
                 bullet.y = objPoint.y;
