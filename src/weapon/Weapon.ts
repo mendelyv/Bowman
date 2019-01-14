@@ -48,7 +48,13 @@ abstract class Weapon
         }
         return false;
     }
-
+    /**防御*/
+    public defense(defense:number) :boolean{
+        if(this.obj.die){
+            return false;
+        }
+        return true;
+    }
     /** 升级 */
     public upLevel()
     {
