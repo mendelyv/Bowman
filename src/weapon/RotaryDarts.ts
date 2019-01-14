@@ -3,7 +3,7 @@
  * description : 旋转镖
  */
 class RotaryDarts extends Weapon {
-    
+
     public static levelMax: number = 5;//最大等级
 
     public constructor(obj: Role) {
@@ -25,10 +25,10 @@ class RotaryDarts extends Weapon {
                 bullet.whos = WhosBullet.PLAYER;
                 bullet.anchorOffsetX = bullet.width * 0.5;
                 bullet.anchorOffsetY = bullet.height * 0.5;
-                bullet.x = player.x + player.width ;
-                bullet.y = player.y + player.height;
+                bullet.x = player.width + 8;
+                bullet.y = player.height + 6;
                 player.addChild(bullet);
-                Main.instance.gameView.battleMgr.addBullet(bullet,WhosBullet.PLAYER);
+                Main.instance.gameView.battleMgr.addBullet(bullet, WhosBullet.PLAYER);
                 // ===== 主玩家攻击 end =====
                 break;
 
