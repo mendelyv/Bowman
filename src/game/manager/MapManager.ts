@@ -121,17 +121,17 @@ class MapManager {
 		
 	}
 
-	//第一次在全图随机刷新160个经验道具和40个血道具
+	//第一次在全图随机刷新80个经验道具和20个血道具
 	//暂定经验道具type = 2，血道具type = 3
 	public createProperty()
 	{
 		//直接在地图里随机
-		for(let i = 0;i < 160;++i)
+		for(let i = 0;i < 80;++i)
 		{
 			let vec = MapManager.getEmptyItem();
 			MapManager.mapItems[vec.row][vec.col] = MapItemType.PROP_EXP;
 		}
-		for(let i = 0;i<40;++i)
+		for(let i = 0;i<20;++i)
 		{
 			let vec = MapManager.getEmptyItem();
 			MapManager.mapItems[vec.row][vec.col] = MapItemType.PROP_BLOOD;
