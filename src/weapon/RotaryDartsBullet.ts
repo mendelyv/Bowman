@@ -6,21 +6,21 @@ class RotaryDartsBullet extends Bullet {
     //动画
     public mc: egret.MovieClip;
     //武器攻击距离
-    public range: number;
-
+    public range: number = 1;
 
     public speed: number = 5;
     private _darts: egret.Bitmap;
-
+    private _hurtTime:number = 1000;//伤害计时，防止一直伤害
+    private _oldTimer:number = 0;//之前记录的碰撞时间
     public constructor(range: number) {
         super();
         this.range = range;
   
-        let c_width: number = Main.instance.gameView.player.width * 0.5 + range;
+      let circleWid = Main.instance.gameView.player.width * 0.5 + range;
         //绘制圆圈
         var circle_img: egret.Shape = new egret.Shape();
         circle_img.graphics.lineStyle(2, Util.s_colors.red);
-        circle_img.graphics.drawCircle(0, 0, c_width);
+        circle_img.graphics.drawCircle(0, 0,  circleWid);
         circle_img.graphics.endFill();
         this.addChild(circle_img);
         //绘制镖
@@ -29,14 +29,17 @@ class RotaryDartsBullet extends Bullet {
         egret.Tween.get(this._darts,{loop:true}).to({rotation:360},3000); 
 
     }
- 
-
+    /**碰撞检测 */
     public canDamage(obj: Role, startCoord?: boolean, endCoord?: boolean) {
-        //如果圆形碰撞了
-        if (Util.isCircleHit(obj, this.parent, true, obj.width *0.5, this.range)) {
-            if(Util.isHit(obj,this,true))
-            {
-                return true;
+        let circleWid = this.parent.width*0.5 + this.range;
+        if((egret.getTimer() - this._oldTimer)>this._hurtTime)
+        {
+            if (Util.isCircleHit(obj, this.parent, true, obj.width*0.5, circleWid)) {
+                if(Util.isCircleHit(obj,this,true))
+                {
+                    this._oldTimer = egret.getTimer();
+                    return true;
+                }
             }
         }
         return false;
@@ -47,8 +50,9 @@ class RotaryDartsBullet extends Bullet {
     public destructor() {
         // console.log(this.hashCode + "  destructor  ");
         egret.Tween.removeTweens(this._darts);
-        if (this.parent)
+        if (this.parent){
             this.parent.removeChild(this);
+        }
         if (this.whos != WhosBullet.NONE) {
             switch (this.whos) {
                 case WhosBullet.PLAYER:
