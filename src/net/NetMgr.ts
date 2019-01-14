@@ -134,9 +134,9 @@ class NetMgr {
 		// platform.hideLoading();
 		let str2Json = JSON.parse(str);
 		if (str2Json.stat == "OK" || str2Json.stat == "ok") {
-			let data = str2Json.data;
-			UserData.setOpenId(data.openId);
-			UserData.setUser(data.data);
+			// let data = str2Json.data;
+			// UserData.setOpenId(data.openId);
+			// UserData.setUser(data.data);
 			NetMgr.instance.nomalEvent.dispatchEventWith('login');
 		}
 	}
