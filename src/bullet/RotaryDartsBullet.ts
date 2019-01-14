@@ -49,7 +49,6 @@ class RotaryDartsBullet extends Bullet {
     // }
     /**碰撞检测 */
     public canDamage(obj: Role, startCoord?: boolean, endCoord?: boolean) {
-
         if ((egret.getTimer() - this._oldTimer) > this._hurtTime) {
             if (Util.isCircleHit(obj, this.parent, true, obj.width * 0.5, this._circleWid)) {
                 if (Util.isCircleHit(obj, this, true)) {

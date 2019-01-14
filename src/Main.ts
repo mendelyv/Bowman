@@ -40,7 +40,7 @@ class Main extends eui.UILayer {
     private _mainView: MainView;
     private _heroView: HeroView;
     private _oldTime: number = 0;//记录离开小程序时间
-   
+
     protected createChildren(): void {
         super.createChildren();
 
@@ -70,62 +70,53 @@ class Main extends eui.UILayer {
 
     private async runGame() {
         Main._instance = this;
-    
         this.stage.maxTouches = 2;//设置最多触摸点 只能有2个
         StageUtils.WIN_WIDTH = this.stage.stageWidth;
         StageUtils.WIN_HEIGHT = this.stage.stageHeight;
         egret.log("stageW=", StageUtils.WIN_WIDTH, " stageH=", StageUtils.WIN_HEIGHT);
+
+        if (GameConfig.VER_CONTROL == "wechat") {
+            await platform.login();
+            let login = await platform.login(); //微信小游戏登录
+            if (login) {
+                console.log("login=", login);
+                UserData.setCode(login.code);
+                this.reqServerLogin();
+            }
+            // this._userInfo = await platform.getUserInfo();
+            // if (this._userInfo) {
+            //     console.log("userInfo====", this._userInfo);
+            //     UserData.setAvatar(this._userInfo.avatarUrl);
+            //     UserData.setNickName(this._userInfo.nickName);
+            //     console.log("avater=", UserData.getAvatar());
+            //     console.log("nickName=", UserData.getNickeName());
+            // }
+            // else {
+            //     console.log("用户点击了授权按钮");
+            //     let authInfo = await platform.createUserInfoButton();//授权
+            //     console.log("authInfo=", authInfo);
+            //     if (authInfo) {
+            //         this._userInfo = authInfo.userInfo;
+            //         UserData.setAvatar(this._userInfo.avatarUrl);
+            //         UserData.setNickName(this._userInfo.nickName);
+            //     }
+            // }
+        }
         //资源加载完成
         await this.loadResource();
-        GameConfig.skillConfig = RES.getRes("skillConfig_json");        
-        await platform.login();
-        // const userInfo = await platform.getUserInfo();
-        // console.log(userInfo);
-        let login = await platform.login(); //微信小游戏登录
-        if (login) {
-            console.log("login=", login);
-            UserData.setCode(login.code);
-            // this.reqServerLogin();
-        }
-        else {
-            let hint: string = Util.getWordBySign('networkError');
-            TipsUtils.showTipsDownToUp(hint, true, 30, 5000);
-        }
-        // this._userInfo = await platform.getUserInfo();
-        // if (this._userInfo) {
-        //     console.log("userInfo====", this._userInfo);
-
-        //     UserData.setAvatar(this._userInfo.avatarUrl);
-        //     UserData.setNickName(this._userInfo.nickName);
-        //     console.log("avater=", UserData.getAvatar());
-        //     console.log("nickName=", UserData.getNickeName());
-        // }
-        // else {
-        //     console.log("用户点击了授权按钮");
-        //     let authInfo = await platform.createUserInfoButton();//授权
-        //     console.log("authInfo=", authInfo);
-        //     if (authInfo) {
-        //         this._userInfo = authInfo.userInfo;
-        //         UserData.setAvatar(this._userInfo.avatarUrl);
-        //         UserData.setNickName(this._userInfo.nickName);
-        //     }
-        // }
+        GameConfig.skillConfig = RES.getRes("skillConfig_json");
+        Main.instance.isLoadCom = true;
         if (GameConfig.VER_CONTROL == "test") {
             this.changeToMain();
         }
-        else {
+        else if (GameConfig.VER_CONTROL == "wechat") {
             if (Main.instance.isLoginCom) {
-                if (this.isLoadCom) {
+                if (Main.instance.isLoadCom) {
                     this.changeToMain();
                 }
             }
-            else {
-                this.parseErrorNet();
-            }
         }
-
     }
-
     /**请求自己的服务器登录 */
     private reqServerLogin(): void {
         // this.changeToGame();//TODO:测试代码
@@ -145,25 +136,15 @@ class Main extends eui.UILayer {
     /**登录失败继续登录 */
     private async parseErrorNet() {
         Main.instance.isLoginCom = false;
-        if (Main.instance.isLoadCom) {
-            let hint: string = Util.getWordBySign('networkError');
-            var SELF = Main.instance;
-            let login = await platform.login(); //微信小游戏登录
-            if (login) {
-                console.log("login=", login);
-                UserData.setCode(login.code);
-                var code: string = UserData.getCode();
-                // let popup: ComPopup = new ComPopup(hint,
-                //     function () {
-                //         NetMgr.instance.reqServerConfig();//请求版本信息
-                //         NetMgr.instance.reqWeixinLogin(code, SELF.parseErrorNet);
-                //     },
-                //     function () {
-                //         NetMgr.instance.reqServerConfig();//请求版本信息
-                //         NetMgr.instance.reqWeixinLogin(code, SELF.parseErrorNet);
-                //     });
-                // SELF.addChild(popup);
-            }
+        var SELF = Main.instance;
+        let login = await platform.login(); //微信小游戏登录
+        if (login) {
+            console.log(" parseErrorNet login=", login);
+            UserData.setCode(login.code);
+            var code: string = UserData.getCode();
+            platform.showModal("提示", "网络连接失败，请重试！", function () {
+                NetMgr.instance.reqWeixinLogin(code, SELF.parseErrorNet);
+            }, false);
         }
     }
     /**微信处理 */
@@ -333,8 +314,8 @@ class Main extends eui.UILayer {
         }
     }
     //创建英雄商城界面
-    public createHeroView():void{
-        if(!this._heroView){
+    public createHeroView(): void {
+        if (!this._heroView) {
             this._heroView = new HeroView();
             this.addChild(this._heroView);
             this._heroView.width = StageUtils.WIN_WIDTH;
@@ -342,10 +323,10 @@ class Main extends eui.UILayer {
         }
     }
     //释放英雄商城界面
-    public releaseHeroView(): void{
-        if(this._heroView){
-            if(this._heroView.parent){
-                this._heroView.parent.removeChild(this._heroView);    
+    public releaseHeroView(): void {
+        if (this._heroView) {
+            if (this._heroView.parent) {
+                this._heroView.parent.removeChild(this._heroView);
             }
             this._heroView = null;
         }
@@ -380,8 +361,8 @@ class Main extends eui.UILayer {
         let popup: PopWindow = new PopWindow();
         this.addChild(popup);
         popup.enable(message, confirmEvent, cancelEvent, confirmTxt, cancelTxt);
-        popup.x = (StageUtils.WIN_WIDTH - popup.width)*0.5;
-        popup.y = (StageUtils.WIN_HEIGHT - popup.height)*0.5;
+        popup.x = (StageUtils.WIN_WIDTH - popup.width) * 0.5;
+        popup.y = (StageUtils.WIN_HEIGHT - popup.height) * 0.5;
         return popup;
     }
 

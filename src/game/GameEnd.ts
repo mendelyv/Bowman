@@ -91,6 +91,7 @@ class GameEnd extends eui.Component{
 	}
 
 	private removeTimer(): void {
+		UserData.updateLocalData();
 		if (this.relifeTimer) 
 		{
 			if(this.relifeTimer.hasEventListener(egret.TimerEvent.TIMER))
