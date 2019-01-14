@@ -6,7 +6,7 @@
  */
 declare interface Platform {
 
-//开放数据域
+    //开放数据域
     openDataContext: any;
     createUserInfoButton(): Promise<any>;
     //获取用户数据
@@ -37,23 +37,31 @@ declare interface Platform {
 
     //获取启动参数
     getLaunchOptionsSync(): any;
-      //监听小游戏回到前台的事件
+    //监听小游戏回到前台的事件
     getOnShow(callback: any): void;
     //监听小游戏隐藏到后台事件。锁屏、按 HOME 键退到桌面、显示在聊天顶部等操作会触发此事件。
-    getOnHide(callback:any): void;
+    getOnHide(callback: any): void;
     //流量主视频广告调用方法
-    showA(ad_id:string, success_callback:any, err_callback:any):void;
+    showA(ad_id: string, success_callback: any, err_callback: any): void;
     //显示广告-banner
-    showBA(ad_id:string):void;
+    showBA(ad_id: string): void;
     //隐藏广告
-    hideBA():void;
+    hideBA(): void;
     //摧毁广告
-    destroyBA():void;
+    destroyBA(): void;
     //显示微信菊花转
-    showLoading():void;
+    showLoading(): void;
     //隐藏微信菊花转
-    hideLoading():void;
+    hideLoading(): void;
+    /** 显示提示界面 */
+    showMessage(title: string, imgurl: string, callback: Function): void;
 
+    /** 隐藏提示界面 */
+    hideMessage(): void;
+
+    /** 显示情景对话框 */
+    //callback arg   true:用户点击确定 fasle:用户点击取消
+    showModal(title: string, content: string, callback: Function, showCancel: boolean): void;
 }
 
 class DebugPlatform implements Platform {
@@ -65,7 +73,7 @@ class DebugPlatform implements Platform {
     async createUserInfoButton() {
 
     }
-    async setKeepScreenOn(){
+    async setKeepScreenOn() {
 
     };
     async login() {
@@ -93,20 +101,25 @@ class DebugPlatform implements Platform {
     //设置回到前台事件
     getOnShow(callback: any) { }
     //监听小游戏隐藏到后台事件。锁屏、按 HOME 键退到桌面、显示在聊天顶部等操作会触发此事件。
-    getOnHide(callback:any){};
+    getOnHide(callback: any) { };
     async updateShareMenu(withticket): Promise<any> { }
     //流量主视频广告调用方法
-    showA(ad_id:string, success_callback:any, err_callback:any) {}
-     //显示广告-banner
-    showBA(ad_id:string){}
-     //隐藏广告
-    hideBA() {}
+    showA(ad_id: string, success_callback: any, err_callback: any) { }
+    //显示广告-banner
+    showBA(ad_id: string) { }
+    //隐藏广告
+    hideBA() { }
     //摧毁广告
-    destroyBA() {}
+    destroyBA() { }
     //显示微信菊花转
-    showLoading(){}
+    showLoading() { }
     //隐藏微信菊花转
-    hideLoading(){}
+    hideLoading() { }
+    async showMessage(title: string, imgurl: string, callback: Function) { }
+
+    async hideMessage() { }
+
+    async showModal(title: string, content: string, callback: Function, showCancel: boolean) { }
 }
 
 
