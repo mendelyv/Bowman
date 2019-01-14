@@ -27,9 +27,16 @@ class SkillComponent extends eui.Component
 
     public init()
     {
-        let index1 = this.skillType as number;
-        let index2 = this.skill;
-        this.bg.source = "skill_"+index1 +"_" +index2+"_jpg";
+        if(this.skillType == WeaponType.NONE)
+        {
+            //通用技能skillCommom_9_jpg
+            this.bg.source = "skillCommom_"+this.skill+"_jpg";
+        }
+        else
+        {
+            //武器技能
+            this.bg.source = "skill_"+ this.skillType + "_" + this.skill +"_jpg";
+        }
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBtnClick, this);
     }
 

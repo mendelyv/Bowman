@@ -85,6 +85,17 @@ class GrenadeBag extends Weapon
         return true;
     }
 
+    public enableSkill(skillType:GrenadebagSkillType) 
+    {
+        super.enableSkill(skillType);
+        switch(skillType)
+        {
+            case GrenadebagSkillType.AttackTypeIntensive:
+                this.upLevel();
+                break;
+        }
+    }
+
     public upLevel()
     {
         super.upLevel();
@@ -107,9 +118,11 @@ class GrenadeBag extends Weapon
     public getSkills(): Array<Skill>
     {
         let arr = new Array<Skill>();
-
-
-        
+        if(this.level < GrenadeBag.MAX_LEVEL)
+        {
+            let skill = new Skill(WeaponType.GRENADEBAG,GrenadebagSkillType.AttackTypeIntensive);
+            arr.push(skill);
+        }
         return arr;
     }
 }
