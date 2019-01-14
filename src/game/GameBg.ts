@@ -4,7 +4,7 @@
 class GameBg extends eui.Component {
 
 	public gameView:GameView;
-	public speed: number = 5;
+	// public speed: number = 5;
 	public movableX: boolean = true;//X轴是否可移动
 	public movableY: boolean = true;//Y轴是否可移动
 	/**障碍图片名字*/
@@ -52,8 +52,11 @@ class GameBg extends eui.Component {
 	 */
 	public move(xAxis: number, yAxis: number)
 	{
-		this.x -= xAxis * this.speed;
-		this.y += yAxis * this.speed;
+		let player = Main.instance.gameView.player;
+		let speed = player.getSpeed();
+		speed *= (25 / 1000);//使用一个系数降低速度，现在人物无法移动，全部移动效果均靠背景实现
+		this.x -= xAxis * speed;
+		this.y += yAxis * speed;
 		// this.movableX = this.movableY = true;
 
 		this.verifyLimit();
