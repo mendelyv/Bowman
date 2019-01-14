@@ -4,7 +4,7 @@
 class GameBg extends eui.Component {
 
 	public gameView:GameView;
-	public speed: number = 5;
+	// public speed: number = 5;
 	public movableX: boolean = true;//X轴是否可移动
 	public movableY: boolean = true;//Y轴是否可移动
 	/**障碍图片名字*/
@@ -14,6 +14,7 @@ class GameBg extends eui.Component {
 	public obstacalGroup: eui.Group;
 	private propertyGroup: eui.Group;
 	private enemyGroup: eui.Group;
+	private shieldGroup: eui.Group;
 	private mapBG:eui.Image;//背景图片
 	public constructor() {
 		super();
@@ -52,8 +53,11 @@ class GameBg extends eui.Component {
 	 */
 	public move(xAxis: number, yAxis: number)
 	{
-		this.x -= xAxis * this.speed;
-		this.y += yAxis * this.speed;
+		let player = Main.instance.gameView.player;
+		let speed = player.getSpeed();
+		speed *= (25 / 1000);//使用一个系数降低速度，现在人物无法移动，全部移动效果均靠背景实现
+		this.x -= xAxis * speed;
+		this.y += yAxis * speed;
 		// this.movableX = this.movableY = true;
 
 		this.verifyLimit();
@@ -116,7 +120,14 @@ class GameBg extends eui.Component {
 		this.arrowGroup.addChild(bullet);
 		return this.gameView.battleMgr.addBullet(bullet);
 	}
-
+	/**添加防御盾
+	 *   @param shield ：防御盾对象
+	 * @param whos ：谁的盾  1玩家的，2敌人的
+	*/
+	public addShield(shield:Shield,whos:WhosShield): number{
+		this.shieldGroup.addChild(shield);
+		return this.gameView.battleMgr.addShield(shield,whos);
+	}
 	public destructor()
 	{
 		this.obstacalGroup.removeChildren();

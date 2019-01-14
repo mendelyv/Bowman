@@ -25,14 +25,19 @@ enum MapItemType
     PROP_EXP,//经验道具
     PROP_BLOOD,//血道具
 }
-
+/**谁的子弹*/
 enum WhosBullet
 {
     NONE,
     PLAYER,
     ENEMY
 }
-
+/**谁的防御盾*/
+enum WhosShield{
+    NONE,
+    PLAYER,
+    ENEMY
+}
 
 enum WeaponType
 {
@@ -40,12 +45,13 @@ enum WeaponType
     BOW = 0,//弓箭
     SHOTGUN = 1,//散弹枪
     ROTARY_DARTS = 2,//旋转镖
-    GRENADEBAG = 3,//雷包手
+    GRENADEBAG = 3,//手雷包
+    ROTARY_SHIELD = 4,//旋转盾
     MAX_COUNT//最大数
  
 }
 
-////雷包手
+//手雷包
 enum GrenadebagSkillType
 {
     NONE,

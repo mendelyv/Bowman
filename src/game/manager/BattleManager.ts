@@ -10,6 +10,9 @@ class BattleManager {
 	public bulletsPlayer:Array<Bullet>;//玩家的子弹
 	public bulletsEnemy:Array<Bullet>;//所有敌人的子弹
 
+	public shieldPlayer: Array<Shield>; //玩家的盾
+	public shieldEnemy: Array<Shield>;//敌人的盾
+
 	public roleArray:Array<Role>;//地图上所有敌人和玩家
 	public constructor() 
 	{
@@ -19,7 +22,8 @@ class BattleManager {
 		this.bulletsEnemy = new Array<Bullet>();
 		this.bulletsPlayer = new Array<Bullet>();
 		// this.allRole = [this.enemys, this.player];
-			
+		this.shieldPlayer = new Array<Shield>();
+		this.shieldEnemy = new Array<Shield>();	
 	}
 
 	public addProperty(property:Property)
@@ -78,7 +82,23 @@ class BattleManager {
 			default: console.error(" ***** error ***** ");
 		}
 	}
+	/**添加防御盾
+	 *   @param shield ：防御盾对象
+	 * @param whos ：谁的盾  1玩家的，2敌人的
+	*/
+	public addShield(shield:Shield,whos:WhosShield): number{
+		switch(whos){
+			case WhosShield.PLAYER:
+			Util.push(this.shieldPlayer,shield);
+			return this.shieldPlayer.indexOf(shield);
 
+			case WhosShield.ENEMY:
+			Util.push(this.shieldEnemy,shield);
+			return this.shieldPlayer.indexOf(shield);
+
+			default: console.error(" ***** error ***** ");
+		}
+	}
 	public update()
 	{
 		
@@ -364,6 +384,18 @@ class BattleManager {
 			}
 		}
 		this.enemys = null;
+		for(let i=0;i<this.shieldPlayer.length;i++){
+			if(this.shieldPlayer[i]){
+				this.shieldPlayer[i].destructor();
+			}
+		}
+		this.shieldPlayer = null;
+		for(let i = 0;i<this.shieldEnemy.length;i++){
+			if(this.shieldEnemy[i]){
+				this.shieldEnemy[i].destructor();
+			}
+		}
+		this.shieldEnemy = null;
 		this.player.destructor();
 		this.player = null;
 	}
