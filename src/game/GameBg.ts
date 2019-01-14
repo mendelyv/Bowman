@@ -121,7 +121,7 @@ class GameBg extends eui.Component {
 	 *   @param shield ：防御盾对象
 	 * @param whos ：谁的盾  1玩家的，2敌人的
 	*/
-	public addShield(shield:Shield,whos:WhosShield): number{
+	public addShield(shield:Shield,whos:whosWeapon): number{
 		this.shieldGroup.addChild(shield);
 		return this.gameView.battleMgr.addShield(shield,whos);
 	}

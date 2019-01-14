@@ -7,7 +7,7 @@ abstract class Shield extends egret.DisplayObjectContainer
     public index:number;//在数组的下标
     public id: number;//使用这个变量知道这是谁发射的
     public display: egret.DisplayObject;//显示对象
-    public whos:WhosShield = WhosShield.NONE; // 谁的盾
+    public whos:whosWeapon = whosWeapon.NONE; // 谁的盾
     public tag:WeaponType; //是什么武器
 
     public constructor()

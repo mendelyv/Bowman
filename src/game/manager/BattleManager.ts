@@ -86,13 +86,13 @@ class BattleManager {
 	 *   @param shield ：防御盾对象
 	 * @param whos ：谁的盾  1玩家的，2敌人的
 	*/
-	public addShield(shield:Shield,whos:WhosShield): number{
+	public addShield(shield:Shield,whos:whosWeapon): number{
 		switch(whos){
-			case WhosShield.PLAYER:
+			case whosWeapon.PLAYER:
 			Util.push(this.shieldPlayer,shield);
 			return this.shieldPlayer.indexOf(shield);
 
-			case WhosShield.ENEMY:
+			case whosWeapon.ENEMY:
 			Util.push(this.shieldEnemy,shield);
 			return this.shieldPlayer.indexOf(shield);
 

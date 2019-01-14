@@ -32,12 +32,7 @@ enum WhosBullet
     PLAYER,
     ENEMY
 }
-/**谁的防御盾*/
-enum WhosShield{
-    NONE,
-    PLAYER,
-    ENEMY
-}
+
 
 enum WeaponType
 {
@@ -46,11 +41,16 @@ enum WeaponType
     SHOTGUN = 1,//散弹枪
     ROTARY_DARTS = 2,//旋转镖
     GRENADEBAG = 3,//手雷包
-    ROTARY_SHIELD = 4,//旋转盾
+    ROTARY_SHIELD = 4, //防御盾牌
     MAX_COUNT//最大数
- 
 }
-
+//谁的武器
+enum whosWeapon
+{
+    NONE = -1,
+    PLAYER = 0,
+    ENEMY = 1
+}
 //手雷包
 enum GrenadebagSkillType
 {

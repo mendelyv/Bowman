@@ -48,12 +48,26 @@ abstract class Weapon
         }
         return false;
     }
-    /**防御*/
-    public defense(defense:number) :boolean{
+    /**防御类型 0是玩家 1是敌人*/
+    public defense(defenseType:number) :boolean{
         if(this.obj.die){
             return false;
         }
-        return true;
+        if(this.shootDelay == -1)
+        {
+            return true;
+        }
+        //先更新显示的时间
+        let deltaTime = egret.getTimer() - this.previousFrameTime;
+        this.shootTime += deltaTime;
+        this.previousFrameTime = egret.getTimer();
+
+        if(this.shootTime >= this.shootDelay)
+        {
+            this.shootTime = 0;
+            return true;
+        }
+        return false;
     }
     /** 升级 */
     public upLevel()

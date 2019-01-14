@@ -8,8 +8,7 @@ class Role extends eui.Component
 	public bubble_img: eui.Image;
 	public target: Role;
 	public weaponType:WeaponType;//武器类型
-	public weapon: Weapon;
-
+	public weapon: Weapon;//武器
 	public id: number;//人物编号，使用这个来区分人物
 
 	public die: boolean = false;
@@ -22,6 +21,7 @@ class Role extends eui.Component
 	public constructor() {
 		super();
 		this.weaponType =  UserData.s_weaponType;//WeaponType.BOW; //WeaponType.ROTARY_DARTS; 
+ 
 		this.attribute = new Attribute(this);
 	}
 	protected createChildren() {
@@ -129,7 +129,11 @@ class Role extends eui.Component
 	{
 		
 	}
+	//防御
+	public defend()
+	{
 
+	}
 	// 获取移动速度
 	public getSpeed()
 	{	

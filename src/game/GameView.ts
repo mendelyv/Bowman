@@ -55,6 +55,9 @@ class GameView extends eui.Component {
         if (this.player.weaponType == WeaponType.ROTARY_DARTS) {
 			this.player.attack();
 		}
+        if(this.player.weaponType == WeaponType.ROTARY_SHIELD){
+            this.player.defend();
+        }
         this.mapMgr = new MapManager();
         this.enemyMgr = new EnemyManager();
         this.gameEnd.visible = false;
