@@ -45,7 +45,7 @@ enum WeaponType
     BOW = 0,//弓箭
     SHOTGUN = 1,//散弹枪
     ROTARY_DARTS = 2,//旋转镖
-    GRENADEBAG=3,
+    GRENADEBAG=3, //手雷包
     ROTARY_SHIELD = 4,//旋转盾
     MAX_COUNT//最大数
  
