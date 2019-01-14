@@ -51,10 +51,10 @@ class RotaryDarts extends Weapon {
         this.range = (this.level - 1) * 20 + 200;
     }
 
-    public enableSkill(skillType: ShotgunSkillType) {
+    public enableSkill(skillType:Rotary_dartsSkillType) {
         super.enableSkill(skillType);
         switch (skillType) {
-            case ShotgunSkillType.AttackTypeIntensive:
+            case Rotary_dartsSkillType.AttackTypeIntensive:
                 this.upLevel();
                 break;
         }
@@ -63,7 +63,7 @@ class RotaryDarts extends Weapon {
     public getSkills(): Array<Skill> {
         let arr = new Array<Skill>();
         if (this.level < RotaryDarts.levelMax) {
-            let skill = new Skill(WeaponType.ROTARY_DARTS, ShotgunSkillType.AttackTypeIntensive);
+            let skill = new Skill(WeaponType.ROTARY_DARTS, Rotary_dartsSkillType.AttackTypeIntensive);
             arr.push(skill);
         }
         return arr;
