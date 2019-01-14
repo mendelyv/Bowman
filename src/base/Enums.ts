@@ -2,8 +2,7 @@
 
 
 
-enum EnemyState
-{
+enum EnemyState {
     IDLE,//待机
     WALK,//移动
     CHASE,//追击玩家
@@ -11,56 +10,49 @@ enum EnemyState
     RUNAWAY,//逃跑
 }
 
-enum SceneState
-{
+enum SceneState {
     LOGIN,//登陆界面
     MAIN,//主界面
     GAMEING,//游戏界面
 }
 
-enum MapItemType
-{
+enum MapItemType {
     NONE,//空
     OBSTACAL,//障碍物
     PROP_EXP,//经验道具
     PROP_BLOOD,//血道具
 }
 
-enum WhosBullet
-{
+enum WhosBullet {
     NONE,
     PLAYER,
     ENEMY
 }
 
 
-enum WeaponType
-{
+enum WeaponType {
     NONE = -1,
     BOW = 0,//弓箭
     SHOTGUN = 1,//散弹枪
     ROTARY_DARTS = 2,//旋转镖
-   GRENADEBAG=3,
+    GRENADEBAG = 3,
     MAX_COUNT//最大数
- 
 }
 
-enum BowSkillType
-{
+enum BowSkillType {
     NONE,
     AttackTypeIntensive,//攻击方式强化
     AddArrowNum,//箭的数量+1
     BackAttack,//后放箭
 }
 
-enum ShotgunSkillType
-{
+enum ShotgunSkillType {
     NONE,
     AttackTypeIntensive,//攻击方式强化
 }
 
 //技能
-enum SkillType{
+enum SkillType {
     NONE,//空
     CriticalIntensive,//暴击强化
     AttackPowerIntensive,//攻击力强化
