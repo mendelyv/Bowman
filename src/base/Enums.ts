@@ -45,12 +45,27 @@ enum WeaponType
     BOW = 0,//弓箭
     SHOTGUN = 1,//散弹枪
     ROTARY_DARTS = 2,//旋转镖
-    GRENADEBAG=3,
+    GRENADEBAG = 3,//手雷包
     ROTARY_SHIELD = 4,//旋转盾
     MAX_COUNT//最大数
  
 }
 
+//手雷包
+enum GrenadebagSkillType
+{
+    NONE,
+    AttackTypeIntensive,//攻击方式强化
+}
+
+//旋转镖
+enum Rotary_dartsSkillType
+{
+    NONE,
+    AttackTypeIntensive,//攻击方式强化
+}
+
+//弓箭
 enum BowSkillType
 {
     NONE,
@@ -59,6 +74,7 @@ enum BowSkillType
     BackAttack,//后放箭
 }
 
+//散弹枪
 enum ShotgunSkillType
 {
     NONE,
