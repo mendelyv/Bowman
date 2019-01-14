@@ -22,7 +22,7 @@ class Bow extends Weapon
         this.type = WeaponType.BOW;
         this.backAttack = false;
         this.arrowNum = 1;
-        this.speed = 150;
+        this.speed = 50;
         this.res = "game_title_rope_png";
     }
 
@@ -207,9 +207,9 @@ class Bow extends Weapon
 
     private setWeaponDataOfLv()
     {
-        this.range = (this.level - 1) * 30 + 300;
+        this.range = (this.level - 1) * 40 + 400;
         this.shootTime = 1000 - (this.level - 1) * 100;
-        this.speed = (this.level - 1) * 15 + 150;
+        this.speed = (this.level - 1) * 5 + 50;
     }
 
     public enableSkill(skillType:BowSkillType)
