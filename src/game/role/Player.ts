@@ -30,6 +30,9 @@ class Player extends Role {
 			case WeaponType.ROTARY_DARTS:
 				this.weapon = new RotaryDarts(this);
 				break;
+			case WeaponType.ROTARY_SHIELD:
+				this.weapon = new RotaryShield(this);
+				break;
 		}
 		this.nickName = UserData.getNickeName();
 	}

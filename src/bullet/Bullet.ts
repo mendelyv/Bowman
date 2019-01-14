@@ -31,6 +31,9 @@ abstract class Bullet extends egret.DisplayObjectContainer
     /** 是否碰到障碍物 */
     public abstract isHitObstacal():boolean;
 
+    /**是否碰撞到盾*/
+    //public abstract isHitShield():boolean;
+
     public destructor()
     {
         
