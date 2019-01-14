@@ -62,7 +62,7 @@ class Bow extends Weapon
                     arrow.damage = this.obj.getDamage();
                     //end
                     arrow.whos = WhosBullet.PLAYER;
-
+                    // arrow.tag = WeaponType.BOW;
                     arrow.display.texture = RES.getRes(this.res);
                     arrow.addChild(arrow.display);
 
@@ -73,7 +73,7 @@ class Bow extends Weapon
                     // group.addChild(arrow);
                     arrow.anchorOffsetX = arrow.width *0.5;
                     arrow.anchorOffsetY = arrow.height *0.5;
-                    arrow.index = bg.addBullet(arrow, WhosBullet.PLAYER);
+                    arrow.index = bg.addBullet(arrow);
                     arrow.x = targetPoint.x;
                     arrow.y = targetPoint.y;
                     arrow.rotation = rotations[i];
@@ -90,7 +90,7 @@ class Bow extends Weapon
                     arrow.damage = this.obj.getDamage();
                     //end
                     arrow.whos = WhosBullet.PLAYER;
-
+                    // arrow.tag = WeaponType.BOW;
                     arrow.display.texture = RES.getRes(this.res);
                     arrow.addChild(arrow.display);
 
@@ -101,7 +101,7 @@ class Bow extends Weapon
                     // group.addChild(arrow);
                     arrow.anchorOffsetX = arrow.width *0.5;
                     arrow.anchorOffsetY = arrow.height *0.5;
-                    arrow.index = bg.addBullet(arrow, WhosBullet.PLAYER);
+                    arrow.index = bg.addBullet(arrow);
                     arrow.x = targetPoint.x;
                     arrow.y = targetPoint.y;
                     arrow.rotation = tmpRot-180;
@@ -149,6 +149,7 @@ class Bow extends Weapon
 
                     arrow.damage = this.obj.getDamage();
                     arrow.whos = WhosBullet.ENEMY;
+                    // arrow.tag = WeaponType.BOW;
                     arrow.display.texture = RES.getRes(this.res);
                     arrow.addChild(arrow.display);
   
@@ -156,7 +157,7 @@ class Bow extends Weapon
                     let bg = Main.instance.gameView.gameBg;
                     arrow.anchorOffsetX = arrow.width *0.5;
                     arrow.anchorOffsetY = arrow.height *0.5;
-                    arrow.index = bg.addBullet(arrow, WhosBullet.ENEMY);
+                    arrow.index = bg.addBullet(arrow);
                     arrow.x = this.obj.x;
                     arrow.y = this.obj.y;
                     arrow.rotation = rotations[i];
@@ -171,6 +172,7 @@ class Bow extends Weapon
 
                     arrow.damage = this.obj.getDamage();
                     arrow.whos = WhosBullet.ENEMY;
+                    // arrow.tag = WeaponType.BOW;
                     arrow.display.texture = RES.getRes(this.res);
                     arrow.addChild(arrow.display);
   
@@ -178,7 +180,7 @@ class Bow extends Weapon
                     let bg = Main.instance.gameView.gameBg;
                     arrow.anchorOffsetX = arrow.width *0.5;
                     arrow.anchorOffsetY = arrow.height *0.5;
-                    arrow.index = bg.addBullet(arrow, WhosBullet.ENEMY);
+                    arrow.index = bg.addBullet(arrow);
                     arrow.x = this.obj.x;
                     arrow.y = this.obj.y;
                     arrow.rotation = tmpRot - 180;

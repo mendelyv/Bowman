@@ -28,7 +28,7 @@ class RotaryDarts extends Weapon {
                 bullet.x = player.width + 8;
                 bullet.y = player.height + 6;
                 player.addChild(bullet);
-                Main.instance.gameView.battleMgr.addBullet(bullet, WhosBullet.PLAYER);
+                Main.instance.gameView.battleMgr.addBullet(bullet);
                 // ===== 主玩家攻击 end =====
                 break;
 
