@@ -79,7 +79,7 @@
     "player": {
         "1": {
             "hp": 400,
-            "speed": 200,
+            "speed": 300,
             "shape": 1,
             "experience": 100,
             "power": 100
