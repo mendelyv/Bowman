@@ -62,9 +62,13 @@ class Bow extends Weapon
                     arrow.damage = this.obj.getDamage();
                     //end
                     arrow.whos = WhosBullet.PLAYER;
-                    // arrow.tag = WeaponType.BOW;
                     arrow.display.texture = RES.getRes(this.res);
                     arrow.addChild(arrow.display);
+                    arrow.width = arrow.display.width;
+                    arrow.height = arrow.display.height;
+                    arrow.width = arrow.width / 2;
+                    arrow.shp = Util.drawLineRectangle(0, 0, arrow.width, arrow.height, 0xff0000, 2);
+                    arrow.addChild(arrow.shp);
 
                     let point = new egret.Point();
                     this.obj.parent.localToGlobal(this.obj.x, this.obj.y, point);
@@ -90,9 +94,13 @@ class Bow extends Weapon
                     arrow.damage = this.obj.getDamage();
                     //end
                     arrow.whos = WhosBullet.PLAYER;
-                    // arrow.tag = WeaponType.BOW;
                     arrow.display.texture = RES.getRes(this.res);
                     arrow.addChild(arrow.display);
+                    arrow.width = arrow.display.width;
+                    arrow.height = arrow.display.height;
+                    arrow.width = arrow.width / 2;
+                    arrow.shp = Util.drawLineRectangle(0, 0, arrow.width, arrow.height, 0xff0000, 2);
+                    arrow.addChild(arrow.shp);
 
                     let point = new egret.Point();
                     this.obj.parent.localToGlobal(this.obj.x, this.obj.y, point);
@@ -149,9 +157,13 @@ class Bow extends Weapon
 
                     arrow.damage = this.obj.getDamage();
                     arrow.whos = WhosBullet.ENEMY;
-                    // arrow.tag = WeaponType.BOW;
                     arrow.display.texture = RES.getRes(this.res);
                     arrow.addChild(arrow.display);
+                    arrow.width = arrow.display.width;
+                    arrow.height = arrow.display.height;
+                    arrow.width = arrow.width / 2;
+                    arrow.shp = Util.drawLineRectangle(0, 0, arrow.width, arrow.height, 0xff0000, 2);
+                    arrow.addChild(arrow.shp);
   
                     //添加显示，设置位置和角度，增加tween
                     let bg = Main.instance.gameView.gameBg;
@@ -172,9 +184,13 @@ class Bow extends Weapon
 
                     arrow.damage = this.obj.getDamage();
                     arrow.whos = WhosBullet.ENEMY;
-                    // arrow.tag = WeaponType.BOW;
                     arrow.display.texture = RES.getRes(this.res);
                     arrow.addChild(arrow.display);
+                    arrow.width = arrow.display.width;
+                    arrow.height = arrow.display.height;
+                    arrow.width = arrow.width / 2;
+                    arrow.shp = Util.drawLineRectangle(0, 0, arrow.width, arrow.height, 0xff0000, 2);
+                    arrow.addChild(arrow.shp);
   
                     //添加显示，设置位置和角度，增加tween
                     let bg = Main.instance.gameView.gameBg;

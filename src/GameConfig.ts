@@ -17,8 +17,8 @@ class GameConfig {
     public static nameConfig;//敌人名字配置表
 
     // http通讯地址,请自行填入自己的服务器地址，若有跨域问题则点开开发工具详情，勾选不校验合法域名
-    // private static headUrl: string = 'https://gmkun.vmobs.net';//正式服服务器地址
-    private static headUrl: string = 'https://gmkun.taoke93.com';//测试服服务器地址
+    private static headUrl: string = 'https://bowman.taoke93.com';//正式服服务器地址
+    // private static headUrl: string = 'https://gmkun.taoke93.com';//测试服服务器地址
     // 游戏版本号
     private static verNo: number = 1;//现在服务器的版本
     // 视频广告ID
