@@ -7,6 +7,8 @@ class RotaryShieldDefense extends Shield {
      //盾的防御距离
     public range: number = 1;
 
+    public static levelMax: number = 5;//最大等级
+
     private _darts: egret.Bitmap;
     private _circleWid: number = 5;
     private _defenseTime:number = 2000;
@@ -15,6 +17,7 @@ class RotaryShieldDefense extends Shield {
         super();
         this.tag = WeaponType.ROTARY_SHIELD;
         this.range = range;
+        
         this._circleWid = Main.instance.gameView.player.width * 0.5 + range;
         //绘制圆圈
         var circle_img: egret.Shape = new egret.Shape();
@@ -30,15 +33,19 @@ class RotaryShieldDefense extends Shield {
         egret.Tween.get(this._darts,{loop:true}).to({rotation:360},this._defenseTime); 
     }
     
-    //盾与子弹碰撞
+    //盾与子弹碰撞无敌
     public isCollsion(obj: Bullet,startCoord?: boolean, endCoord?: boolean){
         //判断碰撞
-        if((egret.getTimer() - this._oldTime) > this._defenseTime){
-            if(Util.isCircleHit(obj,this,true,obj.width*0.5,this._circleWid)){
-                if(Util.isCircleHit(obj,this,true)){
-                return true;
+        if ((egret.getTimer() - this._oldTime) > this._defenseTime) {
+
+            if (Util.isCircleHit(obj, this.parent, true, obj.width, this._circleWid)) {
+
+                if (Util.isCircleHit(obj, this, true)) {
+                    this._oldTime = egret.getTimer();
+                    console.log("躲避一个子弹");
+                    return true;
                 }
-            } 
+            }
         }
         return false;
     }

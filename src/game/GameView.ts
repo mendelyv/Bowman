@@ -260,6 +260,9 @@ class GameView extends eui.Component {
             case WeaponType.ROTARY_DARTS:
                 this.player.weapon.enableSkill(skill);
                 break;
+            case WeaponType.ROTARY_SHIELD:
+                this.player.weapon.enableSkill(skill);
+                break
         }
 
     }

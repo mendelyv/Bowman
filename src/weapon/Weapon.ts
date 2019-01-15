@@ -11,7 +11,6 @@ abstract class Weapon
     public range: number;//武器攻击距离
     public type: WeaponType;
     public level: number;//等级
-    
 
     //攻击控制
     protected shootDelay: number = 1000;//攻速

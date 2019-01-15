@@ -169,100 +169,89 @@ class BattleManager {
 		for(let i = 0 ;i<this.bulletsEnemy.length;++i)
 		{
 			let bullet = this.bulletsEnemy[i];
-			if(!bullet)
-			{
+			let shield = this.returnWhosShield(this.shieldPlayer);
+			
+			if (!bullet) {
 				continue;
 			}
-			if(!this.player || this.player.die)
-			{
+			if (!this.player || this.player.die) {
 				break;
 			}
 
 			//撞到墙
-			if(bullet.isHitObstacal())
-			{
-				switch(bullet.tag)
-				{
+			if (bullet.isHitObstacal()) {
+				switch (bullet.tag) {
 					case WeaponType.BOW: ObjectPool.instance.pushObj(bullet.poolName, bullet); continue;
-					case WeaponType.GRENADEBAG : (bullet as Grenade).hitWall(); continue;
+					case WeaponType.GRENADEBAG: (bullet as Grenade).hitWall(); continue;
 				}
-				
+
 			}
-			
-			if(bullet.canDamage(this.player, false, true))//跟玩家做判断的时候，玩家的坐标系需要转换
+			if (bullet.canDamage(this.player, false, true))//跟玩家做判断的时候，玩家的坐标系需要转换
 			{
-				this.player.doDamage(bullet.damage);
-				let atk = this.getRoleOfID(bullet.id);
-				//吸血
-				if(atk)
-					if(atk.attribute.Hemophagia)
-						atk.resumeBlood(bullet.damage * 0.5);
-				if(this.player.die)
-				{	
-					this.removeEnemyById(this.player.id);
-					let role = this.getRoleOfID(bullet.id);
-					if(role) 
-					{
-						
-						role.addExp(100*this.player.attribute.level);
-						//击杀回血
-						if(role.attribute.KillOthenAddBlood)
-						{
-							role.resumeBlood(0.5 * role.attribute.HpMax);
+				if (shield && shield.isCollsion(bullet)) {
+					this.player.doDamage(0);
+				}
+				 else
+				  {
+					this.player.doDamage(bullet.damage);
+					let atk = this.getRoleOfID(bullet.id);
+					//吸血
+					if (atk)
+						if (atk.attribute.Hemophagia)
+							atk.resumeBlood(bullet.damage * 0.5);
+					if (this.player.die) {
+						this.removeEnemyById(this.player.id);
+						let role = this.getRoleOfID(bullet.id);
+						if (role) {
+							role.addExp(100 * this.player.attribute.level);
+							//击杀回血
+							if (role.attribute.KillOthenAddBlood) {
+								role.resumeBlood(0.5 * role.attribute.HpMax);
+							}
 						}
 					}
 				}
-				if(bullet.tag == WeaponType.BOW)
-				{
+				if (bullet.tag == WeaponType.BOW) {
 					ObjectPool.instance.pushObj(bullet.poolName, bullet);
 					continue;
 				}
 			}
 
-
-			for(let i =0;i<this.enemys.length;++i)
-			{
+			for (let i = 0; i < this.enemys.length; ++i) {
 				let enemy = this.enemys[i];
-				if(enemy&&!enemy.die)
-				{
-					if(bullet.id == enemy.id)
-					{
+				if (enemy && !enemy.die) {
+					if (bullet.id == enemy.id) {
 						continue;
 					}
-					if(bullet.canDamage(enemy))//敌人之间判断伤害不需要转化坐标系
+					if (bullet.canDamage(enemy))//敌人之间判断伤害不需要转化坐标系
 					{
 						enemy.doDamage(bullet.damage);
 						let atk = this.getRoleOfID(bullet.id);
 						//吸血
-						if(atk)
-							if(atk.attribute.Hemophagia)
+						if (atk)
+							if (atk.attribute.Hemophagia)
 								atk.resumeBlood(bullet.damage * 0.5);
 
-						if(enemy.die)
-						{
+						if (enemy.die) {
 							this.removeEnemyById(enemy.id);
 							let role = this.getRoleOfID(bullet.id);
-							if(role) 
-							{	
-								role.addExp(100*enemy.attribute.level);
+							if (role) {
+								role.addExp(100 * enemy.attribute.level);
 								//击杀回血
-								if(role.attribute.KillOthenAddBlood)
-								{
+								if (role.attribute.KillOthenAddBlood) {
 									role.resumeBlood(0.5 * role.attribute.HpMax);
 								}
-							Main.instance.gameView.addMsg(role.nickName + "杀死了"+enemy.nickName);
+								Main.instance.gameView.addMsg(role.nickName + "杀死了" + enemy.nickName);
 							}
 						}
 
-						if(bullet.tag == WeaponType.BOW)
-						{
+						if (bullet.tag == WeaponType.BOW) {
 							ObjectPool.instance.pushObj(bullet.poolName, bullet);
 						}
 						break;
 					}
 				}
 			}
-
 		}
 
 		//玩家弓箭的碰撞检测，敌人扣血等
@@ -356,6 +345,14 @@ class BattleManager {
 				this.roleArray.splice(i,1);
 				
 			}
+		}
+	}
+	/**返回角色防御盾*/
+	private returnWhosShield(arr:Array<Shield>){
+		for(let i = 0; i < arr.length; i++){
+
+			return arr[i];
+
 		}
 	}
 	public destructor()

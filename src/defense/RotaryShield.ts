@@ -36,7 +36,34 @@ class RotaryShield extends Weapon {
         }
     }
 
+    public upLevel() {
+        super.upLevel();
+        if (this.level > RotaryShield.levelMax) {
+            this.level = RotaryShield.levelMax;
+        }
+        this.setWeaponDataOfLv();
+    }
+
+    private setWeaponDataOfLv() {
+        this.range = (this.level - 1) * 20 + 200;
+        this.shootTime = 1000 - (this.level - 1) * 100;
+    }
+
+    public enableSkill(skillType:Rotary_shieldSkillType) {
+        super.enableSkill(skillType);
+        switch (skillType) {
+            case Rotary_shieldSkillType.DefenseTypeIntensive:
+                this.upLevel();
+                break;
+        }
+    }
+
     public getSkills(): Array<Skill> {
-        return ;
+        let arr = new Array<Skill>();
+        if (this.level < RotaryShield.levelMax) {
+            let skill = new Skill(WeaponType.ROTARY_SHIELD, Rotary_shieldSkillType.DefenseTypeIntensive);
+            arr.push(skill);
+        }
+        return arr;
     }
 }

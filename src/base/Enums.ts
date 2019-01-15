@@ -64,7 +64,12 @@ enum Rotary_dartsSkillType
     NONE,
     AttackTypeIntensive,//攻击方式强化
 }
-
+//旋转盾
+ enum Rotary_shieldSkillType
+ {
+     NONE,
+     DefenseTypeIntensive,//防御方式强化
+ } 
 //弓箭
 enum BowSkillType
 {
