@@ -11,7 +11,7 @@ class RotaryShieldDefense extends Shield {
 
     private _darts: egret.Bitmap;
     private _circleWid: number = 5;
-    private _defenseTime:number = 2000;
+    private _defenseTime:number = 1000;
     private _oldTime:number = 0;
     public constructor(range: number) {
         super();
