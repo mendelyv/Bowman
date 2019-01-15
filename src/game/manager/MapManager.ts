@@ -126,12 +126,12 @@ class MapManager {
 	public createProperty()
 	{
 		//直接在地图里随机
-		for(let i = 0;i < 80;++i)
+		for(let i = 0;i < 40;++i)
 		{
 			let vec = MapManager.getEmptyItem();
 			MapManager.mapItems[vec.row][vec.col] = MapItemType.PROP_EXP;
 		}
-		for(let i = 0;i<20;++i)
+		for(let i = 0;i<15;++i)
 		{
 			let vec = MapManager.getEmptyItem();
 			MapManager.mapItems[vec.row][vec.col] = MapItemType.PROP_BLOOD;

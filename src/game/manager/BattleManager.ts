@@ -235,7 +235,7 @@ class BattleManager {
 							this.removeEnemyById(enemy.id);
 							let role = this.getRoleOfID(bullet.id);
 							if (role) {
-								role.addExp(100 * enemy.attribute.level);
+								role.addExp(30 * (enemy.attribute.level + 1)*enemy.attribute.level);
 								//击杀回血
 								if (role.attribute.KillOthenAddBlood) {
 									role.resumeBlood(0.5 * role.attribute.HpMax);
@@ -285,7 +285,7 @@ class BattleManager {
 					if(this.enemys[j].die)
 					{
 						this.removeEnemyById(this.enemys[j].id);
-						this.player.addExp(100*this.enemys[j].attribute.level);
+						this.player.addExp(30 * (enemy.attribute.level + 1)*enemy.attribute.level);
 						//击杀回血
 						if(this.player.attribute.KillOthenAddBlood)
 						{
