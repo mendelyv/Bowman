@@ -113,7 +113,6 @@ class GameBg extends eui.Component {
 
 	/** 添加子弹
 	 * @param bullet ：子弹
-	 * @param whos ：谁的子弹  0玩家的，1敌人的
 	 */
 	public addBullet(bullet: Bullet): number
 	{

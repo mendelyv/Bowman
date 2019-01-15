@@ -15,6 +15,8 @@ class Arrow extends Bullet
     // public index: number = -1;//在数组的下标
     public speed: number = 240;
 
+    public shp: egret.Shape;
+
     public constructor()
     {
         super();
@@ -22,8 +24,7 @@ class Arrow extends Bullet
         this.poolName = "arrow";
         this.activeTime = -1;
         // this.myDrawRect();
-        let shp = Util.drawLineRectangle(this.x, this.y, 10, 28, 0xff0000, 2);
-        this.addChild(shp);
+
         this.tag = WeaponType.BOW;
     }
 
@@ -56,6 +57,9 @@ class Arrow extends Bullet
         if(this.parent)
             this.parent.removeChild(this);
         egret.Tween.removeTweens(this);
+        this.removeChild(this.shp);
+        this.shp = null;
+        this.removeChild(this.display);
         if(this.whos != WhosBullet.NONE)
         {
             switch(this.whos)

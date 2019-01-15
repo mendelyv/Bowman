@@ -75,6 +75,12 @@ class Main extends eui.UILayer {
         StageUtils.WIN_HEIGHT = this.stage.stageHeight;
         egret.log("stageW=", StageUtils.WIN_WIDTH, " stageH=", StageUtils.WIN_HEIGHT);
 
+        // // ===== Test Code start =====
+        // let res = await NetMgr.instance.pingServer({data: "ping"});
+        // console.log(res);
+        // // ===== Test Code end =====
+        
+
         if (GameConfig.VER_CONTROL == "wechat") {
             await platform.login();
             let login = await platform.login(); //微信小游戏登录
@@ -82,6 +88,30 @@ class Main extends eui.UILayer {
                 console.log("login=", login);
                 UserData.setCode(login.code);
                 this.reqServerLogin();
+            }
+
+            //获取服务器配置
+            let serverConfig = await NetMgr.instance.obtainConfig({});
+            if(serverConfig.stat == "ok" || serverConfig.stat == "OK")
+            {
+                //设置服务器参数
+            }
+            else
+            {
+                //未获取成功时使用默认参数
+            }
+
+            //登录
+            let loginRes = await NetMgr.instance.wxLogin({code: UserData.getCode()});
+            if(loginRes.stat == "ok" || loginRes.stat == "OK")
+            {
+                Main.instance.isLoginCom = true;
+                UserData.setOpenId(loginRes.data.openId);
+            }
+            else
+            {
+                console.log(" ***** Internet ERROR ***** ");
+                return;
             }
             // this._userInfo = await platform.getUserInfo();
             // if (this._userInfo) {
@@ -102,6 +132,7 @@ class Main extends eui.UILayer {
             //     }
             // }
         }
+
         //资源加载完成
         await this.loadResource();
         GameConfig.skillConfig = RES.getRes("skillConfig_json");
@@ -117,14 +148,18 @@ class Main extends eui.UILayer {
             }
         }
     }
+
+    
     /**请求自己的服务器登录 */
     private reqServerLogin(): void {
         // this.changeToGame();//TODO:测试代码
         NetMgr.instance.nomalEvent.addEventListener('login', this.parseLogin, this);
         let code: string = UserData.getCode();
         console.log("发送code到服务器=", code);
-        NetMgr.instance.reqWeixinLogin(code, this.parseErrorNet);//*登录或者注册新的微信用户
+        // NetMgr.instance.reqWeixinLogin(code, this.parseErrorNet);//*登录或者注册新的微信用户
     }
+
+
     /**解析登录成功返回 -- 进入游戏 */
     private parseLogin(): void {
         this.weixin();//微信处理
@@ -133,6 +168,8 @@ class Main extends eui.UILayer {
             this.changeToGame();
         }
     }
+
+
     /**登录失败继续登录 */
     private async parseErrorNet() {
         Main.instance.isLoginCom = false;
@@ -143,10 +180,12 @@ class Main extends eui.UILayer {
             UserData.setCode(login.code);
             var code: string = UserData.getCode();
             platform.showModal("提示", "网络连接失败，请重试！", function () {
-                NetMgr.instance.reqWeixinLogin(code, SELF.parseErrorNet);
+                // NetMgr.instance.reqWeixinLogin(code, SELF.parseErrorNet);
             }, false);
         }
     }
+
+
     /**微信处理 */
     private weixin(): void {
         platform.sendShareData({ command: "load" });

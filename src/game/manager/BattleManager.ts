@@ -65,7 +65,6 @@ class BattleManager {
 
 	/** 添加弓箭
 	 * @param bullet ：子弹对象
-	 * @param whos ：谁的子弹  0玩家的，1敌人的
 	 */
 	public addBullet(bullet: Bullet): number
 	{

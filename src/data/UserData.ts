@@ -195,25 +195,22 @@ class UserData {
 	public static setSignAwards(awards: Array<number>): void {
 		UserData._signAwards = awards;
 	}
+
+
 	/*** 存储数据到服务器*/
 	public static updateLocalData(): void {
-		// console.log('keyStr=',keyStr,' valueStr=',valueStr);
-		let gold: number = UserData.getGold();
-		gold = Math.ceil(gold);
-		let score_str: string = StringUtil.changeToUnitGold(gold);
-		// let ordArrStr: string = Util.arrToString(this.getSaveOrds(), '_');
-		// let now_time: string = Date.now().toString();
-		let gem_str: string = UserData.getGem().toString();
-		let now_data = {
-			scoreStr: score_str,
-			// nowTime: now_time,
-			diamondNums: gem_str
-		}
-		NetMgr.instance.reqSaveData(now_data);
+		NetMgr.instance.setJson({
+			openId: UserData._openId,
+			data:{
+				//需要保存的数据
+			}
+		});
 	}
+
+
 	/**上传log到服务器 */
 	public static uploadLog(curMileage: number): void {
-		NetMgr.instance.reqSaveLog(curMileage);
+		// NetMgr.instance.reqSaveLog(curMileage);
 	}
 	/**上传数据到微信 */
 	public updataToWX(keyStr: string, valueStr: string): void {
