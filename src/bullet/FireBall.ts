@@ -12,16 +12,24 @@ class FireBall extends Bullet {
     // public index: number = -1;//在数组的下标
     public speed: number = 240;
 
+    private damagedRoleID: Array<number>;
     public constructor() {
         super();
         this.display = new egret.Bitmap();
         this.poolName = "fireball";
         this.display = new egret.Bitmap(RES.getRes("fireball_Bullet_png"));
+        this.display.width = this.display.width * 0.2;
+        this.display.height = this.display.height * 0.2;
         this.addChild(this.display);
+
+        this.anchorOffsetX = this.width / 2;
+        this.anchorOffsetY = this.height / 2;
+        
         this.activeTime = -1;
         // this.myDrawRect();
         // let shp = Util.drawLineRectangle(this.x, this.y, 10, 28, 0xff0000, 2);
         // this.addChild(shp);
+        this.damagedRoleID = new Array<number>();
         this.tag = WeaponType.FIREBALL;
     }
 
@@ -67,6 +75,7 @@ class FireBall extends Bullet {
                     } break;
             }
         }
+        this.damagedRoleID = [];
     }
 
     /** 检测可否造成伤害
@@ -74,14 +83,34 @@ class FireBall extends Bullet {
      * @param needTrans ：是否需要转换坐标系
      */
     public canDamage(obj: Role, startCoord?: boolean, endCoord?: boolean): boolean {
+        //做一个检测，防止同一个单位多次伤害
+        if (this.damagedRoleID.length > 0)
+            if (this.damagedRoleID.indexOf(obj.id) >= 0)
+                return false;
+
         if (Util.isCircleHit(obj, this, true)) {
+
             if (Util.isHit(obj, this, true)) {
+
+                this.damagedRoleID.push(obj.id);
+
                 return true;
             }
         }
         return false;
     }
 
+     /** 检测障碍物 */
+    private checkBarrier(obj: Role, startCoord: boolean = false, endCoord: boolean = false)
+    {
+        let arr = MapManager.getLineItems(new egret.Point(this.x, this.y), new egret.Point(obj.x, obj.y), startCoord, endCoord);
+        for (let i = 0; i < arr.length; i++) {
+            let data = arr[i];
+            if (MapManager.mapItems[data.row][data.col] == 1)
+                return false;
+        }
+        return true;
+    }
 
     /** 火球与墙的碰撞 */
     public isHitObstacal(): boolean {
@@ -135,7 +164,20 @@ class FireBall extends Bullet {
         if (this.parent)
             this.parent.removeChild(this);
         egret.Tween.removeTweens(this);
+        if (this.whos != WhosBullet.NONE) {
+            switch (this.whos) {
+                case WhosBullet.PLAYER:
+                    {
+                        let arr = Main.instance.gameView.battleMgr.bulletsPlayer;
+                        arr[this.index] = null;
+                    } break;
+                case WhosBullet.ENEMY: {
+                    let arr = Main.instance.gameView.battleMgr.bulletsEnemy;
+                    arr[this.index] = null;
+                } break;
+            }
+        }
+        this.damagedRoleID = null;
     }
-
 }
 

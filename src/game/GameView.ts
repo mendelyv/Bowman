@@ -23,7 +23,6 @@ class GameView extends eui.Component {
     public battleMgr: BattleManager;
     private _rankpanel: RankPanel;
 
-
     public constructor() {
         super();
         this.init();
@@ -38,6 +37,8 @@ class GameView extends eui.Component {
         ObjectPool.instance.createObjectPool("property", property);
         let arrow = new Arrow();
         ObjectPool.instance.createObjectPool(arrow.poolName, arrow);
+        let fireball = new FireBall();
+        ObjectPool.instance.createObjectPool(fireball.poolName,fireball);
         let enemy = new Enemy();
         ObjectPool.instance.createObjectPool("enemy", enemy);
     }
@@ -258,9 +259,8 @@ class GameView extends eui.Component {
             case WeaponType.BOW:
             case WeaponType.SHOTGUN:
             case WeaponType.ROTARY_DARTS:
-                this.player.weapon.enableSkill(skill);
-                break;
             case WeaponType.ROTARY_SHIELD:
+            case WeaponType.FIREBALL:
                 this.player.weapon.enableSkill(skill);
                 break
         }
