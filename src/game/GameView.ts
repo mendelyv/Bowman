@@ -23,6 +23,7 @@ class GameView extends eui.Component {
     public battleMgr: BattleManager;
     private _rankpanel: RankPanel;
 
+
     public constructor() {
         super();
         this.init();
@@ -37,8 +38,6 @@ class GameView extends eui.Component {
         ObjectPool.instance.createObjectPool("property", property);
         let arrow = new Arrow();
         ObjectPool.instance.createObjectPool(arrow.poolName, arrow);
-        let fireball = new FireBall();
-        ObjectPool.instance.createObjectPool(fireball.poolName,fireball);
         let enemy = new Enemy();
         ObjectPool.instance.createObjectPool("enemy", enemy);
     }
@@ -53,12 +52,6 @@ class GameView extends eui.Component {
         this.battleMgr = new BattleManager();
         this.battleMgr.player = this.player;
         this.battleMgr.roleArray.push(this.player);
-        if (this.player.weaponType == WeaponType.ROTARY_DARTS) {
-			this.player.attack();
-		}
-        if(this.player.weaponType == WeaponType.ROTARY_SHIELD){
-            this.player.defend();
-        }
         this.mapMgr = new MapManager();
         this.enemyMgr = new EnemyManager();
         this.gameEnd.visible = false;
@@ -130,12 +123,10 @@ class GameView extends eui.Component {
 
         if (this.joyR.active) {
             // console.log(" ===== shoot ===== ");
-            if(this.player.weaponType != WeaponType.ROTARY_DARTS)
-            {
                 if (this.shootTime >= this.shootDelay) {
                     this.player.attack();
                     this.shootTime = 0;
-                }
+               
             }
         }
         this.battleMgr.update();
@@ -253,14 +244,17 @@ class GameView extends eui.Component {
         this.skillComponents.removeChildren();
 
         switch (skillType) {
+            //通用的技能
             case WeaponType.NONE:
                 this.player.attribute.enable(skill);
                 break;
+            // 武器技能
             case WeaponType.BOW:
             case WeaponType.SHOTGUN:
-            case WeaponType.ROTARY_DARTS:
-            case WeaponType.ROTARY_SHIELD:
+            case WeaponType.ELECTROMAG:
             case WeaponType.FIREBALL:
+            case WeaponType.GRENADEBAG:
+            case WeaponType.GROUNDSPINE:
                 this.player.weapon.enableSkill(skill);
                 break
         }

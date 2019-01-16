@@ -49,21 +49,21 @@ class RotaryShield extends Weapon {
         this.shootTime = 1000 - (this.level - 1) * 100;
     }
 
-    public enableSkill(skillType:Rotary_shieldSkillType) {
+    public enableSkill(skillType) {
         super.enableSkill(skillType);
-        switch (skillType) {
-            case Rotary_shieldSkillType.DefenseTypeIntensive:
-                this.upLevel();
-                break;
-        }
+        // switch (skillType) {
+        //     case Rotary_shieldSkillType.DefenseTypeIntensive:
+        //         this.upLevel();
+        //         break;
+        // }
     }
 
     public getSkills(): Array<Skill> {
         let arr = new Array<Skill>();
-        if (this.level < RotaryShield.levelMax) {
-            let skill = new Skill(WeaponType.ROTARY_SHIELD, Rotary_shieldSkillType.DefenseTypeIntensive);
-            arr.push(skill);
-        }
+        // if (this.level < RotaryShield.levelMax) {
+        //     let skill = new Skill(WeaponType.ROTARY_SHIELD, Rotary_shieldSkillType.DefenseTypeIntensive);
+        //     arr.push(skill);
+        // }
         return arr;
     }
 }

@@ -59,6 +59,13 @@ class RotaryDartsBullet extends Bullet {
         }
         return false;
     }
+
+    public show(obj:Role)
+    {
+        obj.addChild(this);
+        this.index = Main.instance.gameView.battleMgr.addBullet(this);
+    }
+
     public isHitObstacal(): boolean {
         return false;
     }

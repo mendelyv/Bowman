@@ -8,8 +8,6 @@
  */
 class ShotgunBullet extends Bullet
 {
-    //动画
-    public mc: egret.MovieClip;
     //扇形范围
     public range: number;
     //扇形角度
@@ -24,9 +22,7 @@ class ShotgunBullet extends Bullet
         this.range = range;
         this.angle = angle;
         this.activeTime = time;
-        this.timer = new egret.Timer(this.activeTime, 1);
-        this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.lifeOut, this);
-        this.timer.start();
+        this.startTimer(this.activeTime);
         this.display = new egret.Bitmap(RES.getRes("shotgunBullet_png"));
         this.addChild(this.display);
         this.poolName = "shotgunBullet";
@@ -75,7 +71,7 @@ class ShotgunBullet extends Bullet
             
             if(limitL < theta && theta < limitR)
             {
-                if(this.checkBarrier(obj, startCoord, endCoord))
+                if(Util.checkBarrier(this, obj, startCoord, endCoord))
                 {
                     this.damagedRoleID.push(obj.id);
                     return true;
@@ -87,19 +83,6 @@ class ShotgunBullet extends Bullet
         return false;
     }
 
-    /** 检测障碍物
-     */
-    private checkBarrier(obj: Role, startCoord: boolean = false, endCoord: boolean = false)
-    {
-        let arr = MapManager.getLineItems(new egret.Point(this.x, this.y), new egret.Point(obj.x, obj.y), startCoord, endCoord);
-        for(let i = 0; i < arr.length; i++)
-        {
-            let data = arr[i];
-            if(MapManager.mapItems[data.row][data.col] == 1)
-                return false;
-        }
-        return true;
-    }
 
     public recycle()
     {
@@ -123,6 +106,17 @@ class ShotgunBullet extends Bullet
             }
         }
         this.damagedRoleID = [];
+    }
+
+
+    public startTimer(time: number, count: number = 1)
+    {
+        if(!this.timer)
+            this.timer.delay = time;
+        else
+            this.timer = new egret.Timer(time, count);
+        this.timer.once(egret.TimerEvent.TIMER_COMPLETE, this.lifeOut, this);
+        this.timer.start();
     }
 
     /** 存活周期已到 */

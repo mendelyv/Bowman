@@ -27,15 +27,8 @@ class Player extends Role {
 			case WeaponType.SHOTGUN:
 				this.weapon = new Shotgun(this);
 				break;
-			case WeaponType.ROTARY_DARTS:
-				this.weapon = new RotaryDarts(this);
-				break;
-			case WeaponType.ROTARY_SHIELD:
-				this.weapon = new RotaryShield(this);
-				break;
 			case WeaponType.FIREBALL:
 				this.weapon = new FireBallBag(this);
-				break;
 		}
 		this.nickName = UserData.getNickeName();
 	}
@@ -96,12 +89,17 @@ class Player extends Role {
 		if(this.weapon)
 			this.weapon.attack(0);
 	}
-	//防御 0是玩家 1是敌人
-	public defend():void{
-		if(this.weapon){
-			this.weapon.defense(0);
-		}
+
+	public getCricleAttack()
+	{
+		this.rotary_darts.attack(0);
 	}
+
+	public getCricleDefend()
+	{
+		this.rotary_shield.defense(0);
+	}
+
 	public move(xAxis, yAxis, angle, offset): void {
 		this.tempX = this.x + xAxis * this.getSpeed();
 		this.tempY = this.y + (-yAxis * this.getSpeed());

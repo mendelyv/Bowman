@@ -19,7 +19,7 @@ class RotaryShieldDefense extends Shield {
 
     public constructor(range: number) {
         super();
-        this.tag = WeaponType.ROTARY_SHIELD;
+        //this.tag = SkillType.ROTARY_SHIELD;
         this.range = range;
         
         this._circleWid = Main.instance.gameView.player.width * 0.5 + range;

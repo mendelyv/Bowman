@@ -17,12 +17,15 @@ class Role extends eui.Component
 	public hpTube: HPTube;//角色的血量条
 	public nickName:string;//角色昵称
 	
-	
+	public rotary_shield:RotaryShield;//环形盾
+	public rotary_darts:RotaryDarts;//环形镖
 	public constructor() {
 		super();
 		this.weaponType =  UserData.s_weaponType;//WeaponType.BOW; //WeaponType.ROTARY_DARTS; 
  
 		this.attribute = new Attribute(this);
+		this.rotary_darts = new RotaryDarts(this);
+		this.rotary_shield = new RotaryShield(this);
 	}
 	protected createChildren() {
 		super.createChildren();
@@ -129,11 +132,19 @@ class Role extends eui.Component
 	{
 		
 	}
-	//防御
-	public defend()
+
+	//环形镖
+	public getCricleAttack()
+	{
+		
+	}
+
+	//环形盾
+	public getCricleDefend()
 	{
 
 	}
+
 	// 获取移动速度
 	public getSpeed()
 	{	
@@ -210,6 +221,16 @@ class Role extends eui.Component
 		if(!this.attribute.KillOthenAddBlood)
 		{
 			let skill = new Skill(WeaponType.NONE,SkillType.KillOthenAddBlood);
+			arr.push(skill);
+		}
+		if(!this.attribute.Rotary_darts)
+		{
+			let skill = new Skill(WeaponType.NONE,SkillType.ROTARY_DARTS);
+			arr.push(skill);
+		}
+		if(!this.attribute.Rotary_shield)
+		{
+			let skill = new Skill(WeaponType.NONE,SkillType.ROTARY_SHIELD);
 			arr.push(skill);
 		}
 		if(this.weapon)
