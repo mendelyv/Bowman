@@ -42,6 +42,8 @@ enum WeaponType
     ROTARY_DARTS = 2,//旋转镖
     GRENADEBAG = 3,//手雷包
     ROTARY_SHIELD = 4, //防御盾牌
+    FIREBALL = 5, //火球
+    ELECTROMAG = 6, //电磁
     GROUNDSPINE,//地刺
     MAX_COUNT//最大数
 }
@@ -65,7 +67,12 @@ enum Rotary_dartsSkillType
     NONE,
     AttackTypeIntensive,//攻击方式强化
 }
-
+//旋转盾
+ enum Rotary_shieldSkillType
+ {
+     NONE,
+     DefenseTypeIntensive,//防御方式强化
+ } 
 //弓箭
 enum BowSkillType
 {
@@ -82,6 +89,17 @@ enum ShotgunSkillType
     AttackTypeIntensive,//攻击方式强化
 }
 
+//火球
+enum FireBallSkillType{
+    NONE,
+    AttackTypeIntensive,//攻击方式强化
+}
+
+//电磁
+enum ElectromagSkillType{
+    NONE,
+    AttackTypeIntensive,//攻击方式强化
+}
 //技能
 enum SkillType{
     NONE,//空

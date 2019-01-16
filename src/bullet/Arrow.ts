@@ -135,8 +135,6 @@ class Arrow extends Bullet
         }
         return false;
     }
-    
-
     // ===== test code start =====
     /** 画一个矩形 */
     public myDrawRect()
