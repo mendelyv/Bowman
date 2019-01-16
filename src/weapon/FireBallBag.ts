@@ -44,7 +44,7 @@ class FireBallBag extends Weapon {
                         }
                     }
                     for (let i = 0; i < rotations.length; i++) {
-                        let fireball: FireBall = ObjectPool.instance.getObj("fireball");
+                        let fireball: FireBall = ObjectPool.instance.getObj("fireball",this);
                         fireball.id = this.obj.id;
                         fireball.damage = this.obj.getDamage();
                         fireball.whos = WhosBullet.PLAYER;

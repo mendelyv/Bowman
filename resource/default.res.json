@@ -582,6 +582,16 @@
 			"url": "assets/game/stick.png",
 			"type": "image",
 			"name": "stick_png"
+		},
+		{
+			"url": "assets/game/skillCommom_10.jpg",
+			"type": "image",
+			"name": "skillCommom_10_jpg"
+		},
+		{
+			"url": "assets/game/skillCommon_11.jpg",
+			"type": "image",
+			"name": "skillCommon_11_jpg"
 		}
 	]
 }
