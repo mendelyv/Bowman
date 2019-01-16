@@ -45,6 +45,7 @@ enum WeaponType
     FIREBALL = 5, //火球
     ELECTROMAG = 6, //电磁
     GROUNDSPINE,//地刺
+    STICK,//棍子
     MAX_COUNT//最大数
 }
 //谁的武器
