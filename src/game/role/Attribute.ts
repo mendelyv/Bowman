@@ -28,6 +28,8 @@ class Attribute extends BaseAttribute
 
     public Hemophagia:boolean;//伤害吸血
     public KillOthenAddBlood:boolean;//击杀吸血
+    public Rotary_darts:boolean;//旋转镖
+    public Rotary_shield:boolean;//旋转盾
 
     public constructor(obj: Role)
     {
@@ -88,6 +90,14 @@ class Attribute extends BaseAttribute
             case SkillType.KillOthenAddBlood://击杀回血
                 this.KillOthenAddBlood = true;
                 break;
+            case SkillType.ROTARY_DARTS://旋转镖
+                this.Rotary_darts = true;
+                this.obj.getCricleAttack();
+                break;
+            case SkillType.ROTARY_SHIELD://旋转盾
+                this.Rotary_shield = true;
+                this.obj.getCricleDefend();
+                break;
         }
     }
 
@@ -104,6 +114,8 @@ class Attribute extends BaseAttribute
 
         this.Hemophagia = false;
         this.KillOthenAddBlood = false;
+        this.Rotary_darts = false;
+        this.Rotary_shield = false;
     }
 
     public get HpMax()

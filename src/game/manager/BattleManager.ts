@@ -242,6 +242,7 @@ class BattleManager {
 								}
 								Main.instance.gameView.addMsg(role.nickName + "杀死了" + enemy.nickName);
 							}
+							this.enemys[i] = null;
 						}
 
 						if (bullet.tag == WeaponType.BOW) {
@@ -292,7 +293,7 @@ class BattleManager {
 							this.player.resumeBlood(0.5 * this.player.attribute.HpMax);
 						}
 						Main.instance.gameView.addMsg("你杀死了"+this.enemys[j].nickName);
-						
+						this.enemys[j] = null;
 					}
 					if(bullet.tag == WeaponType.BOW)
 						ObjectPool.instance.pushObj(bullet.poolName, bullet);
