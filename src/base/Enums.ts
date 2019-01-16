@@ -43,6 +43,7 @@ enum WeaponType
     FIREBALL = 3, //火球
     ELECTROMAG = 4, //电磁
     GROUNDSPINE = 5,//地刺
+    STICK = 6,//棍子
     MAX_COUNT//最大数
 }
 //谁的武器
@@ -59,6 +60,7 @@ enum GrenadebagSkillType
     AttackTypeIntensive,//攻击方式强化
 }
 
+ 
 //弓箭
 enum BowSkillType
 {

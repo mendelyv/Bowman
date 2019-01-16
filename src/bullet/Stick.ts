@@ -1,16 +1,16 @@
 // TypeScript file
 
 /**
- * class name : Spine
- * description : 尖刺
+ * class name : Stick
+ * description : 木棍攻击
  * time : 2019.1.16
  * @author : 杨浩然
  */
-class Spine extends Bullet
+class Stick extends Bullet
 {
     public rectLong: number;//长
     public rectWid: number;//宽
-
+    
     private timer: egret.Timer;
     private damagedRoleID: Array<number>;
 
@@ -21,11 +21,11 @@ class Spine extends Bullet
         this.rectWid = width;
         this.activeTime = time;
         this.startTimer(this.activeTime);
-        this.display = new egret.Bitmap(RES.getRes("spine_png"));
+        this.display = new egret.Bitmap(RES.getRes("stick_png"));
         this.addChild(this.display);
         this.poolName = "spine";
         this.damagedRoleID = new Array<number>();
-        this.tag = WeaponType.GROUNDSPINE;
+        this.tag = WeaponType.STICK;
     }
 
     public isHitObstacal(): boolean
@@ -33,13 +33,14 @@ class Spine extends Bullet
         return false;
     }
 
+
     public canDamage(obj: Role, startCoord: boolean = false, endCoord: boolean = false): boolean
     {
         //做一个检测，防止同一个单位多次伤害
         if(this.damagedRoleID.length > 0)
             if(this.damagedRoleID.indexOf(obj.id) >= 0)
                 return false;
-
+        
         //碰撞检测
         let rect = new egret.DisplayObject();
         rect.width = this.rectLong;
@@ -49,14 +50,10 @@ class Spine extends Bullet
         rect.x = this.x;
         rect.y = this.y;
         rect.rotation = this.rotation;
-
+        
         if(Util.isHit(obj, rect, false))
         {
-            // if(Util.checkBarrier(this, obj, startCoord, endCoord))
-            // {
-                this.damagedRoleID.push(obj.id);
-                return true;
-            // }
+            return true;
         }
         return false;
     }
@@ -140,8 +137,6 @@ class Spine extends Bullet
         }
         this.damagedRoleID = null;
     }
-
-
 
 //class end
 }
