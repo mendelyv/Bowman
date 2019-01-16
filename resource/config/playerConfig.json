@@ -88,98 +88,98 @@
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 300,
+            "experience": 100,
             "power": 100
         },
         "3": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 600,
+            "experience": 100,
             "power": 100
         },
         "4": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 1000,
+            "experience": 100,
             "power": 100
         },
         "5": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 1500,
+            "experience": 100,
             "power": 100
         },
         "6": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 2100,
+            "experience": 100,
             "power": 100
         },
         "7": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 2800,
+            "experience": 100,
             "power": 100
         },
         "8": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 3600,
+            "experience": 100,
             "power": 100
         },
         "9": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 4500,
+            "experience": 100,
             "power": 100
         },
         "10": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 5500,
+            "experience": 100,
             "power": 100
         },
         "11": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 6600,
+            "experience": 100,
             "power": 100
         },
         "12": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 7800,
+            "experience": 100,
             "power": 100
         },
         "13": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 9100,
+            "experience": 100,
             "power": 100
         },
         "14": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 10500,
+            "experience": 100,
             "power": 100
         },
         "15": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 12000,
+            "experience": 100,
             "power": 100
         },
         "16": {

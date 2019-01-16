@@ -25,7 +25,7 @@ class RotaryShieldDefense extends Shield {
         this._circleWid = Main.instance.gameView.player.width * 0.5 + range;
         //绘制圆圈
         var circle_img: egret.Shape = new egret.Shape();
-        circle_img.graphics.lineStyle(2, Util.s_colors.red);
+        circle_img.graphics.lineStyle(2, Util.s_colors.green);
         circle_img.graphics.drawCircle(0, 0, this._circleWid);
         circle_img.graphics.endFill();
         this.addChild(circle_img);
