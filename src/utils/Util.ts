@@ -702,7 +702,7 @@ class Util {
         var aim_cx = aimrectPoint.x - aimrect.anchorOffsetX + aimSeffX + aimrect.width * 0.5;
         var aim_cy = aimrectPoint.y - aimrect.anchorOffsetY + aimrect.height * 0.5;
         var hit_cx = hitrectPoint.x - hitrect.anchorOffsetX + hitSeffX + hitrect.width * 0.5;
-        var hit_cy = hitrectPoint.y - hitrect.anchorOffsetX + hitrect.height * 0.5;
+        var hit_cy = hitrectPoint.y - hitrect.anchorOffsetY + hitrect.height * 0.5;
 
         var dx = Math.abs(aim_cx - hit_cx);
         var dy = Math.abs(aim_cy - hit_cy);
@@ -776,6 +776,21 @@ class Util {
         shp.graphics.drawRect(x, y, width, height);
         //shp.graphics.endFill();
         return shp;
+    }
+
+
+        /** 检测障碍物
+     */
+    public static checkBarrier(startObj: Bullet, endObj: Role, startCoord: boolean = false, endCoord: boolean = false)
+    {
+        let arr = MapManager.getLineItems(new egret.Point(startObj.x, startObj.y), new egret.Point(endObj.x, endObj.y), startCoord, endCoord);
+        for(let i = 0; i < arr.length; i++)
+        {
+            let data = arr[i];
+            if(MapManager.mapItems[data.row][data.col] == 1)
+                return false;
+        }
+        return true;
     }
 
     /**

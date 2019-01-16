@@ -15,7 +15,7 @@ class EnemyManager {
 	public init()
 	{	
 		this.initCount = Util.getRandomRange(5,9);
-		// this.initCount = 0;
+		// this.initCount = 1;
 		this.createEnemys();
 	}
 	//生成初始敌人数量

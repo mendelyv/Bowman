@@ -42,6 +42,7 @@ enum WeaponType
     ROTARY_DARTS = 2,//旋转镖
     GRENADEBAG = 3,//手雷包
     ROTARY_SHIELD = 4, //防御盾牌
+    GROUNDSPINE,//地刺
     MAX_COUNT//最大数
 }
 //谁的武器
