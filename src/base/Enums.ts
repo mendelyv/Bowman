@@ -1,6 +1,16 @@
 // TypeScript file
 
-
+/** 分享类型 */
+enum ShareType
+{
+    None = -1,
+    AddGold = 0,//分享后钞票*2BUFF
+    AddExp = 1,//分享后经验++BUFF 
+    AddInvincible = 2,//分享后无敌BUFF
+    Initiactive_Phypower = 3,//分享得体力
+    Initiactive_DoubleGold = 4,//分享得金币
+    Relife = 5,//分享复活
+}
 
 enum EnemyState
 {
