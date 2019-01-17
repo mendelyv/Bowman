@@ -105,6 +105,10 @@ class BattleManager {
 		for(let i = 0;i<this.enemys.length;++i)
 		{
 			let enemy = this.enemys[i];
+			if(enemy && enemy.die)
+			{
+				this.enemys[i] = null;
+			}
 			if(enemy && !enemy.die)
 			{
 				let hitPoint = MapManager.getHitItem(enemy,[MapItemType.PROP_BLOOD,MapItemType.PROP_EXP]);
