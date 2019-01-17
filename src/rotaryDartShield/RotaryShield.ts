@@ -51,16 +51,18 @@ class RotaryShield extends egret.DisplayObjectContainer {
     public initDefense()
     {
         this._defend = new egret.DisplayObjectContainer();
-        let dartImage = new egret.Bitmap(RES.getRes("game_handle_circle_png"));
+        let dartImage = new egret.Bitmap(RES.getRes("game_rotary_shield_png"));
+        dartImage.width = dartImage.width * 0.5;
+        dartImage.height = dartImage.height * 0.5;
         dartImage.anchorOffsetX = dartImage.width * 0.5;
         dartImage.anchorOffsetY = dartImage.height * 0.5;
         dartImage.x = 0;
-        dartImage.y = 50;
+        dartImage.y = 80;
         this._defend.addChild(dartImage);
         this._defend.x = this.obj.anchorOffsetX;
         this._defend.y = this.obj.anchorOffsetY;
         this.obj.addChild(this._defend);
-        egret.Tween.get(this._defend, { loop: true }).to({ rotation: 360 }, 1000);
+        egret.Tween.get(this._defend, { loop: true }).to({ rotation: 360 }, 1500);
     }
 
     public recycle()
