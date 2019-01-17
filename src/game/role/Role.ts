@@ -23,8 +23,6 @@ class Role extends eui.Component {
 		this.weaponType = UserData.s_weaponType;//WeaponType.BOW; //WeaponType.ROTARY_DARTS; 
 
 		this.attribute = new Attribute(this);
-		// this.rotary_darts = new RotaryDarts(this);
-		// this.rotary_shield = new RotaryShield(this);
 	}
 	protected createChildren() {
 		super.createChildren();
@@ -129,7 +127,7 @@ class Role extends eui.Component {
 
 	//环形盾
 	public getCricleDefend() {
-
+		
 	}
 
 	// 获取移动速度

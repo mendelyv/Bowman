@@ -321,6 +321,7 @@ class Enemy extends Role {
         if(this.rotary_darts)
         {   
             this.rotary_darts.recycle();
+            this.rotary_darts = null;
         }
         this.ai.stop();
     }
