@@ -169,23 +169,26 @@ class BattleManager {
 			}
 			if (bullet.canDamage(this.player, false, true))//跟玩家做判断的时候，玩家的坐标系需要转换
 			{
-				this.player.doDamage(bullet.damage);
-				let atk = this.getRoleOfID(bullet.id);
-				//吸血
-				if (atk)
-					if (atk.attribute.Hemophagia)
-						atk.resumeBlood(bullet.damage * 0.5);
-				if (this.player.die) {
-					this.removeEnemyById(this.player.id);
-					let role = this.getRoleOfID(bullet.id);
-					if (role) {
-						role.addExp(100 * this.player.attribute.level);
-						//击杀回血
-						if (role.attribute.KillOthenAddBlood) {
-							role.resumeBlood(0.5 * role.attribute.HpMax);
+				if(this.player.doDamage(bullet.damage))
+				{
+					let atk = this.getRoleOfID(bullet.id);
+					//吸血
+					if (atk)
+						if (atk.attribute.Hemophagia)
+							atk.resumeBlood(bullet.damage * 0.5);
+					if (this.player.die) {
+						this.removeEnemyById(this.player.id);
+						let role = this.getRoleOfID(bullet.id);
+						if (role) {
+							role.addExp(100 * this.player.attribute.level);
+							//击杀回血
+							if (role.attribute.KillOthenAddBlood) {
+								role.resumeBlood(0.5 * role.attribute.HpMax);
+							}
 						}
 					}
 				}
+				
 				
 				if (bullet.tag == WeaponType.BOW || bullet.tag == WeaponType.FIREBALL || bullet.tag == WeaponType.ELECTROMAG) {
 					ObjectPool.instance.pushObj(bullet.poolName, bullet);
@@ -201,26 +204,29 @@ class BattleManager {
 					}
 					if (bullet.canDamage(enemy))//敌人之间判断伤害不需要转化坐标系
 					{
-						enemy.doDamage(bullet.damage);
-						let atk = this.getRoleOfID(bullet.id);
-						//吸血
-						if (atk)
-							if (atk.attribute.Hemophagia)
-								atk.resumeBlood(bullet.damage * 0.5);
+						if(enemy.doDamage(bullet.damage))
+						{
+							let atk = this.getRoleOfID(bullet.id);
+							//吸血
+							if (atk)
+								if (atk.attribute.Hemophagia)
+									atk.resumeBlood(bullet.damage * 0.5);
 
-						if (enemy.die) {
-							this.removeEnemyById(enemy.id);
-							let role = this.getRoleOfID(bullet.id);
-							if (role) {
-								role.addExp(30 * (enemy.attribute.level + 1)*enemy.attribute.level);
-								//击杀回血
-								if (role.attribute.KillOthenAddBlood) {
-									role.resumeBlood(0.5 * role.attribute.HpMax);
+							if (enemy.die) {
+								this.removeEnemyById(enemy.id);
+								let role = this.getRoleOfID(bullet.id);
+								if (role) {
+									role.addExp(30 * (enemy.attribute.level + 1)*enemy.attribute.level);
+									//击杀回血
+									if (role.attribute.KillOthenAddBlood) {
+										role.resumeBlood(0.5 * role.attribute.HpMax);
+									}
+									Main.instance.gameView.addMsg(role.nickName + "杀死了" + enemy.nickName);
 								}
-								Main.instance.gameView.addMsg(role.nickName + "杀死了" + enemy.nickName);
+								this.enemys[i] = null;
 							}
-							this.enemys[i] = null;
 						}
+
 
 						if (bullet.tag == WeaponType.BOW || bullet.tag == WeaponType.FIREBALL || bullet.tag == WeaponType.ELECTROMAG) {
 							ObjectPool.instance.pushObj(bullet.poolName, bullet);
@@ -258,22 +264,24 @@ class BattleManager {
 				if(bullet.canDamage(enemy, false))
 				{
 					// console.log(bullet.hashCode + " hited ");
-					enemy.doDamage(bullet.damage);
-					//吸血
-					if(this.player.attribute.Hemophagia)
-						this.player.resumeBlood(bullet.damage * 0.5);
-
-					if(this.enemys[j].die)
+					if(enemy.doDamage(bullet.damage))
 					{
-						this.removeEnemyById(this.enemys[j].id);
-						this.player.addExp(30 * (enemy.attribute.level + 1)*enemy.attribute.level);
-						//击杀回血
-						if(this.player.attribute.KillOthenAddBlood)
+						//吸血
+						if(this.player.attribute.Hemophagia)
+							this.player.resumeBlood(bullet.damage * 0.5);
+
+						if(this.enemys[j].die)
 						{
-							this.player.resumeBlood(0.5 * this.player.attribute.HpMax);
+							this.removeEnemyById(this.enemys[j].id);
+							this.player.addExp(30 * (enemy.attribute.level + 1)*enemy.attribute.level);
+							//击杀回血
+							if(this.player.attribute.KillOthenAddBlood)
+							{
+								this.player.resumeBlood(0.5 * this.player.attribute.HpMax);
+							}
+							Main.instance.gameView.addMsg("你杀死了"+this.enemys[j].nickName);
+							this.enemys[j] = null;
 						}
-						Main.instance.gameView.addMsg("你杀死了"+this.enemys[j].nickName);
-						this.enemys[j] = null;
 					}
 					if(bullet.tag == WeaponType.BOW || bullet.tag == WeaponType.FIREBALL || bullet.tag == WeaponType.ELECTROMAG)
 						ObjectPool.instance.pushObj(bullet.poolName, bullet);

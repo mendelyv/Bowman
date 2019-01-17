@@ -8,7 +8,7 @@ class RotaryShield extends egret.DisplayObjectContainer {
 
     private obj: Role;//持有对象
     private defendTime:number = 0;//
-    private defendDelay: number = 5000;//攻击间隔
+    private defendDelay: number = 5000;//防御间隔
     private previousFrameTime: number = 0;
     
     private _defend: egret.DisplayObjectContainer;//旋转盾
@@ -34,11 +34,17 @@ class RotaryShield extends egret.DisplayObjectContainer {
             this.defendTime += deltaTime;
             if(this.defendTime >= this.defendDelay)
             {
-                this.hasDefend = true;
+                this.setDefend(true);
                 this.defendTime = 0;
             }
         }
         this.previousFrameTime = egret.getTimer();
+    }
+
+    public setDefend(b:boolean)
+    {
+        this.hasDefend = b;
+        this._defend.visible = this.hasDefend;
     }
 
     //
@@ -49,17 +55,17 @@ class RotaryShield extends egret.DisplayObjectContainer {
         dartImage.anchorOffsetX = dartImage.width * 0.5;
         dartImage.anchorOffsetY = dartImage.height * 0.5;
         dartImage.x = 0;
-        dartImage.y = 10;
+        dartImage.y = 50;
         this._defend.addChild(dartImage);
         this._defend.x = this.obj.anchorOffsetX;
         this._defend.y = this.obj.anchorOffsetY;
         this.obj.addChild(this._defend);
-        egret.Tween.get(this._defend, { loop: true }).to({ rotation: 360 }, this.defendDelay);
+        egret.Tween.get(this._defend, { loop: true }).to({ rotation: 360 }, 1000);
     }
 
     public recycle()
     {
-         if (this._defend) {
+        if (this._defend) {
             egret.Tween.removeTweens(this._defend);
             if (this._defend.parent) {
                 this._defend.parent.removeChild(this._defend);

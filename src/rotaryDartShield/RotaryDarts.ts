@@ -69,18 +69,20 @@ class RotaryDarts extends egret.DisplayObjectContainer {
         let aroundRoles: Array<Role> = this.obj.getAroundRoles(this.range);
         for (let i = 0; i < aroundRoles.length; ++i) {
             let role = aroundRoles[i];
-            role.doDamage(this.damage);
-            if (!this.obj.die) {
-                if (this.obj.attribute.Hemophagia) {
-                    this.obj.resumeBlood(this.damage * 0.5);
-                }
+            if(role.doDamage(this.damage))
+            {
+                if (!this.obj.die) {
+                    if (this.obj.attribute.Hemophagia) {
+                        this.obj.resumeBlood(this.damage * 0.5);
+                    }
 
-                if (role.die) {
-                    Main.instance.gameView.battleMgr.removeEnemyById(role.id);
-                    this.obj.addExp(30 * (role.attribute.level + 1) * role.attribute.level);
-                    //击杀回血
-                    if (this.obj.attribute.KillOthenAddBlood) {
-                        this.obj.resumeBlood(0.5 * this.obj.attribute.HpMax);
+                    if (role.die) {
+                        Main.instance.gameView.battleMgr.removeEnemyById(role.id);
+                        this.obj.addExp(30 * (role.attribute.level + 1) * role.attribute.level);
+                        //击杀回血
+                        if (this.obj.attribute.KillOthenAddBlood) {
+                            this.obj.resumeBlood(0.5 * this.obj.attribute.HpMax);
+                        }
                     }
                 }
             }

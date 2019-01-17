@@ -23,15 +23,24 @@ class Role extends eui.Component {
 		this.weaponType = UserData.s_weaponType;//WeaponType.BOW; //WeaponType.ROTARY_DARTS; 
 
 		this.attribute = new Attribute(this);
+		// this.rotary_darts = new RotaryDarts(this);
+		// this.rotary_shield = new RotaryShield(this);
 	}
 	protected createChildren() {
 		super.createChildren();
 	}
 
 	/*被攻击，受伤害掉血
-	*@param damage: 敌人造成的伤害
+	*@param damage: 敌人造成的伤害 true 有伤害 false 没有伤害
 	*/
-	public doDamage(damage: number) {
+	public doDamage(damage: number):boolean {
+		if(this.rotary_shield){
+			if(this.rotary_shield.hasDefend)
+			{
+				this.rotary_shield.setDefend(false);
+				return false;
+			}
+		}
 		//计算伤害satrt 减去自己的防御
 		damage *= 1 - Attribute.defenseArr[this.attribute.DefenseLv];
 		//end
@@ -43,6 +52,7 @@ class Role extends eui.Component {
 		if (this.attribute.hp == 0) {
 			this.destroy();
 		}
+		return true;
 	}
 
 	//角色死亡
@@ -127,7 +137,11 @@ class Role extends eui.Component {
 
 	//环形盾
 	public getCricleDefend() {
-		
+		if(!this.rotary_shield)
+		{
+			this.rotary_shield = new RotaryShield(this);
+		}
+		this.rotary_shield.enableDefend();
 	}
 
 	// 获取移动速度
@@ -267,5 +281,5 @@ class Role extends eui.Component {
 		}
 		return targetArr;
 	}
-
+	
 }
