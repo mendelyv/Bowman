@@ -273,6 +273,7 @@ class BattleManager {
 			for(let j:number = 0; j < this.enemys.length; j++){
 				let enemy = this.enemys[j];
 				if(!enemy || enemy.die){
+					this.enemys[j] = null;
 					continue;
 				}
 				if(bullet.canDamage(enemy, false))
