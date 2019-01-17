@@ -27,12 +27,21 @@ class Player extends Role {
 			case WeaponType.SHOTGUN:
 				this.weapon = new Shotgun(this);
 				break;
+			case WeaponType.GRENADEBAG:
+				this.weapon = new GrenadeBag(this);
+				break;
 			case WeaponType.FIREBALL:
 				this.weapon = new FireBallBag(this);
 				break;
 			case WeaponType.ELECTROMAG:
 				this.weapon = new ElectramagBag(this);
 				break;
+			// case WeaponType.GROUNDSPINE:
+			// 	this.weapon = new GroundSpine(this);
+			// 	break;
+			// case WeaponType.STICK:
+			// 	this.weapon = new StickHandle(this);
+			// 	break;
 		}
 		this.nickName = UserData.getNickeName();
 	}

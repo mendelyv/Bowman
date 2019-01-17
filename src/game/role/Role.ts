@@ -133,7 +133,6 @@ class Role extends eui.Component {
 
 	//环形盾
 	public getCricleDefend() {
-		console.log("78978797");
 		if(!this.rotary_shield)
 		{
 			this.rotary_shield = new RotaryShield(this);
