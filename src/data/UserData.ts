@@ -213,7 +213,7 @@ class UserData {
 		// NetMgr.instance.reqSaveLog(curMileage);
 	}
 	/**上传数据到微信 */
-	public updataToWX(keyStr: string, valueStr: string): void {
+	public static updataToWX(keyStr: string, valueStr: string): void {
 		if (GameConfig.VER_CONTROL == "wechat") {
 			platform.setUserCloudStorage([{ key: keyStr, value: valueStr }]);
 		}

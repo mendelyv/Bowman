@@ -29,6 +29,7 @@
 
 class Main extends eui.UILayer {
     // public uiEvent = new egret.EventDispatcher();
+    public static shareType: ShareType = -1;//分享类型，分享逻辑的辅助变量
     private static _instance: Main;//主类单例
     public static get instance(): Main { return Main._instance; }
     public isLoadCom: boolean = false;//是否加载完资源
@@ -105,6 +106,7 @@ class Main extends eui.UILayer {
             let loginRes = await NetMgr.instance.wxLogin({code: UserData.getCode()});
             if(loginRes.stat == "ok" || loginRes.stat == "OK")
             {
+                 this.weixin();//微信处理
                 Main.instance.isLoginCom = true;
                 UserData.setOpenId(loginRes.data.openId);
             }
