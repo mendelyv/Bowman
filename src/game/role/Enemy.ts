@@ -351,7 +351,8 @@ class Enemy extends Role {
 
     public destructor()
     {
-        this.ai.stop();
+        super.destructor();
+        this.recycle();
     }
     //class end
 }

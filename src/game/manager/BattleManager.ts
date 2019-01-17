@@ -2,16 +2,12 @@
 //战斗管理类
 
 class BattleManager {
-
 	public player:Player;
 	public propertys:Array<Property>;//所有地图上的道具
 	public enemys:Array<Enemy>;//所有敌人
 
 	public bulletsPlayer:Array<Bullet>;//玩家的子弹
 	public bulletsEnemy:Array<Bullet>;//所有敌人的子弹
-
-	public shieldPlayer: Array<Shield>; //玩家的盾
-	public shieldEnemy: Array<Shield>;//敌人的盾
 
 	public roleArray:Array<Role>;//地图上所有敌人和玩家
 	public constructor() 
@@ -22,8 +18,6 @@ class BattleManager {
 		this.bulletsEnemy = new Array<Bullet>();
 		this.bulletsPlayer = new Array<Bullet>();
 		// this.allRole = [this.enemys, this.player];
-		this.shieldPlayer = new Array<Shield>();
-		this.shieldEnemy = new Array<Shield>();	
 	}
 
 	public addProperty(property:Property)
@@ -81,23 +75,7 @@ class BattleManager {
 			default: console.error(" ***** error ***** ");
 		}
 	}
-	/**添加防御盾
-	 *   @param shield ：防御盾对象
-	 * @param whos ：谁的盾  1玩家的，2敌人的
-	*/
-	public addShield(shield:Shield,whos:whosWeapon): number{
-		switch(whos){
-			case whosWeapon.PLAYER:
-			Util.push(this.shieldPlayer,shield);
-			return this.shieldPlayer.indexOf(shield);
 
-			case whosWeapon.ENEMY:
-			Util.push(this.shieldEnemy,shield);
-			return this.shieldPlayer.indexOf(shield);
-
-			default: console.error(" ***** error ***** ");
-		}
-	}
 	public update()
 	{
 		
@@ -172,7 +150,6 @@ class BattleManager {
 		for(let i = 0 ;i<this.bulletsEnemy.length;++i)
 		{
 			let bullet = this.bulletsEnemy[i];
-			let shield = this.returnWhosShield(this.shieldPlayer);
 			if (!bullet) {
 				continue;
 			}
@@ -192,29 +169,24 @@ class BattleManager {
 			}
 			if (bullet.canDamage(this.player, false, true))//跟玩家做判断的时候，玩家的坐标系需要转换
 			{
-				if (shield && shield.isCollsion(bullet)) {
-					this.player.doDamage(0);
-				}
-				 else
-				  {
-					this.player.doDamage(bullet.damage);
-					let atk = this.getRoleOfID(bullet.id);
-					//吸血
-					if (atk)
-						if (atk.attribute.Hemophagia)
-							atk.resumeBlood(bullet.damage * 0.5);
-					if (this.player.die) {
-						this.removeEnemyById(this.player.id);
-						let role = this.getRoleOfID(bullet.id);
-						if (role) {
-							role.addExp(100 * this.player.attribute.level);
-							//击杀回血
-							if (role.attribute.KillOthenAddBlood) {
-								role.resumeBlood(0.5 * role.attribute.HpMax);
-							}
+				this.player.doDamage(bullet.damage);
+				let atk = this.getRoleOfID(bullet.id);
+				//吸血
+				if (atk)
+					if (atk.attribute.Hemophagia)
+						atk.resumeBlood(bullet.damage * 0.5);
+				if (this.player.die) {
+					this.removeEnemyById(this.player.id);
+					let role = this.getRoleOfID(bullet.id);
+					if (role) {
+						role.addExp(100 * this.player.attribute.level);
+						//击杀回血
+						if (role.attribute.KillOthenAddBlood) {
+							role.resumeBlood(0.5 * role.attribute.HpMax);
 						}
 					}
 				}
+				
 				if (bullet.tag == WeaponType.BOW || bullet.tag == WeaponType.FIREBALL || bullet.tag == WeaponType.ELECTROMAG) {
 					ObjectPool.instance.pushObj(bullet.poolName, bullet);
 					continue;
@@ -355,14 +327,7 @@ class BattleManager {
 			}
 		}
 	}
-	/**返回角色防御盾*/
-	private returnWhosShield(arr:Array<Shield>){
-		for(let i = 0; i < arr.length; i++){
 
-			return arr[i];
-
-		}
-	}
 	public destructor()
 	{
 		for(let i = 0 ;i < this.bulletsEnemy.length;i++)
@@ -389,18 +354,7 @@ class BattleManager {
 			}
 		}
 		this.enemys = null;
-		for(let i=0;i<this.shieldPlayer.length;i++){
-			if(this.shieldPlayer[i]){
-				this.shieldPlayer[i].destructor();
-			}
-		}
-		this.shieldPlayer = null;
-		for(let i = 0;i<this.shieldEnemy.length;i++){
-			if(this.shieldEnemy[i]){
-				this.shieldEnemy[i].destructor();
-			}
-		}
-		this.shieldEnemy = null;
+		
 		this.player.destructor();
 		this.player = null;
 	}

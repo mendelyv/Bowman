@@ -1,81 +1,74 @@
 /**
  * 旋转盾
  */
-class RotaryShield extends Weapon {
+class RotaryShield extends egret.DisplayObjectContainer {
 
     public static levelMax: number = 5;//最大等级
+    public hasDefend: boolean;//是否有盾 
 
-     public constructor(obj: Role) {
-        super(obj);
-        this.range = 10;
+    private obj: Role;//持有对象
+    private defendTime:number = 0;//
+    private defendDelay: number = 5000;//攻击间隔
+    private previousFrameTime: number = 0;
+    
+    private _defend: egret.DisplayObjectContainer;//旋转盾
+
+    public constructor(obj: Role) {
+        super();
+        this.defendDelay = 5000;
+        this.obj = obj;
+        this.previousFrameTime = egret.getTimer();
+        this.hasDefend = false;
     }
-    //防御
-    public defense(defenseType:number): boolean{
-        if(!super.defense(defenseType)){
-            return false;
+
+    public enableDefend() {
+        this.initDefense();
+        this.obj.addEventListener(egret.Event.ENTER_FRAME, this.update, this);
+    }
+
+    public update()
+    {
+        if(!this.hasDefend)
+        {
+            let deltaTime = egret.getTimer() - this.previousFrameTime;
+            this.defendTime += deltaTime;
+            if(this.defendTime >= this.defendDelay)
+            {
+                this.hasDefend = true;
+                this.defendTime = 0;
+            }
         }
-        switch(defenseType){
-          case 0:
-          {
-                    // ===== 主玩家防御 start =====
-                    let player = Main.instance.gameView.player;
-                    let shield = new RotaryShieldDefense(this.range);
-                    shield.id = this.obj.id;
-                    shield.whos = whosWeapon.PLAYER;
-                    shield.anchorOffsetX = shield.width * 0.5;
-                    shield.anchorOffsetY = shield.height * 0.5;
-                    shield.x = player.width + 8;
-                    shield.y = player.height + 6;
-                    player.addChild(shield);
-                    Main.instance.gameView.battleMgr.addShield(shield, whosWeapon.PLAYER);
-            // ===== 主玩家防御 exd =====
-          }break;
+        this.previousFrameTime = egret.getTimer();
+    }
 
-          case 1:
-          {
-                    // ===========敌人防御盾 start ==========
-                    let shield = new RotaryShieldDefense(this.range);
-                    shield.id = this.obj.id;
-                    shield.whos = whosWeapon.ENEMY;
-                    shield.anchorOffsetX = shield.width * 0.5;
-                    shield.anchorOffsetY = shield.height * 0.5;
-                    shield.x = this.obj.width + 8;
-                    shield.y = this.obj.height + 6;
-                    this.obj.addChild(shield);
-                    Main.instance.gameView.battleMgr.addShield(shield, whosWeapon.ENEMY);
-            // ===========敌人防御盾 end ============
-          } break;
+    //
+    public initDefense()
+    {
+        this._defend = new egret.DisplayObjectContainer();
+        let dartImage = new egret.Bitmap(RES.getRes("game_handle_circle_png"));
+        dartImage.anchorOffsetX = dartImage.width * 0.5;
+        dartImage.anchorOffsetY = dartImage.height * 0.5;
+        dartImage.x = 0;
+        dartImage.y = 10;
+        this._defend.addChild(dartImage);
+        this._defend.x = this.obj.anchorOffsetX;
+        this._defend.y = this.obj.anchorOffsetY;
+        this.obj.addChild(this._defend);
+        egret.Tween.get(this._defend, { loop: true }).to({ rotation: 360 }, this.defendDelay);
+    }
+
+    public recycle()
+    {
+         if (this._defend) {
+            egret.Tween.removeTweens(this._defend);
+            if (this._defend.parent) {
+                this._defend.parent.removeChild(this._defend);
+            }
+            this._defend = null;
         }
-    }
-
-    public upLevel() {
-        super.upLevel();
-        if (this.level > RotaryShield.levelMax) {
-            this.level = RotaryShield.levelMax;
+        if (this.obj) {
+            this.obj.removeEventListener(egret.Event.ENTER_FRAME, this.update, this);
+            this.obj = null;
         }
-        this.setWeaponDataOfLv();
-    }
-
-    private setWeaponDataOfLv() {
-        this.range = (this.level - 1) * 20 + 200;
-        this.shootTime = 1000 - (this.level - 1) * 100;
-    }
-
-    public enableSkill(skillType) {
-        super.enableSkill(skillType);
-        // switch (skillType) {
-        //     case Rotary_shieldSkillType.DefenseTypeIntensive:
-        //         this.upLevel();
-        //         break;
-        // }
-    }
-
-    public getSkills(): Array<Skill> {
-        let arr = new Array<Skill>();
-        // if (this.level < RotaryShield.levelMax) {
-        //     let skill = new Skill(WeaponType.ROTARY_SHIELD, Rotary_shieldSkillType.DefenseTypeIntensive);
-        //     arr.push(skill);
-        // }
-        return arr;
     }
 }
