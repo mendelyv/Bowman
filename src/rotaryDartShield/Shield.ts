@@ -18,7 +18,6 @@ abstract class Shield extends egret.DisplayObjectContainer
     }
     //检测与子弹的碰撞
     public abstract isCollsion(obj: Bullet,startCoord?: boolean, endCoord?: boolean):boolean
-
     public destructor()
     {
         

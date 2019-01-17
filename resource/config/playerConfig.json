@@ -15,25 +15,25 @@
                 "info": "<font size='26' color='0x63916a'>防御提升</font> \n <font size='26' color='0x000000'>受到的伤害减少</font> \n <font size='26' color='0x63916a'>磁铁</font> \n <font size='26' color='0x000000'>可以吸取身边的星星和心</font> \n \n<font size='26' color='0x63916a'>弓箭</font> \n <font size='26' color='0x000000'>武器更换为散弹枪</font>"
             },
             {
-                "work": "炸弹人",
-                "hp": 0,
+               "work": "炸弹人",
+                "hp": 400,
                 "gold": 0,
                 "info": "<font size='26' color='0x63916a'>移速提升</font> \n <font size='26' color='0x000000'>移动速度增加</font> \n <font size='26' color='0x63916a'>胆小鬼</font> \n <font size='26' color='0x000000'>濒临死亡时，移动速度增加，伤害降低</font> \n \n<font size='26' color='0x63916a'>炸弹</font> \n <font size='26' color='0x000000'>武器更换爆破炸弹</font>"
             },
             {
-                "work": "敬请期待",
-                "hp": 0,
+               "work": "魔法师",
+                "hp": 400,
                 "gold": 0,
-                "info": ""
+                "info": "<font size='26' color='0x63916a'>火球</font> \n <font size='26' color='0x000000'>武器变更为发射火球</font> \n <font size='26' color='0x63916a'>攻击提升</font> \n <font size='26' color='0x000000'>攻击力提升</font> \n \n<font size='26' color='0x63916a'>暴击</font> \n <font size='26' color='0x000000'>攻击出现暴击的几率提升</font>"
             },
             {
-                "work": "敬请期待",
-                "hp": 0,
+                "work": "JX - 304 ",
+                "hp": 400,
                 "gold": 0,
-                "info": ""
+                "info": "<font size='26' color='0x63916a'>防御头盔</font> \n <font size='26' color='0x000000'>受到飞行类武器的伤害降低</font> \n <font size='26' color='0x63916a'>近战护甲</font> \n <font size='26' color='0x000000'>受到近战类武器的伤害降低</font> \n \n<font size='26' color='0x63916a'>电磁球</font> \n <font size='26' color='0x000000'>武器变为飞行缓慢的电磁球</font>"
             },
-            {
-                "work": "敬请期待",
+            { 
+               "work": "敬请期待",
                 "hp": 0,
                 "gold": 0,
                 "info": ""
@@ -88,98 +88,98 @@
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 300,
+            "experience": 100,
             "power": 100
         },
         "3": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 600,
+            "experience": 100,
             "power": 100
         },
         "4": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 1000,
+            "experience": 100,
             "power": 100
         },
         "5": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 1500,
+            "experience": 100,
             "power": 100
         },
         "6": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 2100,
+            "experience": 100,
             "power": 100
         },
         "7": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 2800,
+            "experience": 100,
             "power": 100
         },
         "8": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 3600,
+            "experience": 100,
             "power": 100
         },
         "9": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 4500,
+            "experience": 100,
             "power": 100
         },
         "10": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 5500,
+            "experience": 100,
             "power": 100
         },
         "11": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 6600,
+            "experience": 100,
             "power": 100
         },
         "12": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 7800,
+            "experience": 100,
             "power": 100
         },
         "13": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 9100,
+            "experience": 100,
             "power": 100
         },
         "14": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 10500,
+            "experience": 100,
             "power": 100
         },
         "15": {
             "hp": 400,
             "speed": 300,
             "shape": 1,
-            "experience": 12000,
+            "experience": 100,
             "power": 100
         },
         "16": {

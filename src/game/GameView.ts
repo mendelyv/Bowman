@@ -38,6 +38,8 @@ class GameView extends eui.Component {
         ObjectPool.instance.createObjectPool("property", property);
         let arrow = new Arrow();
         ObjectPool.instance.createObjectPool(arrow.poolName, arrow);
+        let fireball = new FireBall();
+        ObjectPool.instance.createObjectPool(fireball.poolName,fireball);
         let enemy = new Enemy();
         ObjectPool.instance.createObjectPool("enemy", enemy);
     }

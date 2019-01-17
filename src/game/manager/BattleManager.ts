@@ -169,7 +169,6 @@ class BattleManager {
 		{
 			let bullet = this.bulletsEnemy[i];
 			let shield = this.returnWhosShield(this.shieldPlayer);
-			
 			if (!bullet) {
 				continue;
 			}
@@ -181,6 +180,7 @@ class BattleManager {
 			if (bullet.isHitObstacal()) {
 				switch (bullet.tag) {
 					case WeaponType.BOW: ObjectPool.instance.pushObj(bullet.poolName, bullet); continue;
+					case WeaponType.FIREBALL: ObjectPool.instance.pushObj(bullet.poolName,bullet); continue;
 					case WeaponType.GRENADEBAG: (bullet as Grenade).hitWall(); continue;
 				}
 
@@ -210,7 +210,7 @@ class BattleManager {
 						}
 					}
 				}
-				if (bullet.tag == WeaponType.BOW) {
+				if (bullet.tag == WeaponType.BOW || bullet.tag == WeaponType.FIREBALL) {
 					ObjectPool.instance.pushObj(bullet.poolName, bullet);
 					continue;
 				}
@@ -245,7 +245,7 @@ class BattleManager {
 							this.enemys[i] = null;
 						}
 
-						if (bullet.tag == WeaponType.BOW) {
+						if (bullet.tag == WeaponType.BOW || bullet.tag == WeaponType.FIREBALL) {
 							ObjectPool.instance.pushObj(bullet.poolName, bullet);
 						}
 						break;
@@ -267,6 +267,7 @@ class BattleManager {
 				switch(bullet.tag)
 				{
 					case WeaponType.BOW: ObjectPool.instance.pushObj(bullet.poolName, bullet); break;
+					case WeaponType.FIREBALL: ObjectPool.instance.pushObj(bullet.poolName,bullet); continue;
 					case WeaponType.GRENADEBAG : (bullet as Grenade).hitWall(); break;
 				}
 			}
@@ -296,7 +297,7 @@ class BattleManager {
 						Main.instance.gameView.addMsg("你杀死了"+this.enemys[j].nickName);
 						this.enemys[j] = null;
 					}
-					if(bullet.tag == WeaponType.BOW)
+					if(bullet.tag == WeaponType.BOW || bullet.tag == WeaponType.FIREBALL)
 						ObjectPool.instance.pushObj(bullet.poolName, bullet);
 				}
 			}

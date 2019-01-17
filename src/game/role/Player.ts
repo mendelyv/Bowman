@@ -27,6 +27,8 @@ class Player extends Role {
 			case WeaponType.SHOTGUN:
 				this.weapon = new Shotgun(this);
 				break;
+			case WeaponType.FIREBALL:
+				this.weapon = new FireBallBag(this);
 		}
 		this.nickName = UserData.getNickeName();
 	}
