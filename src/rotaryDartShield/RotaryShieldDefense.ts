@@ -49,15 +49,16 @@ class RotaryShieldDefense extends Shield {
                     this._oldTime = egret.getTimer();
                     this._Text = new egret.TextField();
                     this._Text.text = "格挡";
-                    this._Text.size = 26;
+                    this._Text.size = 20;
                     this._Text.textColor = Util.s_colors.black;
                     this._Text.textAlign = egret.HorizontalAlign.LEFT;
-                    this._Text.x = this._darts.x;
-                    this._Text.y = this._darts.y;
+                    this._Text.x = this._darts.x + 20;
+                    this._Text.y = this._darts.y + 20;
                     this.addChild(this._Text);
                     let downTimer: egret.Timer = new egret.Timer(1000, 1);
                     downTimer.start();
                     downTimer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, this.deleteText, this);
+                    console.log("格挡掉一次伤害");
                     return true;
                 }
             }
@@ -69,7 +70,6 @@ class RotaryShieldDefense extends Shield {
          if(this._Text){
             if(this._Text.parent){
                 this._Text.parent.removeChild(this._Text);
-                console.log("dghdgsdhldj");
             }
         }
     }
