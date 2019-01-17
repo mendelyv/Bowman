@@ -33,7 +33,10 @@ class Role extends eui.Component {
 	/*被攻击，受伤害掉血
 	*@param damage: 敌人造成的伤害
 	*/
-	public doDamage(damage: number) {
+	public doDamage(damage: number):boolean {
+		if(this.rotary_shield){
+			return false;
+		}
 		//计算伤害satrt 减去自己的防御
 		damage *= 1 - Attribute.defenseArr[this.attribute.DefenseLv];
 		//end
@@ -45,6 +48,7 @@ class Role extends eui.Component {
 		if (this.attribute.hp == 0) {
 			this.destroy();
 		}
+		return true;
 	}
 
 	//角色死亡
@@ -129,7 +133,12 @@ class Role extends eui.Component {
 
 	//环形盾
 	public getCricleDefend() {
-
+		console.log("78978797");
+		if(!this.rotary_shield)
+		{
+			this.rotary_shield = new RotaryShield(this);
+		}
+		this.rotary_shield.enableDart();
 	}
 
 	// 获取移动速度
@@ -269,5 +278,5 @@ class Role extends eui.Component {
 		}
 		return targetArr;
 	}
-
+	
 }

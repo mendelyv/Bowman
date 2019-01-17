@@ -94,11 +94,6 @@ class Player extends Role {
 			this.weapon.attack(0);
 	}
 
-	public getCricleDefend()
-	{
-		this.rotary_shield.defense(0);
-	}
-
 	public move(xAxis, yAxis, angle, offset): void {
 		this.tempX = this.x + xAxis * this.getSpeed();
 		this.tempY = this.y + (-yAxis * this.getSpeed());
@@ -116,11 +111,14 @@ class Player extends Role {
 			this.movableY = false;
 	}
 
-	public doDamage(damage: number) {
-		super.doDamage(damage);
-		if (this.attribute.hp == 0) {
-			Main.instance.gameView.showGameEndReLife();
+	public doDamage(damage: number):boolean {
+		if (super.doDamage(damage)) {
+			if (this.attribute.hp == 0) {
+				Main.instance.gameView.showGameEndReLife();
+			}
+			return true;
 		}
+		return false;
 	}
 
 	public levelUp() {

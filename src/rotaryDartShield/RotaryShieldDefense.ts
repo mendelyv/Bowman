@@ -31,8 +31,8 @@ class RotaryShieldDefense extends Shield {
         this.addChild(circle_img);
         //绘制盾
         this._darts = new egret.Bitmap(RES.getRes("game_rotary_shield_png"));
-        this._darts.width = this._darts.width * 0.5;
-        this._darts.height = this._darts.height * 0.5;
+        this._darts.width = this._darts.width * 0.7;
+        this._darts.height = this._darts.height * 0.7;
         this.addChild(this._darts);
         egret.Tween.get(this._darts,{loop:true}).to({rotation:360},this._defenseTime); 
         
