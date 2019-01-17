@@ -320,6 +320,11 @@ class Enemy extends Role {
             this.rotary_darts.recycle();
             this.rotary_darts = null;
         }
+        if(this.rotary_shield)
+        {
+            this.rotary_shield.recycle();
+            this.rotary_shield = null;
+        }
         this.ai.stop();
     }
 
@@ -348,7 +353,8 @@ class Enemy extends Role {
 
     public destructor()
     {
-        this.ai.stop();
+        super.destructor();
+        this.recycle();
     }
     //class end
 }

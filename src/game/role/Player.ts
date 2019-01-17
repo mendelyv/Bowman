@@ -186,6 +186,21 @@ class Player extends Role {
 		Main.instance.gameView.updateRankPanel();
 		this.hpTube.showNickName();
 	}
+
+	public destructor()
+	{
+		super.destructor();
+		if(this.rotary_darts)
+        {   
+            this.rotary_darts.recycle();
+            this.rotary_darts = null;
+        }
+		if(this.rotary_shield)
+		{
+			this.rotary_shield.recycle();
+			this.rotary_shield = null;
+		}
+	}
 }
 
 window["Player"] = Player;

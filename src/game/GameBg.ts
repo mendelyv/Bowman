@@ -119,14 +119,7 @@ class GameBg extends eui.Component {
 		this.arrowGroup.addChild(bullet);
 		return this.gameView.battleMgr.addBullet(bullet);
 	}
-	/**添加防御盾
-	 *   @param shield ：防御盾对象
-	 * @param whos ：谁的盾  1玩家的，2敌人的
-	*/
-	public addShield(shield:Shield,whos:whosWeapon): number{
-		this.shieldGroup.addChild(shield);
-		return this.gameView.battleMgr.addShield(shield,whos);
-	}
+
 	public destructor()
 	{
 		this.obstacalGroup.removeChildren();

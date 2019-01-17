@@ -1,101 +1,80 @@
 /**
  * 旋转盾
  */
-class RotaryShield extends egret.DisplayObjectContainer
-{
+class RotaryShield extends egret.DisplayObjectContainer {
+
     public static levelMax: number = 5;//最大等级
-    public range: number;//武器防御距离
-    public level: number;//等级
+    public hasDefend: boolean;//是否有盾 
 
-    private shootDelay: number = 1000;//攻击间隔
+    private obj: Role;//持有对象
+    private defendTime:number = 0;//
+    private defendDelay: number = 5000;//防御间隔
     private previousFrameTime: number = 0;
-    private shootTime: number = 0;
-
-    private _darts: egret.DisplayObjectContainer;
-    private obj: Role;//持有这个武器的对象
+    
+    private _defend: egret.DisplayObjectContainer;//旋转盾
 
     public constructor(obj: Role) {
         super();
+        this.defendDelay = 5000;
         this.obj = obj;
-        this.shootDelay = 1000;
-        this.range = 50;
-        this.level = 1;
         this.previousFrameTime = egret.getTimer();
+        this.hasDefend = false;
     }
 
-    public enableDart()
-    {
-        this.initDart();
+    public enableDefend() {
+        this.initDefense();
         this.obj.addEventListener(egret.Event.ENTER_FRAME, this.update, this);
-    }
-
-    public initDart()
-    {
-        //绘制盾
-        this.range = this.obj.width * 0.5 + this.range;
-        this._darts = new egret.DisplayObjectContainer();
-        let dartImage = new egret.Bitmap(RES.getRes("game_rotary_shield_png"));
-        dartImage.x = 0;
-        dartImage.y = this.range;
-        dartImage.width = dartImage.width * 0.5;
-        dartImage.height = dartImage.height * 0.5;
-        dartImage.anchorOffsetX = dartImage.width * 0.5;
-        dartImage.anchorOffsetY = dartImage.height * 0.5;
-        this._darts.addChild(dartImage);
-        // this.width = this._darts.width;
-        // this.height = this._darts.height;
-        this._darts.x = this.obj.anchorOffsetX;
-        this._darts.y = this.obj.anchorOffsetY;
-        this.obj.addChild(this._darts);
-        egret.Tween.get(this._darts,{loop:true}).to({rotation:360},this.shootDelay); 
     }
 
     public update()
     {
-        let deltaTime = egret.getTimer() - this.previousFrameTime;
-        this.shootTime += deltaTime;
-        this.previousFrameTime = egret.getTimer();
-
-        if(this.shootTime >= this.shootDelay)
+        if(!this.hasDefend)
         {
-            this.shootTime = 0;
-            this.defense();
+            let deltaTime = egret.getTimer() - this.previousFrameTime;
+            this.defendTime += deltaTime;
+            if(this.defendTime >= this.defendDelay)
+            {
+                this.setDefend(true);
+                this.defendTime = 0;
+            }
         }
+        this.previousFrameTime = egret.getTimer();
     }
-    //防御
-    public defense() 
+
+    public setDefend(b:boolean)
     {
-        
+        this.hasDefend = b;
+        this._defend.visible = this.hasDefend;
     }
 
-    public upLevel() {
-        this.level++;
-        if (this.level > RotaryShield.levelMax) {
-            this.level = RotaryShield.levelMax;
-        }
-        this.setWeaponDataOfLv();
-    }
-
-    private setWeaponDataOfLv() {
-        this.range = (this.level - 1) * 20 + 200;
+    //
+    public initDefense()
+    {
+        this._defend = new egret.DisplayObjectContainer();
+        let dartImage = new egret.Bitmap(RES.getRes("game_handle_circle_png"));
+        dartImage.anchorOffsetX = dartImage.width * 0.5;
+        dartImage.anchorOffsetY = dartImage.height * 0.5;
+        dartImage.x = 0;
+        dartImage.y = 50;
+        this._defend.addChild(dartImage);
+        this._defend.x = this.obj.anchorOffsetX;
+        this._defend.y = this.obj.anchorOffsetY;
+        this.obj.addChild(this._defend);
+        egret.Tween.get(this._defend, { loop: true }).to({ rotation: 360 }, 1000);
     }
 
     public recycle()
     {
-        if(this._darts)
-        {
-            egret.Tween.removeTweens(this._darts);
-            if(this._darts.parent)
-            {
-                this._darts.parent.removeChild(this._darts);
+        if (this._defend) {
+            egret.Tween.removeTweens(this._defend);
+            if (this._defend.parent) {
+                this._defend.parent.removeChild(this._defend);
             }
-            this._darts = null;
+            this._defend = null;
         }
-        if(this.obj)
-        {
+        if (this.obj) {
             this.obj.removeEventListener(egret.Event.ENTER_FRAME, this.update, this);
+            this.obj = null;
         }
     }
-
-    //class end
 }

@@ -31,11 +31,15 @@ class Role extends eui.Component {
 	}
 
 	/*被攻击，受伤害掉血
-	*@param damage: 敌人造成的伤害
+	*@param damage: 敌人造成的伤害 true 有伤害 false 没有伤害
 	*/
 	public doDamage(damage: number):boolean {
 		if(this.rotary_shield){
-			return false;
+			if(this.rotary_shield.hasDefend)
+			{
+				this.rotary_shield.setDefend(false);
+				return false;
+			}
 		}
 		//计算伤害satrt 减去自己的防御
 		damage *= 1 - Attribute.defenseArr[this.attribute.DefenseLv];
@@ -137,7 +141,7 @@ class Role extends eui.Component {
 		{
 			this.rotary_shield = new RotaryShield(this);
 		}
-		this.rotary_shield.enableDart();
+		this.rotary_shield.enableDefend();
 	}
 
 	// 获取移动速度
