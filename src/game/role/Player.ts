@@ -27,8 +27,21 @@ class Player extends Role {
 			case WeaponType.SHOTGUN:
 				this.weapon = new Shotgun(this);
 				break;
+			case WeaponType.GRENADEBAG:
+				this.weapon = new GrenadeBag(this);
+				break;
 			case WeaponType.FIREBALL:
 				this.weapon = new FireBallBag(this);
+				break;
+			case WeaponType.ELECTROMAG:
+				this.weapon = new ElectramagBag(this);
+				break;
+			// case WeaponType.GROUNDSPINE:
+			// 	this.weapon = new GroundSpine(this);
+			// 	break;
+			// case WeaponType.STICK:
+			// 	this.weapon = new StickHandle(this);
+			// 	break;
 		}
 		this.nickName = UserData.getNickeName();
 	}
@@ -90,16 +103,6 @@ class Player extends Role {
 			this.weapon.attack(0);
 	}
 
-	public getCricleAttack()
-	{
-		this.rotary_darts.attack(0);
-	}
-
-	public getCricleDefend()
-	{
-		this.rotary_shield.defense(0);
-	}
-
 	public move(xAxis, yAxis, angle, offset): void {
 		this.tempX = this.x + xAxis * this.getSpeed();
 		this.tempY = this.y + (-yAxis * this.getSpeed());
@@ -117,11 +120,14 @@ class Player extends Role {
 			this.movableY = false;
 	}
 
-	public doDamage(damage: number) {
-		super.doDamage(damage);
-		if (this.attribute.hp == 0) {
-			Main.instance.gameView.showGameEndReLife();
+	public doDamage(damage: number):boolean {
+		if (super.doDamage(damage)) {
+			if (this.attribute.hp == 0) {
+				Main.instance.gameView.showGameEndReLife();
+			}
+			return true;
 		}
+		return false;
 	}
 
 	public levelUp() {
@@ -179,6 +185,21 @@ class Player extends Role {
 		Main.instance.gameView.battleMgr.roleArray.push(this);
 		Main.instance.gameView.updateRankPanel();
 		this.hpTube.showNickName();
+	}
+
+	public destructor()
+	{
+		super.destructor();
+		if(this.rotary_darts)
+        {   
+            this.rotary_darts.recycle();
+            this.rotary_darts = null;
+        }
+		if(this.rotary_shield)
+		{
+			this.rotary_shield.recycle();
+			this.rotary_shield = null;
+		}
 	}
 }
 

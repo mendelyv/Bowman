@@ -100,15 +100,7 @@ class Enemy extends Role {
         egret.Tween.get(this).to({ x: xPos, y: yPos }, time);
     }
 
-    public getCricleAttack()
-	{
-		this.rotary_darts.attack(1);
-	}
-
-	public getCricleDefend()
-	{
-		this.rotary_shield.defense(1);
-	}
+	
 
     public moveOfPath() {
         if (this.pathQueue.length <= 0) return;
@@ -323,7 +315,16 @@ class Enemy extends Role {
 
     public recycle()
     {
-        this.rotary_darts.recycle();
+        if(this.rotary_darts)
+        {   
+            this.rotary_darts.recycle();
+            this.rotary_darts = null;
+        }
+        if(this.rotary_shield)
+        {
+            this.rotary_shield.recycle();
+            this.rotary_shield = null;
+        }
         this.ai.stop();
     }
 
@@ -352,7 +353,8 @@ class Enemy extends Role {
 
     public destructor()
     {
-        this.ai.stop();
+        super.destructor();
+        this.recycle();
     }
     //class end
 }

@@ -49,21 +49,9 @@ class EnemyManager {
 	}
 	/**随机敌人名字*/
 	public randomEnemyName(){
-		let index:number = Util.getRandomRange(0,2);
-		if(index != 0){
-			let engIndex = Util.getRandomRange(0,58);
-			let name = GameConfig.nameConfig["engName"][engIndex];
-			return name;
-		}else{
-			let surNameIndex = Util.getRandomRange(0,94);
-			let surName = GameConfig.nameConfig["surname"][surNameIndex];
-			let midNameIndex = Util.getRandomRange(0,8);
-			let midName = GameConfig.nameConfig["midname"][midNameIndex];
-			let nameIndex = Util.getRandomRange(0,60);
-			let endName = GameConfig.nameConfig["name"][nameIndex];
-			let name = surName + midName + endName;
-			return name;
-		}
+		let index:number = Util.getRandomRange(0,308);
+		let name =GameConfig.nameConfig["nickname"][index];
+		return name;
 	}
 
 	/**随机一个位置添加一个敌人到地图*/
