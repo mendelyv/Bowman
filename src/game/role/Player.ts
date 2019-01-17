@@ -94,11 +94,6 @@ class Player extends Role {
 			this.weapon.attack(0);
 	}
 
-	public getCricleAttack()
-	{
-		this.rotary_darts.attack(0);
-	}
-
 	public getCricleDefend()
 	{
 		this.rotary_shield.defense(0);
