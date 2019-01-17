@@ -5,7 +5,7 @@
  */
 class GameConfig {
     public static WORD_CONFIG_DATA = [];//多语言配置数据
-    public static VER_CONTROL = "wechat";//控制版本模式 test 测试登录 wechat 微信登录
+    public static VER_CONTROL = "test";//控制版本模式 test 测试登录 wechat 微信登录
     public static IS_DEBUG: boolean = false;//默认不显示 加速按钮
     public static CUR_VERNO: number = 3;//当前游戏版本
 
