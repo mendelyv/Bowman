@@ -29,6 +29,10 @@ class Player extends Role {
 				break;
 			case WeaponType.FIREBALL:
 				this.weapon = new FireBallBag(this);
+				break;
+			case WeaponType.ELECTROMAG:
+				this.weapon = new ElectramagBag(this);
+				break;
 		}
 		this.nickName = UserData.getNickeName();
 	}

@@ -181,6 +181,7 @@ class BattleManager {
 				switch (bullet.tag) {
 					case WeaponType.BOW: ObjectPool.instance.pushObj(bullet.poolName, bullet); continue;
 					case WeaponType.FIREBALL: ObjectPool.instance.pushObj(bullet.poolName,bullet); continue;
+					case WeaponType.ELECTROMAG: ObjectPool.instance.pushObj(bullet.poolName,bullet); continue;
 					case WeaponType.GRENADEBAG: (bullet as Grenade).hitWall(); continue;
 				}
 
@@ -210,7 +211,7 @@ class BattleManager {
 						}
 					}
 				}
-				if (bullet.tag == WeaponType.BOW || bullet.tag == WeaponType.FIREBALL) {
+				if (bullet.tag == WeaponType.BOW || bullet.tag == WeaponType.FIREBALL || bullet.tag == WeaponType.ELECTROMAG) {
 					ObjectPool.instance.pushObj(bullet.poolName, bullet);
 					continue;
 				}
@@ -245,7 +246,7 @@ class BattleManager {
 							this.enemys[i] = null;
 						}
 
-						if (bullet.tag == WeaponType.BOW || bullet.tag == WeaponType.FIREBALL) {
+						if (bullet.tag == WeaponType.BOW || bullet.tag == WeaponType.FIREBALL || bullet.tag == WeaponType.ELECTROMAG) {
 							ObjectPool.instance.pushObj(bullet.poolName, bullet);
 						}
 						break;
@@ -268,6 +269,7 @@ class BattleManager {
 				{
 					case WeaponType.BOW: ObjectPool.instance.pushObj(bullet.poolName, bullet); break;
 					case WeaponType.FIREBALL: ObjectPool.instance.pushObj(bullet.poolName,bullet); continue;
+					case WeaponType.ELECTROMAG: ObjectPool.instance.pushObj(bullet.poolName,bullet); continue;
 					case WeaponType.GRENADEBAG : (bullet as Grenade).hitWall(); break;
 				}
 			}
@@ -296,7 +298,7 @@ class BattleManager {
 						Main.instance.gameView.addMsg("你杀死了"+this.enemys[j].nickName);
 						this.enemys[j] = null;
 					}
-					if(bullet.tag == WeaponType.BOW || bullet.tag == WeaponType.FIREBALL)
+					if(bullet.tag == WeaponType.BOW || bullet.tag == WeaponType.FIREBALL || bullet.tag == WeaponType.ELECTROMAG)
 						ObjectPool.instance.pushObj(bullet.poolName, bullet);
 				}
 			}

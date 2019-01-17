@@ -84,7 +84,7 @@ enum FireBallSkillType{
 }
 
 //电磁
-enum ElectromagSkillType{
+enum ElectramagSkillType{
     NONE,
     AttackTypeIntensive,//攻击方式强化
 }

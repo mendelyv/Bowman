@@ -16,23 +16,35 @@ class RotaryShield extends Weapon {
         }
         switch(defenseType){
           case 0:
-            // ===== 主玩家防御 start =====
-            let player = Main.instance.gameView.player;
-            let shield = new RotaryShieldDefense(this.range);
-            shield.id = this.obj.id;
-            shield.whos = whosWeapon.PLAYER;
-            shield.anchorOffsetX = shield.width * 0.5;
-            shield.anchorOffsetY = shield.height * 0.5;
-            shield.x = player.width + 8;
-            shield.y = player.height + 6;
-            player.addChild(shield);
-            Main.instance.gameView.battleMgr.addShield(shield,whosWeapon.PLAYER);
+          {
+                    // ===== 主玩家防御 start =====
+                    let player = Main.instance.gameView.player;
+                    let shield = new RotaryShieldDefense(this.range);
+                    shield.id = this.obj.id;
+                    shield.whos = whosWeapon.PLAYER;
+                    shield.anchorOffsetX = shield.width * 0.5;
+                    shield.anchorOffsetY = shield.height * 0.5;
+                    shield.x = player.width + 8;
+                    shield.y = player.height + 6;
+                    player.addChild(shield);
+                    Main.instance.gameView.battleMgr.addShield(shield, whosWeapon.PLAYER);
             // ===== 主玩家防御 exd =====
-            break;
+          }break;
 
           case 1:
-
-            break;
+          {
+                    // ===========敌人防御盾 start ==========
+                    let shield = new RotaryShieldDefense(this.range);
+                    shield.id = this.obj.id;
+                    shield.whos = whosWeapon.ENEMY;
+                    shield.anchorOffsetX = shield.width * 0.5;
+                    shield.anchorOffsetY = shield.height * 0.5;
+                    shield.x = this.obj.width + 8;
+                    shield.y = this.obj.height + 6;
+                    this.obj.addChild(shield);
+                    Main.instance.gameView.battleMgr.addShield(shield, whosWeapon.ENEMY);
+            // ===========敌人防御盾 end ============
+          } break;
         }
     }
 
