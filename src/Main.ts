@@ -88,7 +88,7 @@ class Main extends eui.UILayer {
             if (login) {
                 console.log("login=", login);
                 UserData.setCode(login.code);
-                this.reqServerLogin();
+                // this.reqServerLogin();
             }
 
             //获取服务器配置
@@ -106,7 +106,7 @@ class Main extends eui.UILayer {
             let loginRes = await NetMgr.instance.wxLogin({code: UserData.getCode()});
             if(loginRes.stat == "ok" || loginRes.stat == "OK")
             {
-                 this.weixin();//微信处理
+                this.weixin();//微信处理
                 Main.instance.isLoginCom = true;
                 UserData.setOpenId(loginRes.data.openId);
             }
@@ -115,24 +115,6 @@ class Main extends eui.UILayer {
                 console.log(" ***** Internet ERROR ***** ");
                 return;
             }
-            // this._userInfo = await platform.getUserInfo();
-            // if (this._userInfo) {
-            //     console.log("userInfo====", this._userInfo);
-            //     UserData.setAvatar(this._userInfo.avatarUrl);
-            //     UserData.setNickName(this._userInfo.nickName);
-            //     console.log("avater=", UserData.getAvatar());
-            //     console.log("nickName=", UserData.getNickeName());
-            // }
-            // else {
-            //     console.log("用户点击了授权按钮");
-            //     let authInfo = await platform.createUserInfoButton();//授权
-            //     console.log("authInfo=", authInfo);
-            //     if (authInfo) {
-            //         this._userInfo = authInfo.userInfo;
-            //         UserData.setAvatar(this._userInfo.avatarUrl);
-            //         UserData.setNickName(this._userInfo.nickName);
-            //     }
-            // }
         }
 
         //资源加载完成

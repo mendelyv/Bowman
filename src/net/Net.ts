@@ -103,10 +103,18 @@ async function post(url: string, params: any): Promise<any>
         request.open(url, egret.HttpMethod.POST);
         //给指定的HTTP请求头赋值
         request.setRequestHeader("Content-Type", "application/json");
-        request.setRequestHeader("Cookie", NetMgr.s_cookie);
+        if(NetMgr.s_cookie !== "")
+            request.setRequestHeader("Cookie", NetMgr.s_cookie);
 
         //请求返回 成功
         request.addEventListener(egret.Event.COMPLETE, function (event) {
+            //设置cookie
+            let cookie = event.currentTarget.getResponseHeader("Set-Cookie");
+            if(NetMgr.s_cookie === "" && cookie)
+            {
+                NetMgr.s_cookie = cookie;
+                console.log("设置cookie:" + cookie);
+            }
             //获取响应参数
             var responseData = JSON.parse(event.currentTarget.response);
             // console.log(responseData);

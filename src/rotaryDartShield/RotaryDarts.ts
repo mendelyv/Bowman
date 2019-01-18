@@ -69,6 +69,10 @@ class RotaryDarts extends egret.DisplayObjectContainer {
         let aroundRoles: Array<Role> = this.obj.getAroundRoles(this.range);
         for (let i = 0; i < aroundRoles.length; ++i) {
             let role = aroundRoles[i];
+            if(!role || role.die)
+            {
+                continue;
+            }
             if(role.doDamage(this.damage))
             {
                 if (!this.obj.die) {
