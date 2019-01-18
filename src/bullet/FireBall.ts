@@ -20,6 +20,8 @@ class FireBall extends Bullet {
         this.display = new egret.Bitmap(RES.getRes("fireball_Bullet_png"));
         this.display.width = this.display.width * 0.2;
         this.display.height = this.display.height * 0.2;
+        console.log(this.width+"______"+this.height);
+        console.log(this.display.width+"*********"+this.display.height);
         this.addChild(this.display);
 
         this.anchorOffsetX = this.width / 2;
