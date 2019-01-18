@@ -15,8 +15,8 @@ class StickHandle extends Weapon
     public constructor(obj: Role)
     {
         super(obj);
-        this.rectLong = 1000;
-        this.rectWid = 400;
+        this.rectLong = 400;
+        this.rectWid = 20;
         this.stayTime = 200;
     }
 
@@ -88,8 +88,8 @@ class StickHandle extends Weapon
 
     private setWeaponDataOfLv()
     {
-        this.rectLong = 1000 - (this.level - 1) * 100;
-        this.rectWid = 400 + (this.level - 1) * 40;
+        this.shootDelay = 1000 - (this.level - 1) * 100;
+        this.rectLong = 400 + (this.level - 1) * 40;
         this.stayTime = 200 + (this.level - 1) * 20;
     }
 
