@@ -1,38 +1,31 @@
 /**
- * class name : FireBall
- * description : 火球攻击
- * time ：2019.1.15
+ * class name : Electramag
+ * description : 电磁攻击
+ * time ：2019.1.17
  * 
  */
-class FireBall extends Bullet {
+class Electramag extends Bullet {
     public display: egret.Bitmap;
     public damage: number;//伤害量
-    // public id: number;//弓箭ID，使用这个变量知道这是谁发射的
-    // public whos: WhosArrow = WhosArrow.NONE;//谁的弓箭
-    // public index: number = -1;//在数组的下标
     public speed: number = 240;
 
     private damagedRoleID: Array<number>;
     public constructor() {
         super();
         this.display = new egret.Bitmap();
-        this.poolName = "fireball";
-        this.display = new egret.Bitmap(RES.getRes("fireball_Bullet_png"));
-        this.display.width = this.display.width * 0.2;
-        this.display.height = this.display.height * 0.2;
-        console.log(this.width+"______"+this.height);
-        console.log(this.display.width+"*********"+this.display.height);
+        this.poolName = "electramag";
+        this.display = new egret.Bitmap(RES.getRes("game_electramag_bullet_png"));
+        this.display.width = this.display.width * 0.3;
+        this.display.height = this.display.height * 0.3;
         this.addChild(this.display);
 
         this.anchorOffsetX = this.width / 2;
         this.anchorOffsetY = this.height / 2;
         
         this.activeTime = -1;
-        // this.myDrawRect();
-        // let shp = Util.drawLineRectangle(this.x, this.y, 10, 28, 0xff0000, 2);
-        // this.addChild(shp);
+
         this.damagedRoleID = new Array<number>();
-        this.tag = WeaponType.FIREBALL;
+        this.tag = WeaponType.ELECTROMAG;
     }
 
     //根据弓箭id生成不同的弓箭
@@ -114,7 +107,7 @@ class FireBall extends Bullet {
         return true;
     }
 
-    /** 火球与墙的碰撞 */
+    /** 电磁与墙的碰撞 */
     public isHitObstacal(): boolean {
         let hitPoints = MapManager.getHitItem(this, [MapItemType.OBSTACAL], false);
         if (hitPoints) {

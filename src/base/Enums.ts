@@ -1,6 +1,16 @@
 // TypeScript file
 
-
+/** 分享类型 */
+enum ShareType
+{
+    None = -1,
+    AddGold = 0,//分享后钞票*2BUFF
+    AddExp = 1,//分享后经验++BUFF 
+    AddInvincible = 2,//分享后无敌BUFF
+    Initiactive_Phypower = 3,//分享得体力
+    Initiactive_DoubleGold = 4,//分享得金币
+    Relife = 5,//分享复活
+}
 
 enum EnemyState
 {
@@ -39,13 +49,11 @@ enum WeaponType
     NONE = -1,
     BOW = 0,//弓箭
     SHOTGUN = 1,//散弹枪
-    ROTARY_DARTS = 2,//旋转镖
-    GRENADEBAG = 3,//手雷包
-    ROTARY_SHIELD = 4, //防御盾牌
-    FIREBALL = 5, //火球
-    ELECTROMAG = 6, //电磁
-    GROUNDSPINE,//地刺
-    STICK,//棍子
+    GRENADEBAG = 2,//手雷包
+    FIREBALL = 3, //火球
+    ELECTROMAG = 4, //电磁
+    GROUNDSPINE = 5,//地刺
+    STICK = 6,//棍子
     MAX_COUNT//最大数
 }
 //谁的武器
@@ -62,18 +70,7 @@ enum GrenadebagSkillType
     AttackTypeIntensive,//攻击方式强化
 }
 
-//旋转镖
-enum Rotary_dartsSkillType
-{
-    NONE,
-    AttackTypeIntensive,//攻击方式强化
-}
-//旋转盾
- enum Rotary_shieldSkillType
- {
-     NONE,
-     DefenseTypeIntensive,//防御方式强化
- } 
+ 
 //弓箭
 enum BowSkillType
 {
@@ -97,7 +94,7 @@ enum FireBallSkillType{
 }
 
 //电磁
-enum ElectromagSkillType{
+enum ElectramagSkillType{
     NONE,
     AttackTypeIntensive,//攻击方式强化
 }
@@ -113,4 +110,6 @@ enum SkillType{
     Hemophagia,//攻击吸血
     KillOthenAddBlood,//击杀回血
     AddHpMax,//增加最大血量
+    ROTARY_DARTS,//旋转镖
+    ROTARY_SHIELD, //防御盾牌
 }

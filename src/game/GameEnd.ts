@@ -91,9 +91,12 @@ class GameEnd extends eui.Component{
 	}
 
 	private removeTimer(): void {
-		UserData.updateLocalData();
+		if(GameConfig.VER_CONTROL == "wechat"){
+			UserData.updateLocalData();
+		}
 		if (this.relifeTimer) 
 		{
+			this.relifeTimer.stop();
 			if(this.relifeTimer.hasEventListener(egret.TimerEvent.TIMER))
 			{
 				this.relifeTimer.removeEventListener(egret.TimerEvent.TIMER, this.onTimer, this)
@@ -118,6 +121,7 @@ class GameEnd extends eui.Component{
 	{
 		//显示的最终得分
 		this.score.text = Main.instance.gameView.player.attribute.totalExp.toString();
+	 	UserData.updataToWX("score", this.score.text);//上传数据到排行榜
 		if(!this.btn_close.hasEventListener(egret.TouchEvent.TOUCH_TAP))
 		{
 			this.btn_close.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onGameendBtnCloseClick,this);

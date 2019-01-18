@@ -100,6 +100,8 @@ class Enemy extends Role {
         egret.Tween.get(this).to({ x: xPos, y: yPos }, time);
     }
 
+	
+
     public moveOfPath() {
         if (this.pathQueue.length <= 0) return;
         let point = this.pathQueue[this.pathIndex];
@@ -256,7 +258,6 @@ class Enemy extends Role {
                     break;
                 case WeaponType.BOW:
                 case WeaponType.SHOTGUN:
-                case WeaponType.ROTARY_DARTS:
                     this.weapon.enableSkill(skill.skill);
                     break;
             }
@@ -314,6 +315,16 @@ class Enemy extends Role {
 
     public recycle()
     {
+        if(this.rotary_darts)
+        {   
+            this.rotary_darts.recycle();
+            this.rotary_darts = null;
+        }
+        if(this.rotary_shield)
+        {
+            this.rotary_shield.recycle();
+            this.rotary_shield = null;
+        }
         this.ai.stop();
     }
 
@@ -342,7 +353,8 @@ class Enemy extends Role {
 
     public destructor()
     {
-        this.ai.stop();
+        super.destructor();
+        this.recycle();
     }
     //class end
 }

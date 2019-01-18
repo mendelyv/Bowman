@@ -70,7 +70,7 @@ class HeroItem extends eui.ItemRenderer {
         UserData.s_selRole = this.data.index;
         UserData.s_weaponType = UserData.s_selRole;
         if (UserData.s_selRole > WeaponType.MAX_COUNT) {
-            UserData.s_weaponType = WeaponType.SHOTGUN;
+            UserData.s_weaponType = WeaponType.BOW;
         }
         let list: eui.List = this.parent.parent.parent as eui.List;
         for (let i = 0; i < list.numChildren; i++) {

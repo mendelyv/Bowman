@@ -27,11 +27,20 @@ class Player extends Role {
 			case WeaponType.SHOTGUN:
 				this.weapon = new Shotgun(this);
 				break;
-			case WeaponType.ROTARY_DARTS:
-				this.weapon = new RotaryDarts(this);
+			case WeaponType.GRENADEBAG:
+				this.weapon = new GrenadeBag(this);
 				break;
-			case WeaponType.ROTARY_SHIELD:
-				this.weapon = new RotaryShield(this);
+			case WeaponType.FIREBALL:
+				this.weapon = new FireBallBag(this);
+				break;
+			case WeaponType.ELECTROMAG:
+				this.weapon = new ElectramagBag(this);
+				break;
+			case WeaponType.GROUNDSPINE:
+				this.weapon = new GroundSpine(this);
+				break;
+			case WeaponType.STICK:
+				this.weapon = new StickHandle(this);
 				break;
 		}
 		this.nickName = UserData.getNickeName();
@@ -93,12 +102,7 @@ class Player extends Role {
 		if(this.weapon)
 			this.weapon.attack(0);
 	}
-	//防御 0是玩家 1是敌人
-	public defend():void{
-		if(this.weapon){
-			this.weapon.defense(0);
-		}
-	}
+
 	public move(xAxis, yAxis, angle, offset): void {
 		this.tempX = this.x + xAxis * this.getSpeed();
 		this.tempY = this.y + (-yAxis * this.getSpeed());
@@ -116,11 +120,14 @@ class Player extends Role {
 			this.movableY = false;
 	}
 
-	public doDamage(damage: number) {
-		super.doDamage(damage);
-		if (this.attribute.hp == 0) {
-			Main.instance.gameView.showGameEndReLife();
+	public doDamage(damage: number):boolean {
+		if (super.doDamage(damage)) {
+			if (this.attribute.hp == 0) {
+				Main.instance.gameView.showGameEndReLife();
+			}
+			return true;
 		}
+		return false;
 	}
 
 	public levelUp() {
@@ -178,6 +185,21 @@ class Player extends Role {
 		Main.instance.gameView.battleMgr.roleArray.push(this);
 		Main.instance.gameView.updateRankPanel();
 		this.hpTube.showNickName();
+	}
+
+	public destructor()
+	{
+		super.destructor();
+		if(this.rotary_darts)
+        {   
+            this.rotary_darts.recycle();
+            this.rotary_darts = null;
+        }
+		if(this.rotary_shield)
+		{
+			this.rotary_shield.recycle();
+			this.rotary_shield = null;
+		}
 	}
 }
 
