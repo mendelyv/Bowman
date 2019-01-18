@@ -36,12 +36,12 @@ class Player extends Role {
 			case WeaponType.ELECTROMAG:
 				this.weapon = new ElectramagBag(this);
 				break;
-			// case WeaponType.GROUNDSPINE:
-			// 	this.weapon = new GroundSpine(this);
-			// 	break;
-			// case WeaponType.STICK:
-			// 	this.weapon = new StickHandle(this);
-			// 	break;
+			case WeaponType.GROUNDSPINE:
+				this.weapon = new GroundSpine(this);
+				break;
+			case WeaponType.STICK:
+				this.weapon = new StickHandle(this);
+				break;
 		}
 		this.nickName = UserData.getNickeName();
 	}
