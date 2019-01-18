@@ -91,9 +91,12 @@ class GameEnd extends eui.Component{
 	}
 
 	private removeTimer(): void {
-		UserData.updateLocalData();
+		if(GameConfig.VER_CONTROL == "wechat"){
+			UserData.updateLocalData();
+		}
 		if (this.relifeTimer) 
 		{
+			this.relifeTimer.stop();
 			if(this.relifeTimer.hasEventListener(egret.TimerEvent.TIMER))
 			{
 				this.relifeTimer.removeEventListener(egret.TimerEvent.TIMER, this.onTimer, this)

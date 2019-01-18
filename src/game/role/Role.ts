@@ -268,7 +268,7 @@ class Role extends eui.Component {
 			}
 		}
 		let player = Main.instance.gameView.battleMgr.player;
-		if(this.id != player.id)
+		if(this.id != player.id && !player.die)
 		{
 			let targetPos = new egret.Point(player.x, player.y);
 			if (player.parent) {
